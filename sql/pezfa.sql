@@ -121,7 +121,8 @@ create table if not exists cava
 
 create table if not exists compra_especie
 (
-    id serial primary key,
+    id serial primary key,  
+    compra int not null references compra(id),
     especie int not null references especie(id),
     cantidad int not null,
     costo numeric(10,2) default 0
