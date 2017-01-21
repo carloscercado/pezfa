@@ -1,6 +1,4 @@
--- Primer procedimiento almacenado
-
-DROP FUNCTION actualizar_cantidad_especie_compra();
+﻿-- Primer procedimiento almacenado
 
 CREATE OR REPLACE FUNCTION actualizar_cantidad_especie_compra()
 RETURNS trigger AS
@@ -19,11 +17,9 @@ end loop;
 return null;
 end;
 $BODY$
-LANGUAGE plpgsql
+LANGUAGE plpgsql;
 
 -- Segundo procedimiento almacenado
-
-DROP FUNCTION actualizar_cantidad_especie_venta();
 
 CREATE OR REPLACE FUNCTION actualizar_cantidad_especie_venta()
 RETURNS trigger AS
@@ -41,11 +37,9 @@ end loop;
 return null;
 end;
 $BODY$
-LANGUAGE plpgsql
+LANGUAGE plpgsql;
 
 -- Tercer procedimiento almacenado
-
-DROP FUNCTION actualizar_cantidad_producto_venta();
 
 CREATE OR REPLACE FUNCTION actualizar_cantidad_producto_venta()
 RETURNS trigger AS
@@ -61,12 +55,9 @@ end loop;
 return null;
 end;
 $BODY$
-LANGUAGE plpgsql
+LANGUAGE plpgsql;
 
 -- Cuarto procedimiento almacenado
-
-DROP FUNCTION actualizar_inversion_produccion();
-
 
 CREATE OR REPLACE FUNCTION actualizar_inversion_produccion()
 RETURNS trigger AS
@@ -82,4 +73,4 @@ end loop;
 return null;
 end;
 $BODY$
-LANGUAGE plpgsql
+LANGUAGE plpgsql;
