@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="pezfa" match-schema="POSTGRES"/>
+  <table-filter match-name="auditoria"/>
+  <table-filter match-name="produccion"/>
+  <table-filter match-name="almacen"/>
+  <table-filter match-name="compra_especie"/>
+  <table-filter match-name="terminado"/>
+  <table-filter match-name="compra"/>
+  <table-filter match-name="detalle_produccion"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="cava"/>
+  <table-filter match-name="cliente"/>
+  <table-filter match-name="especie"/>
+  <table-filter match-name="empleado"/>
+  <table-filter match-name="proveedor"/>
+  <table-filter match-name="venta_terminado"/>
+  <table-filter match-name="venta"/>
+  <table-filter match-name="producto"/>
+  <table-filter match-name="unidad"/>
+  <table-filter match-name="venta_unidad"/>
+</hibernate-reverse-engineering>
