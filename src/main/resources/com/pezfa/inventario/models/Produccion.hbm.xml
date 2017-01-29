@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2017 17:44:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pezfa.inventario.models.Produccion" table="produccion" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="descripcion" not-null="true" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="fecha" length="13" />
+        </property>
+        <property name="inversion" type="big_decimal">
+            <column name="inversion" precision="10" />
+        </property>
+        <set name="terminados" table="terminado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="produccion" not-null="true" />
+            </key>
+            <one-to-many class="com.pezfa.inventario.models.Terminado" />
+        </set>
+        <set name="detalleProduccions" table="detalle_produccion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="produccion" not-null="true" />
+            </key>
+            <one-to-many class="com.pezfa.inventario.models.DetalleProduccion" />
+        </set>
+    </class>
+</hibernate-mapping>

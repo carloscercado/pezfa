@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2017 17:44:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pezfa.inventario.models.Empleado" table="empleado" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="cedula" type="string">
+            <column name="cedula" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="primerNombre" type="string">
+            <column name="primer_nombre" length="20" not-null="true" />
+        </property>
+        <property name="segundoNombre" type="string">
+            <column name="segundo_nombre" length="20" />
+        </property>
+        <property name="primerApellido" type="string">
+            <column name="primer_apellido" length="20" not-null="true" />
+        </property>
+        <property name="segundoApellido" type="string">
+            <column name="segundo_apellido" length="20" />
+        </property>
+        <property name="nacimiento" type="date">
+            <column name="nacimiento" length="13" not-null="true" />
+        </property>
+        <property name="sexo" type="string">
+            <column name="sexo" length="1" not-null="true" />
+        </property>
+        <property name="cargo" type="string">
+            <column name="cargo" length="20" not-null="true" />
+        </property>
+        <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="empleado" not-null="true" />
+            </key>
+            <one-to-many class="com.pezfa.inventario.models.Usuario" />
+        </set>
+    </class>
+</hibernate-mapping>

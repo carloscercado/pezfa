@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2017 17:44:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pezfa.inventario.models.CompraEspecie" table="compra_especie" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="compra" class="com.pezfa.inventario.models.Compra" fetch="select">
+            <column name="compra" not-null="true" />
+        </many-to-one>
+        <many-to-one name="especie" class="com.pezfa.inventario.models.Especie" fetch="select">
+            <column name="especie" not-null="true" />
+        </many-to-one>
+        <property name="cantidad" type="int">
+            <column name="cantidad" not-null="true" />
+        </property>
+        <property name="costo" type="big_decimal">
+            <column name="costo" precision="10" />
+        </property>
+        <set name="unidads" table="unidad" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="detalle" not-null="true" />
+            </key>
+            <one-to-many class="com.pezfa.inventario.models.Unidad" />
+        </set>
+    </class>
+</hibernate-mapping>

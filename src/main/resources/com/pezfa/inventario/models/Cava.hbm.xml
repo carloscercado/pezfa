@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2017 17:44:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pezfa.inventario.models.Cava" table="cava" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="almacen" class="com.pezfa.inventario.models.Almacen" fetch="select">
+            <column name="almacen" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="10" not-null="true" />
+        </property>
+        <set name="unidads" table="unidad" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cava" not-null="true" />
+            </key>
+            <one-to-many class="com.pezfa.inventario.models.Unidad" />
+        </set>
+    </class>
+</hibernate-mapping>
