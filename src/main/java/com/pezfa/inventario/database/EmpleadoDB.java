@@ -5,23 +5,22 @@
  */
 package com.pezfa.inventario.database;
 
-import com.pezfa.inventario.models.Cliente;
+import com.pezfa.inventario.hibernate.HibernateUtil;
+import com.pezfa.inventario.models.Empleado;
 import java.util.List;
 import org.hibernate.Session;
-import com.pezfa.inventario.hibernate.HibernateUtil;
 
 /**
  *
  * @author Adela Hernandez
  */
-public class ClienteDB
+public class EmpleadoDB
 {
-    public static boolean create(Cliente obj)
+    public static boolean create(Empleado obj)
     {
         Session sesion=null;
         boolean state=false;
        
-        
         try{
             sesion = HibernateUtil.getSesion().openSession();
             sesion.beginTransaction();
@@ -32,8 +31,8 @@ public class ClienteDB
         } catch (Exception e){
             sesion.getTransaction().rollback();
             state=false;
-            System.out.println(e.getMessage());  
-           
+            System.out.println(e.getMessage());
+            
         } finally{
             if (sesion != null){
                 sesion.close();
@@ -42,15 +41,15 @@ public class ClienteDB
         }        
     }
 
-    public static List<Cliente> read()    
+    public static List<Empleado> read()    
     {
         Session sesion=null;
-        List<Cliente> lista=null;
+        List<Empleado> lista=null;
         
         try{
             sesion=HibernateUtil.getSesion().openSession();
             sesion.beginTransaction().commit();
-            lista=sesion.createQuery("from Cliente").list();
+            lista=sesion.createQuery("from Empleado").list();
             
         } catch(Exception e){
            sesion.getTransaction().rollback();
@@ -60,7 +59,7 @@ public class ClienteDB
         }
     }
     
-    public static boolean update(Cliente obj)
+    public static boolean update(Empleado obj)
     {
         Session sesion=null;
         boolean state=false;
@@ -84,7 +83,7 @@ public class ClienteDB
         }
     }
     
-    public static boolean delete(Cliente obj)
+    public static boolean delete(Empleado obj)
     {
         Session sesion=null;
         boolean state=false;

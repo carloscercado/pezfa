@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 28/01/2017 05:34:14 PM by Hibernate Tools 4.3.1 -->
+
 <hibernate-mapping>
     <class name="com.pezfa.inventario.models.Venta" table="venta" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+
+            <generator class="increment" />
         </id>
         <many-to-one name="cliente" class="com.pezfa.inventario.models.Cliente" fetch="select">
             <column name="cliente" not-null="true" />

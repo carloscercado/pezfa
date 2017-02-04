@@ -1,6 +1,4 @@
 package com.pezfa.inventario.models;
-// Generated 28/01/2017 05:34:12 PM by Hibernate Tools 4.3.1
-
 
 
 /**
