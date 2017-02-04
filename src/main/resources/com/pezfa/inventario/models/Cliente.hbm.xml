@@ -6,7 +6,7 @@
     <class name="com.pezfa.inventario.models.Cliente" table="cliente" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="rif" type="string">
             <column name="rif" length="20" not-null="true" unique="true" />

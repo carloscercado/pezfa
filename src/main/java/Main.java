@@ -1,5 +1,7 @@
 
-import com.pezfa.inventario.database.ProductoDB;
+import com.pezfa.inventario.models.Cliente;
+import javax.swing.JOptionPane;
+import com.pezfa.inventario.database.ClienteDB;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -9,12 +11,22 @@ import com.pezfa.inventario.database.ProductoDB;
 
 /**
  *
- * @author Carlos Cercado
+ * @author Adela Hernandez
  */
 public class Main
 {
-    public static void main(String args[])
+    public static void main (String arg[])
     {
-        System.out.println(ProductoDB.getLista().get(0));
+        Cliente obj= new Cliente(0, "123456789", "Andres", "Santa Elena", "04248708820", null, null);
+        ClienteDB.delete(obj);
+        if (ClienteDB.delete(obj)){
+            JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Eliminación fallida");
+        }
     }
 }
+
+/* alterar el archivo de configuración en com.pezfa.inventario.models
+y colocar el incremento en el*/

@@ -6,7 +6,7 @@
     <class name="com.pezfa.inventario.models.Unidad" table="unidad" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="cava" class="com.pezfa.inventario.models.Cava" fetch="select">
             <column name="cava" not-null="true" />
