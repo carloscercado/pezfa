@@ -6,7 +6,7 @@
     <class name="com.pezfa.inventario.models.DetalleProduccion" table="detalle_produccion" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="produccion" class="com.pezfa.inventario.models.Produccion" fetch="select">
             <column name="produccion" not-null="true" />

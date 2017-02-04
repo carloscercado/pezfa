@@ -6,7 +6,7 @@
     <class name="com.pezfa.inventario.models.Empleado" table="empleado" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="cedula" type="string">
             <column name="cedula" length="20" not-null="true" unique="true" />

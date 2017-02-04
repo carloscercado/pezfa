@@ -7,7 +7,7 @@
     <class name="com.pezfa.inventario.models.Especie" table="especie" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="codigo" type="string">
             <column name="codigo" length="30" not-null="true" unique="true" />
