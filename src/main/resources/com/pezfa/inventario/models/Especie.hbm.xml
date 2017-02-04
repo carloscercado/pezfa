@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/01/2017 05:34:14 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pezfa.inventario.models.Especie" table="especie" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="codigo" type="string">
+            <column name="codigo" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="20" not-null="true" />
+        </property>
+        <property name="cantidad" type="java.lang.Integer">
+            <column name="cantidad" />
+        </property>
+        <property name="maximo" type="java.lang.Integer">
+            <column name="maximo" />
+        </property>
+        <property name="minimo" type="java.lang.Integer">
+            <column name="minimo" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="tipo" length="20" not-null="true" />
+        </property>
+        <property name="precio" type="big_decimal">
+            <column name="precio" precision="10" />
+        </property>
+        <set name="compraEspecies" table="compra_especie" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="especie" not-null="true" />
+            </key>
+            <one-to-many class="com.pezfa.inventario.models.CompraEspecie" />
+        </set>
+    </class>
+</hibernate-mapping>
