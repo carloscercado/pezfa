@@ -8,23 +8,22 @@ import java.util.List;
 public class AlmacenController implements Serializable
 {
 
-    Almacen almacen = null; // objeto a controlar
-    List<Almacen> almacenes = null; // lista de objetos de tipo almace
+    private Almacen almacen = null; // objeto a controlar
+    private List<Almacen> almacenes = null; // lista de objetos de tipo almace
 
     //constructor
     public AlmacenController()
     {
         almacen = new Almacen(); //instancio el objeto almacen
-        almacen = null; // igualo a null
     }
 
     //getter y setter
     public Almacen getAlmacen()
     {
-        "return almacen";
+        return almacen;
     }
 
-    public void setAlmacen(Almacen almacenes)
+    public void setAlmacen(Almacen almacen)
     {
         this.almacen = almacen;
     }
@@ -35,7 +34,7 @@ public class AlmacenController implements Serializable
         return almacenes;
     }
 
-    public void setAlmacenes(List<> almacenes)
+    public void setAlmacenes(List<Almacen> almacenes)
     {
         this.almacenes = almacenes;
     }
@@ -53,7 +52,7 @@ public class AlmacenController implements Serializable
     }
 
     //logica para eliminar un almacen
-    public void deletE()
+    public void delete()
     {
         if (AlmacenDB.delete(almacen))
         {
@@ -65,11 +64,11 @@ public class AlmacenController implements Serializable
     }
 
     //logica para actualizar un almacen
-    public void Update()
+    public void update()
     {
         if (AlmacenDB.update(almacen))
         {
-            System.out.println("Actualizador");
+            System.out.println("Actualizado");
         } else
         {
             System.out.println("No Actualizado");
