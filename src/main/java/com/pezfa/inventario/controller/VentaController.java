@@ -26,7 +26,7 @@ public class VentaController implements Serializable
         return venta;
     }
 
-    public void setVenta()
+    public void setVenta(Venta venta)
     {
         this.venta = venta;
     }
