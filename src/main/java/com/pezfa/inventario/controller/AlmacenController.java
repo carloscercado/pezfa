@@ -15,13 +15,14 @@ public class AlmacenController implements Serializable
     public AlmacenController()
     {
         almacen = new Almacen(); //instancio el objeto almacen
-        almacen = null; // igualo a null
+        //almacen = null; // igualo a null
     }
 
     //getter y setter
     public Almacen getAlmacen()
     {
-        "return almacen";
+        return almacen;
+       
     }
 
     public void setAlmacen(Almacen almacenes)
@@ -35,9 +36,9 @@ public class AlmacenController implements Serializable
         return almacenes;
     }
 
-    public void setAlmacenes(List<> almacenes)
+    public void setAlmacenes(List almacenes)
     {
-        this.almacenes = almacenes;
+        this.almacenes = (List<Almacen>) almacenes;
     }
 
     //logica para registrar un almacen
@@ -53,7 +54,7 @@ public class AlmacenController implements Serializable
     }
 
     //logica para eliminar un almacen
-    public void deletE()
+    public void delete()
     {
         if (AlmacenDB.delete(almacen))
         {
@@ -65,7 +66,7 @@ public class AlmacenController implements Serializable
     }
 
     //logica para actualizar un almacen
-    public void Update()
+    public void update()
     {
         if (AlmacenDB.update(almacen))
         {
