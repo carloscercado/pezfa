@@ -34,12 +34,11 @@ public class EspecieController implements Serializable
         return especies;
     }
 
-    public void setAlmacenes(List<Especie> especies)
+    public void setEspecie(List<Especie> especies)
     {
         this.especies = especies;
     }
 
-    //logica para registrar un almacen
     public void register()
     {
         if (EspecieDB.create(especie))
@@ -51,7 +50,6 @@ public class EspecieController implements Serializable
         }
     }
 
-    //logica para eliminar un almacen
     public void delete()
     {
         if (EspecieDB.delete(especie))

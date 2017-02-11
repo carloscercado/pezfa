@@ -24,14 +24,12 @@ public class VentaTerminadoController implements Serializable
     //getter y setter
     public VentaTerminado getVentaTerminado()
     {
-        this.ventaterminado = ventaterminado;
         return ventaterminado;
     }
 
-    public VentaTerminado setVentaTerminado()
+    public void setVentaTerminado(VentaTerminado ventaterminado)
     {
         this.ventaterminado = ventaterminado;
-        return ventaterminado;
     }
 
     public List<VentaTerminado> getVentaTermin()
@@ -40,7 +38,7 @@ public class VentaTerminadoController implements Serializable
         return ventatermin;
     }
 
-    public void setVentaTermin()
+    public void setVentaTermin(List<VentaTerminado> ventatermin)
     {
         this.ventatermin = ventatermin;
     }

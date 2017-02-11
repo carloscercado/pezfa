@@ -12,26 +12,24 @@ import java.util.List;
 public class EmpleadoController implements Serializable
 {
 
-    private Empleado empleado = null; // objeto a controlar
-    private List<Empleado> empleadores = null; // lista de objetos de tipo empleados
+    private Empleado empleado = null; 
+    private List<Empleado> empleadores = null; 
 
     //constructor
     public EmpleadoController()
     {
-        empleado = new Empleado(); //instancio el objeto empleado
+        empleado = new Empleado(); 
     }
 
     //getter y setter
     public Empleado getEmpleado()
     {
-        this.empleado = empleado;
         return empleado;
     }
 
-    public Empleado setEmpleado()
+    public void setEmpleado(Empleado empleado)
     {
         this.empleado = empleado;
-        return empleado;
     }
 
     public List<Empleado> getEmpleadores()
@@ -40,12 +38,11 @@ public class EmpleadoController implements Serializable
         return empleadores;
     }
 
-    public void setEmpleadores()
+    public void setEmpleadores(List<Empleado> empleadores)
     {
         this.empleadores = empleadores;
     }
 
-    //logica para registrar un empleado
     public void register()
     {
         if (EmpleadoDB.create(empleado))
@@ -57,7 +54,6 @@ public class EmpleadoController implements Serializable
         }
     }
 
-    //logica para eliminar un empleado
     public void delete()
     {
         if (EmpleadoDB.delete(empleado))
@@ -69,7 +65,6 @@ public class EmpleadoController implements Serializable
         }
     }
 
-    //logica para actualizar un empleado
     public void update()
     {
         if (EmpleadoDB.update(empleado))

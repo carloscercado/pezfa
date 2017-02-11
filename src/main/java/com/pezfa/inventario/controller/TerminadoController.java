@@ -10,7 +10,6 @@ public class TerminadoController implements Serializable
 
     Terminado terminado = null; // objeto a controlar
     List<Terminado> terminados = null; // lista de objetos de tipo almace
-    private Object TermiandoDB;
 
     //constructor
     public TerminadoController()
@@ -35,12 +34,11 @@ public class TerminadoController implements Serializable
         return terminados;
     }
 
-    public void setTerminado(List<Terminado> terminado)
+    public void setTerminados(List<Terminado> terminados)
     {
-        this.terminados = terminado;
+        this.terminados = terminados;
     }
 
-    //logica para registrar un almacen
     public void register()
     {
         if (TerminadoDB.create(terminado))
@@ -52,7 +50,6 @@ public class TerminadoController implements Serializable
         }
     }
 
-    //logica para eliminar un almacen
     public void delete()
     {
         if (TerminadoDB.delete(terminado))
@@ -64,7 +61,6 @@ public class TerminadoController implements Serializable
         }
     }
 
-    //logica para actualizar un almacen
     public void update()
     {
         if (TerminadoDB.update(terminado))

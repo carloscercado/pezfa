@@ -28,13 +28,13 @@ public class ProveedorController implements Serializable
         this.proveedor = proveedor;
     }
 
-    public List<Proveedor> getProvedor()
+    public List<Proveedor> getProvedores()
     {
         proveedores = ProveedorDB.read();
         return proveedores;
     }
 
-    public void setProveedor(List<Proveedor> proveedores)
+    public void setProveedores(List<Proveedor> proveedores)
     {
         this.proveedores = proveedores;
     }

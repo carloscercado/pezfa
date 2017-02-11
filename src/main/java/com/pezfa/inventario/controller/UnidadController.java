@@ -24,14 +24,12 @@ public class UnidadController implements Serializable
     //getter y setter
     public Unidad getUnidad()
     {
-        this.unidad = unidad;
         return unidad;
     }
 
-    public Unidad setUnidad()
+    public void setUnidad(Unidad unidad)
     {
         this.unidad = unidad;
-        return unidad;
     }
 
     public List<Unidad> getUnidades()
@@ -40,7 +38,7 @@ public class UnidadController implements Serializable
         return unidades;
     }
 
-    public void setUnidades()
+    public void setUnidades(List<Unidad> unidades)
     {
         this.unidades = unidades;
     }

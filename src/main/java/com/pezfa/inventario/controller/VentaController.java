@@ -23,14 +23,12 @@ public class VentaController implements Serializable
     //getter y setter
     public Venta getVenta()
     {
-        this.venta = venta;
         return venta;
     }
 
-    public Venta setVenta()
+    public void setVenta()
     {
         this.venta = venta;
-        return venta;
     }
 
     public List<Venta> getVentas()
@@ -39,7 +37,7 @@ public class VentaController implements Serializable
         return ventas;
     }
 
-    public void setVentas()
+    public void setVentas(List<Venta> ventas)
     {
         this.ventas = ventas;
     }

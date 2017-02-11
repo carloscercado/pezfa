@@ -24,14 +24,12 @@ public class UsuarioController implements Serializable
     //getter y setter
     public Usuario getUsuario()
     {
-        this.usuario = usuario;
         return usuario;
     }
 
-    public Usuario setUsuario()
+    public void setUsuario()
     {
         this.usuario = usuario;
-        return usuario;
     }
 
     public List<Usuario> getUsuarios()
@@ -40,7 +38,7 @@ public class UsuarioController implements Serializable
         return usuarios;
     }
 
-    public void setUsuarios()
+    public void setUsuarios(List<Usuario> usuarios)
     {
         this.usuarios = usuarios;
     }

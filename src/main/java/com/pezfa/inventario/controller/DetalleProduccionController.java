@@ -9,37 +9,29 @@ public class DetalleProduccionController implements Serializable
 {
 
     DetalleProduccion detalleproduccion = null; // objeto a controlar
-    List<DetalleProduccion> dp = null; // lista de objetos de tipo almace
+    List<DetalleProduccion> detalles = null; // lista de objetos de tipo almace
 
-    //constructor
     public DetalleProduccionController()
     {
         detalleproduccion = new DetalleProduccion(); //instancio el objeto almacen
     }
 
-    //getter y setter
-    public DetalleProduccion getDetalleProdccion()
+    public DetalleProduccion getDetalleProduccion()
     {
         return detalleproduccion;
     }
 
-    public void setDetalleProduccion(DetalleProduccion detalleproduccion)
+    public void setDetalles(DetalleProduccion detalleproduccion)
     {
         this.detalleproduccion = detalleproduccion;
     }
 
-    public List<DetalleProduccion> getDetalleProduccion()
+    public List<DetalleProduccion> getDetalles()
     {
-        dp = DetalleProduccionDB.read();
-        return dp;
+        detalles = DetalleProduccionDB.read();
+        return detalles;
     }
 
-    public void setAlmacenes(List<DetalleProduccion> detalleproduccion)
-    {
-        this.dp = detalleproduccion;
-    }
-
-    //logica para registrar un almacen
     public void register()
     {
         if (DetalleProduccionDB.create(detalleproduccion))
@@ -51,7 +43,6 @@ public class DetalleProduccionController implements Serializable
         }
     }
 
-    //logica para eliminar un almacen
     public void delete()
     {
         if (DetalleProduccionDB.delete(detalleproduccion))
