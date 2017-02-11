@@ -27,7 +27,7 @@ public class UsuarioController implements Serializable
         return usuario;
     }
 
-    public void setUsuario()
+    public void setUsuario(Usuario usuario)
     {
         this.usuario = usuario;
     }
