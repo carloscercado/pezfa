@@ -1,0 +1,9 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.1">
+    <deployment>
+        <exclusions>
+            <module name="org.hibernate" /> <!-- Escludo l'Hibernate integrato in jboss e uso quello interno -->
+            <module name="org.jboss.logging" /> <!-- Escludo li logger integrato in jboss -->
+        </exclusions>
+    </deployment>         
+    <!-- </sub-deployment>-->
+</jboss-deployment-structure>

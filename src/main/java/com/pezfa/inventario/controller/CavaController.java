@@ -4,7 +4,11 @@ import com.pezfa.inventario.database.CavaDB;
 import com.pezfa.inventario.models.Cava;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
+@ManagedBean
+@ViewScoped
 public class CavaController implements Serializable
 {
     private Cava cava = null;

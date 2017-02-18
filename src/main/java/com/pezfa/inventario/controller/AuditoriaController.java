@@ -4,7 +4,11 @@ import com.pezfa.inventario.database.AuditoriaDB;
 import com.pezfa.inventario.models.Auditoria;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
+@ManagedBean
+@ViewScoped
 public class AuditoriaController implements Serializable
 {
     private Auditoria auditoria = null;

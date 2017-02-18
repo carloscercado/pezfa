@@ -4,7 +4,11 @@ import com.pezfa.inventario.database.AlmacenDB;
 import com.pezfa.inventario.models.Almacen;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
+@ManagedBean
+@ViewScoped
 public class AlmacenController implements Serializable
 {
 
@@ -20,14 +24,12 @@ public class AlmacenController implements Serializable
     //getter y setter
     public Almacen getAlmacen()
     {
-        this.almacen = almacen;
         return almacen;
     }
 
-    public Almacen setAlmacen()
+    public void setAlmacen(Almacen almacen)
     {
         this.almacen = almacen;
-        return almacen;
     }
 
     public List<Almacen> getAlmacenes()
@@ -36,7 +38,7 @@ public class AlmacenController implements Serializable
         return almacenes;
     }
 
-    public void setAlmacenes()
+    public void setAlmacenes(List<Almacen> almacenes)
     {
         this.almacenes = almacenes;
     }

@@ -4,11 +4,15 @@ import com.pezfa.inventario.database.EmpleadoDB;
 import com.pezfa.inventario.models.Empleado;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Adela Hernandez
  */
+@ManagedBean
+@ViewScoped
 public class EmpleadoController implements Serializable
 {
 
