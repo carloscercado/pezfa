@@ -4,11 +4,17 @@ import com.pezfa.inventario.database.UsuarioDB;
 import com.pezfa.inventario.models.Usuario;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Adela Hernandez
  */
+@ManagedBean
+@ViewScoped
 public class UsuarioController implements Serializable
 {
 
@@ -41,6 +47,23 @@ public class UsuarioController implements Serializable
     public void setUsuarios(List<Usuario> usuarios)
     {
         this.usuarios = usuarios;
+    }
+
+    public void validateUsuario()
+    {
+        String clave = usuario.getClave();
+        String user = usuario.getUsuario();
+        Usuario userr = UsuarioDB.validateUser(user, clave);
+        if (userr == null)
+        {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos incorrectos", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+        } else
+        {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "HOLA "+userr.getEmpleado().getPrimerApellido(), null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+        }
+
     }
 
     //logica para registrar un usuario
