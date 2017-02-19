@@ -1,12 +1,76 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+
+        <title>Pezfa </title>
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet"/> 
+        <link href="resources/css/cssLayout.css" rel="stylesheet"/> 
+
+        <h:outputScript name="/js/bootstrap.min.js"/>
     </h:head>
-    <h:body>
-        Hello from Facelets
+    <h:body style="background: #e8e8e8 ">
+        <div>
+            <p:outputLabel value="#{usuarioController.usuarios.size() }" class="invisible"/>            
+            <h:form id="pa">
+                <div class="container">
+                    <div class="row ">
+                        
+
+                        <div style="margin-top: 5%" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                            <div class="panel panel-default sombra">
+                                <div class="panel-heading">
+                                    <center><strong> <i class="fa fa-user fa-2x"></i>Pezfa - Login</strong>  </center>
+                                </div>
+                                <div class="panel-body">
+                                    <p:growl   id="msg"  life="5000"/>
+
+                                    <br />
+
+
+                                    <div class="form-group input-group">
+                                        <p:inputText requiredMessage="* Ingrese el usuario" class="form-control" autocomplete="off" 
+                                                     value="#{usuarioController.usuario.usuario}" 
+                                                     placeholder="Nombre de usuario"
+                                                     required="true"     />
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+
+                                    </div>
+
+                                    <div class="form-group input-group">
+                                        <p:password requiredMessage="* Ingrese la clave" class="form-control" autocomplete="off" 
+                                                     value="#{usuarioController.usuario.clave}"  placeholder="Clave"
+                                                     required="true"     />
+                                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+
+                                    </div>
+
+
+                                    <center>
+                                        <p:commandButton class="btn-primary" id="entrar"  style="margin-top: 3%; margin-bottom: 3%"
+                                                         value="Iniciar sesión" icon="fa fa-sign-in" resetValues="true" update="msg" 
+                                                         actionListener="#{usuarioController.validateUsuario()}"/>
+                                    </center>
+
+                                    <p:blockUI block="@(.panel)" trigger="entrar">
+                                        Buscando...<br/>
+                                        <span class="fa fa-spin fa-3x fa-spinner"></span>
+                                    </p:blockUI>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </h:form>
+
+
+        </div>
     </h:body>
 </html>
 

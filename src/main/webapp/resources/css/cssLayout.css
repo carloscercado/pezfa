@@ -1,0 +1,52 @@
+
+#top {
+    
+}
+
+body{
+   // background: #eeeded;
+}
+
+.ui-selectonemenu {
+    display: block !important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+    width: 32px !important;
+}
+.ui-dialog-titlebar
+{
+    background: linear-gradient(#e7e6e6, white) !important;
+}
+.ui-button
+{
+    background-image: none !important; 
+}
+.btn-success {
+    color: #fff;
+    background-color: #5cb85c !important;
+    border-color: #4cae4c !important;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #d9534f !important;
+    border-color: #d43f3a !important;
+}
+.btn-warning {
+    color: #fff;
+    background-color: #f0ad4e !important;
+    border-color: #eea236 !important;
+}
+
+.btn-primary
+{
+    color: #fff;
+    background-color: #31b0d5 !important;
+    border-color: #269abc !important;
+}
+
+.sombra
+{
+    box-shadow: 10px 7px 5px rgba(0,0,0,0.5);
+}
