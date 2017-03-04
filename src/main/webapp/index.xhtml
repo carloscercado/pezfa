@@ -14,15 +14,18 @@
     </h:head>
     <h:body style="background: #e8e8e8 ">
         <div>
+
             <p:outputLabel value="#{usuarioController.usuarios.size() }" class="invisible"/>            
             <h:form id="pa">
+               
                 <div class="container">
                     <div class="row ">
-                        
+
 
                         <div style="margin-top: 5%" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                             <div class="panel panel-default sombra">
                                 <div class="panel-heading">
+
                                     <center><strong> <i class="fa fa-user fa-2x"></i>Pezfa - Login</strong>  </center>
                                 </div>
                                 <div class="panel-body">
@@ -42,8 +45,8 @@
 
                                     <div class="form-group input-group">
                                         <p:password requiredMessage="* Ingrese la clave" class="form-control" autocomplete="off" 
-                                                     value="#{usuarioController.usuario.clave}"  placeholder="Clave"
-                                                     required="true"     />
+                                                    value="#{usuarioController.usuario.clave}"  placeholder="Clave"
+                                                    required="true"     />
                                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
                                     </div>
@@ -51,7 +54,7 @@
 
                                     <center>
                                         <p:commandButton class="btn-primary" id="entrar"  style="margin-top: 3%; margin-bottom: 3%"
-                                                         value="Iniciar sesión" icon="fa fa-sign-in" resetValues="true" update="msg" 
+                                                         value="Iniciar sesi&oacute;n" icon="fa fa-sign-in" resetValues="true" update="msg" 
                                                          actionListener="#{usuarioController.validateUsuario()}"/>
                                     </center>
 
