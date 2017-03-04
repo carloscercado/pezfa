@@ -60,6 +60,7 @@ public class UsuarioDB
 
         } catch (Exception e)
         {
+            System.out.println(e.getMessage());
             sesion.getTransaction().rollback();
 
         } finally

@@ -50,7 +50,11 @@
                             <p:inputText value="#{usuarioController.usuario.clave}" required="true" requiredMessage="Ingrese clave" placeholder="Clave"/>
 
                             <p:outputLabel value="Rol:"/>
-                            <p:inputText value="#{usuarioController.usuario.rol}" required="true" requiredMessage="Ingrese rol" placeholder="Rol"/>
+                            <p:selectOneMenu value="#{usuarioController.usuario.rol}">
+                                <f:selectItem itemValue="M" itemLabel="Masculino"/>
+                                <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
+                            </p:selectOneMenu>
  
                         </p:panelGrid>
                         <br/>
