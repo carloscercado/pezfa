@@ -79,7 +79,7 @@ public class UsuarioDB
             sesion = HibernateUtil.getSesion().openSession();
             sesion.beginTransaction();
             Query consulta = sesion.createQuery("from Usuario usu join fetch usu.empleado  where usuario= :usuario and clave= :clave ");
-            consulta.setParameter("usuario", userName );
+            consulta.setParameter("usuario", userName);
             consulta.setParameter("clave", clave);
             usuario =(Usuario) consulta.list().get(0);
             
