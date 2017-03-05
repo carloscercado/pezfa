@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/menu.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:dataTable emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="cliente" value="#{clienteController.clientes}">
+                        <f:facet name="header">
+                            <p:commandButton value="Agregar" icon="fa fa-plus" onclick="PF('registrar').show()"/>
+                            Gestionar Cliente                        
+                        </f:facet>
+                        <p:column headerText="RIF">
+                            #{cliente.rif}
+                        </p:column>
+                        <p:column width="20%" headerText="Nombre">
+                            #{cliente.nombre}
+                        </p:column>
+                        <p:column width="30%" headerText="Direcci&oacute;n">
+                            #{cliente.direccion}
+                        </p:column>
+                        <p:column headerText="Tel&eacute;fono">
+                            #{cliente.telefono}
+                        </p:column>
+                        <p:column width="20%" headerText="Opciones">
+                            <center>  
+                                <p:commandButton icon="fa fa-trash"  class="btn-danger"/> <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                            </center> 
+                                
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog header="Modal Dialog" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
+
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="RIF"/>
+                            <p:inputText value="#{clienteController.cliente.rif}" required="true" requiredMessage="Registre RIF" placeholder="Registre RIF"/>
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Registre nombre" placeholder="Registre nombre"/>
+                            <p:outputLabel value="Direcci&oacute;n"/>
+                            <p:inputText value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Registre direcci&oacute;n" placeholder="Registre direcci&oacute;n"/>
+                            <p:outputLabel value="Tel&eacute;fono"/>
+                            <p:inputText value="#{clienteController.cliente.telefono}" required="true" requiredMessage="Registre tel&eacute;fono" placeholder="Registre tel&eacute;fono"/>
+                            <p:outputLabel value="Correo"/>
+                            <p:inputText value="#{clienteController.cliente.correo}" required="true" requiredMessage="Registre correo" placeholder="Registre correo"/>
+                        </h:panelGrid>
+                        <br>
+                            <center>
+                                <p:commandButton value="Registrar" icon="fa fa-save"/> 
+                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger"/>
+                            </center>
+                        </br>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

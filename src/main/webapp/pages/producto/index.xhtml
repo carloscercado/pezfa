@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:body>
+        <ui:composition template="./../../template/menu.xhtml">
+            
+        <ui:define name="content">
+                <h:form>
+                    <p:dataTable emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="producto" value="#{productoController.productos}">
+                        <f:facet name="header">
+                            <p:commandButton value="Agregar" icon="fa fa-plus" onclick="PF('registrar').show()"/>
+                            Gestionar Producto                        
+                        </f:facet>
+                        <p:column headerText="C&oacute;digo">
+                            #{producto.codigo}
+                        </p:column>
+                        <p:column width="20%" headerText="Nombre">
+                            #{producto.nombre}
+                        </p:column>
+                        <p:column headerText="Cantidad">
+                            #{producto.cantidad}
+                        </p:column>
+                        <p:column headerText="M&aacute;ximo">
+                            #{producto.maximo}
+                        </p:column>
+                        <p:column headerText="M&iacute;nimo">
+                            #{producto.minimo}
+                        </p:column>
+                        <p:column width="15%" headerText="Categor&iacute;a">
+                            #{producto.categoria}
+                        </p:column>
+                        <p:column headerText="Precio">
+                            #{producto.precio}
+                        </p:column>
+                        <p:column width="20%" headerText="Opciones">
+                            <center>  
+                                <p:commandButton icon="fa fa-trash"  class="btn-danger"/> <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                            </center> 
+                                
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog header="Modal Dialog" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
+
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="C&oacute;digo"/>
+                            <p:inputText value="#{productoController.producto.codigo}" required="true" requiredMessage="Registre c&oacute;digo" placeholder="Registre c&oacute;digo"/>
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{productoController.producto.nombre}" required="true" requiredMessage="Registre nombre" placeholder="Registre nombre"/>
+                            <p:outputLabel value="Cantidad"/>
+                            <p:inputText value="#{productoController.producto.cantidad}" required="true" requiredMessage="Registre cantidad" placeholder="Registre cantidad"/>
+                            <p:outputLabel value="M&aacute;ximo"/>
+                            <p:inputText value="#{productoController.producto.maximo}" required="true" requiredMessage="Registre m&aacute;ximo" placeholder="Registre m&aacute;ximo"/>
+                            <p:outputLabel value="M&iacute;nimo"/>
+                            <p:inputText value="#{productoController.producto.minimo}" required="true" requiredMessage="Registre m&iacute;nimo" placeholder="Registre m&iacute;nimo"/>
+                            <p:outputLabel value="Categor&iacute;a"/>
+                            <p:inputText value="#{productoController.producto.categoria}" required="true" requiredMessage="Registre categor&iacute;a" placeholder="Registre categor&iacute;a"/>
+                       <p:outputLabel value="Precio"/>
+                       <p:inputText value="#{productoController.producto.precio}" required="true" requiredMessage="Registre precio" placeholder="Registre precio"/>
+                        </h:panelGrid>
+                        <br>
+                            <center>
+                                <p:commandButton value="Registrar" icon="fa fa-save"/> 
+                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger"/>
+                            </center>
+                        </br>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+
+</html>

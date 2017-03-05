@@ -4,7 +4,11 @@ import com.pezfa.inventario.database.CompraDB;
 import com.pezfa.inventario.models.Compra;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
+@ManagedBean
+@ViewScoped
 public class CompraController implements Serializable
 {
     private Compra compra = null;

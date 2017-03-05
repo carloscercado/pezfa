@@ -4,7 +4,11 @@ import com.pezfa.inventario.database.ProductoDB;
 import com.pezfa.inventario.models.Producto;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
+@ManagedBean
+@ViewScoped
 public class ProductoController implements Serializable
 {
     private Producto producto = null;

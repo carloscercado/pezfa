@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+         <ui:composition template="./../../template/menu.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:dataTable emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="cava" value="#{cavaController.cavas}">
+                        <f:facet name="header">
+                            <p:commandButton value="Agregar" icon="fa fa-plus" onclick="PF('registrar').show()"/>
+                            Gestionar Cava                        
+                        </f:facet>
+                        <p:column width="20%" headerText="Nombre">
+                            #{cava.nombre}
+                        </p:column>
+                        <p:column width="20%" headerText="Opciones">
+                            <center>  
+                                <p:commandButton icon="fa fa-trash"  class="btn-danger"/> <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                            </center> 
+                                
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog header="Modal Dialog" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
+
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{cavaController.cava.nombre}" required="true" requiredMessage="Registre nombre" placeholder="Registre nombre"/>
+                            </h:panelGrid>
+                        <br>
+                            <center>
+                                <p:commandButton value="Registrar" icon="fa fa-save"/> 
+                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger"/>
+                            </center>
+                        </br>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</html>
