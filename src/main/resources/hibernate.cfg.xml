@@ -6,7 +6,7 @@
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/pezfa</property>
     <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">12345678</property>
+    <property name="hibernate.connection.password">admin</property>
     <property name="hibernate.show_sql">false</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <mapping resource="com/pezfa/inventario/models/CompraEspecie.hbm.xml"/>

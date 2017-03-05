@@ -69,6 +69,8 @@ public class UsuarioController implements Serializable
     //logica para registrar un usuario
     public void register()
     {
+        String user= usuario.getUsuario();
+        usuario.setClave(user);
         if (UsuarioDB.create(usuario))
         {
             System.out.println("Registrado");
