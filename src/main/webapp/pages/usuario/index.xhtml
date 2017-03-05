@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/menu.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <h3 style="margin-top:0">Aqu&iacute; va el cuadro de b&uacute;squeda</h3>
+                    <p:dataTable emptyMessage="No se encontraron datos." var="usuario" value="#{usuarioController.usuarios}" reflow="true">
+
+                        <f:facet name="header">
+                            <p:commandButton value="Agregar" icon="fa fa-plus" class="bg-primary" oncomplete="PF('registrar').show()"/>
+                            Gestionar usuarios            
+                        </f:facet> 
+
+                        <p:column headerText="Empleado">
+                            <span  class="fa fa-user" /> #{usuario.empleado.primerNombre} #{usuario.empleado.primerApellido} 
+                        </p:column>
+
+                        <p:column headerText="Usuario">
+                            #{usuario.usuario} 
+                        </p:column>
+                        
+                        <p:column headerText="Rol">
+                            #{usuario.rol} 
+                        </p:column>
+
+                        <p:column headerText="Opciones">
+                            <center>
+                                <p:commandButton icon="fa fa-trash" class="btn-danger"/>
+                                <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog header="Registrar usuario" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true">
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Usuario:"/>
+                            <p:inputText value="#{usuarioController.usuario.empleado.nombre}" required="true" requiredMessage="Ingrese usuario" placeholder="Usuario"/>
+
+                            <p:outputLabel value="Clave:"/>
+                            <p:inputText value="#{usuarioController.usuario.clave}" required="true" requiredMessage="Ingrese clave" placeholder="Clave"/>
+
+                            <p:outputLabel value="Rol:"/>
+                            <p:selectOneMenu value="#{usuarioController.usuario.rol}">
+                                <f:selectItem itemValue="M" itemLabel="Masculino"/>
+                                <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
+                            </p:selectOneMenu>
+ 
+                        </p:panelGrid>
+                        <br/>
+                        <center>
+                            <p:commandButton value="Registrar" icon="fa fa-save"/>
+                            <p:commandButton value="Eliminar" icon="fa fa-times" class="btn-danger"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

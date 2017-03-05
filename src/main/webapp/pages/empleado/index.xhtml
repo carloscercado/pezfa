@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/menu.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <h3 style="margin-top:0">Aqu&iacute; va el cuadro de b&uacute;squeda</h3>
+                    <p:dataTable emptyMessage="No se encontraron datos." var="empleado" value="#{empleadoController.empleadores}" reflow="true">
+
+                        <f:facet name="header">
+                            <p:commandButton value="Agregar" icon="fa fa-plus" class="bg-primary" oncomplete="PF('registrar').show()"/>
+                            Gestionar empleados                         
+                        </f:facet> 
+
+                        <p:column headerText="C&eacute;dula">
+                            #{empleado.cedula} 
+                        </p:column>
+
+                        <p:column headerText="Nombres">
+                            #{empleado.primerNombre} #{empleado.segundoNombre} 
+                        </p:column>
+
+                        <p:column headerText="Apellidos">
+                            #{empleado.primerApellido} #{empleado.segundoApellido} 
+                        </p:column>
+
+                        <p:column headerText="Nacimiento">
+                            #{empleado.nacimiento} 
+                        </p:column>
+
+                        <p:column headerText="Sexo">
+                            #{empleado.sexo}  
+                        </p:column>
+
+                        <p:column headerText="Cargo">
+                            #{empleado.cargo} 
+                        </p:column>
+
+                        <p:column headerText="Opciones">
+                            <center>
+                                <p:commandButton icon="fa fa-trash" class="btn-danger"/>
+                                <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog header="Registrar empleado" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true">
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="C&eacute;dula:"/>
+                            <p:inputText value="#{empleadoController.empleado.cedula}" required="true" requiredMessage="Ingrese c&eacute;dula" placeholder="C&eacute;dula"/>
+
+                            <p:outputLabel value="Primer nombre:"/>
+                            <p:inputText value="#{empleadoController.empleado.primerNombre}" required="true" requiredMessage="Ingrese primer nombre" placeholder="Primer nombre"/>
+
+                            <p:outputLabel value="Segundo nombre:"/>
+                            <p:inputText value="#{empleadoController.empleado.segundoNombre}" required="true" requiredMessage="Ingrese segundo nombre" placeholder="Segundo nombre"/>
+
+                            <p:outputLabel value="Primer apellido:"/>
+                            <p:inputText value="#{empleadoController.empleado.primerApellido}" required="true" requiredMessage="Ingrese primer apellido" placeholder="Primer apellido"/>
+
+                            <p:outputLabel value="Segundo apellido:"/>
+                            <p:inputText value="#{empleadoController.empleado.segundoApellido}" required="true" requiredMessage="Ingrese segundo apellido" placeholder="Segundo apellido"/>
+
+                            <p:outputLabel value="Nacimiento:"/>
+                            <p:inputText value="#{empleadoController.empleado.nacimiento}" required="true" requiredMessage="Ingrese nacimiento" placeholder="Nacimiento"/>
+
+                            <p:outputLabel value="Sexo:"/>
+                            <p:selectOneMenu value="#{empleadoController.empleado.sexo}">
+                                <f:selectItem itemValue="M" itemLabel="Masculino"/>
+                                <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Cargo:"/>
+                            <p:selectOneMenu value="#{empleadoController.empleado.cargo}">
+                                <f:selectItem itemValue="M" itemLabel="Masculino"/>
+                                <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                            </p:selectOneMenu>    
+
+                        </p:panelGrid>
+                        <br/>
+                        <center>
+                            <p:commandButton value="Registrar" icon="fa fa-save"/>
+                            <p:commandButton value="Eliminar" icon="fa fa-times" class="btn-danger"/>
+                        </center>
+                    </h:form>
+                </p:dialog> 
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
