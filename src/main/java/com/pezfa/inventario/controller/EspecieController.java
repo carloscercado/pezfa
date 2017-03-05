@@ -2,6 +2,7 @@ package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.EspecieDB;
 import com.pezfa.inventario.models.Especie;
+import com.pezfa.inventario.models.Proveedor;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -57,6 +58,8 @@ public class EspecieController implements Serializable
             con.execute("PF('registrar').hide();");
         } else
         {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro fallido", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             System.out.println("No Registrado");
         }
     }
@@ -65,10 +68,16 @@ public class EspecieController implements Serializable
     {
         if (EspecieDB.delete(especie))
         {
-            System.out.println("Eliminado");
+            especie = new Especie();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado existosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('eliminar').hide();");
+            
         } else
         {
-            System.out.println("No Eliminado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas al Eliminar", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 

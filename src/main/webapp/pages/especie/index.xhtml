@@ -12,10 +12,11 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:dataTable var="especie" value="#{especieController.especies}" reflow="true">
+                    <p:dataTable widgetVar="especies" scrollable="true" scrollHeight="250"
+                                 var="especie" value="#{especieController.especies}" reflow="true">
                         <f:facet name="header">
                             <p:commandButton value="Agregar" class="right" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
-                            Gestionar Especies 
+                            Gestionar especies 
                         </f:facet>
 
 
@@ -41,7 +42,7 @@
                         </p:column>
 
                         <p:column headerText="Precio">
-                           Bs.f #{especie.precio} 
+                            Bs.f #{especie.precio} 
                         </p:column>
                         <p:column headerText="Tipo">
                             #{especie.tipo}
@@ -49,7 +50,10 @@
                         <p:column headerText="Opciones" priority="2">
 
                             <center>
-                                <p:commandButton icon="fa fa-trash" class="btn-danger"  />
+                                <p:commandButton icon="fa fa-trash" oncomplete="PF('eliminar').show()" class="btn-danger" >
+                                    <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie}"/>
+                                </p:commandButton>
+                        
                                 <p:commandButton icon="fa fa-edit" class="btn-warning"/>
 
                             </center>
@@ -57,33 +61,46 @@
                     </p:dataTable>
                 </h:form>
 
-                <p:dialog header="Registrar especies" widgetVar="registrar" modal="true">
-                    <p:panelGrid columns="2">
-                        <p:outputLabel value="Codigo:" />
-                        <p:inputText requiredMessage="Registrar Codigo" required="true" value="#{especieController.especie.codigo}"/>
-                        <p:outputLabel value="Nombre:" />
-                        <p:inputText value="#{especieController.especie.nombre}"/>
-                        <p:outputLabel value="Cantidad:" />
-                        <p:inputText value="#{especieController.especie.cantidad}"/>
-                        <p:outputLabel value="Maximo:" />
-                        <p:inputText value="#{especieController.especie.maximo}"/>
-                        <p:outputLabel value="Minimo:" />
-                        <p:inputText value="#{especieController.especie.minimo}"/>
-                        <p:outputLabel value="Tipo:" />
-                        <p:inputText value="#{especieController.especie.tipo}"/>
-                        <p:outputLabel value="Precio:" />
-                        <p:inputText value="#{especieController.especie.precio}"/>
+                <p:dialog closable="false" draggable="false" header="Registrar especies" resizable="false" responsive="true" widgetVar="registrar" modal="true">
+                    <f:facet name="onHide">
+                        <p:ajax update="@widgetVar(especies)"/>
+                    </f:facet>
+                    <h:form id="todo">
+                        <p:growl id="mensaje" />
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Codigo:" />
+                            <p:inputText placeholder="Codigo" requiredMessage="Ingrese codigo" required="true" value="#{especieController.especie.codigo}"/>
+                            <p:outputLabel value="Nombre:" />
+                            <p:inputText placeholder="Nombre" requiredMessage="Igrese nombre" required="true"  value="#{especieController.especie.nombre}"/>
+                            <p:outputLabel value="Tipo:" />
+                            <p:selectOneMenu requiredMessage="Ingrse opcion"  required="true"  value="#{especieController.especie.tipo}">
+                                <f:selectItem itemValue="ABC" itemLabel="Opcion 1"/>
+                                <f:selectItem itemValue="DEF" itemLabel="Opcion 2"/>
+                                <f:selectItem itemValue="GHI" itemLabel="Opcion 3"/>
+                                <f:selectItem itemValue="JKL" itemLabel="Opcion 4"/>
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
 
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <br></br>
+                        <center>
+                            <p:commandButton icon="fa fa-save" value="Registrar" actionListener="#{especieController.register()}" update="mensaje" />
+                            <p:commandButton icon="fa fa-times" value="cancelar" onclick="PF('registrar').hide()" class="btn-danger"/>
+                        </center>
+                    </h:form>
+                </p:dialog> 
+                
+                <p:dialog closable="false" draggable="false" header="&#191; Est&aacute;s seguro de que desea eliminar &#63;" resizable="false" 
+                          responsive="true" widgetVar="eliminar" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/>
+                        <center>
+                            <p:commandButton  icon="fa fa-check" value="Si" actionListener="#{especieController.delete()}" update="@widgetVar(especies) mensaje" />
+                            <p:commandButton icon="fa fa-times" value="No" onclick="PF('eliminar').hide()" class="btn-danger"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
 
-
-                    </p:panelGrid>
-                    <br></br>
-                    <center>
-                        <p:commandButton icon="fa fa-save" value="Registrar"  />
-                        <p:commandButton icon="fa fa-times" value="cancelar" class="btn-danger"/>
-
-                    </center>
-                </p:dialog>   
             </ui:define>
 
         </ui:composition>
