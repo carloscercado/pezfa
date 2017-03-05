@@ -49,13 +49,15 @@ public class ClienteDB
         
         try{
             sesion=HibernateUtil.getSesion().openSession();
-            sesion.beginTransaction().commit();
-            lista=sesion.createQuery("from Cliente").list();
-            
+            lista=sesion.createQuery("from Cliente").list();            
         } catch(Exception e){
+            System.out.println(e.getMessage());
            sesion.getTransaction().rollback();
            
         } finally{
+            if(sesion!=null){
+                sesion.close();
+            } 
             return lista;
         }
     }
@@ -97,6 +99,7 @@ public class ClienteDB
             state=true;
             
         } catch (Exception e){
+            System.out.println(e.getMessage());
             sesion.getTransaction().rollback();
             state=false;
             

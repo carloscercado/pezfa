@@ -81,7 +81,7 @@ public class UsuarioController implements Serializable {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
-            con.execute("PF('eliminar').hide();");
+            con.execute("PF('eliminargit ').hide();");
         } else {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Problemas al eliminar", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);

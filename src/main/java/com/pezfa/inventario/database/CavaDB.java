@@ -103,6 +103,7 @@ public class CavaDB //registrar las funciones osea los crud de la base de datos
            state = true;
        }catch(Exception hi)
        {
+           System.out.println(hi.getMessage());
            sesion.getTransaction().rollback();//si ocurre un problema al guardar quitar todo y dejar la base de datos como estaba
            state = false;
        }

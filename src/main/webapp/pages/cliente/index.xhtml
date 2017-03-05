@@ -12,54 +12,73 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:dataTable emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="cliente" value="#{clienteController.clientes}">
+                    <p:dataTable widgetVar="clientes" emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="cliente" value="#{clienteController.clientes}">
                         <f:facet name="header">
-                            <p:commandButton value="Agregar" icon="fa fa-plus" onclick="PF('registrar').show()"/>
+                            <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
                             Gestionar Cliente                        
                         </f:facet>
                         <p:column headerText="RIF">
                             #{cliente.rif}
                         </p:column>
-                        <p:column width="20%" headerText="Nombre">
+                        <p:column headerText="Nombre">
                             #{cliente.nombre}
                         </p:column>
-                        <p:column width="30%" headerText="Direcci&oacute;n">
+                        <p:column width="25%" headerText="Direcci&oacute;n">
                             #{cliente.direccion}
                         </p:column>
                         <p:column headerText="Tel&eacute;fono">
                             #{cliente.telefono}
                         </p:column>
+                        <p:column headerText="correo">
+                            #{cliente.correo}
+                        </p:column>
                         <p:column width="20%" headerText="Opciones">
                             <center>  
-                                <p:commandButton icon="fa fa-trash"  class="btn-danger"/> <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                                <p:commandButton icon="fa fa-trash" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger"> 
+                                    <f:setPropertyActionListener target="#{clienteController.cliente}" value="#{cliente}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="fa fa-edit" class="btn-warning"/>
                             </center> 
                                 
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                <p:dialog header="Modal Dialog" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
-
+                <p:dialog closable="false" header="Registrar cliente" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
+                     <f:facet name="onHide">
+                        <p:ajax update="@widgetVar(clientes)"/>
+                    </f:facet>
                     <h:form>
-                        <h:panelGrid columns="2">
+                        <p:growl id="mensaje"/>  
+                        <p:panelGrid columns="2">
                             <p:outputLabel value="RIF"/>
-                            <p:inputText value="#{clienteController.cliente.rif}" required="true" requiredMessage="Registre RIF" placeholder="Registre RIF"/>
+                            <p:inputText value="#{clienteController.cliente.rif}" required="true" requiredMessage="Ingrese RIF" placeholder="RIF"/>
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Registre nombre" placeholder="Registre nombre"/>
+                            <p:inputText value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Direcci&oacute;n"/>
-                            <p:inputText value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Registre direcci&oacute;n" placeholder="Registre direcci&oacute;n"/>
+                            <p:inputText value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Ingrese direcci&oacute;n" placeholder="Direcci&oacute;n"/>
                             <p:outputLabel value="Tel&eacute;fono"/>
-                            <p:inputText value="#{clienteController.cliente.telefono}" required="true" requiredMessage="Registre tel&eacute;fono" placeholder="Registre tel&eacute;fono"/>
+                            <p:inputText value="#{clienteController.cliente.telefono}" required="true" requiredMessage="Ingrese tel&eacute;fono" placeholder="Tel&eacute;fono"/>
                             <p:outputLabel value="Correo"/>
-                            <p:inputText value="#{clienteController.cliente.correo}" required="true" requiredMessage="Registre correo" placeholder="Registre correo"/>
-                        </h:panelGrid>
+                            <p:inputText value="#{clienteController.cliente.correo}" required="true" requiredMessage="Ingrese correo" placeholder="Correo"/>
+                        </p:panelGrid>
                         <br>
                             <center>
-                                <p:commandButton value="Registrar" icon="fa fa-save"/> 
-                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger"/>
+                                <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{clienteController.register()}"/> 
+                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger" onclick="PF('registrar').hide()"/>
                             </center>
                         </br>
                     </h:form>
                 </p:dialog>
+                
+                <p:dialog closable="false" header="&#191; Est&aacute;s seguro que deseas eliminar &#63;" widgetVar="eliminar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <center>
+                            <p:commandButton value="Si" icon="fa fa-check"  actionListener="#{clienteController.delete()}" update="mensaje @widgetVar(clientes)"/> 
+                            <p:commandButton value="No" icon="fa fa-times" class="btn-danger" onclick="PF('eliminar').hide()"/>
+                        </center>
+                    </h:form>
+                    </p:dialog>
             </ui:define>
 
         </ui:composition>

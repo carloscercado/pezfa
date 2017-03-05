@@ -14,96 +14,90 @@ import org.hibernate.Session;
  *
  * @author Adela Hernandez
  */
-public class VentaDB
-{
-    public static boolean create(Venta obj)
-    {
-        Session sesion=null;
-        boolean state=false;
-       
-        try{
+public class VentaDB {
+
+    public static boolean create(Venta obj) {
+        Session sesion = null;
+        boolean state = false;
+
+        try {
             sesion = HibernateUtil.getSesion().openSession();
             sesion.beginTransaction();
             sesion.save(obj);
             sesion.getTransaction().commit();
-            state=true;
-            
-        } catch (Exception e){
+            state = true;
+
+        } catch (Exception e) {
             sesion.getTransaction().rollback();
-            state=false;
+            state = false;
             System.out.println(e.getMessage());
-            
-        } finally{
-            if (sesion != null){
+
+        } finally {
+            if (sesion != null) {
                 sesion.close();
             }
             return state;
-        }        
+        }
     }
 
-    public static List<Venta> read()    
-    {
-        Session sesion=null;
-        List<Venta> lista=null;
-        
-        try{
-            sesion=HibernateUtil.getSesion().openSession();
-            sesion.beginTransaction().commit();
-            lista=sesion.createQuery("from Venta").list();
-            
-        } catch(Exception e){
-           sesion.getTransaction().rollback();
-           
-        } finally{
+    public static List<Venta> read() {
+        Session sesion = null;
+        List<Venta> lista = null;
+
+        try {
+            sesion = HibernateUtil.getSesion().openSession();
+            lista = sesion.createQuery("from Venta").list();
+        } catch (Exception e) {
+            sesion.getTransaction().rollback();
+
+        } finally {
             return lista;
         }
     }
-    
-    public static boolean update(Venta obj)
-    {
-        Session sesion=null;
-        boolean state=false;
-        
-        try{ 
-            sesion=HibernateUtil.getSesion().openSession();
+
+    public static boolean update(Venta obj) {
+        Session sesion = null;
+        boolean state = false;
+
+        try {
+            sesion = HibernateUtil.getSesion().openSession();
             sesion.beginTransaction();
             sesion.update(obj);
             sesion.getTransaction().commit();
-            state=true;
-            
-        } catch (Exception e){
+            state = true;
+
+        } catch (Exception e) {
             sesion.getTransaction().rollback();
-            state=false;
-            
-        } finally{
-            if(sesion!=null){
+            state = false;
+
+        } finally {
+            if (sesion != null) {
                 sesion.close();
-            }            
+            }
             return state;
         }
     }
-    
-    public static boolean delete(Venta obj)
-    {
-        Session sesion=null;
-        boolean state=false;
-       
-        try{
+
+    public static boolean delete(Venta obj) {
+        Session sesion = null;
+        boolean state = false;
+
+        try {
             sesion = HibernateUtil.getSesion().openSession();
             sesion.beginTransaction();
             sesion.delete(obj);
             sesion.getTransaction().commit();
-            state=true;
-            
-        } catch (Exception e){
+            state = true;
+
+        } catch (Exception e) {
             sesion.getTransaction().rollback();
-            state=false;
-            
-        } finally{
-            if (sesion != null){
+            state = false;
+
+        } finally {
+            if (sesion != null) {
                 sesion.close();
             }
             return state;
-        }        
+        }
     }
 }

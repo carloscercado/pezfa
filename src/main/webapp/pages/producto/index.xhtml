@@ -9,12 +9,12 @@
 
     <h:body>
         <ui:composition template="./../../template/menu.xhtml">
-            
-        <ui:define name="content">
+
+            <ui:define name="content">
                 <h:form>
-                    <p:dataTable emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="producto" value="#{productoController.productos}">
+                    <p:dataTable widgetVar="productos" emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="producto" value="#{productoController.productos}">
                         <f:facet name="header">
-                            <p:commandButton value="Agregar" icon="fa fa-plus" onclick="PF('registrar').show()"/>
+                            <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
                             Gestionar Producto                        
                         </f:facet>
                         <p:column headerText="C&oacute;digo">
@@ -40,37 +40,54 @@
                         </p:column>
                         <p:column width="20%" headerText="Opciones">
                             <center>  
-                                <p:commandButton icon="fa fa-trash"  class="btn-danger"/> <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                                <p:commandButton icon="fa fa-trash" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger">
+                                    <f:setPropertyActionListener target="#{productoController.producto}" value="#{producto}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="fa fa-edit" class="btn-warning"/>
                             </center> 
-                                
+
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                <p:dialog header="Modal Dialog" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
 
+                <p:dialog closable="false" header="Registrar producto" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <f:facet name="onHide">
+                        <p:ajax update="@widgetVar(productos)"/>
+                    </f:facet>
                     <h:form>
-                        <h:panelGrid columns="2">
+                        <p:growl id="mensaje"/>  
+                        <p:panelGrid columns="2">
                             <p:outputLabel value="C&oacute;digo"/>
-                            <p:inputText value="#{productoController.producto.codigo}" required="true" requiredMessage="Registre c&oacute;digo" placeholder="Registre c&oacute;digo"/>
+                            <p:inputText value="#{productoController.producto.codigo}" required="true" requiredMessage="Ingrese c&oacute;digo" placeholder="C&oacute;digo"/>
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText value="#{productoController.producto.nombre}" required="true" requiredMessage="Registre nombre" placeholder="Registre nombre"/>
+                            <p:inputText value="#{productoController.producto.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Cantidad"/>
-                            <p:inputText value="#{productoController.producto.cantidad}" required="true" requiredMessage="Registre cantidad" placeholder="Registre cantidad"/>
+                            <p:inputText value="#{productoController.producto.cantidad}" required="true" requiredMessage="Ingrese cantidad" placeholder="Cantidad"/>
                             <p:outputLabel value="M&aacute;ximo"/>
-                            <p:inputText value="#{productoController.producto.maximo}" required="true" requiredMessage="Registre m&aacute;ximo" placeholder="Registre m&aacute;ximo"/>
+                            <p:inputText value="#{productoController.producto.maximo}" required="true" requiredMessage="Ingrese m&aacute;ximo" placeholder="M&aacute;ximo"/>
                             <p:outputLabel value="M&iacute;nimo"/>
-                            <p:inputText value="#{productoController.producto.minimo}" required="true" requiredMessage="Registre m&iacute;nimo" placeholder="Registre m&iacute;nimo"/>
+                            <p:inputText value="#{productoController.producto.minimo}" required="true" requiredMessage="Ingrese M&iacute;nimo" placeholder="M&iacute;nimo"/>
                             <p:outputLabel value="Categor&iacute;a"/>
-                            <p:inputText value="#{productoController.producto.categoria}" required="true" requiredMessage="Registre categor&iacute;a" placeholder="Registre categor&iacute;a"/>
-                       <p:outputLabel value="Precio"/>
-                       <p:inputText value="#{productoController.producto.precio}" required="true" requiredMessage="Registre precio" placeholder="Registre precio"/>
-                        </h:panelGrid>
+                            <p:inputText value="#{productoController.producto.categoria}" required="true" requiredMessage="Ingrese categor&iacute;a" placeholder="Categor&iacute;a"/>
+                            <p:outputLabel value="Precio"/>
+                            <p:inputText value="#{productoController.producto.precio}" required="true" requiredMessage="Ingrese precio" placeholder="Precio"/>
+                        </p:panelGrid>
                         <br>
                             <center>
-                                <p:commandButton value="Registrar" icon="fa fa-save"/> 
-                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger"/>
+                                <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{productoController.register()}"/> 
+                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger" onclick="PF('registrar').hide()"/>
                             </center>
                         </br>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog closable="false" header="&#191; Est&aacute;s seguro que deseas eliminar &#63;" widgetVar="eliminar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <center>
+                            <p:commandButton value="Si" icon="fa fa-check"  actionListener="#{productoController.delete()}" update="mensaje @widgetVar(productos)"/> 
+                            <p:commandButton value="No" icon="fa fa-times" class="btn-danger" onclick="PF('eliminar').hide()"/>
+                        </center>
                     </h:form>
                 </p:dialog>
             </ui:define>

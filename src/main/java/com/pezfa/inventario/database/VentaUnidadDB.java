@@ -48,8 +48,9 @@ public class VentaUnidadDB
         
         try{
             sesion=HibernateUtil.getSesion().openSession();
-            sesion.beginTransaction().commit();
+            sesion.beginTransaction().begin();
             lista=sesion.createQuery("from VentaUnidad").list();
+            sesion.getTransaction().commit();
             
         } catch(Exception e){
            sesion.getTransaction().rollback();

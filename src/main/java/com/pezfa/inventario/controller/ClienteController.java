@@ -2,10 +2,14 @@ package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.ClienteDB;
 import com.pezfa.inventario.models.Cliente;
+import com.pezfa.inventario.models.Producto;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
@@ -42,10 +46,15 @@ public class ClienteController implements Serializable
     {
         if(ClienteDB.create(cliente))
         {
-            System.out.println("Cliente Registrado");
+            cliente = new Cliente();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro existoso", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('registrar').hide();");
         }else
         {
-            System.out.println("No Se Pudo Registar El Cliente");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro fallido", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
     
@@ -64,10 +73,15 @@ public class ClienteController implements Serializable
     {
         if(ClienteDB.delete(cliente))
         {
-            System.out.println("Cliente Eliminado");
+            cliente = new Cliente();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('eliminar').hide();");
         }else
         {
-            System.out.println("No Se Pudo Eliminar El Cliente");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Problemas al eliminar", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 }
