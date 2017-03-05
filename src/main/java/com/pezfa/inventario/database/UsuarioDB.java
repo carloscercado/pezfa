@@ -55,8 +55,9 @@ public class UsuarioDB
         try
         {
             sesion = HibernateUtil.getSesion().openSession();
-            sesion.beginTransaction().commit();
-            lista = sesion.createQuery("from Usuario").list();
+            sesion.beginTransaction();
+            lista = sesion.createQuery("from Usuario user join fetch user.empleado").list();
+            sesion.getTransaction().commit();
 
         } catch (Exception e)
         {
@@ -65,6 +66,9 @@ public class UsuarioDB
 
         } finally
         {
+            if (sesion != null){
+                sesion.close();
+            }
             return lista;
         }
     }

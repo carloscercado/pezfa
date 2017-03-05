@@ -13,7 +13,7 @@
             <ui:define name="content">
                 <h:form>
                     <h3 style="margin-top:0">Aqu&iacute; va el cuadro de b&uacute;squeda</h3>
-                    <p:dataTable emptyMessage="No se encontraron datos." var="usuario" value="#{usuarioController.usuarios}" reflow="true">
+                    <p:dataTable emptyMessage="No se encontraron datos." var="usuario" widgetVar="usuarios" value="#{usuarioController.usuarios}" reflow="true">
 
                         <f:facet name="header">
                             <p:commandButton value="Agregar" icon="fa fa-plus" class="bg-primary" oncomplete="PF('registrar').show()"/>
@@ -34,13 +34,18 @@
 
                         <p:column headerText="Opciones">
                             <center>
-                                <p:commandButton icon="fa fa-trash" class="btn-danger"/>
+                                <p:commandButton icon="fa fa-trash" class="btn-danger" update="@widgetVar(eliminar)" oncomplete="PF('eliminar').show()">
+                                    <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usuario}"/>
+                                </p:commandButton>
                                 <p:commandButton icon="fa fa-edit" class="btn-warning"/>
                             </center>
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                <p:dialog header="Registrar usuario" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true">
+                <p:dialog header="Registrar usuario" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true" closable="false">
+                    <f:facet name="onHide">
+                        <p:ajax update="@widgetVar(usuarios)"/>
+                    </f:facet>
                     <h:form>
                         <p:growl id="mensaje"/>
                         <p:panelGrid columns="2">
@@ -65,7 +70,17 @@
                         <br/>
                         <center>
                             <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{usuarioController.register()}"/>
-                            <p:commandButton value="Cancelar" icon="fa fa-times" class="btn-danger" onclick="PF('registrar').id"/>
+                            <p:commandButton value="Cancelar" icon="fa fa-times" class="btn-danger" onclick="PF('registrar').hide()"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+                
+                <p:dialog header="&iquest;Est&aacute;s seguro que deseas eliminar&#63;" widgetVar="eliminar" modal="true" draggable="false" resizable="false" responsive="true" closable="false">                  
+                    <h:form>
+                        <p:growl id="mensaje"/>
+                        <center>
+                            <p:commandButton value="Si" icon="fa fa-check" style="margin: 5%" update="mensaje @widgetVar(usuarios)" actionListener="#{usuarioController.delete()}"/>
+                            <p:commandButton value="No" icon="fa fa-times" onclick="PF('eliminar').hide()" class="btn-danger"/>
                         </center>
                     </h:form>
                 </p:dialog>

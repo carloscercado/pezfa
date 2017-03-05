@@ -13,7 +13,7 @@
             <ui:define name="content">
                 <h:form>
                     <h3 style="margin-top:0">Aqu&iacute; va el cuadro de b&uacute;squeda</h3>
-                    <p:dataTable emptyMessage="No se encontraron datos." var="almacen" value="#{almacenController.almacenes}" reflow="true">
+                    <p:dataTable emptyMessage="No se encontraron datos." var="almacen" widgetVar="almacenes" value="#{almacenController.almacenes}" reflow="true">
 
                         <f:facet name="header">
                             <p:commandButton value="Agregar" icon="fa fa-plus" class="bg-primary" oncomplete="PF('registrar').show()"/>
@@ -34,15 +34,22 @@
 
                         <p:column headerText="Opciones">
                             <center>
-                                <p:commandButton icon="fa fa-trash" class="btn-danger"/>
+                                <p:commandButton icon="fa fa-trash" class="btn-danger" update="@widgetVar(eliminar)" oncomplete="PF('eliminar').show()">
+                                    <f:setPropertyActionListener target="#{almacenController.almacen}" value="#{almacen}"/>
+                                </p:commandButton>
                                 <p:commandButton icon="fa fa-edit" class="btn-warning"/>
                             </center>
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                <p:dialog header="Registrar almacen" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true">
+                <p:dialog header="Registrar almacen" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true" closable="false">
+                    <f:facet name="onHide">
+                        <p:ajax update="@widgetVar(almacenes)"/>
+                    </f:facet>
                     <h:form>
+                        <p:growl id="mensaje"/>
                         <p:panelGrid columns="2">
+
                             <p:outputLabel value="Nombre:"/>
                             <p:inputText value="#{almacenController.almacen.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
 
@@ -50,27 +57,27 @@
                             <p:inputText value="#{almacenController.almacen.direccion}" required="true" requiredMessage="Ingrese direcci&oacute;n" placeholder="Direcci&oacute;n"/>
 
                             <p:outputLabel value="Tel&eacute;fono:"/>
-                            <p:inputText value="#{almacenController.almacen.telefono}" required="true" requiredMessage="Ingrese tel&eacute;fono" placeholder="Tel&eacute;fono"/>
-
-
-                            <!-- Para usarse en caso de necestarla con las cavas 
-                            <p:outputLabel value="Primer apellido:"/>
-                            <p:inputText value="#{empleadoController.empleado.primerApellido}" required="true" requiredMessage="Ingrese primer apellido" placeholder="Primer apellido"/>
-
-                            <p:outputLabel value="Sexo:"/>
-                            <p:selectOneMenu value="#{empleadoController.empleado.sexo}">
-                                <f:selectItem itemValue="M" itemLabel="Masculino"/>
-                                <f:selectItem itemValue="F" itemLabel="Femenino"/>
-                            </p:selectOneMenu> !-->   
+                            <p:inputMask value="#{almacenController.almacen.telefono}" mask="(999)999-9999" placeholder="Tel&eacute;fono"/>
 
                         </p:panelGrid>
                         <br/>
                         <center>
-                            <p:commandButton value="Registrar" icon="fa fa-save"/>
-                            <p:commandButton value="Eliminar" icon="fa fa-times" class="btn-danger"/>
+                            <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{almacenController.register()}"/>
+                            <p:commandButton value="Cancelar" icon="fa fa-times" class="btn-danger" onclick="PF('registrar').hide()"/>
                         </center>
                     </h:form>
                 </p:dialog>
+
+                <p:dialog header="&iquest;Est&aacute;s seguro que deseas eliminar&#63;" widgetVar="eliminar" modal="true" draggable="false" resizable="false" responsive="true" closable="false">                  
+                    <h:form>
+                        <p:growl id="mensaje"/>
+                        <center>
+                            <p:commandButton value="Si" icon="fa fa-check" style="margin: 5%" update="mensaje @widgetVar(almacenes)" actionListener="#{almacenController.delete()}"/>
+                            <p:commandButton value="No" icon="fa fa-times" onclick="PF('eliminar').hide()" class="btn-danger"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
             </ui:define>
 
         </ui:composition>

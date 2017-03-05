@@ -13,7 +13,7 @@
             <ui:define name="content">
                 <h:form>
                     <h3 style="margin-top:0">Aqu&iacute; va el cuadro de b&uacute;squeda</h3>
-                    <p:dataTable emptyMessage="No se encontraron datos." var="empleado" value="#{empleadoController.empleadores}" reflow="true">
+                    <p:dataTable emptyMessage="No se encontraron datos." widgetVar="empleados" var="empleado" value="#{empleadoController.empleadores}" reflow="true">
 
                         <f:facet name="header">
                             <p:commandButton value="Agregar" icon="fa fa-plus" class="bg-primary" oncomplete="PF('registrar').show()"/>
@@ -46,15 +46,22 @@
 
                         <p:column headerText="Opciones">
                             <center>
-                                <p:commandButton icon="fa fa-trash" class="btn-danger"/>
+                                <p:commandButton icon="fa fa-trash" class="btn-danger" update="@widgetVar(eliminar)" oncomplete="PF('eliminar').show()">
+                                    <f:setPropertyActionListener target="#{empleadoController.empleado}" value="#{empleado}"/>
+                                </p:commandButton>
                                 <p:commandButton icon="fa fa-edit" class="btn-warning"/>
                             </center>
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                <p:dialog header="Registrar empleado" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true">
+                <p:dialog header="Registrar empleado" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true" closable="false">
+                    <f:facet name="onHide">
+                        <p:ajax update="@widgetVar(empleados)"/>
+                    </f:facet>
                     <h:form>
+                        <p:growl id="mensaje"/>
                         <p:panelGrid columns="2">
+
                             <p:outputLabel value="C&eacute;dula:"/>
                             <p:inputText value="#{empleadoController.empleado.cedula}" required="true" requiredMessage="Ingrese c&eacute;dula" placeholder="C&eacute;dula"/>
 
@@ -62,37 +69,51 @@
                             <p:inputText value="#{empleadoController.empleado.primerNombre}" required="true" requiredMessage="Ingrese primer nombre" placeholder="Primer nombre"/>
 
                             <p:outputLabel value="Segundo nombre:"/>
-                            <p:inputText value="#{empleadoController.empleado.segundoNombre}" required="true" requiredMessage="Ingrese segundo nombre" placeholder="Segundo nombre"/>
+                            <p:inputText value="#{empleadoController.empleado.segundoNombre}" placeholder="Segundo nombre"/>
 
                             <p:outputLabel value="Primer apellido:"/>
                             <p:inputText value="#{empleadoController.empleado.primerApellido}" required="true" requiredMessage="Ingrese primer apellido" placeholder="Primer apellido"/>
 
                             <p:outputLabel value="Segundo apellido:"/>
-                            <p:inputText value="#{empleadoController.empleado.segundoApellido}" required="true" requiredMessage="Ingrese segundo apellido" placeholder="Segundo apellido"/>
+                            <p:inputText value="#{empleadoController.empleado.segundoApellido}" placeholder="Segundo apellido"/>
 
                             <p:outputLabel value="Nacimiento:"/>
-                            <p:inputText value="#{empleadoController.empleado.nacimiento}" required="true" requiredMessage="Ingrese nacimiento" placeholder="Nacimiento"/>
+                            <p:calendar  value="#{empleadoController.empleado.nacimiento}" required="true" requiredMessage="Ingrese nacimiento" locale="es" navigator="true"/>
 
                             <p:outputLabel value="Sexo:"/>
                             <p:selectOneMenu value="#{empleadoController.empleado.sexo}">
                                 <f:selectItem itemValue="M" itemLabel="Masculino"/>
                                 <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Cargo:"/>
                             <p:selectOneMenu value="#{empleadoController.empleado.cargo}">
-                                <f:selectItem itemValue="M" itemLabel="Masculino"/>
-                                <f:selectItem itemValue="F" itemLabel="Femenino"/>
-                            </p:selectOneMenu>    
+                                <f:selectItem itemValue="Admin" itemLabel="Administrador(a)"/>
+                                <f:selectItem itemValue="Sec" itemLabel="Secretaria"/>
+                                <f:selectItem itemValue="Inf" itemLabel="Inform&aacute;tica"/>
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
+                            </p:selectOneMenu>
+
 
                         </p:panelGrid>
                         <br/>
                         <center>
-                            <p:commandButton value="Registrar" icon="fa fa-save"/>
-                            <p:commandButton value="Eliminar" icon="fa fa-times" class="btn-danger"/>
+                            <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{empleadoController.register()}"/>
+                            <p:commandButton value="Cancelar" icon="fa fa-times" class="btn-danger" onclick="PF('registrar').hide()"/>
                         </center>
                     </h:form>
                 </p:dialog> 
+
+                <p:dialog header="&iquest;Est&aacute;s seguro que deseas eliminar&#63;" widgetVar="eliminar" modal="true" draggable="false" resizable="false" responsive="true" closable="false">                  
+                    <h:form>
+                        <p:growl id="mensaje"/>
+                        <center>
+                            <p:commandButton value="Si" icon="fa fa-check" style="margin: 5%" update="mensaje @widgetVar(empleados)" actionListener="#{empleadoController.delete()}"/>
+                            <p:commandButton value="No" icon="fa fa-times" onclick="PF('eliminar').hide()" class="btn-danger"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
 
             </ui:define>
 

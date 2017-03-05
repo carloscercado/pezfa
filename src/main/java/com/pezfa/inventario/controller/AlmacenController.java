@@ -4,8 +4,11 @@ import com.pezfa.inventario.database.AlmacenDB;
 import com.pezfa.inventario.models.Almacen;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
@@ -48,10 +51,15 @@ public class AlmacenController implements Serializable
     {
         if (AlmacenDB.create(almacen))
         {
-            System.out.println("Registrado");
+            almacen = new Almacen();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro existoso", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('registrar').hide();");
         } else
         {
-            System.out.println("No Registrado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro fallido", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 
@@ -60,10 +68,15 @@ public class AlmacenController implements Serializable
     {
         if (AlmacenDB.delete(almacen))
         {
-            System.out.println("Eliminado");
+            almacen = new Almacen();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('eliminar').hide();");
         } else
         {
-            System.out.println("No Eliminado");
+             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Problemas al eliminar", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 

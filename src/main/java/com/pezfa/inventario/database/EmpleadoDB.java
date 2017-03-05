@@ -48,13 +48,17 @@ public class EmpleadoDB
         
         try{
             sesion=HibernateUtil.getSesion().openSession();
-            sesion.beginTransaction().commit();
+            sesion.beginTransaction();
             lista=sesion.createQuery("from Empleado").list();
+            sesion.getTransaction().commit();
             
         } catch(Exception e){
            sesion.getTransaction().rollback();
            
         } finally{
+            if (sesion != null){
+                sesion.close();
+            }
             return lista;
         }
     }
@@ -94,9 +98,9 @@ public class EmpleadoDB
             sesion.delete(obj);
             sesion.getTransaction().commit();
             state=true;
-            
         } catch (Exception e){
             sesion.getTransaction().rollback();
+            System.out.println(e.getMessage());
             state=false;
             
         } finally{
