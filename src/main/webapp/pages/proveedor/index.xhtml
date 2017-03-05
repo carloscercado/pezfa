@@ -12,10 +12,10 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:dataTable var="proveedor" value="#{proveedorController.provedores}" reflow="true">
+                    <p:dataTable scrollHeight="250" scrollable="true" widgetVar="proveedores" var="proveedor" value="#{proveedorController.provedores}">
                         <f:facet name="header">
                             <p:commandButton value="Agregar" class="right" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
-                            Gestionar Proveedore
+                            Gestionar Proveedores
                         </f:facet>
 
 
@@ -38,34 +38,53 @@
                         <p:column headerText="opciones">
 
                             <center>
-                                <p:commandButton icon="fa fa-trash" class="btn-danger"  />
+                                <p:commandButton icon="fa fa-trash" oncomplete="PF('eliminar').show()" class="btn-danger">
+                                    <f:setPropertyActionListener target="#{proveedorController.proveedor}" value="#{proveedor}"/>
+                                </p:commandButton>
                                 <p:commandButton icon="fa fa-edit" class="btn-warning"/>
-
                             </center>
                         </p:column>
                     </p:dataTable>
                 </h:form>
+                
+                <p:dialog closable="false" draggable="false" header="Registrar proveedor" resizable="false" responsive="true" widgetVar="registrar" modal="true">
+                    <f:facet name="onHide">
+                        <p:ajax update="@widgetVar(proveedores)"/>
+                    </f:facet>
+                    <h:form>
+                        <p:growl id="mensaje" />
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Rif:" />
+                            <p:inputText placeholder="Rif" requiredMessage="Registrar Rif" required="true" value="#{proveedorController.proveedor.rif}"/>
+                            <p:outputLabel value="Nombre:" />
+                            <p:inputText placeholder="Nombre" requiredMessage="Registrar Nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
+                            <p:outputLabel value="Direccion:" />
+                            <p:inputTextarea placeholder="Direccion" requiredMessage="Registrar Direcion" required="true" value="#{proveedorController.proveedor.direccion}"  />
+                            <p:outputLabel value="Correo:" />
+                            <p:inputText placeholder="Correo"  value="#{proveedorController.proveedor.correo}"/>
 
-                <p:dialog header="Registrar proveedor" widgetVar="registrar" modal="true">
-                    <p:panelGrid columns="2">
-                        <p:outputLabel value="Rif:" />
-                        <p:inputText requiredMessage="Registrar Rif" required="true" value="#{proveedorController.proveedor.rif}"/>
-                        <p:outputLabel value="Nombre:" />
-                        <p:inputText value="#{proveedorController.proveedor.nombre}"/>
-                        <p:outputLabel value="Direccion:" />
-                        <p:inputTextarea  value="#{proveedorController.proveedor.rif}"/>
-                        <p:outputLabel value="Correo:" />
-                        <p:inputText  value="#{proveedorController.proveedor.correo}"/>
-                        
 
-                    </p:panelGrid>
-                    <br></br>
-                    <center>
-                        <p:commandButton icon="fa fa-save" value="Registrar"  />
-                        <p:commandButton icon="fa fa-times" value="cancelar" class="btn-danger"/>
+                        </p:panelGrid>
+                        <br></br>
+                        <center>
+                            <p:commandButton icon="fa fa-save" value="Registrar" update="mensaje" actionListener="#{proveedorController.register()}" />
+                            <p:commandButton icon="fa fa-times" value="cancelar" onclick="PF('registrar').hide()" class="btn-danger"/>
 
-                    </center>
-                </p:dialog>   
+                        </center>
+                    </h:form>
+                </p:dialog> 
+
+                <p:dialog closable="false" draggable="false" header="&#191; Est&aacute;s seguro de que desea eliminar &#63;" resizable="false" 
+                          responsive="true" widgetVar="eliminar" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/>
+                        <center>
+                            <p:commandButton  icon="fa fa-check" value="Si" actionListener="#{proveedorController.delete()}" update="@widgetVar(proveedores) mensaje" />
+                            <p:commandButton icon="fa fa-times" value="No" onclick="PF('eliminar').hide()" class="btn-danger"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
             </ui:define>
 
         </ui:composition>

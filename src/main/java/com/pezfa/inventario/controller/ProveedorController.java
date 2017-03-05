@@ -11,7 +11,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
-
 @ManagedBean
 @ViewScoped
 public class ProveedorController implements Serializable
@@ -58,11 +57,10 @@ public class ProveedorController implements Serializable
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('registrar').hide();");
-            
-            System.out.println("Registrado");
         } else
         {
-            System.out.println("No Registrado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro fallido", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 
@@ -71,10 +69,15 @@ public class ProveedorController implements Serializable
     {
         if (ProveedorDB.delete(proveedor))
         {
-            System.out.println("Eliminado");
+            proveedor = new Proveedor();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("eliminado", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('eliminar').hide();");
         } else
         {
-            System.out.println("No Eliminado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas al Eliminar", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 
@@ -91,4 +94,3 @@ public class ProveedorController implements Serializable
     }
 
 }
-
