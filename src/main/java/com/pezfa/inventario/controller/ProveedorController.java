@@ -1,11 +1,15 @@
 package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.ProveedorDB;
+import com.pezfa.inventario.models.Especie;
 import com.pezfa.inventario.models.Proveedor;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 
 @ManagedBean
@@ -49,6 +53,12 @@ public class ProveedorController implements Serializable
     {
         if (ProveedorDB.create(proveedor))
         {
+            proveedor = new Proveedor();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro existoso", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('registrar').hide();");
+            
             System.out.println("Registrado");
         } else
         {

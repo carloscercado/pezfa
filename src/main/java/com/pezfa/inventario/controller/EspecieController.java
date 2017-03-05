@@ -4,8 +4,12 @@ import com.pezfa.inventario.database.EspecieDB;
 import com.pezfa.inventario.models.Especie;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
+
 @ManagedBean
 @ViewScoped
 public class EspecieController implements Serializable
@@ -46,7 +50,11 @@ public class EspecieController implements Serializable
     {
         if (EspecieDB.create(especie))
         {
-            System.out.println("Registrado");
+            especie = new Especie();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro existoso", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('registrar').hide();");
         } else
         {
             System.out.println("No Registrado");
@@ -77,4 +85,3 @@ public class EspecieController implements Serializable
     }
 
 }
-
