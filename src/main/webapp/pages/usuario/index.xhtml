@@ -27,7 +27,7 @@
                         <p:column headerText="Usuario">
                             #{usuario.usuario} 
                         </p:column>
-                        
+
                         <p:column headerText="Rol">
                             #{usuario.rol} 
                         </p:column>
@@ -42,12 +42,17 @@
                 </h:form>
                 <p:dialog header="Registrar usuario" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true">
                     <h:form>
+                        <p:growl id="mensaje"/>
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="Usuario:"/>
-                            <p:inputText value="#{usuarioController.usuario.empleado.nombre}" required="true" requiredMessage="Ingrese usuario" placeholder="Usuario"/>
 
-                            <p:outputLabel value="Clave:"/>
-                            <p:inputText value="#{usuarioController.usuario.clave}" required="true" requiredMessage="Ingrese clave" placeholder="Clave"/>
+                            <p:outputLabel value="Empleado:"/>
+                            <p:selectOneMenu value="#{usuarioController.usuario.empleado}" filter="true" filterMatchMode="contains" converter="empleado" required="true" requiredMessage="Escoja el empleado" >
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
+                                <f:selectItems value="#{empleadoController.empleadores}" var="empleado" itemLabel="#{empleado.primerNombre} #{empleado.primerApellido}" itemValue="#{empleado}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Usuario:"/>
+                            <p:inputText value="#{usuarioController.usuario.usuario}" required="true" requiredMessage="Ingrese usuario" placeholder="Usuario"/>
 
                             <p:outputLabel value="Rol:"/>
                             <p:selectOneMenu value="#{usuarioController.usuario.rol}">
@@ -55,12 +60,12 @@
                                 <f:selectItem itemValue="F" itemLabel="Femenino"/>
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                             </p:selectOneMenu>
- 
+
                         </p:panelGrid>
                         <br/>
                         <center>
-                            <p:commandButton value="Registrar" icon="fa fa-save"/>
-                            <p:commandButton value="Eliminar" icon="fa fa-times" class="btn-danger"/>
+                            <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{usuarioController.register()}"/>
+                            <p:commandButton value="Cancelar" icon="fa fa-times" class="btn-danger" onclick="PF('registrar').id"/>
                         </center>
                     </h:form>
                 </p:dialog>
