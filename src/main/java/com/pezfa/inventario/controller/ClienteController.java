@@ -2,7 +2,6 @@ package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.ClienteDB;
 import com.pezfa.inventario.models.Cliente;
-import com.pezfa.inventario.models.Producto;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -42,6 +41,12 @@ public class ClienteController implements Serializable
         this.clientes = clientes;
     }
     
+    public void reset()
+    {
+        System.out.println("Sin limpiar");
+        cliente = new Cliente();
+        System.out.println("Reseteado");        
+    }
     public void register()
     {
         if(ClienteDB.create(cliente))
@@ -62,10 +67,15 @@ public class ClienteController implements Serializable
     {
         if(ClienteDB.update(cliente))
         {
-            System.out.println("Cliente Actualizado");
+            cliente = new Cliente();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('modificar').hide();");
         }else
         {
-            System.out.println("No Se Pudo Actualizar El Cliente");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
     

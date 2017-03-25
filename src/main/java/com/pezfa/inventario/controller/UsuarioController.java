@@ -48,13 +48,16 @@ public class UsuarioController implements Serializable {
         String clave = usuario.getClave();
         String user = usuario.getUsuario();
         Usuario userr = UsuarioDB.validateUser(user, clave);
-        if (userr == null) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos incorrectos", null);
-            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
-        } else {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "HOLA " + userr.getEmpleado().getPrimerApellido(), null);
-            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
-        }
+        /*
+         if (userr == null) {
+         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos incorrectos", null);
+         FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+         } else {
+         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "HOLA " + userr.getEmpleado().getPrimerApellido(), null);
+         FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+         }*/
+        RequestContext con = RequestContext.getCurrentInstance();
+        con.execute("location.href='http://localhost:8080/pezfa/pages/'");
 
     }
 

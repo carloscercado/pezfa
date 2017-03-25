@@ -2,7 +2,6 @@ package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.EspecieDB;
 import com.pezfa.inventario.models.Especie;
-import com.pezfa.inventario.models.Proveedor;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -86,10 +85,15 @@ public class EspecieController implements Serializable
     {
         if (EspecieDB.update(especie))
         {
-            System.out.println("Actualizador");
-        } else
+            especie = new Especie();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('modificar').hide();");
+        }else
         {
-            System.out.println("No Actualizado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 

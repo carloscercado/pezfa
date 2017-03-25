@@ -12,15 +12,16 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:dataTable widgetVar="productos" emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="producto" value="#{productoController.productos}">
+                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="productos" emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="producto" value="#{productoController.productos}">
                         <f:facet name="header">
                             <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
-                            Gestionar Producto                        
+                            Gestionar Producto  
+                            <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('productos').filter();" placeholder="Buscar"/>
                         </f:facet>
-                        <p:column headerText="C&oacute;digo">
+                        <p:column filterBy="#{producto.codigo}" headerText="C&oacute;digo" filterStyle="display: none">
                             #{producto.codigo}
                         </p:column>
-                        <p:column width="20%" headerText="Nombre">
+                        <p:column filterBy="#{producto.nombre}" width="20%" headerText="Nombre" filterStyle="display: none">
                             #{producto.nombre}
                         </p:column>
                         <p:column headerText="Cantidad">
@@ -40,10 +41,12 @@
                         </p:column>
                         <p:column width="20%" headerText="Opciones">
                             <center>  
-                                <p:commandButton icon="fa fa-trash" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger">
+                                <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger">
                                     <f:setPropertyActionListener target="#{productoController.producto}" value="#{producto}"/>
                                 </p:commandButton>
-                                <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                                <p:commandButton icon="fa fa-edit" title="Modificar" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
+                                    <f:setPropertyActionListener target="#{productoController.producto}" value="#{producto}"/>
+                                </p:commandButton>
                             </center> 
 
                         </p:column>
@@ -58,19 +61,19 @@
                         <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
                             <p:outputLabel value="C&oacute;digo"/>
-                            <p:inputText value="#{productoController.producto.codigo}" required="true" requiredMessage="Ingrese c&oacute;digo" placeholder="C&oacute;digo"/>
+                            <p:inputText autocomplete="off" value="#{productoController.producto.codigo}" required="true" requiredMessage="Ingrese c&oacute;digo" placeholder="C&oacute;digo"/>
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText value="#{productoController.producto.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
+                            <p:inputText autocomplete="off" value="#{productoController.producto.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Cantidad"/>
-                            <p:inputText value="#{productoController.producto.cantidad}" required="true" requiredMessage="Ingrese cantidad" placeholder="Cantidad"/>
+                            <p:inputText autocomplete="off" value="#{productoController.producto.cantidad}" required="true" requiredMessage="Ingrese cantidad" placeholder="Cantidad"/>
                             <p:outputLabel value="M&aacute;ximo"/>
-                            <p:inputText value="#{productoController.producto.maximo}" required="true" requiredMessage="Ingrese m&aacute;ximo" placeholder="M&aacute;ximo"/>
+                            <p:inputText autocomplete="off" value="#{productoController.producto.maximo}" required="true" requiredMessage="Ingrese m&aacute;ximo" placeholder="M&aacute;ximo"/>
                             <p:outputLabel value="M&iacute;nimo"/>
-                            <p:inputText value="#{productoController.producto.minimo}" required="true" requiredMessage="Ingrese M&iacute;nimo" placeholder="M&iacute;nimo"/>
+                            <p:inputText autocomplete="off" value="#{productoController.producto.minimo}" required="true" requiredMessage="Ingrese M&iacute;nimo" placeholder="M&iacute;nimo"/>
                             <p:outputLabel value="Categor&iacute;a"/>
-                            <p:inputText value="#{productoController.producto.categoria}" required="true" requiredMessage="Ingrese categor&iacute;a" placeholder="Categor&iacute;a"/>
+                            <p:inputText autocomplete="off" value="#{productoController.producto.categoria}" required="true" requiredMessage="Ingrese categor&iacute;a" placeholder="Categor&iacute;a"/>
                             <p:outputLabel value="Precio"/>
-                            <p:inputText value="#{productoController.producto.precio}" required="true" requiredMessage="Ingrese precio" placeholder="Precio"/>
+                            <p:inputText autocomplete="off" value="#{productoController.producto.precio}" required="true" requiredMessage="Ingrese precio" placeholder="Precio"/>
                         </p:panelGrid>
                         <br>
                             <center>
@@ -90,6 +93,36 @@
                         </center>
                     </h:form>
                 </p:dialog>
+                
+                        <p:dialog closable="false" header="Modificar producto" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
+                        <h:form>
+                           <p:growl id="mensaje"/> 
+                            
+                            <p:panelGrid columns="2">
+                                <p:outputLabel value="C&oacute;digo"/>
+                                <p:inputText autocomplete="off" value="#{productoController.producto.codigo}" disabled="true" required="true" requiredMessage="Ingrese c&oacute;digo" placeholder="C&oacute;digo"/>
+                                <p:outputLabel value="Nombre"/>
+                                <p:inputText autocomplete="off" value="#{productoController.producto.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
+                                <p:outputLabel value="Cantidad"/>
+                                <p:inputText autocomplete="off" value="#{productoController.producto.cantidad}" required="true" requiredMessage="Ingrese cantidad" placeholder="Cantidad"/>
+                                <p:outputLabel value="M&aacute;ximo"/>
+                                <p:inputText autocomplete="off" value="#{productoController.producto.maximo}" required="true" requiredMessage="Ingrese m&aacute;ximo" placeholder="M&aacute;ximo"/>
+                                <p:outputLabel value="M&iacute;nimo"/>
+                                <p:inputText autocomplete="off" value="#{productoController.producto.minimo}" required="true" requiredMessage="Ingrese M&iacute;nimo" placeholder="M&iacute;nimo"/>
+                                <p:outputLabel value="Categor&iacute;a"/>
+                                <p:inputText autocomplete="off" value="#{productoController.producto.categoria}" required="true" requiredMessage="Ingrese categor&iacute;a" placeholder="Categor&iacute;a"/>
+                                <p:outputLabel value="Precio"/>
+                                <p:inputText autocomplete="off" value="#{productoController.producto.precio}" required="true" requiredMessage="Ingrese precio" placeholder="Precio"/>
+                            </p:panelGrid>
+                            <br>
+                            <center>
+                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(productos)" actionListener="#{productoController.update()}"/> 
+                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger" onclick="PF('modificar').hide()"/>
+                            </center>
+                            </br>
+                        </h:form>
+                </p:dialog> 
+                
             </ui:define>
 
         </ui:composition>

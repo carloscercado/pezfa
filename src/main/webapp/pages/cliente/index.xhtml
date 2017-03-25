@@ -7,69 +7,71 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
-
         <ui:composition template="./../../template/menu.xhtml">
-
             <ui:define name="content">
                 <h:form>
-                    <p:dataTable widgetVar="clientes" emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="cliente" value="#{clienteController.clientes}">
+                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="clientes" emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="cliente" value="#{clienteController.clientes}">
                         <f:facet name="header">
                             <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
-                            Gestionar Cliente                        
+                            Gestionar cliente 
+                            <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('clientes').filter();" placeholder="Buscar"/>
                         </f:facet>
-                        <p:column headerText="RIF">
-                            #{cliente.rif}
+                        <p:column width="5%">
+                            <center>
+                                <span class="fa fa-user" />
+                            </center>
                         </p:column>
-                        <p:column headerText="Nombre">
+                        <p:column filterBy="#{cliente.rif}" headerText="RIF" filterStyle="display: none">
+                           <span class="fa fa-credit-card" /> #{cliente.rif}
+                        </p:column>
+                        <p:column filterBy="#{cliente.nombre}" headerText="Nombre" filterStyle="display: none">
                             #{cliente.nombre}
                         </p:column>
-                        <p:column width="25%" headerText="Direcci&oacute;n">
+                        <p:column width="20%" headerText="Direcci&oacute;n">
                             #{cliente.direccion}
                         </p:column>
                         <p:column headerText="Tel&eacute;fono">
-                            #{cliente.telefono}
+                            <span class="fa fa-phone" /> #{cliente.telefono}
                         </p:column>
-                        <p:column headerText="correo">
-                            #{cliente.correo}
-                        </p:column>
-                        <p:column width="20%" headerText="Opciones">
+
+                        <p:column width="15%" headerText="Opciones">
                             <center>  
-                                <p:commandButton icon="fa fa-trash" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger"> 
+                                <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger"> 
                                     <f:setPropertyActionListener target="#{clienteController.cliente}" value="#{cliente}"/>
                                 </p:commandButton>
-                                <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                                <p:commandButton icon="fa fa-edit" title="Modificar" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
+                                    <f:setPropertyActionListener target="#{clienteController.cliente}" value="#{cliente}"/>
+                                </p:commandButton>
                             </center> 
-                                
                         </p:column>
                     </p:dataTable>
                 </h:form>
                 <p:dialog closable="false" header="Registrar cliente" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
-                     <f:facet name="onHide">
-                        <p:ajax update="@widgetVar(clientes)"/>
+                    <f:facet name="onHide">
+                        <p:ajax update="@widgetVar(clientes)" listener="#{clienteController.reset()}"/>
                     </f:facet>
                     <h:form>
                         <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
                             <p:outputLabel value="RIF"/>
-                            <p:inputText value="#{clienteController.cliente.rif}" required="true" requiredMessage="Ingrese RIF" placeholder="RIF"/>
+                            <p:inputText autocomplete="off" value="#{clienteController.cliente.rif}" required="true" requiredMessage="Ingrese RIF" placeholder="RIF"/>
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
+                            <p:inputText autocomplete="off" value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Direcci&oacute;n"/>
-                            <p:inputText value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Ingrese direcci&oacute;n" placeholder="Direcci&oacute;n"/>
+                            <p:inputText autocomplete="off" value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Ingrese direcci&oacute;n" placeholder="Direcci&oacute;n"/>
                             <p:outputLabel value="Tel&eacute;fono"/>
-                            <p:inputText value="#{clienteController.cliente.telefono}" required="true" requiredMessage="Ingrese tel&eacute;fono" placeholder="Tel&eacute;fono"/>
+                            <p:inputText autocomplete="off" value="#{clienteController.cliente.telefono}" required="true" requiredMessage="Ingrese tel&eacute;fono" placeholder="Tel&eacute;fono"/>
                             <p:outputLabel value="Correo"/>
                             <p:inputText value="#{clienteController.cliente.correo}" required="true" requiredMessage="Ingrese correo" placeholder="Correo"/>
                         </p:panelGrid>
-                        <br>
-                            <center>
-                                <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{clienteController.register()}"/> 
-                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger" onclick="PF('registrar').hide()"/>
-                            </center>
-                        </br>
+                        <br/>
+                        <center>
+                            <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{clienteController.register()}"/> 
+                            <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
+                        </center>
                     </h:form>
                 </p:dialog>
-                
+
                 <p:dialog closable="false" header="&#191; Est&aacute;s seguro que deseas eliminar &#63;" widgetVar="eliminar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/> 
@@ -78,7 +80,32 @@
                             <p:commandButton value="No" icon="fa fa-times" class="btn-danger" onclick="PF('eliminar').hide()"/>
                         </center>
                     </h:form>
-                    </p:dialog>
+                </p:dialog>
+
+                <p:dialog closable="false" header="Modificar cliente" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="RIF"/>
+                            <p:inputText autocomplete="off" value="#{clienteController.cliente.rif}" disabled="true" required="true" requiredMessage="Ingrese RIF" placeholder="RIF"/>
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText autocomplete="off" value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
+                            <p:outputLabel value="Direcci&oacute;n"/>
+                            <p:inputText autocomplete="off" value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Ingrese direcci&oacute;n" placeholder="Direcci&oacute;n"/>
+                            <p:outputLabel value="Tel&eacute;fono"/>
+                            <p:inputText autocomplete="off" value="#{clienteController.cliente.telefono}" required="true" requiredMessage="Ingrese tel&eacute;fono" placeholder="Tel&eacute;fono"/>
+                            <p:outputLabel value="Correo"/>
+                            <p:inputText autocomplete="off" value="#{clienteController.cliente.correo}" required="true" requiredMessage="Ingrese correo" placeholder="Correo"/>
+                        </p:panelGrid>
+
+                        <br/>
+                            <center>
+                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(clientes)" actionListener="#{clienteController.update()}"/> 
+                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger" onclick="PF('modificar').hide()"/>
+                            </center>
+                    </h:form>
+                </p:dialog> 
+                
             </ui:define>
 
         </ui:composition>

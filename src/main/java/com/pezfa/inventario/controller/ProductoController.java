@@ -62,10 +62,15 @@ public class ProductoController implements Serializable
     {
         if(ProductoDB.update(producto))
         {
-            System.out.println("Producto Actualizado");
+            producto = new Producto();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('modificar').hide();");
         }else
         {
-            System.out.println("Producto No Actualizado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
     

@@ -4,21 +4,21 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:jsf="http://xmlns.jcp.org/jsf/core">
-        <h:head>
+    <h:head>
 
         <title>Pezfa </title>
         <link href="resources/css/bootstrap.min.css" rel="stylesheet"/> 
         <link href="resources/css/cssLayout.css" rel="stylesheet"/> 
 
         <h:outputScript name="/js/bootstrap.min.js"/>
-        </h:head>
-            
+    </h:head>
+
     <h:body style="background: #e8e8e8 ">
         <div>
 
             <p:outputLabel value="#{usuarioController.usuarios.size() }" class="invisible"/>            
             <h:form id="pa">
-               
+
                 <div class="container">
                     <div class="row ">
 
@@ -27,11 +27,15 @@
                             <div class="panel panel-default sombra">
                                 <div class="panel-heading">
 
-                                    <center><strong> <i class="fa fa-user fa-2x"></i>Pezfa - Login</strong>  </center>
+                                    <center>
+
+                                        <strong> <i class="fa fa-user fa-2x"></i>Pezfa - Login</strong>  </center>
                                 </div>
                                 <div class="panel-body">
                                     <p:growl   id="msg"  life="5000"/>
-
+                                    <center>
+                                        <p:graphicImage name="/images/pezfa-logo.png" style="margin-top: 5%" width="120 px" />
+                                    </center>
                                     <br />
 
 

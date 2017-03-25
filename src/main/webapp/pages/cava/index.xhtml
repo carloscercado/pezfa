@@ -11,20 +11,26 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:dataTable widgetVar="cavas" emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="cava" value="#{cavaController.cavas}">
+                    <p:dataTable scrollable="true" scrollHeight="350"  widgetVar="cavas" emptyMessage="No se Encontrar&oacute;n Datos" reflow="true" var="cava" value="#{cavaController.cavas}">
                         <f:facet name="header">
                             <p:commandButton style="alignment-adjust: central" value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
-                            Gestionar Cava                        
+                            Gestionar Cava 
+                            <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('cavas').filter();" placeholder="Buscar"/>
                         </f:facet>
-                        <p:column width="20%" headerText="Nombre">
+                        <p:column filterBy="#{cava.nombre}" width="20%" headerText="Nombre" filterStyle="display: none">
                             #{cava.nombre}
+                        </p:column>
+                        <p:column filterBy="#{cava.almacen.nombre}" width="20%" headerText="Almacen" filterStyle="display: none">
+                            #{cava.almacen.nombre},  #{cava.almacen.direccion}
                         </p:column>
                         <p:column width="20%" headerText="Opciones">
                             <center>  
-                                <p:commandButton icon="fa fa-trash" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger">
+                                <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger">
                                     <f:setPropertyActionListener target="#{cavaController.cava}" value="#{cava}"/>
                                 </p:commandButton>
-                                <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                                <p:commandButton icon="fa fa-edit" title="Modificar" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
+                                    <f:setPropertyActionListener target="#{cavaController.cava}" value="#{cava}"/>
+                                </p:commandButton>
                             </center> 
                                 
                         </p:column>
@@ -40,9 +46,12 @@
                         <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText value="#{cavaController.cava.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
+                            <p:inputText autocomplete="off" value="#{cavaController.cava.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Almac&eacute;n"/>
-                            <p:inputText value="#{cavaController.cava.almacen}" required="true" requiredMessage="Ingrese almac&eacute;n" placeholder="Almacen"/>
+                            <p:selectOneMenu value="#{cavaController.cava.almacen}" filter="true" filterMatchMode="contains" converter="almacen" required="true" requiredMessage="Seleccione el almac&eacute;n" >
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
+                                <f:selectItems value="#{almacenController.almacenes}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}"/>
+                            </p:selectOneMenu>
                         </p:panelGrid>
                         <br>
                             <center>
@@ -62,6 +71,30 @@
                         </center>
                     </h:form>
                 </p:dialog>
+                
+                 <p:dialog closable="false" header="Modificar cava" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
+                        <h:form>
+                           <p:growl id="mensaje"/> 
+                            
+                            <p:panelGrid columns="2">
+                                <p:outputLabel value="Nombre"/>
+                                <p:inputText autocomplete="off" value="#{cavaController.cava.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
+                                <p:outputLabel value="Almac&eacute;n"/>
+                                <p:selectOneMenu value="#{cavaController.cava.almacen}" filter="true" filterMatchMode="contains" converter="almacen" required="true" requiredMessage="Seleccione el almac&eacute;n" >
+                                    <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
+                                    <f:selectItems value="#{almacenController.almacenes}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <br>
+                            <center>
+                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(cavas)" actionListener="#{cavaController.update()}"/> 
+                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger" onclick="PF('modificar').hide()"/>
+                            </center>
+                            </br>
+                
+                            
+                    </h:form>
+                </p:dialog> 
                 
             </ui:define>
 

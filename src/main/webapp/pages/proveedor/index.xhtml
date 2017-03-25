@@ -27,8 +27,12 @@
                             #{proveedor.nombre}
 
                         </p:column>
-                        <p:column headerText="Direccion" width="30%">
+                        <p:column headerText="Direccion" width="25%">
                             #{proveedor.direccion}
+
+                        </p:column>
+                        <p:column headerText="Tel&eacute;fono">
+                            #{proveedor.telefono}
 
                         </p:column>
                         <p:column headerText="Correo">
@@ -38,10 +42,12 @@
                         <p:column headerText="opciones">
 
                             <center>
-                                <p:commandButton icon="fa fa-trash" oncomplete="PF('eliminar').show()" class="btn-danger">
+                                <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" class="btn-danger">
                                     <f:setPropertyActionListener target="#{proveedorController.proveedor}" value="#{proveedor}"/>
                                 </p:commandButton>
-                                <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                                <p:commandButton icon="fa fa-edit" title="Modificar" class="btn-warning" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" >
+                                    <f:setPropertyActionListener target="#{proveedorController.proveedor}" value="#{proveedor}"/>
+                                </p:commandButton> 
                             </center>
                         </p:column>
                     </p:dataTable>
@@ -58,8 +64,10 @@
                             <p:inputText placeholder="Rif" requiredMessage="Registrar Rif" required="true" value="#{proveedorController.proveedor.rif}"/>
                             <p:outputLabel value="Nombre:" />
                             <p:inputText placeholder="Nombre" requiredMessage="Registrar Nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
-                            <p:outputLabel value="Direccion:" />
-                            <p:inputTextarea placeholder="Direccion" requiredMessage="Registrar Direcion" required="true" value="#{proveedorController.proveedor.direccion}"  />
+                            <p:outputLabel value="Direcci&oacute;n:" />
+                            <p:inputTextarea placeholder="Direcci&oacute;n" requiredMessage="Registrar Direcci&oacute;n" required="true" value="#{proveedorController.proveedor.direccion}"  />
+                            <p:outputLabel value="Tel&eacute;fono"/>
+                            <p:inputText autocomplete="off" value="#{clienteController.cliente.telefono}" required="true" requiredMessage="Ingrese tel&eacute;fono" placeholder="Tel&eacute;fono"/>
                             <p:outputLabel value="Correo:" />
                             <p:inputText placeholder="Correo"  value="#{proveedorController.proveedor.correo}"/>
 
@@ -68,7 +76,7 @@
                         <br></br>
                         <center>
                             <p:commandButton icon="fa fa-save" value="Registrar" update="mensaje" actionListener="#{proveedorController.register()}" />
-                            <p:commandButton icon="fa fa-times" value="cancelar" onclick="PF('registrar').hide()" class="btn-danger"/>
+                            <p:commandButton icon="fa fa-times" value="cancelar" onclick="PF('registrar').hide()" immediate="true" class="btn-danger"/>
 
                         </center>
                     </h:form>
@@ -84,6 +92,33 @@
                         </center>
                     </h:form>
                 </p:dialog>
+                
+               <p:dialog closable="false" header="Modificar proveedor" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="RIF"/>
+                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.rif}" disabled="true" required="true" requiredMessage="Ingrese RIF" placeholder="RIF"/>
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
+                            <p:outputLabel value="Direcci&oacute;n"/>
+                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.direccion}" required="true" requiredMessage="Ingrese direcci&oacute;n" placeholder="Direcci&oacute;n"/>
+                            <p:outputLabel value="Tel&eacute;fono"/>
+                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.telefono}" required="true" requiredMessage="Ingrese tel&eacute;fono" placeholder="Tel&eacute;fono"/>
+                            <p:outputLabel value="Correo"/>
+                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.correo}" required="true" requiredMessage="Ingrese correo" placeholder="Correo"/>
+                        </p:panelGrid>
+
+                        <br>
+                            <center>
+                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(proveedores)" actionListener="#{proveedorController.update()}"/> 
+                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger" onclick="PF('modificar').hide()"/>
+                            </center>
+                        </br>
+
+
+                    </h:form>
+                </p:dialog> 
 
             </ui:define>
 

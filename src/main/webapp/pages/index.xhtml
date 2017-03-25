@@ -10,7 +10,115 @@
         <ui:composition template="./../template/menu.xhtml">
 
             <ui:define name="content">
-                HOLA MUNDO ESTE ES EL INDEX, O LA PAGINA PRINCIPAL
+                PEZFA C.A.
+                <br/>
+
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="hero-widget well well-sm">
+                            <center> <div class="icon">
+                                    <i class="fa fa-truck fa-5x" style="color: #045491"></i>
+                                </div>
+                            </center>
+                            <div class="text">
+                                <var><strong>#{proveedorController.provedores.size()}</strong></var>
+                                <label class="text-muted">Total de proveedores</label>
+                            </div>
+                            <div class="options">
+                                <center>
+                                    <a href="/pezfa/pages/proveedor" class="btn btn-secundary" >
+                                        <span class="fa fa-search"/> Ver todos
+                                    </a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="hero-widget well well-sm">
+                            <center> <div class="icon">
+                                    <i class="fa fa-user fa-5x" style="color: #045491"></i>
+                                </div>
+                            </center>
+                            <div class="text">
+                                <var><strong>#{empleadoController.empleadores.size()}</strong></var>
+                                <label class="text-muted">Total de empleados</label>
+                            </div>
+                            <div class="options">
+                                <center>
+                                    <a href="/pezfa/pages/empleado" class="btn btn-secundary" >
+                                        <span class="fa fa-search"/> Ver todos
+                                    </a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    
+                  
+
+                    <div class="col-sm-4">
+                        <div class="hero-widget well well-sm">
+                            <center> <div class="icon">
+                                    <i class="fa fa-users fa-5x" style="color: #045491"></i>
+                                </div>
+                            </center>
+                            <div class="text">
+                                <var><strong>#{clienteController.clientes.size()}</strong></var>
+                                <label class="text-muted">Total de clientes</label>
+                            </div>
+                            <div class="options">
+                                <center>
+                                    <a href="/pezfa/pages/cliente" class="btn btn-secundary" >
+                                        <span class="fa fa-search"/> Ver todos
+                                    </a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-sm-4">
+                        <div class="hero-widget well well-sm">
+                            <center> <div class="icon">
+                                    <i class="fa fa-cube fa-5x" style="color: #045491"></i>
+                                </div>
+                            </center>
+                            <div class="text">
+                                <var><strong>#{especieController.especies.size()}</strong></var>
+                                <label class="text-muted">Total de especies</label>
+                            </div>
+                            <div class="options">
+                                <center>
+                                    <a href="/pezfa/pages/especie" class="btn btn-secundary" >
+                                        <span class="fa fa-search"/> Ver todos
+                                    </a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="hero-widget well well-sm">
+                            <center> <div class="icon">
+                                    <i class="fa fa-cubes fa-5x" style="color: #045491"></i>
+                                </div>
+                            </center>
+                            <div class="text">
+                                <var><strong>#{productoController.productos.size()}</strong></var>
+                                <label class="text-muted">Total de productos</label>
+                            </div>
+                            <div class="options">
+                                <center>
+                                    <a href="/pezfa/pages/producto" class="btn btn-secundary" >
+                                        <span class="fa fa-search"/> Ver todos
+                                    </a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+
             </ui:define>
 
         </ui:composition>

@@ -20,7 +20,7 @@
                         </f:facet>
 
 
-                        <p:column headerText="Codigo" width="10%">
+                        <p:column headerText="C&oacute;digo" width="10%">
                             #{especie.codigo}
 
                         </p:column>
@@ -50,11 +50,14 @@
                         <p:column headerText="Opciones" priority="2">
 
                             <center>
-                                <p:commandButton icon="fa fa-trash" oncomplete="PF('eliminar').show()" class="btn-danger" >
+                                <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" class="btn-danger" >
                                     <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie}"/>
                                 </p:commandButton>
                         
-                                <p:commandButton icon="fa fa-edit" class="btn-warning"/>
+                                <p:commandButton icon="fa fa-edit" title="Modificar" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
+                                    <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie}"/>
+                                </p:commandButton>
+                             
 
                             </center>
                         </p:column>
@@ -68,16 +71,16 @@
                     <h:form id="todo">
                         <p:growl id="mensaje" />
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="Codigo:" />
-                            <p:inputText placeholder="Codigo" requiredMessage="Ingrese codigo" required="true" value="#{especieController.especie.codigo}"/>
+                            <p:outputLabel value="C&oacute;digo:" />
+                            <p:inputText placeholder="C&oacute;digo" requiredMessage="Ingrese c&oacute;digo" required="true" value="#{especieController.especie.codigo}"/>
                             <p:outputLabel value="Nombre:" />
-                            <p:inputText placeholder="Nombre" requiredMessage="Igrese nombre" required="true"  value="#{especieController.especie.nombre}"/>
+                            <p:inputText placeholder="Nombre" requiredMessage="Ingrese nombre" required="true"  value="#{especieController.especie.nombre}"/>
                             <p:outputLabel value="Tipo:" />
-                            <p:selectOneMenu requiredMessage="Ingrse opcion"  required="true"  value="#{especieController.especie.tipo}">
-                                <f:selectItem itemValue="ABC" itemLabel="Opcion 1"/>
-                                <f:selectItem itemValue="DEF" itemLabel="Opcion 2"/>
-                                <f:selectItem itemValue="GHI" itemLabel="Opcion 3"/>
-                                <f:selectItem itemValue="JKL" itemLabel="Opcion 4"/>
+                            <p:selectOneMenu requiredMessage="Ingrese opci&oacute;n"  required="true"  value="#{especieController.especie.tipo}">
+                                <f:selectItem itemValue="ABC" itemLabel="Opci&oacute;n 1"/>
+                                <f:selectItem itemValue="DEF" itemLabel="Opci&oacute;n 2"/>
+                                <f:selectItem itemValue="GHI" itemLabel="Opci&oacute;n 3"/>
+                                <f:selectItem itemValue="JKL" itemLabel="Opci&oacute;n 4"/>
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
 
                             </p:selectOneMenu>
@@ -90,7 +93,7 @@
                     </h:form>
                 </p:dialog> 
                 
-                <p:dialog closable="false" draggable="false" header="&#191; Est&aacute;s seguro de que desea eliminar &#63;" resizable="false" 
+                <p:dialog closable="false" draggable="false" header="&#191; Est&aacute;s seguro que desea eliminar &#63;" resizable="false" 
                           responsive="true" widgetVar="eliminar" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/>
@@ -100,7 +103,41 @@
                         </center>
                     </h:form>
                 </p:dialog>
+                
+                <p:dialog closable="false" header="Modificar especie" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="C&oacute;digo"/>
+                            <p:inputText autocomplete="off" value="#{especieController.especie.codigo}" disabled="true" required="true" requiredMessage="Ingrese RIF" placeholder="RIF"/>
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText autocomplete="off" value="#{especieController.especie.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
+                            <p:outputLabel value="cantidad"/>
+                            <p:inputText autocomplete="off" value="#{especieController.especie.cantidad}" required="true" requiredMessage="Ingrese direcci&oacute;n" placeholder="Direcci&oacute;n"/>
+                            <p:outputLabel value="M&aacute;ximo"/>
+                            <p:inputText autocomplete="off" value="#{especieController.especie.maximo}" required="true" requiredMessage="Ingrese tel&eacute;fono" placeholder="Tel&eacute;fono"/>
+                            <p:outputLabel value="M&iacute;nimo"/>
+                            <p:inputText autocomplete="off" value="#{especieController.especie.minimo}" required="true" requiredMessage="Ingrese correo" placeholder="Correo"/>
+                            <p:outputLabel value="Tipo"/>
+                            <p:selectOneMenu requiredMessage="Ingrese el tipo"  required="true"  value="#{especieController.especie.tipo}">
+                                <f:selectItem itemValue="ABC" itemLabel="Opci&oacute;n 1"/>
+                                <f:selectItem itemValue="DEF" itemLabel="Opci&oacute;n 2"/>
+                                <f:selectItem itemValue="GHI" itemLabel="Opci&oacute;n 3"/>
+                                <f:selectItem itemValue="JKL" itemLabel="Opci&oacute;n 4"/>
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Precio"/>
+                            <p:inputText autocomplete="off" value="#{especieController.especie.precio}" required="true" requiredMessage="Ingrese correo" placeholder="Correo"/>
+                        
+                        </p:panelGrid>
 
+                        <br/>
+                            <center>
+                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(especies)" actionListener="#{especieController.update()}"/> 
+                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger" onclick="PF('modificar').hide()"/>
+                            </center>
+                    </h:form>
+                </p:dialog> 
             </ui:define>
 
         </ui:composition>

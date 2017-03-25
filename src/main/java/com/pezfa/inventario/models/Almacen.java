@@ -18,7 +18,30 @@ public class Almacen  implements java.io.Serializable {
     public Almacen() {
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Almacen other = (Almacen) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
 	
+    
     public Almacen(int id, String nombre, String direccion) {
         this.id = id;
         this.nombre = nombre;

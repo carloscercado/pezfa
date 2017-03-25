@@ -61,11 +61,16 @@ public class CavaController implements Serializable
     public void update()
     {
         if(CavaDB.update(cava))
-        {
-            System.out.println("Actualizado Exitosamente");
+       {
+            cava = new Cava();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('modificar').hide();");
         }else
         {
-            System.out.println("No Se Pudo Actualizar");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
     

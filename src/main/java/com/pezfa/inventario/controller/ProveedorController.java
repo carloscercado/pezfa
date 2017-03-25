@@ -1,7 +1,6 @@
 package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.ProveedorDB;
-import com.pezfa.inventario.models.Especie;
 import com.pezfa.inventario.models.Proveedor;
 import java.io.Serializable;
 import java.util.List;
@@ -86,11 +85,15 @@ public class ProveedorController implements Serializable
     {
         if (ProveedorDB.update(proveedor))
         {
-            System.out.println("Actualizador");
-        } else
+            proveedor = new Proveedor();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('modificar').hide();");
+        }else
         {
-            System.out.println("No Actualizado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
-
 }
