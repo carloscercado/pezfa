@@ -65,6 +65,31 @@ public class CompraEspecieDB //registrar las funciones osea los crud de la base 
             return lista;
        }
     }
+    
+    public static List<CompraEspecie> findBy(int id)
+    {
+       Session sesion = null;//
+       List<CompraEspecie> lista = null;
+       try
+       {
+           sesion=HibernateUtil.getSesion().openSession(); //abrir conexion en la base de datos
+           sesion.beginTransaction();//abrir la transaccion
+           lista=sesion.createQuery("from CompraEspecie esp where esp.id='"+id+"'").list();//crea la consulta de la base de datos mediante el llamado de la clase y la muestra en forma de lista
+           sesion.getTransaction().commit();//terminado de la transaccion
+       }catch(Exception hi)
+       {
+           sesion.getTransaction().rollback();
+       }
+       finally
+       {
+           if (sesion != null)
+           {
+               sesion.close();
+           }
+            return lista;
+       }
+    }
+    
     public static boolean update(CompraEspecie obj)
     {
        Session sesion = null;

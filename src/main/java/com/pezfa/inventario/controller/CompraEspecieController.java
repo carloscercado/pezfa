@@ -3,6 +3,7 @@ package com.pezfa.inventario.controller;
 import com.pezfa.inventario.database.CompraEspecieDB;
 import com.pezfa.inventario.models.CompraEspecie;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -11,8 +12,9 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class CompraEspecieController implements Serializable
 {
-    private CompraEspecie compraEspecie = null;
+   private CompraEspecie compraEspecie = null;
    private List<CompraEspecie> compraEspecies = null;
+   private List<CompraEspecie> detalleCompra = null;
 
     public CompraEspecieController()
     {
@@ -38,6 +40,18 @@ public class CompraEspecieController implements Serializable
         this.compraEspecies = compraEspecies;
     }
 
+    public List<CompraEspecie> getDetalleCompra()
+    { 
+        int id = 123;//this.compraEspecie.getCompra().getId();
+        detalleCompra = CompraEspecieDB.findBy(id);
+        return detalleCompra;
+    }
+
+    public void setDetalleCompra(List<CompraEspecie> detalleCompra)
+    {
+        this.detalleCompra = detalleCompra;
+    }
+    
     public void register()
     {
         if (CompraEspecieDB.create(compraEspecie))
@@ -48,7 +62,7 @@ public class CompraEspecieController implements Serializable
             System.out.println("No Registrado");
         }
     }
-
+ 
     public void delete()
     {
         if (CompraEspecieDB.delete(compraEspecie))

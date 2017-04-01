@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/menu.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <h3 style="margin-top:0">Aqu&iacute; va el cuadro de b&uacute;squeda</h3>
+                    <p:dataTable emptyMessage="No se encontraron datos." var="compra" widgetVar="compras" value="#{compraController.compras}" reflow="true">
+
+                        <f:facet name="header">
+                            Transacci&oacute;n de entrada                         
+                        </f:facet> 
+
+                        <p:column headerText="Orden de compra">
+                            #{compra.orden} 
+                        </p:column>
+
+                        <p:column headerText="Fecha">
+                            #{compra.fecha}
+                        </p:column>
+
+                        <p:column headerText="Gasto">
+                            <h:outputLabel value="#{compra.gasto}">
+                                <f:convertNumber currencySymbol="Bs" locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                            </h:outputLabel> 
+                        </p:column>
+
+                        <p:column headerText="Opciones">
+                            <center>
+                                <p:commandButton icon="fa fa-gear" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()">
+                                    <f:setPropertyActionListener target="#{compraController.compra}" value="#{compra}"/>
+                                </p:commandButton>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+                <p:dialog header="Detalles de compra" widgetVar="agregar" responsive="true" resizable="false" draggable="false" modal="true" width="600">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Orden de compra"/>
+                            <p:inputText autocomplete="off" value="#{compraController.compra.orden}" disabled="true"/>
+                            <p:outputLabel value="Nombre del proveedor"/>
+                            <p:inputText autocomplete="off" value="#{compraController.compra.proveedor.nombre}" disabled="true"/>
+                            <p:outputLabel value="Fecha"/>
+                            <p:inputText autocomplete="off" value="#{compraController.compra.fecha}" disabled="true"/>
+                            <p:outputLabel value="Gasto"/>
+                            <p:inputText autocomplete="off" value="#{compraController.compra.gasto}" disabled="true"/>
+                        </p:panelGrid>
+                        
+                        <br/>
+                        <p:dataTable emptyMessage="No se encuentraron datos." value="#{compraEspecieController.detalleCompra}" var="compraEspecie" widgetVar="compraEspecies" reflow="true">
+
+                            <p:column headerText="Cantidad">
+                                #{compraEspecie.cantidad} 
+                            </p:column>
+
+                            <p:column headerText="Gasto">
+                                <h:outputLabel value="#{compraEspecie.costo}">
+                                    <f:convertNumber currencySymbol="Bs" locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                </h:outputLabel> 
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
