@@ -50,3 +50,21 @@ body{
 {
     box-shadow: 10px 7px 5px rgba(0,0,0,0.5);
 }
+
+@media screen and (max-width: 990px)
+{
+    .header-tabla-hidden
+    {
+        display: none; 
+    }
+    
+    .column-hidden
+    {
+        display: none !important; 
+    }
+    
+    .header-tabla-center
+    {
+        text-align: center !important; 
+    }
+}

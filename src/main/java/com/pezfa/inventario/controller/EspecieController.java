@@ -46,55 +46,57 @@ public class EspecieController implements Serializable
         this.especies = especies;
     }
 
+     public void reset()
+    {
+        System.out.println("Sin limpiar");
+        especie = new Especie();
+        System.out.println("Reseteado");        
+    }
     public void register()
     {
-        if (EspecieDB.create(especie))
+        if(EspecieDB.create(especie))
         {
             especie = new Especie();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro existoso", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('registrar').hide();");
-        } else
+        }else
         {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro fallido", null);
-            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
-            System.out.println("No Registrado");
-        }
-    }
-
-    public void delete()
-    {
-        if (EspecieDB.delete(especie))
-        {
-            especie = new Especie();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado existosamente", null);
-            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
-            RequestContext con = RequestContext.getCurrentInstance();
-            con.execute("PF('eliminar').hide();");
-            
-        } else
-        {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas al Eliminar", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser guardado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
-
-    //logica para actualizar un almacen
+    
     public void update()
     {
-        if (EspecieDB.update(especie))
+        if(EspecieDB.update(especie))
         {
             especie = new Especie();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado exitosamente", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('modificar').hide();");
         }else
         {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
-
+    
+    public void delete()
+    {
+        if(EspecieDB.delete(especie))
+        {
+            especie = new Especie();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('eliminar').hide();");
+        }else
+        {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este registro no puede ser eliminado", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+        }
+    }
 }

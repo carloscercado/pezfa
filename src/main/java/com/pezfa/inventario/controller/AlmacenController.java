@@ -45,20 +45,25 @@ public class AlmacenController implements Serializable
     {
         this.almacenes = almacenes;
     }
-
-    //logica para registrar un almacen
+    
+     public void reset()
+    {
+        System.out.println("Sin limpiar");
+        almacen = new Almacen();
+        System.out.println("Reseteado");        
+    }
     public void register()
     {
         if (AlmacenDB.create(almacen))
         {
             almacen = new Almacen();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro existoso", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('registrar').hide();");
         } else
         {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro fallido", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser guardado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
@@ -69,27 +74,31 @@ public class AlmacenController implements Serializable
         if (AlmacenDB.delete(almacen))
         {
             almacen = new Almacen();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado exitosamente", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('eliminar').hide();");
         } else
         {
-             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Problemas al eliminar", null);
+             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este registro no puede ser eliminado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
-
-    //logica para actualizar un almacen
+    
     public void update()
     {
-        if (AlmacenDB.update(almacen))
+        if(AlmacenDB.update(almacen))
+       {
+            almacen = new Almacen();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('modificar').hide();");
+        }else
         {
-            System.out.println("Actualizado");
-        } else
-        {
-            System.out.println("No Actualizado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
-    }
 
+    }
 }
