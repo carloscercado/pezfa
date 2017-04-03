@@ -8,20 +8,52 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
 public class CompraEspecieController implements Serializable
 {
+<<<<<<< HEAD
    private CompraEspecie compraEspecie = null;
    private List<CompraEspecie> compraEspecies = null;
    private List<CompraEspecie> detalleCompra = null;
    @ManagedProperty(value="#{compraController}")
    private CompraController compraController;
+=======
+    private CompraEspecie compraEspecie = null;
+    private List<CompraEspecie> compraEspecies = null;
+    private List<CompraEspecie> miLista = null;
+    @ManagedProperty(value = "#{compraController}")
+    private CompraController compraController;
+    private List<CompraEspecie> detalleCompra = null;
+>>>>>>> 619e2f1c82ba1aa3ef018bd9d342f2be69f49635
 
     public CompraEspecieController()
     {
-        compraEspecie = new CompraEspecie(); 
+        compraEspecie = new CompraEspecie();
+        miLista = new ArrayList<CompraEspecie>();
+    }
+
+    public CompraController getCompraController()
+    {
+        return compraController;
+    }
+
+    public void setCompraController(CompraController compraController)
+    {
+        this.compraController = compraController;
+    }
+
+    
+    public List<CompraEspecie> getMiLista()
+    {
+        return miLista;
+    }
+
+    public void setMiLista(List<CompraEspecie> miLista)
+    {
+        this.miLista = miLista;
     }
 
     public CompraController getCompraController() {
@@ -37,6 +69,7 @@ public class CompraEspecieController implements Serializable
     {
         return compraEspecie;
     }
+
     public void setCompraEspecie(CompraEspecie compraEspecie)
     {
         this.compraEspecie = compraEspecie;
@@ -47,6 +80,7 @@ public class CompraEspecieController implements Serializable
         compraEspecies = CompraEspecieDB.read();
         return compraEspecies;
     }
+
     public void setCompraEspecies(List<CompraEspecie> compraEspecies)
     {
         this.compraEspecies = compraEspecies;
@@ -66,7 +100,7 @@ public class CompraEspecieController implements Serializable
     
     public void register()
     {
-        if (CompraEspecieDB.create(compraEspecie))
+        if (CompraEspecieDB.createList(miLista))
         {
             System.out.println("Registrado");
         } else
@@ -74,7 +108,27 @@ public class CompraEspecieController implements Serializable
             System.out.println("No Registrado");
         }
     }
+<<<<<<< HEAD
+    
+    public void add()
+    {
+        compraEspecie.setCompra(compraController.getCompra());
+        miLista.add(compraEspecie);
+        compraEspecie = new CompraEspecie();
+        RequestContext con = RequestContext.getCurrentInstance();
+        con.execute("PF('agregar').hide(); PF('registrar').hide();");
+        
+    }
+    
+    public void remove()
+    {
+        miLista.remove(compraEspecie);
+        compraEspecie = new CompraEspecie();        
+    }
+
+=======
  
+>>>>>>> f0aa74b23f4d2b66e70021af33fb0b8731ec3b98
     public void delete()
     {
         if (CompraEspecieDB.delete(compraEspecie))
