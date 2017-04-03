@@ -2,7 +2,6 @@ package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.CavaDB;
 import com.pezfa.inventario.models.Cava;
-import com.pezfa.inventario.models.Producto;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -41,19 +40,25 @@ public class CavaController implements Serializable
     {
         this.cavas = cavas;
     }
+    public void reset()
+    {
+        System.out.println("Sin limpiar");
+        cava = new Cava();
+        System.out.println("Reseteado");        
+    }
     
     public void register()
     {
         if(CavaDB.create(cava))
         {
             cava = new Cava();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro existoso", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('registrar').hide();");
         }else
         {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro fallido", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser guardado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
@@ -63,13 +68,13 @@ public class CavaController implements Serializable
         if(CavaDB.update(cava))
        {
             cava = new Cava();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado exitosamente", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('modificar').hide();");
         }else
         {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
@@ -79,13 +84,13 @@ public class CavaController implements Serializable
         if(CavaDB.delete(cava))
         {
             cava = new Cava();
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado exitosamente", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('eliminar').hide();");
         }else
         {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Problemas al eliminar", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este registro no puede ser eliminado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }

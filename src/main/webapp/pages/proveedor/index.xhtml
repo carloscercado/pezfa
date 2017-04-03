@@ -11,115 +11,114 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-                <h:form>
-                    <p:dataTable scrollHeight="250" scrollable="true" widgetVar="proveedores" var="proveedor" value="#{proveedorController.provedores}">
+                 <h:form>
+                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="proveedores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="proveedor" value="#{proveedorController.provedores}">
                         <f:facet name="header">
-                            <p:commandButton value="Agregar" class="right" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
-                            Gestionar Proveedores
+                             <div class="col-md-6 text-left header-tabla-hidden">
+                                <p:commandButton style="alignment-adjust: central" value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                            </div>
+                            <center>
+                                <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('proveedores').filter();" placeholder="Buscar"/>
+                            </center>
                         </f:facet>
-
-
-                        <p:column headerText="Rif" width="15%">
+                        <p:column width="5%" class="column-hidden">
+                            <center>
+                                <span class="fa fa-truck" />
+                            </center>
+                        </p:column>
+                         
+                        <p:column headerText="RIF" width="15%" filterBy="#{proveedor.rif}" filterStyle="display: none">
                             #{proveedor.rif}
-
                         </p:column>
-                        <p:column headerText="Nombre">
+                         
+                        <p:column headerText="Nombre" filterBy="#{proveedor.nombre}" filterStyle="display: none">
                             #{proveedor.nombre}
-
                         </p:column>
-                        <p:column headerText="Direccion" width="25%">
+                         
+                         <p:column headerText="Direcci&oacute;n" width="25%">
                             #{proveedor.direccion}
-
                         </p:column>
+                         
                         <p:column headerText="Tel&eacute;fono">
                             #{proveedor.telefono}
-
                         </p:column>
+                         
                         <p:column headerText="Correo">
                             #{proveedor.correo}
-
                         </p:column>
-                        <p:column headerText="opciones">
-
-                            <center>
-                                <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" class="btn-danger">
+                         
+                        <p:column width="15%" class="column-hidden" headerText="Opciones">
+                            <center>  
+                                <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger"> 
                                     <f:setPropertyActionListener target="#{proveedorController.proveedor}" value="#{proveedor}"/>
                                 </p:commandButton>
-                                <p:commandButton icon="fa fa-edit" title="Modificar" class="btn-warning" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" >
+                                <p:commandButton icon="fa fa-edit" title="Modificar" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
                                     <f:setPropertyActionListener target="#{proveedorController.proveedor}" value="#{proveedor}"/>
-                                </p:commandButton> 
-                            </center>
+                                </p:commandButton>
+                            </center> 
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                
-                <p:dialog closable="false" draggable="false" header="Registrar proveedor" resizable="false" responsive="true" widgetVar="registrar" modal="true">
+                <p:dialog closable="false" header="Registrar proveedor" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
                     <f:facet name="onHide">
-                        <p:ajax update="@widgetVar(proveedores)"/>
+                        <p:ajax update="@widgetVar(proveedores)" listener="#{proveedorController.reset()}"/>
                     </f:facet>
                     <h:form>
-                        <p:growl id="mensaje" />
+                        <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="Rif:" />
-                            <p:inputText placeholder="Rif" requiredMessage="Registrar Rif" required="true" value="#{proveedorController.proveedor.rif}"/>
+                            <p:outputLabel value="RIF:" />
+                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" required="true" value="#{proveedorController.proveedor.rif}"/>
                             <p:outputLabel value="Nombre:" />
-                            <p:inputText placeholder="Nombre" requiredMessage="Registrar Nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
+                            <p:inputText autocomplete="off" maxlength="20" placeholder="Nombre" requiredMessage="Registrar el nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
                             <p:outputLabel value="Direcci&oacute;n:" />
-                            <p:inputTextarea placeholder="Direcci&oacute;n" requiredMessage="Registrar Direcci&oacute;n" required="true" value="#{proveedorController.proveedor.direccion}"  />
+                            <p:inputText autocomplete="off" placeholder="Direcci&oacute;n" requiredMessage="Registrar la Direcci&oacute;n" required="true" value="#{proveedorController.proveedor.direccion}"  />
                             <p:outputLabel value="Tel&eacute;fono"/>
-                            <p:inputText autocomplete="off" value="#{clienteController.cliente.telefono}" required="true" requiredMessage="Ingrese tel&eacute;fono" placeholder="Tel&eacute;fono"/>
+                            <p:inputMask  value="#{proveedorController.proveedor.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
                             <p:outputLabel value="Correo:" />
-                            <p:inputText placeholder="Correo"  value="#{proveedorController.proveedor.correo}"/>
-
-
+                            <p:inputText placeholder="Correo" autocomplete="off" value="#{proveedorController.proveedor.correo}"/>
                         </p:panelGrid>
-                        <br></br>
+                        <br/>
                         <center>
-                            <p:commandButton icon="fa fa-save" value="Registrar" update="mensaje" actionListener="#{proveedorController.register()}" />
-                            <p:commandButton icon="fa fa-times" value="cancelar" onclick="PF('registrar').hide()" immediate="true" class="btn-danger"/>
-
-                        </center>
-                    </h:form>
-                </p:dialog> 
-
-                <p:dialog closable="false" draggable="false" header="&#191; Est&aacute;s seguro de que desea eliminar &#63;" resizable="false" 
-                          responsive="true" widgetVar="eliminar" modal="true">
-                    <h:form>
-                        <p:growl id="mensaje"/>
-                        <center>
-                            <p:commandButton  icon="fa fa-check" value="Si" actionListener="#{proveedorController.delete()}" update="@widgetVar(proveedores) mensaje" />
-                            <p:commandButton icon="fa fa-times" value="No" onclick="PF('eliminar').hide()" class="btn-danger"/>
+                            <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{proveedorController.register()}"/> 
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
                         </center>
                     </h:form>
                 </p:dialog>
-                
-               <p:dialog closable="false" header="Modificar proveedor" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
+
+                <p:dialog closable="false" header="&#191; Est&aacute;s seguro que deseas eliminar al proveedor #{proveedorController.proveedor.nombre} &#63;" widgetVar="eliminar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/> 
-                        <p:panelGrid columns="2">
+                        <center>
+                            <p:commandButton value="Si" icon="fa fa-check"  actionListener="#{proveedorController.delete()}" update="mensaje @widgetVar(proveedores)"/> 
+                            <p:commandButton value="No" icon="fa fa-times" class="btn-danger" oncomplete="PF('eliminar').hide()" actionListener="#{proveedorController.reset()}"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog closable="false" header="Modificar proveedor" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                          <p:panelGrid columns="2">
                             <p:outputLabel value="RIF"/>
-                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.rif}" disabled="true" required="true" requiredMessage="Ingrese RIF" placeholder="RIF"/>
+                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.rif}" disabled="true" required="true" requiredMessage="Ingrese el RIF" placeholder="RIF"/>
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre"/>
+                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Direcci&oacute;n"/>
-                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.direccion}" required="true" requiredMessage="Ingrese direcci&oacute;n" placeholder="Direcci&oacute;n"/>
+                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
                             <p:outputLabel value="Tel&eacute;fono"/>
-                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.telefono}" required="true" requiredMessage="Ingrese tel&eacute;fono" placeholder="Tel&eacute;fono"/>
+                            <p:inputMask  value="#{proveedorController.proveedor.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
                             <p:outputLabel value="Correo"/>
-                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.correo}" required="true" requiredMessage="Ingrese correo" placeholder="Correo"/>
+                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.correo}" placeholder="Correo"/>
                         </p:panelGrid>
 
-                        <br>
+                        <br/>
                             <center>
                                 <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(proveedores)" actionListener="#{proveedorController.update()}"/> 
-                                <p:commandButton icon="fa fa-times" value="Cancelar" class="btn-danger" onclick="PF('modificar').hide()"/>
+                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{proveedorController.reset()}" oncomplete="PF('modificar').hide()"/>
                             </center>
-                        </br>
-
-
                     </h:form>
                 </p:dialog> 
-
+                
             </ui:define>
 
         </ui:composition>

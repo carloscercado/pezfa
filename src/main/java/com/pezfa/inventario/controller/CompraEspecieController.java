@@ -14,12 +14,12 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 public class CompraEspecieController implements Serializable
 {
-
     private CompraEspecie compraEspecie = null;
     private List<CompraEspecie> compraEspecies = null;
     private List<CompraEspecie> miLista = null;
     @ManagedProperty(value = "#{compraController}")
     private CompraController compraController;
+    private List<CompraEspecie> detalleCompra = null;
 
     public CompraEspecieController()
     {
@@ -69,6 +69,18 @@ public class CompraEspecieController implements Serializable
         this.compraEspecies = compraEspecies;
     }
 
+    public List<CompraEspecie> getDetalleCompra()
+    { 
+        int id = 123;//this.compraEspecie.getCompra().getId();
+        detalleCompra = CompraEspecieDB.findBy(id);
+        return detalleCompra;
+    }
+
+    public void setDetalleCompra(List<CompraEspecie> detalleCompra)
+    {
+        this.detalleCompra = detalleCompra;
+    }
+    
     public void register()
     {
         if (CompraEspecieDB.createList(miLista))
@@ -79,6 +91,7 @@ public class CompraEspecieController implements Serializable
             System.out.println("No Registrado");
         }
     }
+<<<<<<< HEAD
     
     public void add()
     {
@@ -96,6 +109,9 @@ public class CompraEspecieController implements Serializable
         compraEspecie = new CompraEspecie();        
     }
 
+=======
+ 
+>>>>>>> f0aa74b23f4d2b66e70021af33fb0b8731ec3b98
     public void delete()
     {
         if (CompraEspecieDB.delete(compraEspecie))
