@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/menu.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panelGrid columns="4">
+                        <p:selectOneMenu value="#{compraController.compra.proveedor}" filter="true" filterMatchMode="contains" converter="proveedor" required="true" requiredMessage="Seleccione el proveedor" >
+                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Proveedor"/>
+                            <f:selectItems value="#{proveedorController.provedores}" var="proveedor" itemLabel="#{proveedor.rif}, #{proveedor.nombre}" itemValue="#{proveedor}"/>
+                        </p:selectOneMenu>
+                        <p:inputText placeholder="Orden de compra" value="#{compraController.compra.orden}"/>
+                        <p:calendar placeholder="Fecha" value="#{compraController.compra.fecha}"/>
+                        <p:calendar locale="es" placeholder="Hora" value="#{compraController.compra.hora}" pattern="HH:mm" timeOnly="true"/>
+                    </p:panelGrid>
+               
+                    <br/>
+                    <p:dataTable  scrollHeight="250" scrollable="true" widgetVar="compraEspecie" var="detalle" value="#{compraEspecieController.miLista}">
+                        <f:facet name="header">
+                            <p:commandButton immediate="true" value="Agregar" class="right" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                            Agregar especie
+                        </f:facet>
+
+                        <p:column headerText="Especie">
+                            #{detalle.especie.nombre}
+
+                        </p:column>
+                        <p:column headerText="Cantidad">
+                            #{detalle.cantidad}
+
+                        </p:column>
+
+                        <p:column headerText="Costo" width="25%">
+                            <p:outputLabel value="#{detalle.costo}">
+                                <f:convertNumber currencySymbol="Bs" locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                            </p:outputLabel>
+
+                        </p:column>
+                        <p:column headerText="Quitar">
+
+                            <center>
+                                <p:commandButton icon="fa fa-trash" title="Eliminar" update="@widgetVar(eliminar)"  oncomplete="PF('eliminar').show()" class="btn-danger">
+                                    <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie}" value="#{detalle}"/>
+                                </p:commandButton>
+
+                            </center>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:growl id="mensaje" life="5000"/>
+
+                            <p:commandButton value="Guardar compra" class="btn-success" icon="fa fa-plus" update="mensaje" actionListener="#{compraEspecieController.register()}"/>
+
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>
+                <p:dialog width="700" draggable="false" header="Especies registradas" resizable="false" responsive="true" widgetVar="registrar" modal="true">
+
+                    <h:form>
+                        <p:growl id="mensaje" />
+
+                        <h:form>
+                            <p:dataTable widgetVar="especies" scrollable="true" scrollHeight="250"
+                                         var="especie" value="#{especieController.especies}" reflow="true">
+
+
+                                <p:column headerText="Nombre">
+                                    #{especie.nombre}
+
+                                </p:column>
+
+                                <p:column headerText="Precio">
+                                    Bs.f #{especie.precio} 
+                                </p:column>
+                                <p:column headerText="Tipo">
+                                    #{especie.tipo}
+                                </p:column>
+                                <p:column headerText="Opciones" priority="2">
+
+                                    <center>
+                                        <p:commandButton icon="fa fa-plus" title="Agregars" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
+                                            <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie.especie}" value="#{especie}"/>
+                                        </p:commandButton>
+
+                                    </center>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+
+
+                        <br></br>
+
+                    </h:form>
+                </p:dialog> 
+                <p:dialog draggable="false" header="Especies registradas" resizable="false" responsive="true" widgetVar="agregar" modal="true">
+
+                    <h:form>
+
+                        <h:form>
+                            <p:growl id="mensaje" />
+
+                            <p:panelGrid columns="2">
+                                <p:outputLabel value="Nombre:" />
+                                <p:inputText readonly="true"  value="#{compraEspecieController.compraEspecie.especie.nombre}"/>
+                                <p:outputLabel value="Cantidad:" />
+                                <p:inputText  value="#{compraEspecieController.compraEspecie.cantidad}"/>
+                                <p:outputLabel value="Costo:" />
+                                <p:inputText  value="#{compraEspecieController.compraEspecie.costo}"/>
+                            </p:panelGrid>
+                            <br></br>
+                            <center>
+                                <p:commandButton icon="fa fa-save" value="Agregar" update="@widgetVar(compraEspecie) mensaje" actionListener="#{compraEspecieController.add()}"   />
+                                <p:commandButton icon="fa fa-times" value="Cancelar" onclick="PF('agregar').hide()" class="btn-danger"/>
+                            </center>
+                            <br/>
+                        </h:form>
+
+
+                        <br></br>
+
+                    </h:form>
+                </p:dialog> 
+
+                <p:dialog closable="false" draggable="false" header="&#191; Est&aacute;s seguro de que desea eliminar &#63;" resizable="false" 
+                          responsive="true" widgetVar="eliminar" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/>
+                        <center>
+                            <p:commandButton  icon="fa fa-check" value="Si" oncomplete="PF('eliminar').hide()" actionListener="#{compraEspecieController.remove()}" update="@widgetVar(compraEspecie)" />
+                            <p:commandButton icon="fa fa-times" value="No" onclick="PF('eliminar').hide()" class="btn-danger"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
