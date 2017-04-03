@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:jsf="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
 
         <title>Pezfa </title>
@@ -16,7 +15,7 @@
     <h:body style="background: #e8e8e8 ">
         <div>
 
-            <p:outputLabel value="#{usuarioController.usuarios.size() }" class="invisible"/>            
+            <p:outputLabel value="#{proveedorController.provedores.size() }" class="invisible"/>            
             <h:form id="pa">
 
                 <div class="container">
@@ -41,7 +40,7 @@
 
                                     <div class="form-group input-group">
                                         <p:inputText requiredMessage="* Ingrese el usuario" class="form-control" autocomplete="off" 
-                                                     value="#{usuarioController.usuario.usuario}" 
+                                                     value="#{loginController.usuario.usuario}" 
                                                      placeholder="Nombre de usuario"
                                                      required="true"     />
                                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -50,7 +49,7 @@
 
                                     <div class="form-group input-group">
                                         <p:password requiredMessage="* Ingrese la clave" class="form-control" autocomplete="off" 
-                                                    value="#{usuarioController.usuario.clave}"  placeholder="Clave"
+                                                    value="#{loginController.usuario.clave}"  placeholder="Clave"
                                                     required="true"     />
                                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
@@ -60,7 +59,7 @@
                                     <center>
                                         <p:commandButton class="btn-primary" id="entrar"  style="margin-top: 3%; margin-bottom: 3%"
                                                          value="Iniciar sesi&oacute;n" icon="fa fa-sign-in" resetValues="true" update="msg" 
-                                                         actionListener="#{usuarioController.validateUsuario()}"/>
+                                                         actionListener="#{loginController.validate()}"/>
                                     </center>
 
                                     <p:blockUI block="@(.panel)" trigger="entrar">

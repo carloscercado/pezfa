@@ -8,22 +8,45 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
 
 /**
  *
- * @author Adela Hernandez
+ * @author Romario Guerrero
  */
 @ManagedBean
 @ViewScoped
 public class UsuarioController implements Serializable {
 
     private Usuario usuario = null; // objeto a controlar
+    private final HttpServletRequest req;
+    private final FacesContext contexto;
     private List<Usuario> usuarios = null; // lista de objetos de tipo usuarios
+    private Usuario sesion;
 
     //constructor
+
     public UsuarioController() {
-        usuario = new Usuario(); //instancio el objeto usuario
+        contexto = FacesContext.getCurrentInstance();
+        req = (HttpServletRequest) contexto.getExternalContext().getRequest();
+        Usuario userr = (Usuario) req.getSession().getAttribute("sesion");
+
+        if ((Usuario)req.getSession().getAttribute("sesion") != null)
+        {
+            sesion = (Usuario) req.getSession().getAttribute("sesion");
+            usuario = new Usuario();
+        } else
+        {
+            try
+            {
+                
+                contexto.getExternalContext().redirect("/pezfa");
+            } catch (Exception ex)
+            {
+                System.out.println("Problemas al redireccionar "+ex.getMessage());
+            }
+        }
     }
 
     //getter y setter
@@ -40,25 +63,17 @@ public class UsuarioController implements Serializable {
         return usuarios;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public Usuario getSesion() {
+        return sesion;
     }
 
-    public void validateUsuario() {
-        String clave = usuario.getClave();
-        String user = usuario.getUsuario();
-        Usuario userr = UsuarioDB.validateUser(user, clave);
-        /*
-         if (userr == null) {
-         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos incorrectos", null);
-         FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
-         } else {
-         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "HOLA " + userr.getEmpleado().getPrimerApellido(), null);
-         FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
-         }*/
-        RequestContext con = RequestContext.getCurrentInstance();
-        con.execute("location.href='http://localhost:8080/pezfa/pages/'");
+    public void setSesion(Usuario sesion) {
+        this.sesion = sesion;
+    }
 
+    
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     //logica para registrar un usuario

@@ -12,7 +12,7 @@ import com.pezfa.inventario.hibernate.HibernateUtil;
 
 /**
  *
- * @author Adela Hernandez
+ * @author Romario Guerrero
  */
 public class ClienteDB
 {

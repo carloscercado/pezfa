@@ -74,7 +74,7 @@ public class CompraEspecieDB //registrar las funciones osea los crud de la base 
        {
            sesion=HibernateUtil.getSesion().openSession(); //abrir conexion en la base de datos
            sesion.beginTransaction();//abrir la transaccion
-           lista=sesion.createQuery("from CompraEspecie esp where esp.id='"+id+"'").list();//crea la consulta de la base de datos mediante el llamado de la clase y la muestra en forma de lista
+           lista=sesion.createQuery("from CompraEspecie esp join fetch esp.compra com join fetch esp.especie where com.id="+id+"").list();//crea la consulta de la base de datos mediante el llamado de la clase y la muestra en forma de lista
            sesion.getTransaction().commit();//terminado de la transaccion
        }catch(Exception hi)
        {

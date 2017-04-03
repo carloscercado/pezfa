@@ -12,7 +12,7 @@ import org.primefaces.context.RequestContext;
 
 /**
  *
- * @author Adela Hernandez
+ * @author Romario Guerrero
  */
 @ManagedBean
 @ViewScoped

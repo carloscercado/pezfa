@@ -75,7 +75,7 @@
         </script>
     </h:head>
 
-    <h:body>
+    <h:body rendered="#{usuarioController.sesion !=null}">
         <div>
             <p:tooltip/>
 
@@ -213,7 +213,7 @@
                                     <ul class="nav navbar-nav navbar-right">
                                         <li class="dropdown" >
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                <i class="fa fa-user" style="color: #045491"></i><p:outputLabel value="Jose Medina"/><i class="fa fa-caret-down"></i>
+                                                <i class="fa fa-user" style="color: #045491"></i><p:outputLabel value="#{usuarioController.sesion.empleado.primerNombre} #{usuarioController.sesion.empleado.primerApellido}"/><i class="fa fa-caret-down"></i>
                                             </a>
                                             <ul class="dropdown-menu dropdown-messages">
 
@@ -235,7 +235,7 @@
                                   widgetVar="cerrar" >
                             <h:form>
                                 <center style="margin-top: 2%;">
-                                    <p:commandButton value="Si" style="margin-right: 10%"   icon="fa fa-check"  actionListener="#{logout.cerrar()}"/>
+                                    <p:commandButton value="Si" style="margin-right: 10%"   icon="fa fa-check"  actionListener="#{logoutController.cerrar()}"/>
                                     <p:commandButton value="No"  icon="fa fa-times"  onclick="PF('cerrar').hide()"/>
                                 </center>
                             </h:form>

@@ -4,11 +4,15 @@ import com.pezfa.inventario.database.UnidadDB;
 import com.pezfa.inventario.models.Unidad;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
- * @author Adela Hernandez
+ * @author Romario Guerrero
  */
+@ManagedBean
+@ViewScoped
 public class UnidadController implements Serializable
 {
 

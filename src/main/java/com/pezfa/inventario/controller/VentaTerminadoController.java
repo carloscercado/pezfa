@@ -4,11 +4,15 @@ import com.pezfa.inventario.database.VentaTerminadoDB;
 import com.pezfa.inventario.models.VentaTerminado;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
- * @author Adela Hernandez
+ * @author Romario Guerrero
  */
+@ManagedBean
+@ViewScoped
 public class VentaTerminadoController implements Serializable
 {
 

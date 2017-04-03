@@ -69,11 +69,35 @@
                                     <f:convertNumber currencySymbol="Bs" locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                                 </h:outputLabel> 
                             </p:column>
+                            
+                            <p:column headerText="Opciones">
+                                <center>
+                                    <p:commandButton icon="fa fa-gear" update="@widgetVar(registrar)" oncomplete="PF('registrar').show()">
+                                        <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie}" value="#{compraEspecie}"/>
+                                    </p:commandButton>
+                                </center>
+                            </p:column>
 
                         </p:dataTable>
                     </h:form>
                 </p:dialog>
 
+                <p:dialog header="Modificar datos" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true" width="600">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Orden de compra"/>
+                            <p:inputText autocomplete="off" value="#{compraEspecieController.compraEspecie.especie.nombre}" disabled="true"/>
+                            <p:outputLabel value="Cantidad"/>
+                            <p:inputText autocomplete="off" value="#{compraEspecieController.compraEspecie.cantidad}" disabled="true"/>
+                            <p:outputLabel value="Cava:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:selectOneMenu value="#{unidadController.unidad.cava}" filter="true" converter="cava" filterFunction="contains" required="true" requiredMessage="Ingrese el cargo">
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
+                                <f:selectItems value="#{cavaController.cavas}" var="cava" itemLabel="#{cava.nombre}" itemValue="#{cava}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
             </ui:define>
 
         </ui:composition>

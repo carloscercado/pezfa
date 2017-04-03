@@ -12,7 +12,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Adela Hernandez
+ * @author Romario Guerrero
  */
 public class VentaDB {
 

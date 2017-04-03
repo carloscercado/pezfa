@@ -4,11 +4,15 @@ import com.pezfa.inventario.database.VentaUnidadDB;
 import com.pezfa.inventario.models.VentaUnidad;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
- * @author Adela Hernandez
+ * @author Romario Guerrero
  */
+@ManagedBean
+@ViewScoped
 public class VentaUnidadController implements Serializable
 {
 

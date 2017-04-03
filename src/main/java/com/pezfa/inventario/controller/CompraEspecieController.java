@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 @ManagedBean
@@ -15,12 +16,23 @@ public class CompraEspecieController implements Serializable
    private CompraEspecie compraEspecie = null;
    private List<CompraEspecie> compraEspecies = null;
    private List<CompraEspecie> detalleCompra = null;
+   @ManagedProperty(value="#{compraController}")
+   private CompraController compraController;
 
     public CompraEspecieController()
     {
         compraEspecie = new CompraEspecie(); 
     }
 
+    public CompraController getCompraController() {
+        return compraController;
+    }
+
+    public void setCompraController(CompraController compraController) {
+        this.compraController = compraController;
+    }
+
+    
     public CompraEspecie getCompraEspecie()
     {
         return compraEspecie;
@@ -42,7 +54,7 @@ public class CompraEspecieController implements Serializable
 
     public List<CompraEspecie> getDetalleCompra()
     { 
-        int id = 123;//this.compraEspecie.getCompra().getId();
+        int id = compraController.getCompra().getId();
         detalleCompra = CompraEspecieDB.findBy(id);
         return detalleCompra;
     }
