@@ -12,16 +12,19 @@
                 <h:form>
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="clientes" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cliente" value="#{clienteController.clientes}">
                         <f:facet name="header">
-                             <div class="col-md-6 text-left header-tabla-hidden">
-                                <p:commandButton style="alignment-adjust: central" value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
-                            </div>
-                            <center>
-                                <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('clientes').filter();" placeholder="Buscar"/>
-                            </center>
+                             <div class="row">
+                                <div  class="col-md-6 text-left header-tabla-hidden">
+                                    <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                </div>
+
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('clientes').filter()" placeholder="Buscar"/>
+                                </div>
+                                </div>
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>
-                                <span class="fa fa-user" />
+                                <span class="fa fa-user" style="color: #0033cc" />
                             </center>
                         </p:column>
                         <p:column width="15%" filterBy="#{cliente.rif}" headerText="RIF" filterStyle="display: none">
@@ -34,7 +37,7 @@
                             #{cliente.direccion}
                         </p:column>
                         <p:column width="20%"  headerText="Tel&eacute;fono">
-                            <span class="fa fa-phone" /> #{cliente.telefono}
+                            <span class="fa fa-phone"  style="color: #0033cc"/> #{cliente.telefono}
                         </p:column>
 
                         <p:column width="15%" class="column-hidden" headerText="Opciones">

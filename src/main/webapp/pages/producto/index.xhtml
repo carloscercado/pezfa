@@ -14,11 +14,15 @@
                 <h:form>
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="productos" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="producto" value="#{productoController.productos}">
                         <f:facet name="header">
-                            <div class="col-md-6 text-left header-tabla-hidden">
-                                <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
-                            </div>
-                                
-                            <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('productos').filter();" placeholder="Buscar"/>
+                        <div class="row">
+                                <div  class="col-md-6 text-left header-tabla-hidden">
+                                    <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                </div>
+
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('productos').filter()" placeholder="Buscar"/>
+                                </div>
+                        </div>
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>

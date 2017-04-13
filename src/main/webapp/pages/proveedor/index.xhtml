@@ -14,21 +14,24 @@
                  <h:form>
                      <p:dataTable scrollable="true" scrollHeight="350" widgetVar="proveedores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="proveedor" value="#{proveedorController.provedores}">
                         <f:facet name="header">
-                             <div class="col-md-6 text-left header-tabla-hidden">
-                                <p:commandButton style="alignment-adjust: central" value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                            <div class="row">
+                                <div  class="col-md-6 text-left header-tabla-hidden">
+                                    <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                </div>
+
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('proveedores').filter()" placeholder="Buscar"/>
+                                </div>
                             </div>
-                            <center>
-                                <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('proveedores').filter();" placeholder="Buscar"/>
-                            </center>
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>
-                                <span class="fa fa-truck" />
+                                <span class="fa fa-truck" style="color: #0033cc" />
                             </center>
                         </p:column>
                          
                         <p:column headerText="RIF" width="15%" filterBy="#{proveedor.rif}" filterStyle="display: none">
-                            #{proveedor.rif}
+                            <span class="fa fa-credit-card"/> #{proveedor.rif}
                         </p:column>
                          
                         <p:column headerText="Nombre" filterBy="#{proveedor.nombre}" filterStyle="display: none">
@@ -40,13 +43,9 @@
                         </p:column>
                          
                         <p:column headerText="Tel&eacute;fono">
-                            #{proveedor.telefono}
+                            <span class="fa fa-phone" style="color: #0033cc"/>  #{proveedor.telefono}
                         </p:column>
-                         
-                        <p:column headerText="Correo">
-                            #{proveedor.correo}
-                        </p:column>
-                         
+                        
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
                             <center>  
                                 <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger"> 

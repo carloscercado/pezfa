@@ -38,28 +38,6 @@
                     <div class="col-sm-4">
                         <div class="hero-widget well well-sm">
                             <center> <div class="icon">
-                                    <i class="fa fa-user fa-5x" style="color: #045491"></i>
-                                </div>
-                            </center>
-                            <div class="text">
-                                <var><strong>#{empleadoController.empleadores.size()}</strong></var>
-                                <label class="text-muted">Total de empleados</label>
-                            </div>
-                            <div class="options">
-                                <center>
-                                    <a href="/pezfa/pages/empleado" class="btn btn-secundary" >
-                                        <span class="fa fa-search"/> Ver todos
-                                    </a>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-                    
-                  
-
-                    <div class="col-sm-4">
-                        <div class="hero-widget well well-sm">
-                            <center> <div class="icon">
                                     <i class="fa fa-users fa-5x" style="color: #045491"></i>
                                 </div>
                             </center>
@@ -70,26 +48,6 @@
                             <div class="options">
                                 <center>
                                     <a href="/pezfa/pages/cliente" class="btn btn-secundary" >
-                                        <span class="fa fa-search"/> Ver todos
-                                    </a>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="col-sm-4">
-                        <div class="hero-widget well well-sm">
-                            <center> <div class="icon">
-                                    <i class="fa fa-cube fa-5x" style="color: #045491"></i>
-                                </div>
-                            </center>
-                            <div class="text">
-                                <var><strong>#{especieController.especies.size()}</strong></var>
-                                <label class="text-muted">Total de especies</label>
-                            </div>
-                            <div class="options">
-                                <center>
-                                    <a href="/pezfa/pages/especie" class="btn btn-secundary" >
                                         <span class="fa fa-search"/> Ver todos
                                     </a>
                                 </center>
@@ -118,6 +76,52 @@
                     </div>
                   
                 </div>
+                <h:form>
+                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" 
+                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true"
+                                  var="especie" value="#{especieController.especies}"
+                                  rowStyleClass="#{especie.cantidad le especie.minimo ? 'estilo1':
+                                               ((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo) and (especie.cantidad le especie.minimo+5)) ? 'estilo3':
+                                                !(especie.cantidad le especie.minimo+5) ? 'estilo2': null}">
+                        <f:facet name="header">
+                            <center>
+                                <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar"/>
+                            </center>
+                        </f:facet>
+                        <p:column width="5%" class="column-hidden">
+                            <center>
+                                <span class="fa fa-cube" />
+                            </center>
+                        </p:column>
+                         
+                         <p:column headerText="C&oacute;digo" filterBy="#{especie.codigo}" filterStyle="display: none" width="10%">
+                            #{especie.codigo}
+                        </p:column>
+                         
+                         <p:column filterBy="#{especie.tipo}" width="20%">
+                             <f:facet name="filter">
+                                 <p:selectOneMenu  onchange="PF('especies').filter()">
+                                     <f:selectItem itemLabel="Tipo" itemValue="#{null}" noSelectionOption="true" />
+                                     <f:selectItems value="#{especieController.tipos}" var="tipo" itemValue="#{tipo}"  />
+                                </p:selectOneMenu>
+                             </f:facet>
+                            #{especie.tipo}
+                        </p:column>
+                      
+                         <p:column headerText="Nombre" filterBy="#{especie.nombre}" filterStyle="display: none">
+                            #{especie.nombre}
+                        </p:column>
+                         
+                        <p:column headerText="Cantidad" width="10%">
+                            #{especie.cantidad}
+                        </p:column>
+                         
+                         <p:column headerText="M&iacute;nimo" width="8%">
+                            #{especie.minimo}
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
 
             </ui:define>
 

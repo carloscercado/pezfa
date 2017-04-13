@@ -11,38 +11,40 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-                 <h:form>
-                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="especie" value="#{especieController.especies}">
+                <h:form>
+                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="especie" value="#{especieController.especies}">
                         <f:facet name="header">
-                             <div class="col-md-6 text-left header-tabla-hidden">
+                            <div class="col-md-6 text-left header-tabla-hidden">
                                 <p:commandButton style="alignment-adjust: central" value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                
                             </div>
                             <center>
                                 <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar"/>
                             </center>
                         </f:facet>
+
                         <p:column width="5%" class="column-hidden">
                             <center>
                                 <span class="fa fa-cube" />
                             </center>
                         </p:column>
-                         
-                         <p:column headerText="C&oacute;digo" filterBy="#{especie.codigo}" filterStyle="display: none" width="10%">
+
+                        <p:column headerText="C&oacute;digo" filterBy="#{especie.codigo}" filterStyle="display: none" width="10%">
                             #{especie.codigo}
                         </p:column>
-                         
-                         <p:column headerText="Nombre" filterBy="#{especie.nombre}" filterStyle="display: none">
+
+                        <p:column headerText="Nombre" filterBy="#{especie.nombre}" filterStyle="display: none">
                             #{especie.nombre}
                         </p:column>
-                         
+
                         <p:column headerText="Cantidad" width="10%">
                             #{especie.cantidad}
                         </p:column>
-                         
+
                         <p:column headerText="Max" width="8%">
                             #{especie.maximo}
                         </p:column>
-                         
+
                         <p:column headerText="Min" width="8%">
                             #{especie.minimo}
                         </p:column>
@@ -50,11 +52,11 @@
                         <p:column headerText="Precio">
                             Bs.f #{especie.precio} 
                         </p:column>
-                         
+
                         <p:column headerText="Tipo">
                             #{especie.tipo}
                         </p:column>
-                         
+
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
                             <center>  
                                 <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger"> 
@@ -85,7 +87,7 @@
                                 <f:selectItem itemValue="DEF" itemLabel="DEF"/>
                                 <f:selectItem itemValue="GHI" itemLabel="GHI"/>
                                 <f:selectItem itemValue="JKL" itemLabel="JKL"/>
-                             </p:selectOneMenu>
+                            </p:selectOneMenu>
                         </p:panelGrid>
                         <br/>
                         <center>
@@ -126,17 +128,17 @@
                                 <f:selectItem itemValue="DEF" itemLabel="DEF"/>
                                 <f:selectItem itemValue="GHI" itemLabel="GHI"/>
                                 <f:selectItem itemValue="JKL" itemLabel="JKL"/>
-                                </p:selectOneMenu>
+                            </p:selectOneMenu>
                             <p:outputLabel value="Precio: (*)"/>
                             <p:inputNumber value="#{especieController.especie.precio}" symbol=" Bs.F" symbolPosition="suffix" placeholder="Precio" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="." requiredMessage="Ingrese el precio"/>
-                        
+
                         </p:panelGrid>
 
                         <br/>
-                            <center>
-                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(especies)" actionListener="#{especieController.update()}"/> 
-                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{especieController.reset()}" oncomplete="PF('modificar').hide()"/>
-                            </center>
+                        <center>
+                            <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(especies)" actionListener="#{especieController.update()}"/> 
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{especieController.reset()}" oncomplete="PF('modificar').hide()"/>
+                        </center>
                     </h:form>
                 </p:dialog> 
             </ui:define>

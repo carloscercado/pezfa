@@ -14,20 +14,20 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 public class CompraEspecieController implements Serializable
 {
-<<<<<<< HEAD
+
    private CompraEspecie compraEspecie = null;
    private List<CompraEspecie> compraEspecies = null;
    private List<CompraEspecie> detalleCompra = null;
    @ManagedProperty(value="#{compraController}")
    private CompraController compraController;
-=======
+
     private CompraEspecie compraEspecie = null;
     private List<CompraEspecie> compraEspecies = null;
     private List<CompraEspecie> miLista = null;
     @ManagedProperty(value = "#{compraController}")
     private CompraController compraController;
     private List<CompraEspecie> detalleCompra = null;
->>>>>>> 619e2f1c82ba1aa3ef018bd9d342f2be69f49635
+
 
     public CompraEspecieController()
     {

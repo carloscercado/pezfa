@@ -3,6 +3,7 @@ package com.pezfa.inventario.controller;
 import com.pezfa.inventario.database.EspecieDB;
 import com.pezfa.inventario.models.Especie;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -15,9 +16,10 @@ import org.primefaces.context.RequestContext;
 public class EspecieController implements Serializable
 {
 
-    Especie especie = null; // objeto a controlar
-    List<Especie> especies = null; // lista de objetos de tipo almace
-
+    private Especie especie = null; // objeto a controlar
+    private List<Especie> especies = null; // lista de objetos de tipo almace
+    private List<String> tipos;
+    
     //constructor
     public EspecieController()
     {
@@ -46,6 +48,19 @@ public class EspecieController implements Serializable
         this.especies = especies;
     }
 
+    public void setTipos(List<String> tipos) 
+    {
+        this.tipos = tipos;
+    }
+   
+    public List<String> getTipos() 
+    {
+        tipos = new ArrayList<String>();
+        tipos.add("Crustaceos");
+        tipos.add("Moluscos");
+        tipos.add("Pescados");
+        return tipos;
+    }
      public void reset()
     {
         System.out.println("Sin limpiar");

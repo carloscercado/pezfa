@@ -51,6 +51,20 @@ body{
     box-shadow: 10px 7px 5px rgba(0,0,0,0.5);
 }
 
+.estilo1
+{
+    background-color: #f63a1e;
+}
+
+.estilo2
+{
+    background-color: #1ef664;
+}
+
+.estilo3
+{
+    background-color: #f68e1e;
+}
 @media screen and (max-width: 990px)
 {
     .header-tabla-hidden

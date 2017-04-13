@@ -14,12 +14,15 @@
                <h:form>
                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="empleadores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="empleado" value="#{empleadoController.empleadores}">
                         <f:facet name="header">
-                             <div class="col-md-6 text-left header-tabla-hidden">
-                                <p:commandButton style="alignment-adjust: central" value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                            <div class="row">
+                                <div  class="col-md-6 text-left header-tabla-hidden">
+                                    <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                </div>
+
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('empleadores').filter()" placeholder="Buscar"/>
+                                </div>
                             </div>
-                            <center>
-                                <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('empleadores').filter();" placeholder="Buscar"/>
-                            </center>
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>
@@ -27,7 +30,7 @@
                             </center>
                         </p:column>
                        <p:column headerText="C&eacute;dula" filterBy="#{empleado.cedula}" filterStyle="display: none">
-                           <span class="fa fa-card-o" /> #{empleado.cedula} 
+                           <span class="fa fa-vcard-o"/> #{empleado.cedula} 
                         </p:column>
 
                        <p:column  headerText="Nombres" filterBy="#{empleado.primerNombre}" filterStyle="display: none">
@@ -38,7 +41,7 @@
                             #{empleado.primerApellido} 
                         </p:column>
 
-                       <p:column width="20%" headerText="Cargo">
+                       <p:column headerText="Cargo">
                             #{empleado.cargo} 
                         </p:column>
                        

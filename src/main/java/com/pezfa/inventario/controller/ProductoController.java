@@ -3,6 +3,7 @@ package com.pezfa.inventario.controller;
 import com.pezfa.inventario.database.ProductoDB;
 import com.pezfa.inventario.models.Producto;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,86 +13,74 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
-public class ProductoController implements Serializable
-{
+public class ProductoController implements Serializable {
+
     private Producto producto = null;
     private List<Producto> productos = null;
-    
-    public ProductoController()
-    {
+
+    public ProductoController() {
         producto = new Producto();
     }
     
-    public Producto getProducto()
-    {
+    public Producto getProducto() {
         return producto;
     }
-    public void setProducto(Producto producto)
-    {
+
+    public void setProducto(Producto producto) {
         this.producto = producto;
     }
-    
-    public List<Producto> getProductos()
-    {
+
+    public List<Producto> getProductos() {
         productos = ProductoDB.read();
         return productos;
     }
-    public void setProductos(List<Producto> productos)
-    {
+
+    public void setProductos(List<Producto> productos) {
         this.productos = productos;
     }
-    public void reset()
-    {
+
+    public void reset() {
         System.out.println("Sin limpiar");
         producto = new Producto();
-        System.out.println("Reseteado");        
+        System.out.println("Reseteado");
     }
-    
-    public void register()
-    {
-        if(ProductoDB.create(producto))
-        {
+
+    public void register() {
+        if (ProductoDB.create(producto)) {
             producto = new Producto();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('registrar').hide();");
-        }else
-        {
+        } else {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser guardado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
-    
-    public void update()
-    {
-        if(ProductoDB.update(producto))
-        {
+
+    public void update() {
+        if (ProductoDB.update(producto)) {
             producto = new Producto();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('modificar').hide();");
-        }else
-        {
+        } else {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
-    
-    public void delete()
-    {
-        if(ProductoDB.delete(producto))
-        {
+
+    public void delete() {
+        if (ProductoDB.delete(producto)) {
             producto = new Producto();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('eliminar').hide();");
-        }else
-        {
-             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este registro no puede ser eliminado", null);
-             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+        } else {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este registro no puede ser eliminado", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 }
