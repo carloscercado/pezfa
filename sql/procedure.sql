@@ -48,7 +48,7 @@ declare
 objeto record;
 begin
 
-for objeto in (select producto,precio from terminado join producto on producto.id=producto where terminado.id=new.terminado) loop
+for objeto in (select producto, precio, terminado.id as terminado from terminado join producto on producto.id=producto where terminado.id=new.terminado) loop
 update producto set cantidad=cantidad-1 where id=objeto.terminado;
 update venta set ingreso = ingreso + objeto.precio where id = new.venta;
 end loop;

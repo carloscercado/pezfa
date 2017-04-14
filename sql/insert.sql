@@ -46,9 +46,9 @@ insert into usuario
 	values (1, 'admin', 'admin', 'ADMINISTRADOR', 1);
 
 insert into compra
-	values (1, '00001', now(), now(), 1, 1, 0),
-	 (2, '00002', now(), now(), 2, 1, 0),
-	 (3, '00003', now(), now(), 3, 1, 0);
+	values (1, '00001', now(), 1, 1,false, 0),
+	 (2, '00002', now(),  2, 1,false, 0),
+	 (3, '00003', now(),  3, 1, false,0);
 
 insert into venta 
 	values (1, '00001', now(), now(), 1, 1, 0),

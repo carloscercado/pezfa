@@ -95,9 +95,9 @@ create table if not exists compra
     id serial primary key,
     orden varchar(20) not null unique,
     fecha date default now()::date,
-    hora time default now()::time,
     proveedor int not null references proveedor (id),
     usuario int not null references usuario(id),
+    state boolean default false,
     gasto numeric(10,2) default 0
 );
 
