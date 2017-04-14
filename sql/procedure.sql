@@ -74,3 +74,15 @@ return null;
 end;
 $BODY$
 LANGUAGE plpgsql;
+
+--Quinto procedimiento
+
+CREATE OR REPLACE FUNCTION public.actualizar_gasto_compra()
+  RETURNS trigger AS
+$BODY$
+begin
+update compra set gasto=gasto+(new.costo*new.cantidad) where id=new.compra;
+return null;
+end;
+$BODY$
+  LANGUAGE plpgsql VOLATILE

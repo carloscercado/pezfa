@@ -17,7 +17,7 @@ public class Compra  implements java.io.Serializable {
      private Usuario usuario;
      private String orden;
      private Date fecha;
-     private Date hora;
+     private String estado;
      private BigDecimal gasto;
      private Set compraEspecies = new HashSet(0);
 
@@ -31,15 +31,28 @@ public class Compra  implements java.io.Serializable {
         this.usuario = usuario;
         this.orden = orden;
     }
-    public Compra(int id, Proveedor proveedor, Usuario usuario, String orden, Date fecha, Date hora, BigDecimal gasto, Set compraEspecies) {
-       this.id = id;
-       this.proveedor = proveedor;
-       this.usuario = usuario;
-       this.orden = orden;
-       this.fecha = fecha;
-       this.hora = hora;
-       this.gasto = gasto;
-       this.compraEspecies = compraEspecies;
+
+    public Compra(int id, Proveedor proveedor, Usuario usuario, String orden, Date fecha, String estado, BigDecimal gasto)
+    {
+        this.id = id;
+        this.proveedor = proveedor;
+        this.usuario = usuario;
+        this.orden = orden;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.gasto = gasto;
+    }
+    
+    
+
+    public String getEstado()
+    {
+        return estado;
+    }
+
+    public void setEstado(String estado)
+    {
+        this.estado = estado;
     }
    
     public int getId() {
@@ -77,13 +90,7 @@ public class Compra  implements java.io.Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    public Date getHora() {
-        return this.hora;
-    }
-    
-    public void setHora(Date hora) {
-        this.hora = hora;
-    }
+
     public BigDecimal getGasto() {
         return this.gasto;
     }

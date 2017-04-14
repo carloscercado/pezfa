@@ -12,30 +12,40 @@
 
             <ui:define name="content">
                 <h:form>
-                    <h3 style="margin-top:0">Aqu&iacute; va el cuadro de b&uacute;squeda</h3>
-                    <p:dataTable emptyMessage="No se encontraron datos." var="compra" widgetVar="compras" value="#{compraController.compras}" reflow="true">
+                    <p:dataTable emptyMessage="No se encontraron datos." var="compra" widgetVar="compras" 
+                                 value="#{compraController.compras}" reflow="true">
 
                         <f:facet name="header">
-                            Transacci&oacute;n de entrada                         
+                            <div class="row">
+                                <div  class="col-md-6 text-left header-tabla-hidden">
+                                </div>
+
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('compras').filter()" placeholder="Buscar"/>
+                                </div>
+                            </div>                        
                         </f:facet> 
 
-                        <p:column headerText="Orden de compra">
+                        <p:column headerText="Orden de compra" filterBy="#{compra.orden} #{compra.proveedor.nombre} " filterStyle="display: none">
                             #{compra.orden} 
                         </p:column>
+                        <p:column headerText="Proveedor">
+                            #{compra.proveedor.nombre} 
+                        </p:column>
 
-                        <p:column headerText="Fecha">
+                        <p:column headerText="Fecha" width="15%">
                             #{compra.fecha}
                         </p:column>
 
-                        <p:column headerText="Gasto">
+                        <p:column headerText="Gasto" width="20%" class="text-right">
                             <h:outputLabel value="#{compra.gasto}">
-                                <f:convertNumber currencySymbol="Bs" locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                             </h:outputLabel> 
                         </p:column>
 
-                        <p:column headerText="Opciones">
+                        <p:column headerText="Ingresar" width="10%">
                             <center>
-                                <p:commandButton icon="fa fa-gear" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()">
+                                <p:commandButton icon="fa fa-gear" update="@widgetVar(agregar)"  oncomplete="PF('agregar').show()" >
                                     <f:setPropertyActionListener target="#{compraController.compra}" value="#{compra}"/>
                                 </p:commandButton>
                             </center>
@@ -43,9 +53,9 @@
                     </p:dataTable>
                 </h:form>
 
-                <p:dialog header="Detalles de compra" widgetVar="agregar" responsive="true" resizable="false" draggable="false" modal="true" width="600">
+                <p:dialog header="Detalles de compra" widgetVar="agregar"
+                          responsive="true" resizable="false" draggable="false" modal="true" width="600">
                     <h:form>
-                        <p:growl id="mensaje"/> 
                         <p:panelGrid columns="2">
                             <p:outputLabel value="Orden de compra"/>
                             <p:inputText autocomplete="off" value="#{compraController.compra.orden}" disabled="true"/>
@@ -56,9 +66,10 @@
                             <p:outputLabel value="Gasto"/>
                             <p:inputText autocomplete="off" value="#{compraController.compra.gasto}" disabled="true"/>
                         </p:panelGrid>
-                        
+
                         <br/>
-                        <p:dataTable emptyMessage="No se encuentraron datos." value="#{compraEspecieController.detalleCompra}" var="compraEspecie" widgetVar="compraEspecies" reflow="true">
+                        <p:dataTable  value="#{compraEspecieController.detalleCompra}" var="compraEspecie" 
+                                      widgetVar="compraEspecies">
 
                             <p:column headerText="Cantidad">
                                 #{compraEspecie.cantidad} 
@@ -69,7 +80,7 @@
                                     <f:convertNumber currencySymbol="Bs" locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                                 </h:outputLabel> 
                             </p:column>
-                            
+
                             <p:column headerText="Opciones">
                                 <center>
                                     <p:commandButton icon="fa fa-gear" update="@widgetVar(registrar)" oncomplete="PF('registrar').show()">

@@ -80,7 +80,38 @@ public class CompraEspecie  implements java.io.Serializable {
         this.unidads = unidads;
     }
 
+    @Override
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 47 * hash + (this.especie != null ? this.especie.hashCode() : 0);
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final CompraEspecie other = (CompraEspecie) obj;
+        if (this.especie != other.especie && (this.especie == null || !this.especie.equals(other.especie)))
+        {
+            return false;
+        }
+        return true;
+    }
+
+       
 
 
 }

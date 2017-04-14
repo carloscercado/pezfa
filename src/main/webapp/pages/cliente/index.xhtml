@@ -12,7 +12,7 @@
                 <h:form>
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="clientes" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cliente" value="#{clienteController.clientes}">
                         <f:facet name="header">
-                             <div class="row">
+                            <div class="row">
                                 <div  class="col-md-6 text-left header-tabla-hidden">
                                     <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
                                 </div>
@@ -20,7 +20,7 @@
                                 <div class="col-md-6 text-right header-tabla-center">
                                     <p:inputText id="globalFilter" onkeyup="PF('clientes').filter()" placeholder="Buscar"/>
                                 </div>
-                                </div>
+                            </div>
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>

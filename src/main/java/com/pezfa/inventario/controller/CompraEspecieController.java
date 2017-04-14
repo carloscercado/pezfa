@@ -1,13 +1,17 @@
 package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.CompraEspecieDB;
+import com.pezfa.inventario.models.Compra;
 import com.pezfa.inventario.models.CompraEspecie;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean
@@ -15,24 +19,47 @@ import org.primefaces.context.RequestContext;
 public class CompraEspecieController implements Serializable
 {
 
-   private CompraEspecie compraEspecie = null;
-   private List<CompraEspecie> compraEspecies = null;
-   private List<CompraEspecie> detalleCompra = null;
-   @ManagedProperty(value="#{compraController}")
-   private CompraController compraController;
-
-    private CompraEspecie compraEspecie = null;
-    private List<CompraEspecie> compraEspecies = null;
-    private List<CompraEspecie> miLista = null;
+    private CompraEspecie compraEspecie;
+    private Set<CompraEspecie> miLista;
+    private List<CompraEspecie> compraEspecies;
+    private List<CompraEspecie> detalleCompra;
+    @ManagedProperty(value = "#{usuarioController}")
+    private UsuarioController usuarioController;
     @ManagedProperty(value = "#{compraController}")
     private CompraController compraController;
-    private List<CompraEspecie> detalleCompra = null;
-
 
     public CompraEspecieController()
     {
         compraEspecie = new CompraEspecie();
-        miLista = new ArrayList<CompraEspecie>();
+        miLista = new HashSet<CompraEspecie>();
+    }
+
+    public double getTotal()
+    {
+        return this.miLista.stream()
+                .mapToDouble(x -> x.getCosto().doubleValue() * x.getCantidad())
+                .sum();
+    }
+
+    public UsuarioController getUsuarioController()
+    {
+        return usuarioController;
+    }
+
+    public void setUsuarioController(UsuarioController usuarioController)
+    {
+        this.usuarioController = usuarioController;
+    }
+
+    public float obtenerCostoTotal()
+    {
+        try
+        {
+            return this.compraEspecie.getCosto().floatValue() * this.compraEspecie.getCantidad();
+        } catch (Exception e)
+        {
+            return 0;
+        }
     }
 
     public CompraController getCompraController()
@@ -45,26 +72,16 @@ public class CompraEspecieController implements Serializable
         this.compraController = compraController;
     }
 
-    
-    public List<CompraEspecie> getMiLista()
+    public Set<CompraEspecie> getMiLista()
     {
         return miLista;
     }
 
-    public void setMiLista(List<CompraEspecie> miLista)
+    public void setMiLista(Set<CompraEspecie> miLista)
     {
         this.miLista = miLista;
     }
 
-    public CompraController getCompraController() {
-        return compraController;
-    }
-
-    public void setCompraController(CompraController compraController) {
-        this.compraController = compraController;
-    }
-
-    
     public CompraEspecie getCompraEspecie()
     {
         return compraEspecie;
@@ -87,7 +104,7 @@ public class CompraEspecieController implements Serializable
     }
 
     public List<CompraEspecie> getDetalleCompra()
-    { 
+    {
         int id = compraController.getCompra().getId();
         detalleCompra = CompraEspecieDB.findBy(id);
         return detalleCompra;
@@ -97,38 +114,45 @@ public class CompraEspecieController implements Serializable
     {
         this.detalleCompra = detalleCompra;
     }
-    
-    public void register()
-    {
-        if (CompraEspecieDB.createList(miLista))
-        {
-            System.out.println("Registrado");
-        } else
-        {
-            System.out.println("No Registrado");
-        }
-    }
-<<<<<<< HEAD
-    
+
     public void add()
     {
+        compraController.getCompra().setUsuario(usuarioController.getSesion());
         compraEspecie.setCompra(compraController.getCompra());
         miLista.add(compraEspecie);
         compraEspecie = new CompraEspecie();
         RequestContext con = RequestContext.getCurrentInstance();
         con.execute("PF('agregar').hide(); PF('registrar').hide();");
-        
     }
-    
+
+    public void register()
+    {
+        if (this.miLista.size() > 0)
+        {
+            if (CompraEspecieDB.createList(miLista))
+            {
+                miLista.clear();
+                compraController.setCompra(new Compra());
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Compra registrada exitosamente", null);
+                FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            } else
+            {
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas al registrar compra", null);
+                FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            }
+        } else
+        {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe agregar minimo un producto a la lista", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+        }
+    }
+
     public void remove()
     {
         miLista.remove(compraEspecie);
-        compraEspecie = new CompraEspecie();        
+        compraEspecie = new CompraEspecie();
     }
 
-=======
- 
->>>>>>> f0aa74b23f4d2b66e70021af33fb0b8731ec3b98
     public void delete()
     {
         if (CompraEspecieDB.delete(compraEspecie))

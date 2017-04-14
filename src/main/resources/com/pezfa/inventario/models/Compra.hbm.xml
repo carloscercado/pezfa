@@ -21,12 +21,13 @@
         <property name="fecha" type="date">
             <column name="fecha" length="13" />
         </property>
-        <property name="hora" type="time">
-            <column name="hora" length="15" />
-        </property>
+             
         <property name="gasto" type="big_decimal">
             <column name="gasto" precision="10" />
         </property>
+        <property name="estado" type="string">
+            <column name="estado" default="Comprado"/>
+        </property>   
         <set name="compraEspecies" table="compra_especie" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="compra" not-null="true" />

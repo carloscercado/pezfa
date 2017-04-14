@@ -10,14 +10,17 @@ package com.pezfa.inventario.database;
  * @author yulitza
  */
 import com.pezfa.inventario.hibernate.HibernateUtil;
+import com.pezfa.inventario.models.Compra;
 import java.util.List;
 import com.pezfa.inventario.models.CompraEspecie;
+import java.math.BigDecimal;
+import java.util.Set;
 import org.hibernate.Session;
 
 public class CompraEspecieDB //registrar las funciones osea los crud de la base de datos
 {
 
-    public static boolean createList(List<CompraEspecie> objs)
+    public static boolean createList(Set<CompraEspecie> objs)
     {
         Session sesion = null;//inicializa la session
         boolean state = false;//inicializa la variable state
@@ -25,7 +28,12 @@ public class CompraEspecieDB //registrar las funciones osea los crud de la base 
         {
             sesion = HibernateUtil.getSesion().openSession(); //Hibernanteutil clase pertenenciente a la base de datos... abrir y obtener conexion en la base de datos
             sesion.beginTransaction(); //iniciar la transaccion... transaccion: son las operaciones crud
-            sesion.save(objs.get(0).getCompra());
+            Compra compra = null;
+            for(CompraEspecie obj : objs)
+                compra = obj.getCompra(); 
+            compra.setEstado("Comprado");
+            compra.setGasto(BigDecimal.ZERO);
+            sesion.save(compra);
             for (CompraEspecie obj : objs)
             {
                 sesion.save(obj);//guardar el objeto cliente

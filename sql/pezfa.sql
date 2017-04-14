@@ -97,7 +97,7 @@ create table if not exists compra
     fecha date default now()::date,
     proveedor int not null references proveedor (id),
     usuario int not null references usuario(id),
-    state boolean default false,
+    estado varchar(20),
     gasto numeric(10,2) default 0
 );
 
@@ -195,3 +195,8 @@ CREATE TRIGGER actualizar_cantidad_producto_venta
   FOR EACH ROW
   EXECUTE PROCEDURE actualizar_cantidad_especie_venta();
 
+CREATE TRIGGER actualizar_gasto_compra
+  AFTER INSERT
+  ON compra_especie
+  FOR EACH ROW
+  EXECUTE PROCEDURE actualizar_gasto_compra();
