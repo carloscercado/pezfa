@@ -70,11 +70,11 @@ insert into compra_especie
 	 (5, 1,1,1000);
 
 insert into unidad
-	values (1, 1, 1, 10, 900, '00001', true),
-	 (2, 2, 1, 10, 900, '00002', true),
-	 (3, 3, 1, 10, 900, '00003', true),
-	 (4, 4, 1, 10, 900, '00004', true),
-	 (5, 5, 1, 10, 900, '00005', true);
+	values (1, 1, 1, 10, '00001', true),
+	 (2, 2, 1, 10, '00002', true),
+	 (3, 3, 1, 10,  '00003', true),
+	 (4, 4, 1, 10,  '00004', true),
+	 (5, 5, 1, 10,  '00005', true);
 
 insert into venta_unidad
 	values (1, 1,1),

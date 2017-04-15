@@ -1,18 +1,16 @@
-﻿-- Primer procedimiento almacenado
-
+﻿/*
+Procedimiento que automatiza el incremento de una determinada especie
+para cuando esta, se ingresa por unidad al sistema
+*/
 CREATE OR REPLACE FUNCTION actualizar_cantidad_especie_compra()
 RETURNS trigger AS
 $BODY$
 declare 
 objeto record;
-
 begin
-
-for objeto in (select especie, unidad.precio,compra from unidad join 
-compra_especie on compra_especie.id=unidad.detalle join 
-especie on especie.id=compra_especie.especie where unidad.id=new.id) loop
+for objeto in (select especie from unidad join 
+compra_especie on compra_especie.id=unidad.detalle where unidad.id=new.id) loop
 update especie set cantidad=cantidad+1 where id=objeto.especie;
-update compra set gasto = gasto+objeto.precio where id = objeto.compra;
 end loop;
 return null;
 end;
@@ -66,18 +64,23 @@ declare
 objeto record;
 begin
 
-for objeto in (select produccion, precio from detalle_produccion join unidad on unidad.id=unidad
+for objeto in (select produccion, costo from detalle_produccion join unidad on unidad.id=unidad
+join compra_especie on compra_especie.id = unidad.detalle
  where detalle_produccion.id=new.id) loop
-update produccion set inversion=inversion+objeto.precio where id=objeto.produccion;
+update produccion set inversion=inversion+objeto.costo where id=objeto.produccion;
 end loop;
 return null;
 end;
 $BODY$
 LANGUAGE plpgsql;
 
---Quinto procedimiento
+/*
+procedimiento encargado de determinar automaticamente el gasto de una determinada compra,
+tomando el costo de cada articulo comprado, multiplicandolo por la cantidad de unidade y luego 
+sumando todo, el total es el gasto total de compra
+*/
 
-CREATE OR REPLACE FUNCTION public.actualizar_gasto_compra()
+CREATE OR REPLACE FUNCTION actualizar_gasto_compra()
   RETURNS trigger AS
 $BODY$
 begin
@@ -85,4 +88,22 @@ update compra set gasto=gasto+(new.costo*new.cantidad) where id=new.compra;
 return null;
 end;
 $BODY$
-  LANGUAGE plpgsql VOLATILE
+  LANGUAGE plpgsql;
+
+ /*
+ Procedimiento encargado de actualizar automaticamente la cantidad de especies ubicadas
+ de una determinada compra. Cada vez que se ubica una unidad, se suma uno al atributo 'ubicados' 
+ de la entidad 'compra_especie'
+ */
+
+CREATE OR REPLACE FUNCTION actualizar_ubicados()
+  RETURNS trigger AS
+$BODY$
+begin
+update compra_especie set ubicados=ubicados+1 where id=new.detalle;
+update compra set estado='Procesado' where id=new.detalle;
+return null;
+end;
+$BODY$
+  LANGUAGE plpgsql;
+  

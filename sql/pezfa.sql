@@ -125,7 +125,8 @@ create table if not exists compra_especie
     compra int not null references compra(id),
     especie int not null references especie(id),
     cantidad int not null,
-    costo numeric(10,2) default 0
+    costo numeric(10,2) default 0,
+    ubicados int default 0
 );
 
 create table if not exists unidad
@@ -134,8 +135,7 @@ create table if not exists unidad
     detalle int not null references compra_especie (id),
     cava int not null references cava (id),
     peso float not null,
-    precio numeric(10,2) default 0,
-    codigo varchar(30) not null unique,
+    codigo varchar(36) not null unique,
     estado boolean default true    
 );
 
@@ -200,3 +200,9 @@ CREATE TRIGGER actualizar_gasto_compra
   ON compra_especie
   FOR EACH ROW
   EXECUTE PROCEDURE actualizar_gasto_compra();
+
+CREATE TRIGGER actualizar_ubicados
+  AFTER INSERT
+  ON unidad
+  FOR EACH ROW
+  EXECUTE PROCEDURE actualizar_ubicados();
