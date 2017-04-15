@@ -22,6 +22,9 @@
         <property name="costo" type="big_decimal">
             <column name="costo" precision="10" />
         </property>
+        <property name="ubicados" type="int">
+            <column name="ubicados"  default="0"/>
+        </property>
         <set name="unidads" table="unidad" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="detalle" not-null="true" />

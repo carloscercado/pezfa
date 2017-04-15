@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-    <h:head>
+    <h:head >
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
         <title>PEZFA</title>
@@ -76,13 +76,13 @@
         </script>
     </h:head>
 
-    <h:body rendered="#{usuarioController.sesion !=null}">
+    <h:body rendered="#{usuarioController.sesion !=null}" id="menu">
         <div>
             <p:tooltip/>
 
             <div id="top" class="top">
-                <ui:insert name="top">
-                    <h:form id="a">
+                <ui:insert name="top" >
+                    <h:form id="menu2">
                         <nav id="barra" class="navbar navbar-default" role="navigation">
                             <div class="container-fluid">
                                 <div class="navbar-header" style="background: #f9f5f5">
@@ -170,7 +170,7 @@
                                                 <span class="fa fa-shopping-cart"></span>
                                                 <strong>
                                                     Compras
-                                                    <span class="badge btn-danger" jsf:rendered="#{!(compraController.compras.size() le 0)}">#{compraController.compras.size()}</span>
+                                                    <span class="badge btn-danger"  jsf:rendered="#{!(compraController.compras.size() le 0)}">#{compraController.compras.size()}</span>
                                                 </strong>
                                             </a>
                                         </li>

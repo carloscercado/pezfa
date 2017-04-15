@@ -12,9 +12,27 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:dataTable emptyMessage="No se encontraron datos." var="compra" widgetVar="compras" 
-                                 value="#{compraController.compras}" reflow="true">
+                    <div class="row">
 
+                        <div class="col-sm-4">
+                            <div class="hero-widget well well-sm">
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="hero-widget well well-sm">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="hero-widget well well-sm">
+
+                            </div>
+                        </div>
+                    </div>
+                    <p:dataTable emptyMessage="No existen compras por procesar" var="compra" widgetVar="compras" 
+                                 value="#{compraController.compras}" reflow="true">
                         <f:facet name="header">
                             <div class="row">
                                 <div  class="col-md-6 text-left header-tabla-hidden">
@@ -25,7 +43,6 @@
                                 </div>
                             </div>                        
                         </f:facet> 
-
                         <p:column headerText="Orden de compra" filterBy="#{compra.orden} #{compra.proveedor.nombre} " filterStyle="display: none">
                             #{compra.orden} 
                         </p:column>
@@ -43,9 +60,9 @@
                             </h:outputLabel> 
                         </p:column>
 
-                        <p:column headerText="Ingresar" width="10%">
+                        <p:column headerText="Detalles" width="10%">
                             <center>
-                                <p:commandButton icon="fa fa-gear" update="@widgetVar(agregar)"  oncomplete="PF('agregar').show()" >
+                                <p:commandButton icon="fa fa-search" update="@widgetVar(agregar)"  oncomplete="PF('agregar').show()" >
                                     <f:setPropertyActionListener target="#{compraController.compra}" value="#{compra}"/>
                                 </p:commandButton>
                             </center>
@@ -54,61 +71,157 @@
                 </h:form>
 
                 <p:dialog header="Detalles de compra" widgetVar="agregar"
-                          responsive="true" resizable="false" draggable="false" modal="true" width="600">
+                          responsive="true" resizable="false" draggable="false" modal="true"
+                          width="700">
+                    <f:facet name="onHide()">
+                        <p:ajax update="@widgetVar(compras) menu2"/>
+                    </f:facet>
                     <h:form>
-                        <p:panelGrid columns="2">
+                        <p:panelGrid columns="4">
                             <p:outputLabel value="Orden de compra"/>
-                            <p:inputText autocomplete="off" value="#{compraController.compra.orden}" disabled="true"/>
-                            <p:outputLabel value="Nombre del proveedor"/>
-                            <p:inputText autocomplete="off" value="#{compraController.compra.proveedor.nombre}" disabled="true"/>
+                            <p:inputText  value="#{compraController.compra.orden}" readonly="true"/>
+                            <p:outputLabel value="Proveedor"/>
+                            <p:inputText  value="#{compraController.compra.proveedor.nombre}" readonly="true"/>
                             <p:outputLabel value="Fecha"/>
-                            <p:inputText autocomplete="off" value="#{compraController.compra.fecha}" disabled="true"/>
+                            <p:inputText  value="#{compraController.compra.fecha}" readonly="true"/>
                             <p:outputLabel value="Gasto"/>
-                            <p:inputText autocomplete="off" value="#{compraController.compra.gasto}" disabled="true"/>
+                            <p:inputText value="#{compraController.compra.gasto}" readonly="true">
+                                <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                            </p:inputText>
                         </p:panelGrid>
 
                         <br/>
                         <p:dataTable  value="#{compraEspecieController.detalleCompra}" var="compraEspecie" 
-                                      widgetVar="compraEspecies">
+                                      widgetVar="compraEspecies" emptyMessage="Todos los productos de esta compra ya fueron ubicados"> 
 
-                            <p:column headerText="Cantidad">
-                                #{compraEspecie.cantidad} 
+                            <p:column headerText="Especie">
+                                #{compraEspecie.especie.nombre} 
                             </p:column>
 
-                            <p:column headerText="Gasto">
+                            <p:column headerText="Cantidad" width="12%">
+                                #{compraEspecie.cantidad} Unds
+                            </p:column>
+                            <p:column headerText="Sin ubicar" width="15%">
+                                #{compraEspecie.cantidad - compraEspecie.ubicados} Unds
+                            </p:column>
+
+                            <p:column headerText="Costo" class="text-right">
                                 <h:outputLabel value="#{compraEspecie.costo}">
-                                    <f:convertNumber currencySymbol="Bs" locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                </h:outputLabel> 
+                            </p:column>
+                            <p:column headerText="Total" class="text-right">
+                                <h:outputLabel value="#{compraEspecie.costo*compraEspecie.cantidad}">
+                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                                 </h:outputLabel> 
                             </p:column>
 
-                            <p:column headerText="Opciones">
+                            <p:column headerText="Ubicar" width="10%">
                                 <center>
                                     <p:commandButton icon="fa fa-gear" update="@widgetVar(registrar)" oncomplete="PF('registrar').show()">
                                         <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie}" value="#{compraEspecie}"/>
                                     </p:commandButton>
                                 </center>
                             </p:column>
+                            <f:facet name="footer">
+                                <div class="row">
+                                    <div  class="col-md-6 text-left ">
+
+                                    </div>
+                                    <div  class="col-md-6 text-right ">
+                                        Total: 
+                                        <p:outputLabel value="#{compraController.compra.gasto}">
+                                            <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                        </p:outputLabel>
+                                    </div>
+                                </div>
+                            </f:facet>
 
                         </p:dataTable>
                     </h:form>
                 </p:dialog>
 
-                <p:dialog header="Modificar datos" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true" width="600">
+                <p:dialog header="Ubicar unidad" widgetVar="registrar" responsive="true" resizable="false" 
+                          draggable="false" modal="true" width="600" >
+
                     <h:form>
-                        <p:growl id="mensaje"/> 
-                        <p:panelGrid columns="2">
-                            <p:outputLabel value="Orden de compra"/>
-                            <p:inputText autocomplete="off" value="#{compraEspecieController.compraEspecie.especie.nombre}" disabled="true"/>
-                            <p:outputLabel value="Cantidad"/>
-                            <p:inputText autocomplete="off" value="#{compraEspecieController.compraEspecie.cantidad}" disabled="true"/>
-                            <p:outputLabel value="Cava:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:selectOneMenu value="#{unidadController.unidad.cava}" filter="true" converter="cava" filterFunction="contains" required="true" requiredMessage="Ingrese el cargo">
-                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
-                                <f:selectItems value="#{cavaController.cavas}" var="cava" itemLabel="#{cava.nombre}" itemValue="#{cava}"/>
-                            </p:selectOneMenu>
-                        </p:panelGrid>
+
+                        <div class="row" style=" width: 100%">
+
+                            <div class="col-sm-12">
+                                <div class="hero-widget well well-sm">
+                                    <h3>
+                                        <div class="icon">
+                                            Unidad: #{compraEspecieController.compraEspecie.especie.nombre}<br/>
+                                            Costo:
+                                            <p:outputLabel value="#{compraEspecieController.compraEspecie.costo}">
+                                                <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                            </p:outputLabel>
+                                        </div>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style=" width: 100%">
+
+                            <div class="col-sm-4">
+                                <div class="hero-widget well well-sm">
+                                    <center> 
+                                        <div class="icon">
+                                            <span class="fa fa-square fa-3x" style="color: #045491"/>
+                                            <p:selectOneMenu value="#{almacenController.almacen}" converter="almacen">
+                                                <p:ajax update="@widgetVar(cavas)"/>
+                                                <f:selectItem itemLabel="Almacen" noSelectionOption="true" itemValue="#{null}"/>
+
+                                                <f:selectItems value="#{almacenController.almacenes}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}"/>
+                                            </p:selectOneMenu>
+
+                                        </div>
+
+                                    </center>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="hero-widget well well-sm">
+                                    <center> 
+                                        <div class="icon">
+                                            <span class="fa fa-archive fa-3x" style="color: #045491"/>
+                                            <p:selectOneMenu required="true" requiredMessage="Escoja la cava donde guardara la unidad" widgetVar="cavas" value="#{unidadController.unidad.cava}" converter="cava" filter="true" filterMatchMode="contains">
+                                                <f:selectItem itemLabel="Cava" noSelectionOption="true" itemValue="#{null}"/>
+
+                                                <f:selectItems value="#{cavaController.cavasFiltro}" var="cava" itemLabel="#{cava.nombre}" itemValue="#{cava}"/>
+                                            </p:selectOneMenu>
+
+                                        </div>
+
+                                    </center>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="hero-widget well well-sm">
+                                    <center> 
+                                        <div class="icon">
+                                            <span class="fa fa-balance-scale fa-3x" style="color: #045491"/>
+                                            <p:inputNumber size="10" value="#{unidadController.unidad.peso}" symbol=" Kilos" symbolPosition="suffix"
+                                                           placeholder="Peso" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="."
+                                                           requiredMessage="Ingrese el peso"/>
+
+                                        </div>
+
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <center>
+                            <p:growl life="5000" id="mensaje"/>
+                            <p:commandButton icon="fa fa-save" value="Ubicar unidad" update="mensaje @widgetVar(compraEspecies)" actionListener="#{unidadController.register()}"/>
+                            <p:commandButton style="margin-left: 5%" onclick="PF('registrar').hide()" icon="fa fa-times" class="btn-danger" value="Cancelar"/>
+                        </center>
                     </h:form>
                 </p:dialog>
+
             </ui:define>
 
         </ui:composition>

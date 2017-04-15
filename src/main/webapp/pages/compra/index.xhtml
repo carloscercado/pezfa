@@ -39,8 +39,8 @@
                                         <span class="fa fa-file fa-3x" style="color: #045491"/>
 
                                         <p:inputText  class="pull-right" placeholder="Orden de compra" required="true"
-                                                     requiredMessage="La orden de compra es necesaria" 
-                                                     value="#{compraController.compra.orden}"/>
+                                                      requiredMessage="La orden de compra es necesaria" 
+                                                      value="#{compraController.compra.orden}"/>
                                     </div>
                                 </center>
                             </div>
@@ -60,7 +60,7 @@
 
 
                     <br/>
-                    <p:dataTable  scrollHeight="250" scrollable="true" widgetVar="compraEspecie" 
+                    <p:dataTable  scrollHeight="250" scrollable="true" id="tabla" widgetVar="compraEspecie" 
                                   var="detalle" value="#{compraEspecieController.miLista}"
                                   emptyMessage="No hay productos agregados." reflow="true">
                         <f:facet name="header">
@@ -69,8 +69,8 @@
                                     <p:commandButton immediate="true" value="Agregar" class="right" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
                                 </div>
 
-                                <div class="col-md-6 text-right">
-                                    <a href="/pezfa/pages/entrada/" jsf:rendered="#{!(compraController.compras.size() eq 0)}">
+                                <div class="col-md-6 text-right" jsf:rendered="#{!(compraController.compras.size() eq 0)}">
+                                    <a href="/pezfa/pages/entrada/">
                                         Compras por procesar 
                                         <span class="badge btn-danger" >#{compraController.compras.size()}</span>
                                     </a>
@@ -121,8 +121,11 @@
                                 <div class="col-md-6 text-right header-tabla-center">
                                     <p:growl id="mensaje" life="5000"/>
 
-                                    <p:commandButton value="Guardar compra" class="btn-success" icon="fa fa-save" update="mensaje todo" actionListener="#{compraEspecieController.register()}"/>
-
+                                    <p:commandButton id="guardar" value="Guardar compra" class="btn-success" icon="fa fa-save" update="mensaje todo menu2" actionListener="#{compraEspecieController.register()}"/>
+                                    <p:blockUI block="tabla" trigger="guardar">
+                                        Registrando...<br/>
+                                        <span class="fa fa-spin fa-3x fa-spinner"></span>
+                                    </p:blockUI>
                                 </div>
                             </div>
 
@@ -197,11 +200,11 @@
                             <br/>
                             <p:panelGrid columns="2">
                                 <p:outputLabel value="Cantidad:" />
-                                <p:inputNumber  placeholder="Cantidad" value="#{compraEspecieController.compraEspecie.cantidad}" decimalPlaces="0" required="true" requiredMessage="Cantidad es necesaria"/>
+                                <p:inputNumber autocomplete="off" placeholder="Cantidad" value="#{compraEspecieController.compraEspecie.cantidad}" decimalPlaces="0" required="true" requiredMessage="Cantidad es necesaria"/>
                                 <p:outputLabel value="Costo:" />
-                                <p:inputNumber value="#{compraEspecieController.compraEspecie.costo}" symbol=" Bs.F" symbolPosition="suffix" 
+                                <p:inputNumber autocomplete="off" value="#{compraEspecieController.compraEspecie.costo}" symbol=" Bs.F" symbolPosition="suffix" 
                                                placeholder="Costo" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="."
-                                               requiredMessage="Ingrese el costo" emptyValue="0"/>
+                                               requiredMessage="Ingrese el costo"/>
                             </p:panelGrid>
                             <br></br>
                             <center>

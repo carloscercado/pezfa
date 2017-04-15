@@ -18,9 +18,6 @@
         <property name="peso" type="double">
             <column name="peso" precision="17" scale="17" not-null="true" />
         </property>
-        <property name="precio" type="big_decimal">
-            <column name="precio" precision="10" />
-        </property>
         <property name="codigo" type="string">
             <column name="codigo" length="30" not-null="true" unique="true" />
         </property>
