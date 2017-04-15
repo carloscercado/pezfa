@@ -3,9 +3,15 @@ package com.pezfa.inventario.controller;
 import com.pezfa.inventario.database.UnidadDB;
 import com.pezfa.inventario.models.Unidad;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -18,14 +24,14 @@ public class UnidadController implements Serializable
 
     private Unidad unidad = null; // objeto a controlar
     private List<Unidad> unidades = null; // lista de objetos de tipo unidades
+    @ManagedProperty(value = "#{compraEspecieController}")
+    private CompraEspecieController compraEspecieController;
 
-    //constructor
     public UnidadController()
     {
         unidad = new Unidad(); //instancio el objeto unidad
     }
 
-    //getter y setter
     public Unidad getUnidad()
     {
         return unidad;
@@ -34,6 +40,16 @@ public class UnidadController implements Serializable
     public void setUnidad(Unidad unidad)
     {
         this.unidad = unidad;
+    }
+
+    public CompraEspecieController getCompraEspecieController()
+    {
+        return compraEspecieController;
+    }
+
+    public void setCompraEspecieController(CompraEspecieController compraEspecieController)
+    {
+        this.compraEspecieController = compraEspecieController;
     }
 
     public List<Unidad> getUnidades()
@@ -50,36 +66,21 @@ public class UnidadController implements Serializable
     //logica para registrar un unidad
     public void register()
     {
+        unidad.setCompraEspecie(compraEspecieController.getCompraEspecie());
+        unidad.setEstado(Boolean.TRUE);
+        unidad.setCodigo(UUID.randomUUID().toString());
         if (UnidadDB.create(unidad))
         {
-            System.out.println("Registrado");
+            unidad = new Unidad();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unidad ubicada exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('registrar').hide(); PF('registrar').hide();");
         } else
         {
-            System.out.println("No Registrado");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas al ubicar insumo", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 
-    //logica para eliminar un unidad
-    public void delete()
-    {
-        if (UnidadDB.delete(unidad))
-        {
-            System.out.println("Eliminado");
-        } else
-        {
-            System.out.println("No Eliminado");
-        }
-    }
-
-    //logica para actualizar un unidad
-    public void update()
-    {
-        if (UnidadDB.update(unidad))
-        {
-            System.out.println("Actualizado");
-        } else
-        {
-            System.out.println("No Actualizado");
-        }
-    }
 }

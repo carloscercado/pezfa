@@ -24,7 +24,8 @@ public class CavaConverter implements Converter {
     public static List<Cava> cavas;
 
     public CavaConverter() {
-        cavas = CavaDB.read();
+        CavaDB db = new CavaDB();
+        cavas = db.read("from Cava cavita join fetch cavita.almacen");
     }
 
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {

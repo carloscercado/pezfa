@@ -16,82 +16,91 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean
 @ViewScoped
-public class EmpleadoController implements Serializable {
+public class EmpleadoController implements Serializable
+{
 
     private Empleado empleado = null;
     private List<Empleado> empleadores = null;
+    private EmpleadoDB db;
 
     //constructor
-    public EmpleadoController() {
+    public EmpleadoController()
+    {
+        db = new EmpleadoDB();
         empleado = new Empleado();
     }
 
     //getter y setter
-    public Empleado getEmpleado() {
+    public Empleado getEmpleado()
+    {
         return empleado;
     }
 
-    public void setEmpleado(Empleado empleado) {
+    public void setEmpleado(Empleado empleado)
+    {
         this.empleado = empleado;
     }
 
-    public List<Empleado> getEmpleadores() {
-        empleadores = EmpleadoDB.read();
+    public List<Empleado> getEmpleadores()
+    {
+        empleadores = db.read("From Empleado");
         return empleadores;
     }
 
-    public void setEmpleadores(List<Empleado> empleadores) {
+    public void setEmpleadores(List<Empleado> empleadores)
+    {
         this.empleadores = empleadores;
     }
 
-     public void reset()
+    public void reset()
     {
         System.out.println("Sin limpiar");
         empleado = new Empleado();
-        System.out.println("Reseteado");        
+        System.out.println("Reseteado");
     }
+
     public void register()
     {
-        if(EmpleadoDB.create(empleado))
+        if (db.create(empleado))
         {
             empleado = new Empleado();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('registrar').hide();");
-        }else
+        } else
         {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser guardado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
-    
+
     public void update()
     {
-        if(EmpleadoDB.update(empleado))
+        if (db.update(empleado))
         {
             empleado = new Empleado();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('modificar').hide();");
-        }else
+        } else
         {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
-    
+
     public void delete()
     {
-        if(EmpleadoDB.delete(empleado))
+        if (db.delete(empleado))
         {
             empleado = new Empleado();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('eliminar').hide();");
-        }else
+        } else
         {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este registro no puede ser eliminado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);

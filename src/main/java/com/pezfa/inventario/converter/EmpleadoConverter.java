@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pezfa.inventario.converter;
 
 import com.pezfa.inventario.database.EmpleadoDB;
@@ -24,7 +19,8 @@ public class EmpleadoConverter implements Converter {
     public static List<Empleado> empleados;
 
     public EmpleadoConverter() {
-        empleados = EmpleadoDB.read();
+        EmpleadoDB db = new EmpleadoDB();
+        empleados = db.read("From empleado");
     }
 
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
