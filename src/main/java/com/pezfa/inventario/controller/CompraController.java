@@ -13,10 +13,12 @@ public class CompraController implements Serializable
 {
     private Compra compra = null;
     private List<Compra> compras = null;
+    private CompraDB db;
     
     public CompraController()
     {
         compra = new Compra();
+        db = new CompraDB();
     }
     
     public Compra getCompra()
@@ -30,7 +32,7 @@ public class CompraController implements Serializable
     
     public List<Compra> getCompras()
     {
-        compras = CompraDB.read();
+        compras = db.read("from Compra comprita join fetch comprita.proveedor join fetch comprita.usuario where comprita.estado = 'Comprado'");
         return compras;
     }
     public void setCompras(List<Compra> compras)
@@ -40,7 +42,7 @@ public class CompraController implements Serializable
     
     public void register()
     {
-        if(CompraDB.create(compra))
+        if(db.create(compra))
         {
             System.out.println("Su Compra Ha Sido Registrada");
         }else
@@ -51,7 +53,7 @@ public class CompraController implements Serializable
     
     public void delete()
     {
-        if(CompraDB.delete(compra))
+        if(db.delete(compra))
         {
             System.out.println("Su Compra Ha Sido ELiminada");
         }else
@@ -62,7 +64,7 @@ public class CompraController implements Serializable
     
     public void update()
     {
-        if(CompraDB.update(compra))
+        if(db.update(compra))
         {
             System.out.println("Su Copra Ha Sido Actualizada");
         }else

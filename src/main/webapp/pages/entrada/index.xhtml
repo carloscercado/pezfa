@@ -11,23 +11,39 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-                <h:form>
+                <h:form id="local">
                     <div class="row">
 
                         <div class="col-sm-4">
+                            <div class="text-muted">
+                                <strong>Unidades en transito</strong>
+                            </div>
                             <div class="hero-widget well well-sm">
-
+                                <span class="fa fa-cubes fa-3x"/>
+                                <strong>#{compraEspecieController.cantidadDesubicados} Unidades</strong>
                             </div>
                         </div>
 
                         <div class="col-sm-4">
+                            <div class="text-muted">
+                                <strong>Costo de unidades en transito</strong>
+                            </div>
                             <div class="hero-widget well well-sm">
-
+                                <span class="fa fa-usd fa-3x"/>
+                                <h:outputLabel value="#{compraEspecieController.costoTransito}">
+                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                </h:outputLabel> 
                             </div>
                         </div>
                         <div class="col-sm-4">
+                            <div class="text-muted">
+                                <strong>Gasto en compras en transito</strong>
+                            </div>
                             <div class="hero-widget well well-sm">
-
+                                <span class="fa fa-usd fa-3x"/>
+                                <h:outputLabel value="#{compraEspecieController.gastoTransito}">
+                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                </h:outputLabel> 
                             </div>
                         </div>
                     </div>
@@ -74,7 +90,7 @@
                           responsive="true" resizable="false" draggable="false" modal="true"
                           width="700">
                     <f:facet name="onHide()">
-                        <p:ajax update="@widgetVar(compras) menu2"/>
+                        <p:ajax update="local menu2"/>
                     </f:facet>
                     <h:form>
                         <p:panelGrid columns="4">

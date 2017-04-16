@@ -58,7 +58,7 @@ public class CompraEspecieDB implements Crud<CompraEspecie>
        {
            sesion=HibernateUtil.getSesion().openSession(); //abrir conexion en la base de datos
            sesion.beginTransaction();//abrir la transaccion
-           lista=sesion.createQuery("from CompraEspecie esp join fetch esp.compra com join fetch esp.especie where com.id="+id+" and esp.cantidad != esp.ubicados").list();//crea la consulta de la base de datos mediante el llamado de la clase y la muestra en forma de lista
+           lista= sesion.createQuery("from CompraEspecie esp join fetch esp.compra com join fetch esp.especie where com.id="+id+" and esp.cantidad != esp.ubicados").list();//crea la consulta de la base de datos mediante el llamado de la clase y la muestra en forma de lista
            sesion.getTransaction().commit();//terminado de la transaccion
        }catch(Exception hi)
        {

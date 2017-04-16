@@ -43,6 +43,28 @@ public class CompraEspecieController implements Serializable
                 .sum();
     }
 
+    public int getCantidadDesubicados()
+    {
+        return this.getCompraEspecies().stream()
+                .mapToInt(x -> x.getCantidad() - x.getUbicados())
+                .sum();
+    }
+
+    public double getCostoTransito()
+    {
+        return this.getCompraEspecies().stream()
+                .mapToDouble(x -> (x.getCantidad() - x.getUbicados()) * x.getCosto().floatValue())
+                .sum();
+
+    }
+
+    public double getGastoTransito()
+    {
+        return this.getCompraEspecies().stream()
+                .mapToDouble(x -> x.getCosto().doubleValue() * x.getCantidad())
+                .sum();
+    }
+
     public UsuarioController getUsuarioController()
     {
         return usuarioController;
