@@ -58,6 +58,10 @@ public class CompraEspecieController implements Serializable
 
     }
 
+    public void reset()
+    {
+        compraEspecie = new CompraEspecie();
+    }
     public double getGastoTransito()
     {
         return this.getCompraEspecies().stream()

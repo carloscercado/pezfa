@@ -103,7 +103,7 @@
                         <p:column headerText="Quitar" width="15%">
 
                             <center>
-                                <p:commandButton icon="fa fa-trash" title="Eliminar" update="@widgetVar(eliminar)"  oncomplete="PF('eliminar').show()" class="btn-danger">
+                                <p:commandButton immediate="true" icon="fa fa-trash" title="Eliminar" update="@widgetVar(eliminar)"  oncomplete="PF('eliminar').show()" class="btn-danger">
                                     <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie}" value="#{detalle}"/>
                                 </p:commandButton>
 
@@ -133,6 +133,7 @@
                     </p:dataTable>
 
                 </h:form>
+                    
                 <p:dialog width="700" draggable="false" header="Especies registradas" resizable="false" responsive="true" widgetVar="registrar" modal="true">
 
                     <h:form>
@@ -209,7 +210,7 @@
                             <br></br>
                             <center>
                                 <p:commandButton icon="fa fa-save" value="Agregar" update="@widgetVar(compraEspecie) mensaje" actionListener="#{compraEspecieController.add()}"   />
-                                <p:commandButton icon="fa fa-times" value="Cancelar" onclick="PF('agregar').hide()" class="btn-danger"/>
+                                <p:commandButton  icon="fa fa-times" value="Cancelar" onclick="PF('agregar').hide()" class="btn-danger"/>
                             </center>
                             <br/>
                         </center>
@@ -218,11 +219,14 @@
 
                 <p:dialog closable="false" draggable="false" header="&#191; Est&aacute;s seguro de que desea eliminar &#63;" resizable="false" 
                           responsive="true" widgetVar="eliminar" modal="true">
+                    <f:facet name="onHide()">
+                        <p:ajax listener="#{compraEspecieController.reset()}"/>
+                    </f:facet>
                     <h:form>
                         <p:growl id="mensaje"/>
                         <center>
                             <p:commandButton  icon="fa fa-check" value="Si" oncomplete="PF('eliminar').hide()" actionListener="#{compraEspecieController.remove()}" update="@widgetVar(compraEspecie)" />
-                            <p:commandButton icon="fa fa-times" value="No" onclick="PF('eliminar').hide()" class="btn-danger"/>
+                            <p:commandButton immediate="true" icon="fa fa-times" value="No" onclick="PF('eliminar').hide()" class="btn-danger"/>
                         </center>
                     </h:form>
                 </p:dialog>
