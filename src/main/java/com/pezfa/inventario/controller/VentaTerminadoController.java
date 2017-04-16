@@ -18,11 +18,13 @@ public class VentaTerminadoController implements Serializable
 
     private VentaTerminado ventaterminado = null; // objeto a controlar
     private List<VentaTerminado> ventatermin = null; //lista de objetos de tipo ventaterminado
+    private VentaTerminadoDB db;
 
     //constructor
     public VentaTerminadoController()
     {
         ventaterminado = new VentaTerminado(); //se instancia el objeto
+        db = new VentaTerminadoDB();
     }
     
     //getter y setter
@@ -38,7 +40,7 @@ public class VentaTerminadoController implements Serializable
 
     public List<VentaTerminado> getVentaTermin()
     {
-        ventatermin = VentaTerminadoDB.read();
+        ventatermin = db.read("from VentaTerminado");
         return ventatermin;
     }
 
@@ -50,7 +52,7 @@ public class VentaTerminadoController implements Serializable
     //logica para registrar una ventaterminado
     public void register()
     {
-        if (VentaTerminadoDB.create(ventaterminado))
+        if (db.create(ventaterminado))
         {
             System.out.println("Registrado");
         } else
@@ -62,7 +64,7 @@ public class VentaTerminadoController implements Serializable
     //logica para borrar una ventaterminado
     public void delete()
     {
-        if (VentaTerminadoDB.delete(ventaterminado))
+        if (db.delete(ventaterminado))
         {
             System.out.println("Registrado");
         } else
@@ -74,7 +76,7 @@ public class VentaTerminadoController implements Serializable
     //logica para actualizar una ventaterminado
     public void update()
     {
-        if (VentaTerminadoDB.update(ventaterminado))
+        if (db.update(ventaterminado))
         {
             System.out.println("Registrado");
         } else

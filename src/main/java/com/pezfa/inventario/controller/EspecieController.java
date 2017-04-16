@@ -19,11 +19,13 @@ public class EspecieController implements Serializable
     private Especie especie = null; // objeto a controlar
     private List<Especie> especies = null; // lista de objetos de tipo almace
     private List<String> tipos;
+    private EspecieDB db;
     
     //constructor
     public EspecieController()
     {
         especie = new Especie(); //instancio el objeto almacen
+        db = new EspecieDB();
     }
 
     //getter y setter
@@ -39,7 +41,7 @@ public class EspecieController implements Serializable
 
     public List<Especie> getEspecies()
     {
-        especies = EspecieDB.read();
+        especies = db.read("from Especie");
         return especies;
     }
 
@@ -63,13 +65,11 @@ public class EspecieController implements Serializable
     }
      public void reset()
     {
-        System.out.println("Sin limpiar");
         especie = new Especie();
-        System.out.println("Reseteado");        
     }
     public void register()
     {
-        if(EspecieDB.create(especie))
+        if(db.create(especie))
         {
             especie = new Especie();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
@@ -85,7 +85,7 @@ public class EspecieController implements Serializable
     
     public void update()
     {
-        if(EspecieDB.update(especie))
+        if(db.update(especie))
         {
             especie = new Especie();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
@@ -101,7 +101,7 @@ public class EspecieController implements Serializable
     
     public void delete()
     {
-        if(EspecieDB.delete(especie))
+        if(db.delete(especie))
         {
             especie = new Especie();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);

@@ -17,11 +17,13 @@ public class VentaController implements Serializable
 {
     private Venta venta = null; // objeto a controlar
     private List<Venta> ventas = null; // lista de objetos de tipo ventas
+    private VentaDB db;
 
     //constructor
     public VentaController()
     {
         venta = new Venta(); //instancio el objeto venta
+        db = new VentaDB();
     }
 
     //getter y setter
@@ -37,7 +39,7 @@ public class VentaController implements Serializable
 
     public List<Venta> getVentas()
     {
-        ventas = VentaDB.read();
+        ventas = db.read("from Venta");
         return ventas;
     }
 
@@ -49,7 +51,7 @@ public class VentaController implements Serializable
     //logica para registrar un venta
     public void register()
     {
-        if (VentaDB.create(venta))
+        if (db.create(venta))
         {
             System.out.println("Registrado");
         } else
@@ -61,7 +63,7 @@ public class VentaController implements Serializable
     //logica para eliminar un venta
     public void delete()
     {
-        if (VentaDB.delete(venta))
+        if (db.delete(venta))
         {
             System.out.println("Eliminado");
         } else
@@ -73,7 +75,7 @@ public class VentaController implements Serializable
     //logica para actualizar un venta
     public void update()
     {
-        if (VentaDB.update(venta))
+        if (db.update(venta))
         {
             System.out.println("Actualizado");
         } else

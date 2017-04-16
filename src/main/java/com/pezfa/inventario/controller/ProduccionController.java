@@ -13,10 +13,12 @@ public class ProduccionController implements Serializable
 
     Produccion produccion = null; // objeto a controlar
     List<Produccion> producciones = null; // lista de objetos de tipo almace
+    private ProduccionDB db;
 
     public ProduccionController()
     {
         produccion = new Produccion(); //instancio el objeto almacen
+        db = new ProduccionDB();
     }
 
     public Produccion getProduccion()
@@ -31,13 +33,13 @@ public class ProduccionController implements Serializable
 
     public List<Produccion> getProducciones()
     {
-        producciones = ProduccionDB.read();
+        producciones = db.read("from Produccion");
         return producciones;
     }
 
     public void register()
     {
-        if (ProduccionDB.create(produccion))
+        if (db.create(produccion))
         {
             System.out.println("Registrado");
         } else
@@ -48,7 +50,7 @@ public class ProduccionController implements Serializable
 
     public void delete()
     {
-        if (ProduccionDB.delete(produccion))
+        if (db.delete(produccion))
         {
             System.out.println("Eliminado");
         } else
@@ -60,7 +62,7 @@ public class ProduccionController implements Serializable
     //logica para actualizar un almacen
     public void update()
     {
-        if (ProduccionDB.update(produccion))
+        if (db.update(produccion))
         {
             System.out.println("Actualizador");
         } else

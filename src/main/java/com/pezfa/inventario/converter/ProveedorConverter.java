@@ -19,36 +19,41 @@ import javax.faces.view.Location;
  * @author Alicia
  */
 @FacesConverter(forClass = Location.class, value = "proveedor")
-public class ProveedorConverter implements Converter {
+public class ProveedorConverter implements Converter
+{
 
     public static List<Proveedor> proveedors;
 
-    public ProveedorConverter() {
-        proveedors = ProveedorDB.read();
+    public ProveedorConverter()
+    {
+        ProveedorDB db = new ProveedorDB();
+        proveedors = db.read("from Proveedor");
     }
 
-    public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
-        Integer code =  Integer.parseInt(value);
+    public Object getAsObject(FacesContext fc, UIComponent uic, String value)
+    {
+        Integer code = Integer.parseInt(value);
         Proveedor obj = buscar(code);
         return obj;
-        
+
     }
 
-    public String getAsString(FacesContext fc, UIComponent uic, Object o) {
-        if(o==null||o.equals(""))
+    public String getAsString(FacesContext fc, UIComponent uic, Object o)
+    {
+        if (o == null || o.equals(""))
         {
             return "";
-        }else
+        } else
         {
-            return String.valueOf(((Proveedor)o).getId());
+            return String.valueOf(((Proveedor) o).getId());
         }
     }
-    
+
     public Proveedor buscar(int id)
     {
         for (Proveedor obj : proveedors)
         {
-            if(obj.getId()==id)
+            if (obj.getId() == id)
             {
                 return obj;
             }

@@ -18,11 +18,13 @@ public class VentaUnidadController implements Serializable
 
     private VentaUnidad ventaunidad = null;//objeto a controlar
     private List<VentaUnidad> ventauni = null;//lista de objetos de tipo ventauni
+    private VentaUnidadDB db;
 
     //constructor
     public VentaUnidadController()
     {
         ventaunidad = new VentaUnidad();
+        db = new VentaUnidadDB();
     }
 
     //métodos getter y setter
@@ -38,7 +40,7 @@ public class VentaUnidadController implements Serializable
 
     public List<VentaUnidad> getVentauni()
     {
-        ventauni = VentaUnidadDB.read();
+        ventauni = db.read("from VentaUnidad");
         return ventauni;
     }
 
@@ -50,7 +52,7 @@ public class VentaUnidadController implements Serializable
     //logica para registrar una ventaunidad
     public void register()
     {
-        if (VentaUnidadDB.create(ventaunidad))
+        if (db.create(ventaunidad))
         {
             System.out.println("Registrado");
         } else
@@ -62,7 +64,7 @@ public class VentaUnidadController implements Serializable
     //logica para borrar una ventaunidad
     public void delete()
     {
-        if (VentaUnidadDB.delete(ventaunidad))
+        if (db.delete(ventaunidad))
         {
             System.out.println("Registrado");
         } else
@@ -74,7 +76,7 @@ public class VentaUnidadController implements Serializable
     //logica para actualizar una ventaunidad
     public void update()
     {
-        if (VentaUnidadDB.update(ventaunidad))
+        if (db.update(ventaunidad))
         {
             System.out.println("Registrado");
         } else

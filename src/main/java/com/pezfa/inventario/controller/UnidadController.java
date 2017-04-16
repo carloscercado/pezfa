@@ -3,7 +3,6 @@ package com.pezfa.inventario.controller;
 import com.pezfa.inventario.database.UnidadDB;
 import com.pezfa.inventario.models.Unidad;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
@@ -26,10 +25,12 @@ public class UnidadController implements Serializable
     private List<Unidad> unidades = null; // lista de objetos de tipo unidades
     @ManagedProperty(value = "#{compraEspecieController}")
     private CompraEspecieController compraEspecieController;
+    private UnidadDB db;
 
     public UnidadController()
     {
         unidad = new Unidad(); //instancio el objeto unidad
+        db = new UnidadDB();
     }
 
     public Unidad getUnidad()
@@ -54,7 +55,7 @@ public class UnidadController implements Serializable
 
     public List<Unidad> getUnidades()
     {
-        unidades = UnidadDB.read();
+        unidades = db.read("from Unidad uni join fetch uni.cava cav join fetch cav.almacen join fetch uni.compraEspecie cpe join fetch cpe.especie");
         return unidades;
     }
 
@@ -69,7 +70,7 @@ public class UnidadController implements Serializable
         unidad.setCompraEspecie(compraEspecieController.getCompraEspecie());
         unidad.setEstado(Boolean.TRUE);
         unidad.setCodigo(UUID.randomUUID().toString());
-        if (UnidadDB.create(unidad))
+        if (db.create(unidad))
         {
             unidad = new Unidad();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unidad ubicada exitosamente", null);

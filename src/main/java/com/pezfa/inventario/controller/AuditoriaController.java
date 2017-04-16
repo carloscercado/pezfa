@@ -13,10 +13,12 @@ public class AuditoriaController implements Serializable
 {
     private Auditoria auditoria = null;
     private List<Auditoria> auditorias = null;
+    private AuditoriaDB db;
     
     public AuditoriaController()
     {
         auditoria = new Auditoria ();
+        db = new AuditoriaDB();
     }
     
     public Auditoria getAuditoria()
@@ -30,7 +32,7 @@ public class AuditoriaController implements Serializable
     
     public List<Auditoria> getAuditorias()
     {
-       auditorias = AuditoriaDB.read();
+       auditorias = db.read("from Auditoria");
        return auditorias;
     }      
     public void setAuditorias(List<Auditoria> auditorias)
@@ -40,7 +42,7 @@ public class AuditoriaController implements Serializable
     
     public void register()
     {
-        if(AuditoriaDB.create(auditoria))
+        if(db.create(auditoria))
         {
             System.out.println("Registrado Correctamente");
         }else
@@ -51,7 +53,7 @@ public class AuditoriaController implements Serializable
     
     public void update()
     {
-        if(AuditoriaDB.update(auditoria))
+        if(db.update(auditoria))
         {
             System.out.println("Actualizado Correctamente");
         }else
@@ -62,7 +64,7 @@ public class AuditoriaController implements Serializable
     
     public void delete()
     {
-        if(AuditoriaDB.delete(auditoria))
+        if(db.delete(auditoria))
         {
             System.out.println("Eliminado Correctamente");
         }else

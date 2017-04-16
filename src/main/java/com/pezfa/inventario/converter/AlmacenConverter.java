@@ -19,36 +19,41 @@ import javax.faces.view.Location;
  * @author Alicia
  */
 @FacesConverter(forClass = Location.class, value = "almacen")
-public class AlmacenConverter implements Converter {
+public class AlmacenConverter implements Converter
+{
 
     public static List<Almacen> almacenes;
 
-    public AlmacenConverter() {
-        almacenes = AlmacenDB.read();
+    public AlmacenConverter()
+    {
+        AlmacenDB db = new AlmacenDB();
+        almacenes = db.read("from Almacen");
     }
 
-    public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
-        Integer code =  Integer.parseInt(value);
+    public Object getAsObject(FacesContext fc, UIComponent uic, String value)
+    {
+        Integer code = Integer.parseInt(value);
         Almacen obj = buscar(code);
         return obj;
-        
+
     }
 
-    public String getAsString(FacesContext fc, UIComponent uic, Object o) {
-        if(o==null||o.equals(""))
+    public String getAsString(FacesContext fc, UIComponent uic, Object o)
+    {
+        if (o == null || o.equals(""))
         {
             return "";
-        }else
+        } else
         {
-            return String.valueOf(((Almacen)o).getId());
+            return String.valueOf(((Almacen) o).getId());
         }
     }
-    
+
     public Almacen buscar(int id)
     {
         for (Almacen obj : almacenes)
         {
-            if(obj.getId()==id)
+            if (obj.getId() == id)
             {
                 return obj;
             }

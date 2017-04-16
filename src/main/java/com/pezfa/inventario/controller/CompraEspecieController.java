@@ -27,11 +27,13 @@ public class CompraEspecieController implements Serializable
     private UsuarioController usuarioController;
     @ManagedProperty(value = "#{compraController}")
     private CompraController compraController;
+    private CompraEspecieDB db;
 
     public CompraEspecieController()
     {
         compraEspecie = new CompraEspecie();
         miLista = new HashSet<CompraEspecie>();
+        db = new CompraEspecieDB();
     }
 
     public double getTotal()
@@ -94,7 +96,7 @@ public class CompraEspecieController implements Serializable
 
     public List<CompraEspecie> getCompraEspecies()
     {
-        compraEspecies = CompraEspecieDB.read();
+        compraEspecies = db.read("from CompraEspecie com join fetch com.especie");
         return compraEspecies;
     }
 
@@ -106,7 +108,7 @@ public class CompraEspecieController implements Serializable
     public List<CompraEspecie> getDetalleCompra()
     {
         int id = compraController.getCompra().getId();
-        detalleCompra = CompraEspecieDB.findBy(id);
+        detalleCompra = db.findBy(id);
         return detalleCompra;
     }
 
@@ -129,7 +131,7 @@ public class CompraEspecieController implements Serializable
     {
         if (this.miLista.size() > 0)
         {
-            if (CompraEspecieDB.createList(miLista))
+            if (db.createList(miLista))
             {
                 miLista.clear();
                 compraController.setCompra(new Compra());
@@ -153,25 +155,4 @@ public class CompraEspecieController implements Serializable
         compraEspecie = new CompraEspecie();
     }
 
-    public void delete()
-    {
-        if (CompraEspecieDB.delete(compraEspecie))
-        {
-            System.out.println("Eliminado");
-        } else
-        {
-            System.out.println("No Eliminado");
-        }
-    }
-
-    public void update()
-    {
-        if (CompraEspecieDB.update(compraEspecie))
-        {
-            System.out.println("Actualizado");
-        } else
-        {
-            System.out.println("No Actualizado");
-        }
-    }
 }

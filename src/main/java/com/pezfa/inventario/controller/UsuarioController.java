@@ -21,6 +21,7 @@ public class UsuarioController implements Serializable {
 
     private Usuario usuario = null; // objeto a controlar
     private final HttpServletRequest req;
+    private UsuarioDB db;
     private final FacesContext contexto;
     private List<Usuario> usuarios = null; // lista de objetos de tipo usuarios
     private Usuario sesion;
@@ -36,6 +37,7 @@ public class UsuarioController implements Serializable {
         {
             sesion = (Usuario) req.getSession().getAttribute("sesion");
             usuario = new Usuario();
+            db = new UsuarioDB();
         } else
         {
             try
@@ -59,7 +61,7 @@ public class UsuarioController implements Serializable {
     }
 
     public List<Usuario> getUsuarios() {
-        usuarios = UsuarioDB.read();
+        usuarios = db.read("from Usuario user join fetch user.empleado");
         return usuarios;
     }
 
@@ -80,7 +82,7 @@ public class UsuarioController implements Serializable {
     public void register() {
         String user = usuario.getUsuario();
         usuario.setClave(user);
-        if (UsuarioDB.create(usuario)) {
+        if (db.create(usuario)) {
             usuario = new Usuario();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro existoso", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
@@ -94,7 +96,7 @@ public class UsuarioController implements Serializable {
 
     //logica para eliminar un usuario
     public void delete() {
-        if (UsuarioDB.delete(usuario)) {
+        if (db.delete(usuario)) {
             usuario = new Usuario();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
@@ -108,7 +110,7 @@ public class UsuarioController implements Serializable {
 
     //logica para actualizar un usuario
     public void update() {
-        if (UsuarioDB.update(usuario)) {
+        if (db.update(usuario)) {
             System.out.println("Actualizado");
         } else {
             System.out.println("No Actualizado");

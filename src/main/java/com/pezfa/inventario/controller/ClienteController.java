@@ -16,10 +16,12 @@ public class ClienteController implements Serializable
 {
     private Cliente cliente = null;
     private List<Cliente> clientes = null;
+    private ClienteDB db;
     
     public ClienteController()
     {
         cliente = new Cliente(); 
+        db = new ClienteDB();
     }
     
     public Cliente getCliente()
@@ -33,7 +35,7 @@ public class ClienteController implements Serializable
     
     public List<Cliente> getClientes()
     {
-        clientes = ClienteDB.read();
+        clientes = db.read("from Cliente");
         return clientes;
     }
     public void setClientes(List<Cliente> clientes)
@@ -43,13 +45,11 @@ public class ClienteController implements Serializable
     
     public void reset()
     {
-        System.out.println("Sin limpiar");
         cliente = new Cliente();
-        System.out.println("Reseteado");        
     }
     public void register()
     {
-        if(ClienteDB.create(cliente))
+        if(db.create(cliente))
         {
             cliente = new Cliente();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
@@ -65,7 +65,7 @@ public class ClienteController implements Serializable
     
     public void update()
     {
-        if(ClienteDB.update(cliente))
+        if(db.update(cliente))
         {
             cliente = new Cliente();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
@@ -81,7 +81,7 @@ public class ClienteController implements Serializable
     
     public void delete()
     {
-        if(ClienteDB.delete(cliente))
+        if(db.delete(cliente))
         {
             cliente = new Cliente();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);

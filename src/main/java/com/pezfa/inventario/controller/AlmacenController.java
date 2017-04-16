@@ -17,11 +17,13 @@ public class AlmacenController implements Serializable
 
     private Almacen almacen = null; // objeto a controlar
     private List<Almacen> almacenes = null; // lista de objetos de tipo almace
+    private AlmacenDB db;
 
     //constructor
     public AlmacenController()
     {
         almacen = new Almacen(); //instancio el objeto almacen
+        db = new AlmacenDB();
     }
 
     //getter y setter
@@ -37,7 +39,7 @@ public class AlmacenController implements Serializable
 
     public List<Almacen> getAlmacenes()
     {
-        almacenes = AlmacenDB.read();
+        almacenes = db.read("from Almacen");
         return almacenes;
     }
 
@@ -48,13 +50,11 @@ public class AlmacenController implements Serializable
     
      public void reset()
     {
-        System.out.println("Sin limpiar");
         almacen = new Almacen();
-        System.out.println("Reseteado");        
     }
     public void register()
     {
-        if (AlmacenDB.create(almacen))
+        if (db.create(almacen))
         {
             almacen = new Almacen();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
@@ -71,7 +71,7 @@ public class AlmacenController implements Serializable
     //logica para eliminar un almacen
     public void delete()
     {
-        if (AlmacenDB.delete(almacen))
+        if (db.delete(almacen))
         {
             almacen = new Almacen();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);
@@ -87,7 +87,7 @@ public class AlmacenController implements Serializable
     
     public void update()
     {
-        if(AlmacenDB.update(almacen))
+        if(db.update(almacen))
        {
             almacen = new Almacen();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);

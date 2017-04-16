@@ -17,11 +17,13 @@ public class ProveedorController implements Serializable
 
     Proveedor proveedor = null; // objeto a controlar
     List<Proveedor> proveedores = null; // lista de objetos de tipo almace
+    private ProveedorDB db;
 
     //constructor
     public ProveedorController()
     {
         proveedor = new Proveedor(); //instancio el objeto almacen
+        db = new ProveedorDB();
     }
 
     //getter y setter
@@ -37,7 +39,7 @@ public class ProveedorController implements Serializable
 
     public List<Proveedor> getProvedores()
     {
-        proveedores = ProveedorDB.read();
+        proveedores = db.read("from Proveedor");
         return proveedores;
     }
 
@@ -48,13 +50,11 @@ public class ProveedorController implements Serializable
 
     public void reset()
     {
-        System.out.println("Sin limpiar");
         proveedor = new Proveedor();
-        System.out.println("Reseteado");        
     }
     public void register()
     {
-        if(ProveedorDB.create(proveedor))
+        if(db.create(proveedor))
         {
             proveedor = new Proveedor();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
@@ -70,7 +70,7 @@ public class ProveedorController implements Serializable
     
     public void update()
     {
-        if(ProveedorDB.update(proveedor))
+        if(db.update(proveedor))
         {
             proveedor = new Proveedor();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
@@ -86,7 +86,7 @@ public class ProveedorController implements Serializable
     
     public void delete()
     {
-        if(ProveedorDB.delete(proveedor))
+        if(db.delete(proveedor))
         {
             proveedor = new Proveedor();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);

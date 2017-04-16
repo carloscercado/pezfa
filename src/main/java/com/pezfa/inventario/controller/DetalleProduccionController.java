@@ -13,10 +13,12 @@ public class DetalleProduccionController implements Serializable
 
     DetalleProduccion detalleproduccion = null; // objeto a controlar
     List<DetalleProduccion> detalles = null; // lista de objetos de tipo almace
+    private DetalleProduccionDB db;
 
     public DetalleProduccionController()
     {
         detalleproduccion = new DetalleProduccion(); //instancio el objeto almacen
+        db = new DetalleProduccionDB();
     }
 
     public DetalleProduccion getDetalleProduccion()
@@ -31,13 +33,13 @@ public class DetalleProduccionController implements Serializable
 
     public List<DetalleProduccion> getDetalles()
     {
-        detalles = DetalleProduccionDB.read();
+        detalles = db.read("from DetalleProduccion");
         return detalles;
     }
 
     public void register()
     {
-        if (DetalleProduccionDB.create(detalleproduccion))
+        if (db.create(detalleproduccion))
         {
             System.out.println("Registrado");
         } else
@@ -48,7 +50,7 @@ public class DetalleProduccionController implements Serializable
 
     public void delete()
     {
-        if (DetalleProduccionDB.delete(detalleproduccion))
+        if (db.delete(detalleproduccion))
         {
             System.out.println("Eliminado");
         } else
@@ -60,7 +62,7 @@ public class DetalleProduccionController implements Serializable
     //logica para actualizar un almacen
     public void update()
     {
-        if (DetalleProduccionDB.update(detalleproduccion))
+        if (db.update(detalleproduccion))
         {
             System.out.println("Actualizador");
         } else
