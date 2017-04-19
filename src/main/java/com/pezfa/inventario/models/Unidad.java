@@ -1,12 +1,12 @@
 package com.pezfa.inventario.models;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-public class Unidad  implements java.io.Serializable {
+public class Unidad extends ProductoSalida  implements java.io.Serializable {
 
 
-     private int id;
      private Cava cava;
      private CompraEspecie compraEspecie;
      private double peso;
@@ -18,9 +18,8 @@ public class Unidad  implements java.io.Serializable {
     public Unidad() {
     }
 
-    public Unidad(int id, Cava cava, CompraEspecie compraEspecie, double peso, String codigo, Boolean estado)
+    public Unidad(Cava cava, CompraEspecie compraEspecie, double peso, String codigo, Boolean estado)
     {
-        this.id = id;
         this.cava = cava;
         this.compraEspecie = compraEspecie;
         this.peso = peso;
@@ -28,9 +27,8 @@ public class Unidad  implements java.io.Serializable {
         this.estado = estado;
     }
 
-    public Unidad(int id, Cava cava, double peso, String codigo, Boolean estado)
+    public Unidad( Cava cava, double peso, String codigo, Boolean estado)
     {
-        this.id = id;
         this.cava = cava;
         this.peso = peso;
         this.codigo = codigo;
@@ -38,15 +36,6 @@ public class Unidad  implements java.io.Serializable {
     }
 
     
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
 
     public Cava getCava()
     {
@@ -117,6 +106,38 @@ public class Unidad  implements java.io.Serializable {
     {
         this.detalleProduccions = detalleProduccions;
     }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 19 * hash + Objects.hashCode(this.compraEspecie);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final Unidad other = (Unidad) obj;
+        if (!Objects.equals(this.compraEspecie, other.compraEspecie))
+        {
+            return false;
+        }
+        return true;
+    }
+    
     
     
 	

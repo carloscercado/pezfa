@@ -73,27 +73,59 @@
                                 </div>
 
                                 <div class="col-md-6 text-right">
-                                    
+
                                 </div>
                             </div>
                         </f:facet>
 
                         <p:column headerText="Especie">
                             <div jsf:rendered="#{detalle.getClass().name.endsWith('VentaUnidad')}">
-                                #{detalle.unidad.codigo}
+                                #{detalle.unidad.compraEspecie.especie.nombre}
                             </div>
-                             <div jsf:rendered="#{detalle.getClass().name.endsWith('VentaTerminado')}">
-                                #{detalle.terminado.id}
+                            <div jsf:rendered="#{detalle.getClass().name.endsWith('VentaTerminado')}">
+                                #{detalle.terminado.producto.nombre}
                             </div>
-
                         </p:column>
-                       
+                        <p:column headerText="Cantidad">
+
+                            #{detalle.cantidad}
+                        </p:column>
+
+                        <p:column headerText="Precio" class="text-right">
+                            <div jsf:rendered="#{detalle.getClass().name.endsWith('VentaUnidad')}">
+                                <h:outputLabel value="#{detalle.unidad.compraEspecie.especie.precio}">
+                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                </h:outputLabel> 
+
+                            </div>
+                            <div jsf:rendered="#{detalle.getClass().name.endsWith('VentaTerminado')}">
+                                <h:outputLabel value="#{detalle.terminado.producto.precio}">
+                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                </h:outputLabel> 
+                            </div>
+                        </p:column>
+                        <p:column headerText="Total" class="text-right">
+                            <div jsf:rendered="#{detalle.getClass().name.endsWith('VentaUnidad')}">
+                                <h:outputLabel value="#{detalle.unidad.compraEspecie.especie.precio *detalle.cantidad}">
+                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                </h:outputLabel> 
+
+                            </div>
+                            <div jsf:rendered="#{detalle.getClass().name.endsWith('VentaTerminado')}">
+                                <h:outputLabel value="#{detalle.terminado.producto.precio *detalle.cantidad}">
+                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                </h:outputLabel>
+                            </div>
+                        </p:column>
+
+
+
 
                         <p:column headerText="Quitar" width="15%">
 
                             <center>
                                 <p:commandButton icon="fa fa-trash" title="Eliminar" update="@widgetVar(eliminar)"  oncomplete="PF('eliminar').show()" class="btn-danger">
-                                    <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie}" value="#{detalle}"/>
+                                    <f:setPropertyActionListener target="#{ventaController.ventaDetalle}" value="#{detalle}"/>
                                 </p:commandButton>
 
                             </center>
@@ -101,13 +133,17 @@
                         <f:facet name="footer">
                             <div class="row">
                                 <div  class="col-md-6 text-left ">
-                                    
+                                    Total:
+                                    <h:outputLabel value="#{ventaController.total}">
+                                        <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                    </h:outputLabel>
                                 </div>
 
                                 <div class="col-md-6 text-right header-tabla-center">
                                     <p:growl id="mensaje" life="5000"/>
 
-                                    <p:commandButton id="guardar" value="Guardar venta" class="btn-success" icon="fa fa-save" update="mensaje todo menu2" actionListener="#{compraEspecieController.register()}"/>
+                                    <p:commandButton id="guardar" value="Guardar venta" class="btn-success" icon="fa fa-save" update="mensaje @widgetVar(productossalida) todo menu2" 
+                                                     actionListener="#{ventaController.register()}"/>
                                     <p:blockUI block="tabla" trigger="guardar">
                                         Registrando...<br/>
                                         <span class="fa fa-spin fa-3x fa-spinner"></span>
@@ -118,8 +154,8 @@
                         </f:facet>
                     </p:dataTable>
                 </h:form>
-                
-                 <p:dialog closable="false" header="Registrar cliente" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
+
+                <p:dialog closable="false" header="Registrar cliente" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
@@ -137,11 +173,103 @@
                         <br/>
                         <center>
                             <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje todo" actionListener="#{clienteController.register()}"/> 
-                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrarCliente').hide()"/>
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
                         </center>
                     </h:form>
                 </p:dialog>
 
+                <p:dialog header="Agregar producto" widgetVar="registrar2" responsive="true" resizable="false"
+                          width="700" draggable="false" modal="true">
+                    <h:form>
+                        <p:dataTable  scrollHeight="250" scrollable="true" id="tabla" widgetVar="detalles" 
+                                      var="producto" value="#{ventaController.productos}"
+                                      emptyMessage="No hay productos agregados." reflow="true">
+                            <f:facet name="header">
+                                <div class="row">
+                                    <div  class="col-md-6 text-left ">
+                                    </div>
+
+                                    <div class="col-md-6 text-right header-tabla-center">
+                                        <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('detalles').filter();" placeholder="Buscar"/>
+                                    </div>
+                                </div>
+                            </f:facet>
+
+                            <p:column headerText="Codigo" filterBy="#{producto.codigo}" filterStyle="display: none">
+                                #{producto.codigo}
+                            </p:column>
+                            <p:column headerText="Producto" filterBy="#{producto.nombre}" filterStyle="display: none">
+                                #{producto.nombre}
+                            </p:column>
+                            <p:column headerText="Cantidad" width="15%">
+                                <div jsf:rendered="#{producto.getClass().name.endsWith('Unidad')}">
+                                    #{producto.compraEspecie.especie.cantidad} Unds
+                                </div>
+                                <div jsf:rendered="#{producto.getClass().name.endsWith('Terminado')}">
+                                    #{producto.producto.cantidad} Unds
+                                </div>
+                            </p:column>
+                            <p:column headerText="Categoria">
+                                <div jsf:rendered="#{producto.getClass().name.endsWith('Unidad')}">
+                                    #{producto.compraEspecie.especie.tipo}
+                                </div>
+                                <div jsf:rendered="#{producto.getClass().name.endsWith('Terminado')}">
+                                    #{producto.producto.categoria}
+                                </div>
+                            </p:column>
+                            <p:column headerText="Agregar" width="10%">
+                                <center>
+                                    <p:commandButton icon="fa fa-plus" title="Agregar" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
+                                        <f:setPropertyActionListener target="#{ventaController.producto}" value="#{producto}"/>
+                                    </p:commandButton>
+
+                                </center>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog draggable="false"  resizable="false"
+                          responsive="true" widgetVar="agregar" modal="true" width="400">
+                    <f:facet name="header">
+                        <div jsf:rendered="#{ventaController.producto.getClass().name.endsWith('Unidad')}">
+                            #{ventaController.producto.compraEspecie.especie.nombre}
+                        </div>
+                        <div jsf:rendered="#{ventaController.producto.getClass().name.endsWith('Terminado')}">
+                            #{ventaController.producto.producto.nombre}
+                        </div>
+                    </f:facet>
+                    <h:form>
+                        <p:growl id="mensaje" life="5000"/>
+                        <div class="text-muted" style="font-weight: bold">
+                            <div jsf:rendered="#{ventaController.producto.getClass().name.endsWith('Unidad')}">
+                                <span class="fa fa-info-circle fa-2x"/>
+                                Por favor ingrese la cantidad de de #{ventaController.producto.compraEspecie.especie.nombre} a vender<br/>
+                                <center>
+                                    Cantidad disponible: #{ventaController.producto.compraEspecie.especie.cantidad} unidades
+                                    <br/>
+                                    <p:inputNumber value="#{ventaController.cant}" decimalPlaces="0" placeholder="Cantidad" maxValue="#{ventaController.producto.compraEspecie.especie.cantidad}"/>
+                                </center>
+                            </div>
+                            <div jsf:rendered="#{ventaController.producto.getClass().name.endsWith('Terminado')}">
+                                <span class="fa fa-info-circle fa-2x"/>
+                                Por favor ingrese la cantidad de de #{ventaController.producto.producto.nombre} a vender<br/>
+                                <center>
+                                    Cantidad disponible: #{ventaController.producto.producto.cantidad} unidades
+                                    <br/><br/>
+                                    <p:inputNumber value="#{ventaController.cant}" decimalPlaces="0" placeholder="Cantidad" maxValue="#{ventaController.producto.producto.cantidad}"/>
+                                </center>
+                            </div> 
+
+                        </div>
+
+                        <br/>
+                        <center>
+                            <p:commandButton icon="fa fa-save" value="Agregar" update="todo:tabla mensaje" actionListener="#{ventaController.add()}"   />
+                            <p:commandButton  icon="fa fa-times" value="Cancelar" onclick="PF('agregar').hide()" class="btn-danger"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
             </ui:define>
 
         </ui:composition>

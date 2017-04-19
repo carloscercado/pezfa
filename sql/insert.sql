@@ -36,11 +36,11 @@ insert into produccion
 	(2, 'PRODUCCION DE ATUM', now(), 0);
 
 insert into especie
-	values (1, '000001', 'CHIPICHIPI', 0, 100,10, 'DEL MAR', 0),
-	 (2, '000002', 'ATUM', 0, 100,10, 'DEL MAR', 0),
-	 (3, '000003', 'PEPITONAS', 0, 100,10, 'DEL MAR', 0),
-	 (4, '000005', 'JUREL', 0, 100,10, 'DEL MAR', 0),
-	 (5, '000006', 'TIBURON', 0, 100,10, 'DEL MAR', 0);
+	values (1, '000001', 'CHIPICHIPI', 0, 100,10, 'DEL MAR', 1000),
+	 (2, '000002', 'ATUM', 0, 100,10, 'DEL MAR', 1000),
+	 (3, '000003', 'PEPITONAS', 0, 100,10, 'DEL MAR', 1000),
+	 (4, '000005', 'JUREL', 0, 100,10, 'DEL MAR', 1000),
+	 (5, '000006', 'TIBURON', 0, 100,10, 'DEL MAR', 1000);
 
 insert into usuario
 	values (1, 'admin', 'admin', 'ADMINISTRADOR', 1);
@@ -51,9 +51,9 @@ insert into compra
 	 (3, '00003', now(),  3, 1, false,0);
 
 insert into venta 
-	values (1, '00001', now(), now(), 1, 1, 0),
-	 (2, '00002', now(), now(), 2, 1, 0),
-	 (3, '00003', now(), now(), 3, 1, 0);
+	values (1, '00001', now(), 1, 1, 0),
+	 (2, '00002', now(), 2, 1, 0),
+	 (3, '00003', now(), 3, 1, 0);
 
 insert into cava
 	values (1, 'CAVA 1', 1),
@@ -63,7 +63,7 @@ insert into cava
 	 (5, 'CAVA 6', 2);
 
 insert into compra_especie
-	values (1, 1,1,1000),
+	values (1, 1, 1, 1000),
 	 (2, 1,1,1000),
 	 (3, 1,1,1000),
 	 (4, 1,1,1000),

@@ -26,11 +26,12 @@ declare
 objeto record;
 begin
 
-for objeto in (select especie, especie.precio valor 
+for objeto in (select especie, especie.precio valor, unidad.id as unidad
 from unidad join compra_especie on compra_especie.id=unidad.detalle join especie on especie.id=especie
 where unidad.id=new.unidad) loop
 update especie set cantidad=cantidad-1 where id=objeto.especie;
 update venta set ingreso = ingreso+objeto.valor where id = new.venta;
+update unidad set estado = false where id = objeto.unidad;
 end loop;
 return null;
 end;
@@ -49,6 +50,7 @@ begin
 for objeto in (select producto, precio, terminado.id as terminado from terminado join producto on producto.id=producto where terminado.id=new.terminado) loop
 update producto set cantidad=cantidad-1 where id=objeto.terminado;
 update venta set ingreso = ingreso + objeto.precio where id = new.venta;
+update terminado set estado = false where id = objeto.terminado;
 end loop;
 return null;
 end;

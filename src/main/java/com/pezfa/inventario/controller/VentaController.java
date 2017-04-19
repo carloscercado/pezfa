@@ -1,8 +1,11 @@
 package com.pezfa.inventario.controller;
 
+import com.pezfa.inventario.database.TerminadoDB;
+import com.pezfa.inventario.database.UnidadDB;
 import com.pezfa.inventario.database.VentaDB;
-import com.pezfa.inventario.database.VentaTerminadoDB;
-import com.pezfa.inventario.database.VentaUnidadDB;
+import com.pezfa.inventario.models.ProductoSalida;
+import com.pezfa.inventario.models.Terminado;
+import com.pezfa.inventario.models.Unidad;
 import com.pezfa.inventario.models.Venta;
 import com.pezfa.inventario.models.VentaDetalle;
 import com.pezfa.inventario.models.VentaTerminado;
@@ -27,144 +30,168 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 public class VentaController implements Serializable
 {
-    
-    private Venta venta = null; // objeto a controlar
-    private List<Venta> ventas = null; // lista de objetos de tipo ventas
+
+    private Venta venta;
     private VentaDB db;
-    private VentaTerminadoDB vtdb;
-    private VentaUnidadDB vudb;
-    private Set<VentaDetalle> miLista;
-    @ManagedProperty(value = "#{ventaTerminadoController}")
-    private VentaTerminadoController ventaTerminadoController;
-    @ManagedProperty(value = "#{ventaUnidadController}")
-    private VentaUnidadController ventaUnidadController;
+    private UnidadDB udb;
+    private TerminadoDB tdb;
+    private List<ProductoSalida> productos;
+    private ProductoSalida producto;
+    private List<ProductoSalida> salida;
+    private Set<VentaDetalle> lista;
+    private VentaUnidad ventaUnidad;
+    private VentaTerminado ventaTerminado;
+    private VentaDetalle ventaDetalle;
     @ManagedProperty(value = "#{usuarioController}")
     private UsuarioController usuarioController;
-    private VentaDetalle ventaDetalle;
-    private List<VentaDetalle> lista;
+    private int cant;
 
     //constructor
     public VentaController()
     {
-        vudb = new VentaUnidadDB();
-        vtdb = new VentaTerminadoDB();
-        venta = new Venta(); //instancio el objeto venta
         db = new VentaDB();
-        miLista = new HashSet<>();
+        udb = new UnidadDB();
+        tdb = new TerminadoDB();
+        ventaDetalle = new VentaDetalle();
+        lista = new HashSet<>();
+        venta = new Venta();
+        cant = 1;
     }
-    
-    public List<VentaDetalle> getLista()
+
+    public List<ProductoSalida> getSalida()
     {
-        lista = new ArrayList<>();
-        vudb.read("from VentaUnidad vu join fetch vu.unidad join fetch vu.venta").forEach(x -> lista.add(x));
-        vtdb.read("from VentaTerminado vt join fetch vt.terminado join fetch vt.venta").forEach(x -> lista.add(x));
-        return lista;
+        return salida;
     }
-    
-    public void setLista(List<VentaDetalle> lista)
+
+    public void setSalida(List<ProductoSalida> salida)
     {
-        this.lista = lista;
+        this.salida = salida;
     }
-    
+
+    public int getCant()
+    {
+        return cant;
+    }
+
+    public void setCant(int cant)
+    {
+        this.cant = cant;
+    }
+
+    public VentaUnidad getVentaUnidad()
+    {
+        return ventaUnidad;
+    }
+
+    public void setVentaUnidad(VentaUnidad ventaUnidad)
+    {
+        this.ventaUnidad = ventaUnidad;
+    }
+
+    public VentaTerminado getVentaTerminado()
+    {
+        return ventaTerminado;
+    }
+
+    public void setVentaTerminado(VentaTerminado ventaTerminado)
+    {
+        this.ventaTerminado = ventaTerminado;
+    }
+
     public VentaDetalle getVentaDetalle()
     {
         return ventaDetalle;
     }
-    
+
     public void setVentaDetalle(VentaDetalle ventaDetalle)
     {
         this.ventaDetalle = ventaDetalle;
     }
-    
-    public VentaTerminadoController getVentaTerminadoController()
+
+    public Set<VentaDetalle> getLista()
     {
-        return ventaTerminadoController;
+        return lista;
     }
-    
-    public void setVentaTerminadoController(VentaTerminadoController ventaTerminadoController)
+
+    public void setLista(Set<VentaDetalle> lista)
     {
-        this.ventaTerminadoController = ventaTerminadoController;
+        this.lista = lista;
     }
-    
-    public Set<VentaDetalle> getMiLista()
-    {
-        return miLista;
-    }
-    
-    public void setMiLista(Set<VentaDetalle> miLista)
-    {
-        this.miLista = miLista;
-    }
-    
+
     public UsuarioController getUsuarioController()
     {
         return usuarioController;
     }
-    
+
     public void setUsuarioController(UsuarioController usuarioController)
     {
         this.usuarioController = usuarioController;
     }
-    
-    public VentaUnidadController getVentaUnidadController()
+
+    public double getTotal()
     {
-        return ventaUnidadController;
-    }
-    
-    public void setVentaUnidadController(VentaUnidadController ventaUnidadController)
-    {
-        this.ventaUnidadController = ventaUnidadController;
+        return this.lista.stream()
+                .mapToDouble(x ->
+                {
+                    if (x instanceof VentaUnidad)
+                    {
+                        return ((VentaUnidad) x).getUnidad().getPrecio().doubleValue() * x.getCantidad();
+                    } else if (x instanceof VentaTerminado)
+                    {
+                        return ((VentaTerminado) x).getTerminado().getPrecio().doubleValue() * x.getCantidad();
+                    }
+                    return 0;
+                })
+                .sum();
     }
 
-    //getter y setter
-    public Venta getVenta()
-    {
-        return venta;
-    }
-    
-    public void setVenta(Venta venta)
-    {
-        this.venta = venta;
-    }
-    
-    public List<Venta> getVentas()
-    {
-        ventas = db.read("from Venta");
-        return ventas;
-    }
-    
-    public void setVentas(List<Venta> ventas)
-    {
-        this.ventas = ventas;
-    }
-    
     public void add()
     {
+        VentaUnidad vu;
+        VentaTerminado vt;
+
         venta.setUsuario(usuarioController.getSesion());
-        ventaDetalle.setVenta(venta);
-        miLista.add(ventaDetalle);
-        ventaDetalle = new VentaDetalle();
+        if (this.producto instanceof Unidad)
+        {
+            vu = new VentaUnidad();
+            vu.setUnidad((Unidad) this.producto);
+            vu.setVenta(venta);
+            vu.setCantidad(cant);
+            lista.add(vu);
+            cant = 1;
+        } else if (this.producto instanceof Terminado)
+        {
+            vt = new VentaTerminado();
+            vt.setTerminado((Terminado) this.producto);
+            vt.setVenta(venta);
+            vt.setCantidad(cant);
+            lista.add(vt);
+            cant = 1;
+        }
+
         RequestContext con = RequestContext.getCurrentInstance();
-        con.execute("PF('agregar').hide(); PF('registrar2').hide();");
+        con.execute("PF('agregar').hide();");
     }
-    
+
     public void remove()
     {
-        miLista.remove(ventaDetalle);
-        ventaDetalle = new VentaDetalle();
+        lista.remove(ventaDetalle);
     }
 
     //logica para registrar un venta
     public void register()
     {
-        if (this.miLista.size() > 0)
+        if (this.lista.size() > 0)
         {
-            if (db.createList(miLista))
+            salida = db.create_venta(lista);
+            if (salida != null)
             {
-                miLista.clear();
+                lista.clear();
                 venta = new Venta();
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Venta registrada exitosamente", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+                RequestContext con = RequestContext.getCurrentInstance();
+                con.execute(" PF('productossalida').show()");
             } else
             {
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas al registrar venta", null);
@@ -176,4 +203,52 @@ public class VentaController implements Serializable
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
+
+    public Venta getVenta()
+    {
+        return venta;
+    }
+
+    public void setVenta(Venta venta)
+    {
+        this.venta = venta;
+    }
+
+    public List<ProductoSalida> getProductos()
+    {
+        productos = new ArrayList<>();
+        udb.read("from Unidad uni join fetch uni.compraEspecie deta join fetch deta.especie esp where esp.cantidad != 0")
+                .stream().distinct().forEach(x ->
+                {
+                    x.setNombre(x.getCompraEspecie().getEspecie().getNombre());
+                    x.setCodigo(x.getCompraEspecie().getEspecie().getCodigo());
+                    x.setPrecio(x.getCompraEspecie().getEspecie().getPrecio());
+                    productos.add((ProductoSalida) x);
+                });
+        tdb.read("from Terminado ter join fetch ter.producto produ where produ.cantidad != 0").stream()
+                .distinct().forEach(x ->
+                {
+                    x.setNombre(x.getProducto().getNombre());
+                    x.setCodigo(x.getProducto().getCodigo());
+                    x.setPrecio(x.getProducto().getPrecio());
+                    productos.add((ProductoSalida) x);
+                });
+        return productos;
+    }
+
+    public void setProductos(List<ProductoSalida> productos)
+    {
+        this.productos = productos;
+    }
+
+    public ProductoSalida getProducto()
+    {
+        return producto;
+    }
+
+    public void setProducto(ProductoSalida producto)
+    {
+        this.producto = producto;
+    }
+
 }

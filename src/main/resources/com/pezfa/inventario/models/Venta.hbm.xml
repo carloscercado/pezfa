@@ -21,9 +21,7 @@
         <property name="fecha" type="date">
             <column name="fecha" length="13" />
         </property>
-        <property name="hora" type="time">
-            <column name="hora" length="15" />
-        </property>
+
         <property name="ingreso" type="big_decimal">
             <column name="ingreso" precision="10" />
         </property>

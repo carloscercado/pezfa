@@ -106,7 +106,6 @@ create table if not exists venta
     id serial primary key,
     factura varchar(20) not null unique,
     fecha date default now()::date,
-    hora time default now()::time,
     cliente int not null references cliente (id),
     usuario int not null references usuario(id),
     ingreso numeric(10,2) default 0
@@ -159,7 +158,8 @@ create table if not exists terminado
     produccion int not null references produccion(id),
     producto int not null references producto (id),
     vencimiento date not null,
-    lote varchar(20) not null
+    lote varchar(20) not null,
+    estado boolean default true    
 );
 
 create table if not exists venta_terminado

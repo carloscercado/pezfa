@@ -16,7 +16,6 @@ public class Venta  implements java.io.Serializable {
      private Usuario usuario;
      private String factura;
      private Date fecha;
-     private Date hora;
      private BigDecimal ingreso;
      private Set ventaTerminados = new HashSet(0);
      private Set ventaUnidads = new HashSet(0);
@@ -31,13 +30,12 @@ public class Venta  implements java.io.Serializable {
         this.usuario = usuario;
         this.factura = factura;
     }
-    public Venta(int id, Cliente cliente, Usuario usuario, String factura, Date fecha, Date hora, BigDecimal ingreso, Set ventaTerminados, Set ventaUnidads) {
+    public Venta(int id, Cliente cliente, Usuario usuario, String factura, Date fecha, BigDecimal ingreso, Set ventaTerminados, Set ventaUnidads) {
        this.id = id;
        this.cliente = cliente;
        this.usuario = usuario;
        this.factura = factura;
        this.fecha = fecha;
-       this.hora = hora;
        this.ingreso = ingreso;
        this.ventaTerminados = ventaTerminados;
        this.ventaUnidads = ventaUnidads;
@@ -78,13 +76,7 @@ public class Venta  implements java.io.Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    public Date getHora() {
-        return this.hora;
-    }
-    
-    public void setHora(Date hora) {
-        this.hora = hora;
-    }
+
     public BigDecimal getIngreso() {
         return this.ingreso;
     }
@@ -106,10 +98,6 @@ public class Venta  implements java.io.Serializable {
     public void setVentaUnidads(Set ventaUnidads) {
         this.ventaUnidads = ventaUnidads;
     }
-
-
-
-
 }
 
 

@@ -21,6 +21,9 @@
         <property name="lote" type="string">
             <column name="lote" length="20" not-null="true" />
         </property>
+        <property name="estado" type="java.lang.Boolean">
+            <column name="estado" default="true"/>
+        </property>
         <set name="ventaTerminados" table="venta_terminado" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="terminado" not-null="true" />
