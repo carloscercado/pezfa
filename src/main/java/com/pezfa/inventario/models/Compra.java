@@ -1,4 +1,5 @@
 package com.pezfa.inventario.models;
+// Generated 22/04/2017 02:11:01 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -25,34 +26,19 @@ public class Compra  implements java.io.Serializable {
     }
 
 	
-    public Compra(int id, Proveedor proveedor, Usuario usuario, String orden) {
-        this.id = id;
+    public Compra(Proveedor proveedor, Usuario usuario, String orden) {
         this.proveedor = proveedor;
         this.usuario = usuario;
         this.orden = orden;
     }
-
-    public Compra(int id, Proveedor proveedor, Usuario usuario, String orden, Date fecha, String estado, BigDecimal gasto)
-    {
-        this.id = id;
-        this.proveedor = proveedor;
-        this.usuario = usuario;
-        this.orden = orden;
-        this.fecha = fecha;
-        this.estado = estado;
-        this.gasto = gasto;
-    }
-    
-    
-
-    public String getEstado()
-    {
-        return estado;
-    }
-
-    public void setEstado(String estado)
-    {
-        this.estado = estado;
+    public Compra(Proveedor proveedor, Usuario usuario, String orden, Date fecha, String estado, BigDecimal gasto, Set compraEspecies) {
+       this.proveedor = proveedor;
+       this.usuario = usuario;
+       this.orden = orden;
+       this.fecha = fecha;
+       this.estado = estado;
+       this.gasto = gasto;
+       this.compraEspecies = compraEspecies;
     }
    
     public int getId() {
@@ -90,7 +76,13 @@ public class Compra  implements java.io.Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
+    public String getEstado() {
+        return this.estado;
+    }
+    
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
     public BigDecimal getGasto() {
         return this.gasto;
     }

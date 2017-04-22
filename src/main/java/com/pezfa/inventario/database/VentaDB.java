@@ -3,12 +3,12 @@ package com.pezfa.inventario.database;
 import com.pezfa.inventario.hibernate.HibernateUtil;
 import com.pezfa.inventario.models.Producto;
 import com.pezfa.inventario.models.ProductoSalida;
-import com.pezfa.inventario.models.Terminado;
 import com.pezfa.inventario.models.Unidad;
+import com.pezfa.inventario.models.Ubicacion;
 import com.pezfa.inventario.models.Venta;
 import com.pezfa.inventario.models.VentaDetalle;
-import com.pezfa.inventario.models.VentaTerminado;
 import com.pezfa.inventario.models.VentaUnidad;
+import com.pezfa.inventario.models.VentaEspecie;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,19 +47,19 @@ public class VentaDB implements Crud<Venta>
                     sesion = HibernateUtil.getSesion().openSession();
                     sesion.beginTransaction();
                     System.out.println("Vuelta " + i);
-                    if (obj instanceof VentaTerminado)
+                    if (obj instanceof VentaUnidad)
                     {
-                        String codigo = ((VentaTerminado) obj).getTerminado().getProducto().getCodigo();
-                        Terminado terminado = this.getTerminado(codigo);
-                        ((VentaTerminado) obj).setTerminado(terminado);
-                        sesion.save((VentaTerminado) obj);
-                        lista.add(terminado);
-                    } else if (obj instanceof VentaUnidad)
-                    {
-                        String codigo = ((VentaUnidad) obj).getUnidad().getCompraEspecie().getEspecie().getCodigo();
-                        Unidad unidad = this.getUnidad(codigo);
-                        ((VentaUnidad) obj).setUnidad(unidad);
+                        String codigo = ((VentaUnidad) obj).getUnidad().getProducto().getCodigo();
+                        Unidad terminado = this.getTerminado(codigo);
+                        ((VentaUnidad) obj).setUnidad(terminado);
                         sesion.save((VentaUnidad) obj);
+                        lista.add(terminado);
+                    } else if (obj instanceof VentaEspecie)
+                    {
+                        String codigo = ((VentaEspecie) obj).getUbicacion().getCompraEspecie().getEspecie().getCodigo();
+                        Ubicacion unidad = this.getUnidad(codigo);
+                        ((VentaEspecie) obj).setUbicacion(unidad);
+                        sesion.save((VentaEspecie) obj);
                         lista.add(unidad);
                     } else
                     {
@@ -79,24 +79,24 @@ public class VentaDB implements Crud<Venta>
         return lista;
     }
 
-    public Unidad getUnidad(String codigo)
+    public Ubicacion getUnidad(String codigo)
     {
-        UnidadDB db = new UnidadDB();
-        List<Unidad> lista = db.read("from Unidad uni join fetch uni.compraEspecie com join fetch com.especie esp "
+        UbicacionDB db = new UbicacionDB();
+        List<Ubicacion> lista = db.read("from Unidad uni join fetch uni.compraEspecie com join fetch com.especie esp "
                 + "join fetch com.compra comp join fetch uni.cava cav join fetch cav.almacen"
                 + " where esp.codigo ='" + codigo + "' and "
                 + "uni.estado=true order by comp.fecha");
-        Unidad unidad = lista.get(0);
+        Ubicacion unidad = lista.get(0);
         unidad.setEstado(Boolean.FALSE);
         db.update(unidad);
         return unidad;
     }
 
-    public Terminado getTerminado(String codigo)
+    public Unidad getTerminado(String codigo)
     {
         System.out.println("Este es el codigo Terminado " + codigo);
-        TerminadoDB db = new TerminadoDB();
-        List<Terminado> lista = db.read("from Terminado ter join fetch ter.produccion pro join fetch ter.producto produc "
+        UnidadDB db = new UnidadDB();
+        List<Unidad> lista = db.read("from Terminado ter join fetch ter.produccion pro join fetch ter.producto produc "
                 + "where produc.codigo ='" + codigo + "' and ter.estado = true order by ter.vencimiento");
         return lista.get(0);
     }

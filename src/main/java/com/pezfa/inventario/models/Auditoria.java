@@ -1,4 +1,5 @@
 package com.pezfa.inventario.models;
+// Generated 22/04/2017 02:11:01 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -20,14 +21,12 @@ public class Auditoria  implements java.io.Serializable {
     }
 
 	
-    public Auditoria(int id, Usuario usuario, String tipo, String descripcion) {
-        this.id = id;
+    public Auditoria(Usuario usuario, String tipo, String descripcion) {
         this.usuario = usuario;
         this.tipo = tipo;
         this.descripcion = descripcion;
     }
-    public Auditoria(int id, Usuario usuario, Date fecha, Date hora, String tipo, String descripcion) {
-       this.id = id;
+    public Auditoria(Usuario usuario, Date fecha, Date hora, String tipo, String descripcion) {
        this.usuario = usuario;
        this.fecha = fecha;
        this.hora = hora;

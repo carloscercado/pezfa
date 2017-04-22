@@ -1,4 +1,6 @@
 package com.pezfa.inventario.models;
+// Generated 22/04/2017 02:11:01 PM by Hibernate Tools 4.3.1
+
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,27 +19,25 @@ public class Venta  implements java.io.Serializable {
      private String factura;
      private Date fecha;
      private BigDecimal ingreso;
-     private Set ventaTerminados = new HashSet(0);
+     private Set ventaEspecies = new HashSet(0);
      private Set ventaUnidads = new HashSet(0);
 
     public Venta() {
     }
 
 	
-    public Venta(int id, Cliente cliente, Usuario usuario, String factura) {
-        this.id = id;
+    public Venta(Cliente cliente, Usuario usuario, String factura) {
         this.cliente = cliente;
         this.usuario = usuario;
         this.factura = factura;
     }
-    public Venta(int id, Cliente cliente, Usuario usuario, String factura, Date fecha, BigDecimal ingreso, Set ventaTerminados, Set ventaUnidads) {
-       this.id = id;
+    public Venta(Cliente cliente, Usuario usuario, String factura, Date fecha, BigDecimal ingreso, Set ventaEspecies, Set ventaUnidads) {
        this.cliente = cliente;
        this.usuario = usuario;
        this.factura = factura;
        this.fecha = fecha;
        this.ingreso = ingreso;
-       this.ventaTerminados = ventaTerminados;
+       this.ventaEspecies = ventaEspecies;
        this.ventaUnidads = ventaUnidads;
     }
    
@@ -76,7 +76,6 @@ public class Venta  implements java.io.Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
     public BigDecimal getIngreso() {
         return this.ingreso;
     }
@@ -84,12 +83,12 @@ public class Venta  implements java.io.Serializable {
     public void setIngreso(BigDecimal ingreso) {
         this.ingreso = ingreso;
     }
-    public Set getVentaTerminados() {
-        return this.ventaTerminados;
+    public Set getVentaEspecies() {
+        return this.ventaEspecies;
     }
     
-    public void setVentaTerminados(Set ventaTerminados) {
-        this.ventaTerminados = ventaTerminados;
+    public void setVentaEspecies(Set ventaEspecies) {
+        this.ventaEspecies = ventaEspecies;
     }
     public Set getVentaUnidads() {
         return this.ventaUnidads;
@@ -98,6 +97,10 @@ public class Venta  implements java.io.Serializable {
     public void setVentaUnidads(Set ventaUnidads) {
         this.ventaUnidads = ventaUnidads;
     }
+
+
+
+
 }
 
 

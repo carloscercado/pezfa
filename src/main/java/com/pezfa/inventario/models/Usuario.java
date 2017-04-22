@@ -1,4 +1,6 @@
 package com.pezfa.inventario.models;
+// Generated 22/04/2017 02:11:01 PM by Hibernate Tools 4.3.1
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,30 +16,28 @@ public class Usuario  implements java.io.Serializable {
      private String usuario;
      private String clave;
      private String rol;
-     private Set compras = new HashSet(0);
-     private Set ventas = new HashSet(0);
      private Set auditorias = new HashSet(0);
+     private Set ventas = new HashSet(0);
+     private Set compras = new HashSet(0);
 
     public Usuario() {
     }
 
 	
-    public Usuario(int id, Empleado empleado, String usuario, String clave, String rol) {
-        this.id = id;
+    public Usuario(Empleado empleado, String usuario, String clave, String rol) {
         this.empleado = empleado;
         this.usuario = usuario;
         this.clave = clave;
         this.rol = rol;
     }
-    public Usuario(int id, Empleado empleado, String usuario, String clave, String rol, Set compras, Set ventas, Set auditorias) {
-       this.id = id;
+    public Usuario(Empleado empleado, String usuario, String clave, String rol, Set auditorias, Set ventas, Set compras) {
        this.empleado = empleado;
        this.usuario = usuario;
        this.clave = clave;
        this.rol = rol;
-       this.compras = compras;
-       this.ventas = ventas;
        this.auditorias = auditorias;
+       this.ventas = ventas;
+       this.compras = compras;
     }
    
     public int getId() {
@@ -75,12 +75,12 @@ public class Usuario  implements java.io.Serializable {
     public void setRol(String rol) {
         this.rol = rol;
     }
-    public Set getCompras() {
-        return this.compras;
+    public Set getAuditorias() {
+        return this.auditorias;
     }
     
-    public void setCompras(Set compras) {
-        this.compras = compras;
+    public void setAuditorias(Set auditorias) {
+        this.auditorias = auditorias;
     }
     public Set getVentas() {
         return this.ventas;
@@ -89,12 +89,12 @@ public class Usuario  implements java.io.Serializable {
     public void setVentas(Set ventas) {
         this.ventas = ventas;
     }
-    public Set getAuditorias() {
-        return this.auditorias;
+    public Set getCompras() {
+        return this.compras;
     }
     
-    public void setAuditorias(Set auditorias) {
-        this.auditorias = auditorias;
+    public void setCompras(Set compras) {
+        this.compras = compras;
     }
 
 

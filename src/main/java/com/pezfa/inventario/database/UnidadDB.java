@@ -1,10 +1,12 @@
 package com.pezfa.inventario.database;
+import com.pezfa.inventario.models.Unidad;
 
 /**
  *
- * @author Romario Guerrero
+ * @author Efrain Serrano
  */
-import com.pezfa.inventario.models.Unidad;
+
 public class UnidadDB implements Crud<Unidad>
 {
+    
 }

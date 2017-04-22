@@ -1,4 +1,6 @@
 package com.pezfa.inventario.models;
+// Generated 22/04/2017 02:11:01 PM by Hibernate Tools 4.3.1
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,22 +14,20 @@ public class Cava  implements java.io.Serializable {
      private int id;
      private Almacen almacen;
      private String nombre;
-     private Set unidads = new HashSet(0);
+     private Set ubicacions = new HashSet(0);
 
     public Cava() {
     }
 
 	
-    public Cava(int id, Almacen almacen, String nombre) {
-        this.id = id;
+    public Cava(Almacen almacen, String nombre) {
         this.almacen = almacen;
         this.nombre = nombre;
     }
-    public Cava(int id, Almacen almacen, String nombre, Set unidads) {
-       this.id = id;
+    public Cava(Almacen almacen, String nombre, Set ubicacions) {
        this.almacen = almacen;
        this.nombre = nombre;
-       this.unidads = unidads;
+       this.ubicacions = ubicacions;
     }
    
     public int getId() {
@@ -51,46 +51,16 @@ public class Cava  implements java.io.Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public Set getUnidads() {
-        return this.unidads;
+    public Set getUbicacions() {
+        return this.ubicacions;
     }
     
-    public void setUnidads(Set unidads) {
-        this.unidads = unidads;
+    public void setUbicacions(Set ubicacions) {
+        this.ubicacions = ubicacions;
     }
 
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 19 * hash + this.id;
-        return hash;
-    }
 
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-        {
-            return true;
-        }
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final Cava other = (Cava) obj;
-        if (this.id != other.id)
-        {
-            return false;
-        }
-        return true;
-    }
-    
-    
+
 
 }
 

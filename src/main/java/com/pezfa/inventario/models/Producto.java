@@ -1,4 +1,5 @@
 package com.pezfa.inventario.models;
+// Generated 22/04/2017 02:11:01 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -19,21 +20,21 @@ public class Producto  implements java.io.Serializable {
      private Integer minimo;
      private String categoria;
      private BigDecimal precio;
-     private Set terminados = new HashSet(0);
+     private String descripcion;
+     private Set unidads = new HashSet(0);
 
     public Producto() {
     }
 
 	
-    public Producto(int id, String codigo, String nombre, String categoria, BigDecimal precio) {
-        this.id = id;
+    public Producto(String codigo, String nombre, String categoria, BigDecimal precio, String descripcion) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
+        this.descripcion = descripcion;
     }
-    public Producto(int id, String codigo, String nombre, Integer cantidad, Integer maximo, Integer minimo, String categoria, BigDecimal precio, Set terminados) {
-       this.id = id;
+    public Producto(String codigo, String nombre, Integer cantidad, Integer maximo, Integer minimo, String categoria, BigDecimal precio, String descripcion, Set unidads) {
        this.codigo = codigo;
        this.nombre = nombre;
        this.cantidad = cantidad;
@@ -41,7 +42,8 @@ public class Producto  implements java.io.Serializable {
        this.minimo = minimo;
        this.categoria = categoria;
        this.precio = precio;
-       this.terminados = terminados;
+       this.descripcion = descripcion;
+       this.unidads = unidads;
     }
    
     public int getId() {
@@ -100,12 +102,19 @@ public class Producto  implements java.io.Serializable {
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
-    public Set getTerminados() {
-        return this.terminados;
+    public String getDescripcion() {
+        return this.descripcion;
     }
     
-    public void setTerminados(Set terminados) {
-        this.terminados = terminados;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    public Set getUnidads() {
+        return this.unidads;
+    }
+    
+    public void setUnidads(Set unidads) {
+        this.unidads = unidads;
     }
 
 

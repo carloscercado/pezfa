@@ -1,4 +1,5 @@
 package com.pezfa.inventario.models;
+// Generated 22/04/2017 02:11:01 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -26,8 +27,7 @@ public class Empleado  implements java.io.Serializable {
     }
 
 	
-    public Empleado(int id, String cedula, String primerNombre, String primerApellido, Date nacimiento, String sexo, String cargo) {
-        this.id = id;
+    public Empleado(String cedula, String primerNombre, String primerApellido, Date nacimiento, String sexo, String cargo) {
         this.cedula = cedula;
         this.primerNombre = primerNombre;
         this.primerApellido = primerApellido;
@@ -35,8 +35,7 @@ public class Empleado  implements java.io.Serializable {
         this.sexo = sexo;
         this.cargo = cargo;
     }
-    public Empleado(int id, String cedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, Date nacimiento, String sexo, String cargo, Set usuarios) {
-       this.id = id;
+    public Empleado(String cedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, Date nacimiento, String sexo, String cargo, Set usuarios) {
        this.cedula = cedula;
        this.primerNombre = primerNombre;
        this.segundoNombre = segundoNombre;
@@ -47,30 +46,6 @@ public class Empleado  implements java.io.Serializable {
        this.cargo = cargo;
        this.usuarios = usuarios;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + this.id;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Empleado other = (Empleado) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
-    }
-    
-    
    
     public int getId() {
         return this.id;

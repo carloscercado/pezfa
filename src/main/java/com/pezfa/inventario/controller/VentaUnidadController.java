@@ -1,7 +1,7 @@
 package com.pezfa.inventario.controller;
 
-import com.pezfa.inventario.database.VentaUnidadDB;
-import com.pezfa.inventario.models.VentaUnidad;
+import com.pezfa.inventario.database.VentaEspecieDB;
+import com.pezfa.inventario.models.VentaEspecie;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -16,35 +16,35 @@ import javax.faces.bean.ViewScoped;
 public class VentaUnidadController implements Serializable
 {
 
-    private VentaUnidad ventaunidad = null;//objeto a controlar
-    private List<VentaUnidad> ventauni = null;//lista de objetos de tipo ventauni
-    private VentaUnidadDB db;
+    private VentaEspecie ventaunidad = null;//objeto a controlar
+    private List<VentaEspecie> ventauni = null;//lista de objetos de tipo ventauni
+    private VentaEspecieDB db;
 
     //constructor
     public VentaUnidadController()
     {
-        ventaunidad = new VentaUnidad();
-        db = new VentaUnidadDB();
+        ventaunidad = new VentaEspecie();
+        db = new VentaEspecieDB();
     }
 
     //métodos getter y setter
-    public VentaUnidad getVentaUnidad()
+    public VentaEspecie getVentaUnidad()
     {
         return ventaunidad;
     }
 
-    public void setVentaUnidad(VentaUnidad ventaunidad)
+    public void setVentaUnidad(VentaEspecie ventaunidad)
     {
         this.ventaunidad = ventaunidad;
     }
 
-    public List<VentaUnidad> getVentauni()
+    public List<VentaEspecie> getVentauni()
     {
         ventauni = db.read("from VentaUnidad");
         return ventauni;
     }
 
-    public void setVentauni(List<VentaUnidad> ventauni)
+    public void setVentauni(List<VentaEspecie> ventauni)
     {
         this.ventauni = ventauni;
     }

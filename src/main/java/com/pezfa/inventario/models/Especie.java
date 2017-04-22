@@ -1,4 +1,5 @@
 package com.pezfa.inventario.models;
+// Generated 22/04/2017 02:11:01 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -14,9 +15,9 @@ public class Especie  implements java.io.Serializable {
      private int id;
      private String codigo;
      private String nombre;
-     private Integer cantidad;
-     private Integer maximo;
-     private Integer minimo;
+     private Double cantidad;
+     private Double maximo;
+     private Double minimo;
      private String tipo;
      private BigDecimal precio;
      private Set compraEspecies = new HashSet(0);
@@ -25,14 +26,12 @@ public class Especie  implements java.io.Serializable {
     }
 
 	
-    public Especie(int id, String codigo, String nombre, String tipo) {
-        this.id = id;
+    public Especie(String codigo, String nombre, String tipo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.tipo = tipo;
     }
-    public Especie(int id, String codigo, String nombre, Integer cantidad, Integer maximo, Integer minimo, String tipo, BigDecimal precio, Set compraEspecies) {
-       this.id = id;
+    public Especie(String codigo, String nombre, Double cantidad, Double maximo, Double minimo, String tipo, BigDecimal precio, Set compraEspecies) {
        this.codigo = codigo;
        this.nombre = nombre;
        this.cantidad = cantidad;
@@ -64,25 +63,25 @@ public class Especie  implements java.io.Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public Integer getCantidad() {
+    public Double getCantidad() {
         return this.cantidad;
     }
     
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(Double cantidad) {
         this.cantidad = cantidad;
     }
-    public Integer getMaximo() {
+    public Double getMaximo() {
         return this.maximo;
     }
     
-    public void setMaximo(Integer maximo) {
+    public void setMaximo(Double maximo) {
         this.maximo = maximo;
     }
-    public Integer getMinimo() {
+    public Double getMinimo() {
         return this.minimo;
     }
     
-    public void setMinimo(Integer minimo) {
+    public void setMinimo(Double minimo) {
         this.minimo = minimo;
     }
     public String getTipo() {
@@ -107,38 +106,8 @@ public class Especie  implements java.io.Serializable {
         this.compraEspecies = compraEspecies;
     }
 
-    @Override
-    public int hashCode()
-    {
-        int hash = 5;
-        hash = 67 * hash + this.id;
-        return hash;
-    }
 
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-        {
-            return true;
-        }
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final Especie other = (Especie) obj;
-        if (this.id != other.id)
-        {
-            return false;
-        }
-        return true;
-    }
-    
-    
+
 
 }
 

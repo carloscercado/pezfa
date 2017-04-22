@@ -1,4 +1,5 @@
 package com.pezfa.inventario.models;
+// Generated 22/04/2017 02:11:01 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -16,23 +17,21 @@ public class Produccion  implements java.io.Serializable {
      private String descripcion;
      private Date fecha;
      private BigDecimal inversion;
-     private Set terminados = new HashSet(0);
+     private Set unidads = new HashSet(0);
      private Set detalleProduccions = new HashSet(0);
 
     public Produccion() {
     }
 
 	
-    public Produccion(int id, String descripcion) {
-        this.id = id;
+    public Produccion(String descripcion) {
         this.descripcion = descripcion;
     }
-    public Produccion(int id, String descripcion, Date fecha, BigDecimal inversion, Set terminados, Set detalleProduccions) {
-       this.id = id;
+    public Produccion(String descripcion, Date fecha, BigDecimal inversion, Set unidads, Set detalleProduccions) {
        this.descripcion = descripcion;
        this.fecha = fecha;
        this.inversion = inversion;
-       this.terminados = terminados;
+       this.unidads = unidads;
        this.detalleProduccions = detalleProduccions;
     }
    
@@ -64,12 +63,12 @@ public class Produccion  implements java.io.Serializable {
     public void setInversion(BigDecimal inversion) {
         this.inversion = inversion;
     }
-    public Set getTerminados() {
-        return this.terminados;
+    public Set getUnidads() {
+        return this.unidads;
     }
     
-    public void setTerminados(Set terminados) {
-        this.terminados = terminados;
+    public void setUnidads(Set unidads) {
+        this.unidads = unidads;
     }
     public Set getDetalleProduccions() {
         return this.detalleProduccions;

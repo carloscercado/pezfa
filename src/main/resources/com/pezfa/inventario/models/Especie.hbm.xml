@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-
-
+<!-- Generated 22/04/2017 02:02:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.pezfa.inventario.models.Especie" table="especie" schema="public" optimistic-lock="version">
         <id name="id" type="int">
@@ -15,14 +14,14 @@
         <property name="nombre" type="string">
             <column name="nombre" length="20" not-null="true" />
         </property>
-        <property name="cantidad" type="java.lang.Integer">
-            <column name="cantidad" />
+        <property name="cantidad" type="java.lang.Double">
+            <column name="cantidad" precision="17" scale="17" />
         </property>
-        <property name="maximo" type="java.lang.Integer">
-            <column name="maximo" />
+        <property name="maximo" type="java.lang.Double">
+            <column name="maximo" precision="17" scale="17" />
         </property>
-        <property name="minimo" type="java.lang.Integer">
-            <column name="minimo" />
+        <property name="minimo" type="java.lang.Double">
+            <column name="minimo" precision="17" scale="17" />
         </property>
         <property name="tipo" type="string">
             <column name="tipo" length="20" not-null="true" />

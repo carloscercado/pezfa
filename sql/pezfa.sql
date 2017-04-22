@@ -151,7 +151,8 @@ create table if not exists detalle_produccion
 (
     id serial primary key,
     produccion int not null references produccion(id),
-    ubicacion int not null references ubicacion (id)
+    ubicacion int not null references ubicacion (id),
+    cantidad float not null
 );
 
 create table if not exists unidad

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-
+<!-- Generated 22/04/2017 02:02:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.pezfa.inventario.models.Usuario" table="usuario" schema="public" optimistic-lock="version">
         <id name="id" type="int">
@@ -20,11 +20,11 @@
         <property name="rol" type="string">
             <column name="rol" length="20" not-null="true" />
         </property>
-        <set name="compras" table="compra" inverse="true" lazy="true" fetch="select">
+        <set name="auditorias" table="auditoria" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="usuario" not-null="true" />
             </key>
-            <one-to-many class="com.pezfa.inventario.models.Compra" />
+            <one-to-many class="com.pezfa.inventario.models.Auditoria" />
         </set>
         <set name="ventas" table="venta" inverse="true" lazy="true" fetch="select">
             <key>
@@ -32,11 +32,11 @@
             </key>
             <one-to-many class="com.pezfa.inventario.models.Venta" />
         </set>
-        <set name="auditorias" table="auditoria" inverse="true" lazy="true" fetch="select">
+        <set name="compras" table="compra" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="usuario" not-null="true" />
             </key>
-            <one-to-many class="com.pezfa.inventario.models.Auditoria" />
+            <one-to-many class="com.pezfa.inventario.models.Compra" />
         </set>
     </class>
 </hibernate-mapping>

@@ -1,12 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-
+<!-- Generated 22/04/2017 02:02:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.pezfa.inventario.models.Venta" table="venta" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-
             <generator class="increment" />
         </id>
         <many-to-one name="cliente" class="com.pezfa.inventario.models.Cliente" fetch="select">
@@ -21,15 +20,14 @@
         <property name="fecha" type="date">
             <column name="fecha" length="13" />
         </property>
-
         <property name="ingreso" type="big_decimal">
             <column name="ingreso" precision="10" />
         </property>
-        <set name="ventaTerminados" table="venta_terminado" inverse="true" lazy="true" fetch="select">
+        <set name="ventaEspecies" table="venta_especie" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="venta" not-null="true" />
             </key>
-            <one-to-many class="com.pezfa.inventario.models.VentaTerminado" />
+            <one-to-many class="com.pezfa.inventario.models.VentaEspecie" />
         </set>
         <set name="ventaUnidads" table="venta_unidad" inverse="true" lazy="true" fetch="select">
             <key>

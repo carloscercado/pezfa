@@ -1,7 +1,7 @@
 package com.pezfa.inventario.controller;
 
-import com.pezfa.inventario.database.UnidadDB;
-import com.pezfa.inventario.models.Unidad;
+import com.pezfa.inventario.database.UbicacionDB;
+import com.pezfa.inventario.models.Ubicacion;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -21,24 +21,24 @@ import org.primefaces.context.RequestContext;
 public class UnidadController implements Serializable
 {
 
-    private Unidad unidad = null; // objeto a controlar
-    private List<Unidad> unidades = null; // lista de objetos de tipo unidades
+    private Ubicacion unidad = null; // objeto a controlar
+    private List<Ubicacion> unidades = null; // lista de objetos de tipo unidades
     @ManagedProperty(value = "#{compraEspecieController}")
     private CompraEspecieController compraEspecieController;
-    private UnidadDB db;
+    private UbicacionDB db;
 
     public UnidadController()
     {
-        unidad = new Unidad(); //instancio el objeto unidad
-        db = new UnidadDB();
+        unidad = new Ubicacion(); //instancio el objeto unidad
+        db = new UbicacionDB();
     }
 
-    public Unidad getUnidad()
+    public Ubicacion getUnidad()
     {
         return unidad;
     }
 
-    public void setUnidad(Unidad unidad)
+    public void setUnidad(Ubicacion unidad)
     {
         this.unidad = unidad;
     }
@@ -53,13 +53,13 @@ public class UnidadController implements Serializable
         this.compraEspecieController = compraEspecieController;
     }
 
-    public List<Unidad> getUnidades()
+    public List<Ubicacion> getUnidades()
     {
         unidades = db.read("from Unidad uni join fetch uni.cava cav join fetch cav.almacen join fetch uni.compraEspecie cpe join fetch cpe.especie");
         return unidades;
     }
 
-    public void setUnidades(List<Unidad> unidades)
+    public void setUnidades(List<Ubicacion> unidades)
     {
         this.unidades = unidades;
     }
@@ -72,7 +72,7 @@ public class UnidadController implements Serializable
         unidad.setCodigo(UUID.randomUUID().toString());
         if (db.create(unidad))
         {
-            unidad = new Unidad();
+            unidad = new Ubicacion();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unidad ubicada exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();

@@ -1,4 +1,6 @@
 package com.pezfa.inventario.models;
+// Generated 22/04/2017 02:11:01 PM by Hibernate Tools 4.3.1
+
 
 
 /**
@@ -9,15 +11,16 @@ public class DetalleProduccion  implements java.io.Serializable {
 
      private int id;
      private Produccion produccion;
-     private Unidad unidad;
+     private Ubicacion ubicacion;
+     private double cantidad;
 
     public DetalleProduccion() {
     }
 
-    public DetalleProduccion(int id, Produccion produccion, Unidad unidad) {
-       this.id = id;
+    public DetalleProduccion(Produccion produccion, Ubicacion ubicacion, double cantidad) {
        this.produccion = produccion;
-       this.unidad = unidad;
+       this.ubicacion = ubicacion;
+       this.cantidad = cantidad;
     }
    
     public int getId() {
@@ -34,12 +37,19 @@ public class DetalleProduccion  implements java.io.Serializable {
     public void setProduccion(Produccion produccion) {
         this.produccion = produccion;
     }
-    public Unidad getUnidad() {
-        return this.unidad;
+    public Ubicacion getUbicacion() {
+        return this.ubicacion;
     }
     
-    public void setUnidad(Unidad unidad) {
-        this.unidad = unidad;
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+    public double getCantidad() {
+        return this.cantidad;
+    }
+    
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
     }
 
 

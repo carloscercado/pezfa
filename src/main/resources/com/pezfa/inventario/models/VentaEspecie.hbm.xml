@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-
+<!-- Generated 22/04/2017 02:02:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.pezfa.inventario.models.VentaTerminado" table="venta_terminado" schema="public" optimistic-lock="version">
+    <class name="com.pezfa.inventario.models.VentaEspecie" table="venta_especie" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
-
             <generator class="increment" />
         </id>
-        <many-to-one name="terminado" class="com.pezfa.inventario.models.Terminado" fetch="select">
-            <column name="terminado" not-null="true" />
+        <many-to-one name="ubicacion" class="com.pezfa.inventario.models.Ubicacion" fetch="select">
+            <column name="ubicacion" not-null="true" />
         </many-to-one>
         <many-to-one name="venta" class="com.pezfa.inventario.models.Venta" fetch="select">
             <column name="venta" not-null="true" />
         </many-to-one>
+        <property name="cantidad" type="double">
+            <column name="cantidad" precision="17" scale="17" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

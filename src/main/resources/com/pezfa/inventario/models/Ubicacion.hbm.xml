@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/04/2017 02:02:48 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pezfa.inventario.models.Ubicacion" table="ubicacion" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="cava" class="com.pezfa.inventario.models.Cava" fetch="select">
+            <column name="cava" not-null="true" />
+        </many-to-one>
+        <many-to-one name="compraEspecie" class="com.pezfa.inventario.models.CompraEspecie" fetch="select">
+            <column name="detalle" not-null="true" />
+        </many-to-one>
+        <property name="peso" type="double">
+            <column name="peso" precision="17" scale="17" not-null="true" />
+        </property>
+        <property name="codigo" type="string">
+            <column name="codigo" length="36" not-null="true" unique="true" />
+        </property>
+        <property name="estado" type="java.lang.Boolean">
+            <column name="estado" />
+        </property>
+        <set name="detalleProduccions" table="detalle_produccion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ubicacion" not-null="true" />
+            </key>
+            <one-to-many class="com.pezfa.inventario.models.DetalleProduccion" />
+        </set>
+        <set name="ventaEspecies" table="venta_especie" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ubicacion" not-null="true" />
+            </key>
+            <one-to-many class="com.pezfa.inventario.models.VentaEspecie" />
+        </set>
+    </class>
+</hibernate-mapping>

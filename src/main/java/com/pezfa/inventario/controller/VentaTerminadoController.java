@@ -1,7 +1,7 @@
 package com.pezfa.inventario.controller;
 
-import com.pezfa.inventario.database.VentaTerminadoDB;
-import com.pezfa.inventario.models.VentaTerminado;
+import com.pezfa.inventario.database.VentaUnidadDB;
+import com.pezfa.inventario.models.VentaUnidad;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -16,35 +16,35 @@ import javax.faces.bean.ViewScoped;
 public class VentaTerminadoController implements Serializable
 {
 
-    private VentaTerminado ventaterminado = null; // objeto a controlar
-    private List<VentaTerminado> ventatermin = null; //lista de objetos de tipo ventaterminado
-    private VentaTerminadoDB db;
+    private VentaUnidad ventaterminado = null; // objeto a controlar
+    private List<VentaUnidad> ventatermin = null; //lista de objetos de tipo ventaterminado
+    private VentaUnidadDB db;
 
     //constructor
     public VentaTerminadoController()
     {
-        ventaterminado = new VentaTerminado(); //se instancia el objeto
-        db = new VentaTerminadoDB();
+        ventaterminado = new VentaUnidad(); //se instancia el objeto
+        db = new VentaUnidadDB();
     }
     
     //getter y setter
-    public VentaTerminado getVentaTerminado()
+    public VentaUnidad getVentaTerminado()
     {
         return ventaterminado;
     }
 
-    public void setVentaTerminado(VentaTerminado ventaterminado)
+    public void setVentaTerminado(VentaUnidad ventaterminado)
     {
         this.ventaterminado = ventaterminado;
     }
 
-    public List<VentaTerminado> getVentaTermin()
+    public List<VentaUnidad> getVentaTermin()
     {
         ventatermin = db.read("from VentaTerminado");
         return ventatermin;
     }
 
-    public void setVentaTermin(List<VentaTerminado> ventatermin)
+    public void setVentaTermin(List<VentaUnidad> ventatermin)
     {
         this.ventatermin = ventatermin;
     }
