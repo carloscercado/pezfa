@@ -48,7 +48,8 @@ create table if not exists producto
     maximo int default 10,
     minimo int default 100,
     categoria varchar(20) not null,
-    precio numeric(10,2) not null
+    precio numeric(10,2) not null,
+    descripcion text not null
 );
 
 create table if not exists produccion
@@ -64,9 +65,9 @@ create table if not exists especie
     id serial primary key,
     codigo varchar(30) not null unique,
     nombre varchar(20) not null,
-    cantidad int default 0,
-    maximo int default 100,
-    minimo int default 10,
+    cantidad float default 0,
+    maximo float default 100,
+    minimo float default 10,
     tipo varchar(20) not null,
     precio numeric(10,2) default 0
 );
@@ -123,12 +124,12 @@ create table if not exists compra_especie
     id serial primary key,  
     compra int not null references compra(id),
     especie int not null references especie(id),
-    cantidad int not null,
+    cantidad float not null,
     costo numeric(10,2) default 0,
-    ubicados int default 0
+    ubicados float default 0
 );
 
-create table if not exists unidad
+create table if not exists ubicacion
 (
     id serial primary key,
     detalle int not null references compra_especie (id),
@@ -138,10 +139,11 @@ create table if not exists unidad
     estado boolean default true    
 );
 
-create table if not exists venta_unidad
+create table if not exists venta_especie
 (
     id serial primary key,
-    unidad int not null references unidad(id),
+    cantidad float not null,
+    ubicacion int not null references ubicacion(id),
     venta int not null references venta (id)
 );
 
@@ -149,10 +151,10 @@ create table if not exists detalle_produccion
 (
     id serial primary key,
     produccion int not null references produccion(id),
-    unidad int not null references unidad (id)
+    ubicacion int not null references ubicacion (id)
 );
 
-create table if not exists terminado
+create table if not exists unidad
 (
     id serial primary key,
     produccion int not null references produccion(id),
@@ -162,10 +164,10 @@ create table if not exists terminado
     estado boolean default true    
 );
 
-create table if not exists venta_terminado
+create table if not exists venta_unidad
 (
     id serial primary key,
-    terminado int not null references terminado (id),
+    unidad int not null references unidad (id),
     venta int not null references venta (id)
 );
 
@@ -175,23 +177,21 @@ CREATE TRIGGER actualizar_inversion_produccion
   FOR EACH ROW
   EXECUTE PROCEDURE actualizar_inversion_produccion();
 
-
-
 CREATE TRIGGER actualizar_cantidad_especie_compra
   AFTER INSERT
-  ON unidad
+  ON ubicacion
   FOR EACH ROW
   EXECUTE PROCEDURE actualizar_cantidad_especie_compra();
 
 CREATE TRIGGER actualizar_cantidad_producto_venta
   AFTER INSERT
-  ON venta_terminado
+  ON venta_unidad
   FOR EACH ROW
   EXECUTE PROCEDURE actualizar_cantidad_producto_venta();
 
   CREATE TRIGGER actualizar_cantidad_especie_venta
   AFTER INSERT
-  ON venta_unidad
+  ON venta_especie
   FOR EACH ROW
   EXECUTE PROCEDURE actualizar_cantidad_especie_venta();
 
@@ -203,6 +203,6 @@ CREATE TRIGGER actualizar_gasto_compra
 
 CREATE TRIGGER actualizar_ubicados
   AFTER INSERT
-  ON unidad
+  ON ubicacion
   FOR EACH ROW
   EXECUTE PROCEDURE actualizar_ubicados();

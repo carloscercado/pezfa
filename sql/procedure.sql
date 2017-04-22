@@ -1,6 +1,6 @@
 ﻿/*
 Procedimiento que automatiza el incremento de una determinada especie
-para cuando esta, se ingresa por unidad al sistema
+para cuando esta, se ingresa kilos de una especie al sistema
 */
 CREATE OR REPLACE FUNCTION actualizar_cantidad_especie_compra()
 RETURNS trigger AS
@@ -8,16 +8,18 @@ $BODY$
 declare 
 objeto record;
 begin
-for objeto in (select especie from unidad join 
-compra_especie on compra_especie.id=unidad.detalle where unidad.id=new.id) loop
-update especie set cantidad=cantidad+1 where id=objeto.especie;
+for objeto in (select especie, peso from ubicacion join 
+compra_especie on compra_especie.id=ubicacion.detalle where ubicacion.id=new.id) loop
+update especie set cantidad=cantidad+objeto.peso where id=objeto.especie;
 end loop;
 return null;
 end;
 $BODY$
 LANGUAGE plpgsql;
-
--- Segundo procedimiento almacenado
+/*
+Procedimiento que automaiza la actualizacion de la especie cuando se venden, tambien actualiza el peso restante, 
+y el ingreso de la venta
+*/
 
 CREATE OR REPLACE FUNCTION actualizar_cantidad_especie_venta()
 RETURNS trigger AS
@@ -26,12 +28,12 @@ declare
 objeto record;
 begin
 
-for objeto in (select especie, especie.precio valor, unidad.id as unidad
-from unidad join compra_especie on compra_especie.id=unidad.detalle join especie on especie.id=especie
-where unidad.id=new.unidad) loop
-update especie set cantidad=cantidad-1 where id=objeto.especie;
-update venta set ingreso = ingreso+objeto.valor where id = new.venta;
-update unidad set estado = false where id = objeto.unidad;
+for objeto in (select especie, especie.precio valor, venta_especie.cantidad as cantidad, ubicacion.id as ubicacion from venta_especie join ubicacion on ubicacion=ubicacion.id join compra_especie on compra_especie.id=ubicacion.detalle join especie on especie.id=especie
+where ubicacion.id=new.ubicacion) loop
+update especie set cantidad=cantidad-objeto.cantidad where id=objeto.especie;
+update venta set ingreso = ingreso+(objeto.valor*objeto.cantidad) where id = new.venta;
+update ubicacion set peso = peso - objeto.cantidad where id = objeto.ubicacion;
+update ubicacion set estado = false where id = objeto.ubicacion and peso = 0;
 end loop;
 return null;
 end;
@@ -47,10 +49,10 @@ declare
 objeto record;
 begin
 
-for objeto in (select producto, precio, terminado.id as terminado from terminado join producto on producto.id=producto where terminado.id=new.terminado) loop
-update producto set cantidad=cantidad-1 where id=objeto.terminado;
+for objeto in (select producto, precio, unidad.id as unidad from unidad join producto on producto.id=producto where unidad.id=new.unidad) loop
+update producto set cantidad=cantidad-1 where id=objeto.unidad;
 update venta set ingreso = ingreso + objeto.precio where id = new.venta;
-update terminado set estado = false where id = objeto.terminado;
+update unidad set estado = false where id = objeto.unidad;
 end loop;
 return null;
 end;
@@ -66,10 +68,10 @@ declare
 objeto record;
 begin
 
-for objeto in (select produccion, costo from detalle_produccion join unidad on unidad.id=unidad
-join compra_especie on compra_especie.id = unidad.detalle
+for objeto in (select produccion, detalle_produccion.cantidad as cantidad, especie.precio as precio from detalle_produccion join ubicacion on ubicacion.id=ubicacion
+join compra_especie on compra_especie.id = ubicacion.detalle join especie on especie = compra_especie.especie
  where detalle_produccion.id=new.id) loop
-update produccion set inversion=inversion+objeto.costo where id=objeto.produccion;
+update produccion set inversion=inversion+(objeto.precio*objeto.cantidad) where id = objeto.produccion;
 end loop;
 return null;
 end;
@@ -78,7 +80,7 @@ LANGUAGE plpgsql;
 
 /*
 procedimiento encargado de determinar automaticamente el gasto de una determinada compra,
-tomando el costo de cada articulo comprado, multiplicandolo por la cantidad de unidade y luego 
+tomando el costo de cada articulo comprado, multiplicandolo por la cantidad de ubicacione y luego 
 sumando todo, el total es el gasto total de compra
 */
 
@@ -94,16 +96,28 @@ $BODY$
 
  /*
  Procedimiento encargado de actualizar automaticamente la cantidad de especies ubicadas
- de una determinada compra. Cada vez que se ubica una unidad, se suma uno al atributo 'ubicados' 
+ de una determinada compra. Cada vez que se ubica una ubicacion, se suma uno al atributo 'ubicados' 
  de la entidad 'compra_especie'
  */
 
 CREATE OR REPLACE FUNCTION actualizar_ubicados()
   RETURNS trigger AS
 $BODY$
+declare
+objeto record;
+objeto2 record;
+valor int;
 begin
-update compra_especie set ubicados=ubicados+1 where id=new.detalle;
-update compra set estado='Procesado' where id=new.detalle;
+update compra_especie set ubicados=ubicados+new.peso where id=new.detalle;
+for objeto in (select compra from compra_especie where id = new.detalle limit 1) loop
+	valor = 0;
+	for objeto2 in (select * from compra_especie where compra = objeto.compra and (cantidad - ubicados) > 1 ) loop
+		valor =	 1;
+	end loop;
+	if valor = 0 then
+		update compra set estado = 'Procesado' where id = objeto.compra;
+	end if;
+end loop;
 return null;
 end;
 $BODY$
