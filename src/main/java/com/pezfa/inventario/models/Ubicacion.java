@@ -3,6 +3,7 @@ package com.pezfa.inventario.models;
 
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -97,8 +98,39 @@ public class Ubicacion extends ProductoSalida  implements java.io.Serializable {
         this.ventaEspecies = ventaEspecies;
     }
 
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.compraEspecie);
+        return hash;
+    }
 
-
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final Ubicacion other = (Ubicacion) obj;
+        if (!Objects.equals(this.compraEspecie, other.compraEspecie))
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 
 }
 

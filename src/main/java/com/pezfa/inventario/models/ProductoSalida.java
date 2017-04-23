@@ -1,6 +1,7 @@
 package com.pezfa.inventario.models;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  *
@@ -67,8 +68,6 @@ public class ProductoSalida
     public void setPrecio(BigDecimal precio)
     {
         this.precio = precio;
-    }
+    }    
     
-    
-
 }

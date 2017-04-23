@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import org.hibernate.FlushMode;
 import org.hibernate.Session;
 
 /**
@@ -38,38 +37,30 @@ public class VentaDB implements Crud<Venta>
             }
             venta.setIngreso(BigDecimal.ZERO);
             sesion.save(venta);
-            sesion.getTransaction().commit();
-            sesion.close();
+
             for (VentaDetalle obj : objs)
             {
-                for (int i = 1; i <= obj.getCantidad(); i++)
+                if (obj instanceof VentaUnidad)
                 {
-                    sesion = HibernateUtil.getSesion().openSession();
-                    sesion.beginTransaction();
-                    System.out.println("Vuelta " + i);
-                    if (obj instanceof VentaUnidad)
-                    {
-                        String codigo = ((VentaUnidad) obj).getUnidad().getProducto().getCodigo();
-                        Unidad terminado = this.getTerminado(codigo);
-                        ((VentaUnidad) obj).setUnidad(terminado);
-                        sesion.save((VentaUnidad) obj);
-                        lista.add(terminado);
-                    } else if (obj instanceof VentaEspecie)
-                    {
-                        String codigo = ((VentaEspecie) obj).getUbicacion().getCompraEspecie().getEspecie().getCodigo();
-                        Ubicacion unidad = this.getUnidad(codigo);
-                        ((VentaEspecie) obj).setUbicacion(unidad);
-                        sesion.save((VentaEspecie) obj);
-                        lista.add(unidad);
-                    } else
-                    {
-                        System.err.println("INSTANCIA DE NADIE");
-                        throw new Exception("No es instancia de nadie");
-                    }
-                    sesion.getTransaction().commit();
-                    sesion.close();
+                    String codigo = ((VentaUnidad) obj).getUnidad().getProducto().getCodigo();
+                    Unidad terminado = this.getUnidad(codigo);
+                    ((VentaUnidad) obj).setUnidad(terminado);
+                    sesion.save((VentaUnidad) obj);
+                    lista.add(terminado);
+                } else if (obj instanceof VentaEspecie)
+                {
+                    String codigo = ((VentaEspecie) obj).getUbicacion().getCompraEspecie().getEspecie().getCodigo();
+                    Ubicacion unidad = this.getUbicacion(codigo, obj.getCantidad());
+                    ((VentaEspecie) obj).setUbicacion(unidad);
+                    sesion.save((VentaEspecie) obj);
+                    lista.add(unidad);
+                } else
+                {
+                    System.err.println("INSTANCIA DE NADIE");
+                    throw new Exception("No es instancia de nadie");
                 }
             }
+            sesion.getTransaction().commit();
         } catch (Exception hi)
         {
             System.out.println("Aqui " + hi.getMessage());
@@ -79,24 +70,34 @@ public class VentaDB implements Crud<Venta>
         return lista;
     }
 
-    public Ubicacion getUnidad(String codigo)
+    public Ubicacion getUbicacion(String codigo, double cantidad)
     {
         UbicacionDB db = new UbicacionDB();
-        List<Ubicacion> lista = db.read("from Unidad uni join fetch uni.compraEspecie com join fetch com.especie esp "
+        List<Ubicacion> lista = db.read("from Ubicacion uni join fetch uni.compraEspecie com join fetch com.especie esp "
                 + "join fetch com.compra comp join fetch uni.cava cav join fetch cav.almacen"
                 + " where esp.codigo ='" + codigo + "' and "
                 + "uni.estado=true order by comp.fecha");
         Ubicacion unidad = lista.get(0);
-        unidad.setEstado(Boolean.FALSE);
-        db.update(unidad);
+        if (unidad.getPeso() <= cantidad)
+        {
+            double peso = unidad.getPeso();
+            unidad.setPeso(0);
+            unidad.setEstado(Boolean.FALSE);
+            db.update(unidad);
+            this.getUbicacion(codigo, (cantidad-peso));
+        }else
+        {
+            unidad.setPeso(unidad.getPeso()-cantidad);
+            db.update(unidad);
+        }
         return unidad;
     }
 
-    public Unidad getTerminado(String codigo)
+    public Unidad getUnidad(String codigo)
     {
-        System.out.println("Este es el codigo Terminado " + codigo);
+        System.out.println("Este es el codigo Unidad " + codigo);
         UnidadDB db = new UnidadDB();
-        List<Unidad> lista = db.read("from Terminado ter join fetch ter.produccion pro join fetch ter.producto produc "
+        List<Unidad> lista = db.read("from Unidad ter join fetch ter.produccion pro join fetch ter.producto produc "
                 + "where produc.codigo ='" + codigo + "' and ter.estado = true order by ter.vencimiento");
         return lista.get(0);
     }

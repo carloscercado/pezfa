@@ -4,6 +4,7 @@ package com.pezfa.inventario.models;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -105,9 +106,6 @@ public class Especie  implements java.io.Serializable {
     public void setCompraEspecies(Set compraEspecies) {
         this.compraEspecies = compraEspecies;
     }
-
-
-
 
 }
 

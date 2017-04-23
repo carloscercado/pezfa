@@ -32,8 +32,6 @@ for objeto in (select especie, especie.precio valor, venta_especie.cantidad as c
 where ubicacion.id=new.ubicacion) loop
 update especie set cantidad=cantidad-objeto.cantidad where id=objeto.especie;
 update venta set ingreso = ingreso+(objeto.valor*objeto.cantidad) where id = new.venta;
-update ubicacion set peso = peso - objeto.cantidad where id = objeto.ubicacion;
-update ubicacion set estado = false where id = objeto.ubicacion and peso = 0;
 end loop;
 return null;
 end;

@@ -8,7 +8,7 @@ package com.pezfa.inventario.models;
 public class VentaDetalle 
 {
     private Venta venta;
-    private float cantidad;
+    private double cantidad;
     public VentaDetalle()
     {
         
@@ -24,12 +24,12 @@ public class VentaDetalle
         this.venta = venta;
     }
 
-    public float getCantidad()
+    public double getCantidad()
     {
         return cantidad;
     }
 
-    public void setCantidad(float cantidad)
+    public void setCantidad(double cantidad)
     {
         this.cantidad = cantidad;
     }
