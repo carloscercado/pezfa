@@ -37,24 +37,20 @@
                             #{especie.nombre}
                         </p:column>
 
-                        <p:column headerText="Cantidad" width="10%">
-                            #{especie.cantidad}
+                        <p:column headerText="Cantidad" class="text-right" width="12%">
+                            #{especie.cantidad} Kg
                         </p:column>
 
-                        <p:column headerText="Max" width="8%">
-                            #{especie.maximo}
+                        <p:column headerText="Max" class="text-right" width="12%">
+                            #{especie.maximo} Kg
                         </p:column>
 
-                        <p:column headerText="Min" width="8%">
-                            #{especie.minimo}
+                        <p:column headerText="Min" class="text-right" width="12%">
+                            #{especie.minimo} Kg
                         </p:column>
 
-                        <p:column headerText="Precio">
-                            Bs.f #{especie.precio} 
-                        </p:column>
-
-                        <p:column headerText="Tipo">
-                            #{especie.tipo}
+                        <p:column headerText="Precio" width="15%" class="text-right">
+                            Bs #{especie.precio} 
                         </p:column>
 
                         <p:column width="15%" class="column-hidden" headerText="Opciones">

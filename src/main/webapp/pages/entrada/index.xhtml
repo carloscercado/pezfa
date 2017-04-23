@@ -16,17 +16,19 @@
 
                         <div class="col-sm-4">
                             <div class="text-muted">
-                                <strong>Unidades en transito</strong>
+                                <strong>Mercancia en transito</strong>
                             </div>
                             <div class="hero-widget well well-sm">
                                 <span class="fa fa-cubes fa-3x"/>
-                                <strong>#{compraEspecieController.cantidadDesubicados} Unidades</strong>
+                                <h:outputLabel value="#{compraEspecieController.cantidadDesubicados}">
+                                    <f:convertNumber locale="es" minFractionDigits="2" maxFractionDigits="2"/>
+                                </h:outputLabel>  Kg
                             </div>
                         </div>
 
                         <div class="col-sm-4">
                             <div class="text-muted">
-                                <strong>Costo de unidades en transito</strong>
+                                <strong>Costo de mercancia en transito</strong>
                             </div>
                             <div class="hero-widget well well-sm">
                                 <span class="fa fa-usd fa-3x"/>
@@ -114,11 +116,11 @@
                                 #{compraEspecie.especie.nombre} 
                             </p:column>
 
-                            <p:column headerText="Cantidad" width="12%">
-                                #{compraEspecie.cantidad} Unds
+                            <p:column headerText="Cantidad" class="text-right" width="12%">
+                                #{compraEspecie.cantidad} Kg
                             </p:column>
-                            <p:column headerText="Sin ubicar" width="15%">
-                                #{compraEspecie.cantidad - compraEspecie.ubicados} Unds
+                            <p:column headerText="Sin ubicar" class="text-right" width="15%">
+                                #{compraEspecie.cantidad - compraEspecie.ubicados} Kg
                             </p:column>
 
                             <p:column headerText="Costo" class="text-right">
@@ -144,7 +146,7 @@
                                     <div  class="col-md-6 text-left ">
 
                                     </div>
-                                    <div  class="col-md-6 text-right ">
+                                    <div  class="col-md-6 text-right " style="font-size: 24px">
                                         Total: 
                                         <p:outputLabel value="#{compraController.compra.gasto}">
                                             <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
@@ -157,7 +159,7 @@
                     </h:form>
                 </p:dialog>
 
-                <p:dialog header="Ubicar unidad" widgetVar="registrar" responsive="true" resizable="false" 
+                <p:dialog header="Registrar mercancia a almacenes" widgetVar="registrar" responsive="true" resizable="false" 
                           draggable="false" modal="true" width="600" >
 
                     <h:form>
@@ -168,11 +170,17 @@
                                 <div class="hero-widget well well-sm">
                                     <h3>
                                         <div class="icon">
-                                            Unidad: #{compraEspecieController.compraEspecie.especie.nombre}<br/>
+                                            Unidad: #{compraEspecieController.compraEspecie.especie.nombre}
+                                            <br/><br/>
                                             Costo:
                                             <p:outputLabel value="#{compraEspecieController.compraEspecie.costo}">
                                                 <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                                             </p:outputLabel>
+                                            <br/><br/>
+                                            Cantidad:
+                                            <p:outputLabel value="#{compraEspecieController.compraEspecie.cantidad}">
+                                                <f:convertNumber locale="es" minFractionDigits="2" maxFractionDigits="2" />
+                                            </p:outputLabel> Kg
                                         </div>
                                     </h3>
                                 </div>
@@ -203,7 +211,8 @@
                                     <center> 
                                         <div class="icon">
                                             <span class="fa fa-archive fa-3x" style="color: #045491"/>
-                                            <p:selectOneMenu required="true" requiredMessage="Escoja la cava donde guardara la unidad" widgetVar="cavas" value="#{unidadController.unidad.cava}" converter="cava" filter="true" filterMatchMode="contains">
+                                            <p:selectOneMenu required="true" requiredMessage="Escoja la cava donde guardara la unidad" widgetVar="cavas" value="#{unidadController.unidad.cava}" 
+                                                             converter="cava" filter="true" filterMatchMode="contains">
                                                 <f:selectItem itemLabel="Cava" noSelectionOption="true" itemValue="#{null}"/>
 
                                                 <f:selectItems value="#{cavaController.cavasFiltro}" var="cava" itemLabel="#{cava.nombre}" itemValue="#{cava}"/>
@@ -220,7 +229,7 @@
                                     <center> 
                                         <div class="icon">
                                             <span class="fa fa-balance-scale fa-3x" style="color: #045491"/>
-                                            <p:inputNumber size="10" value="#{unidadController.unidad.peso}" symbol=" Kilos" symbolPosition="suffix"
+                                            <p:inputNumber size="10" value="#{unidadController.unidad.peso}" symbol=" Kg" symbolPosition="suffix"
                                                            placeholder="Peso" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="."
                                                            requiredMessage="Ingrese el peso"/>
 

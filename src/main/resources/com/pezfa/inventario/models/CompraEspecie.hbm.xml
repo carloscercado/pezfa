@@ -21,7 +21,7 @@
             <column name="costo" precision="10" />
         </property>
         <property name="ubicados" type="java.lang.Double">
-            <column name="ubicados" precision="17" scale="17" />
+            <column name="ubicados" default="0" precision="17" scale="17" />
         </property>
         <set name="ubicacions" table="ubicacion" inverse="true" lazy="true" fetch="select">
             <key>

@@ -15,7 +15,7 @@ public class CompraEspecie  implements java.io.Serializable {
      private int id;
      private Compra compra;
      private Especie especie;
-     private float cantidad;
+     private double cantidad;
      private BigDecimal costo;
      private Double ubicados;
      private Set ubicacions = new HashSet(0);
@@ -23,15 +23,15 @@ public class CompraEspecie  implements java.io.Serializable {
     public CompraEspecie() {
     }
 
-    public float getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(float cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 
-    public CompraEspecie(int id, Compra compra, Especie especie, float cantidad, BigDecimal costo, Double ubicados) {
+    public CompraEspecie(int id, Compra compra, Especie especie, double cantidad, BigDecimal costo, Double ubicados) {
         this.id = id;
         this.compra = compra;
         this.especie = especie;

@@ -79,7 +79,7 @@ public class CompraEspecieController implements Serializable
         this.usuarioController = usuarioController;
     }
 
-    public float obtenerCostoTotal()
+    public double obtenerCostoTotal()
     {
         try
         {

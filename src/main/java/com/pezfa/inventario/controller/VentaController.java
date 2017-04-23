@@ -186,14 +186,14 @@ public class VentaController implements Serializable {
     public List<ProductoSalida> getProductos() {
         try {
             productos = new ArrayList<>();
-            udb.read("from Unidad uni join fetch uni.compraEspecie deta join fetch deta.especie esp where esp.cantidad != 0")
+            udb.read("from Ubicacion uni join fetch uni.compraEspecie deta join fetch deta.especie esp where esp.cantidad > 0")
                     .stream().distinct().forEach(x -> {
                         x.setNombre(x.getCompraEspecie().getEspecie().getNombre());
                         x.setCodigo(x.getCompraEspecie().getEspecie().getCodigo());
                         x.setPrecio(x.getCompraEspecie().getEspecie().getPrecio());
                         productos.add((ProductoSalida) x);
                     });
-            tdb.read("from Terminado ter join fetch ter.producto produ where produ.cantidad != 0").stream()
+            tdb.read("from Unidad ter join fetch ter.producto produ where produ.cantidad > 0").stream()
                     .distinct().forEach(x -> {
                         x.setNombre(x.getProducto().getNombre());
                         x.setCodigo(x.getProducto().getCodigo());
@@ -204,6 +204,7 @@ public class VentaController implements Serializable {
             return productos;
 
         } catch (Exception e) {
+            System.out.println("Lista de productos para ventas, entro en la excepcion: "+e.getMessage());
             return new ArrayList<>();
         }
     }

@@ -82,12 +82,12 @@
                             #{detalle.especie.nombre}
 
                         </p:column>
-                        <p:column headerText="Cantidad" width="20%">
-                            #{detalle.cantidad} unidades
+                        <p:column headerText="Cantidad" class="text-right" width="20%">
+                            #{detalle.cantidad} Kg
 
                         </p:column>
 
-                        <p:column headerText="Costo unitario" class="text-right" width="20%">
+                        <p:column headerText="Costo por Kilo" class="text-right" width="20%">
                             <p:outputLabel value="#{detalle.costo}">
                                 <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                             </p:outputLabel>
@@ -195,13 +195,14 @@
                             <p:growl id="mensaje" />
                             <div class="text-muted" style="font-weight: bold">
                                 <span class="fa fa-info-circle fa-2x"/>
-                                A continuacion ingrese la cantidad de #{compraEspecieController.compraEspecie.especie.nombre} 
-                                a comprar y su respectivo costo por unidad.
+                                A continuacion ingrese la cantidad en KG de #{compraEspecieController.compraEspecie.especie.nombre} 
+                                a comprar y su respectivo costo por KG.
                             </div>
                             <br/>
                             <p:panelGrid columns="2">
-                                <p:outputLabel value="Cantidad:" />
-                                <p:inputNumber autocomplete="off" placeholder="Cantidad" value="#{compraEspecieController.compraEspecie.cantidad}" decimalPlaces="0" required="true" requiredMessage="Cantidad es necesaria"/>
+                                <p:outputLabel value="KG:" />
+                                <p:inputNumber autocomplete="off" placeholder="Cantidad" value="#{compraEspecieController.compraEspecie.cantidad}" decimalPlaces="2" 
+                                               required="true"  requiredMessage="Cantidad es necesaria" symbol=" Kg" symbolPosition="suffix" thousandSeparator="." decimalSeparator="," />
                                 <p:outputLabel value="Costo:" />
                                 <p:inputNumber autocomplete="off" value="#{compraEspecieController.compraEspecie.costo}" symbol=" Bs.F" symbolPosition="suffix" 
                                                placeholder="Costo" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="."
