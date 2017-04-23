@@ -1,8 +1,11 @@
 package com.pezfa.inventario.controller;
 
+import com.pezfa.inventario.database.AuditoriaDB;
 import com.pezfa.inventario.database.UbicacionDB;
+import com.pezfa.inventario.models.Auditoria;
 import com.pezfa.inventario.models.Ubicacion;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
@@ -25,6 +28,8 @@ public class UnidadController implements Serializable
     private List<Ubicacion> unidades = null; // lista de objetos de tipo unidades
     @ManagedProperty(value = "#{compraEspecieController}")
     private CompraEspecieController compraEspecieController;
+    @ManagedProperty(value = "#{usuarioController}")
+    private UsuarioController usuarioController;
     private UbicacionDB db;
 
     public UnidadController()
@@ -43,6 +48,16 @@ public class UnidadController implements Serializable
         this.unidad = unidad;
     }
 
+    public UsuarioController getUsuarioController()
+    {
+        return usuarioController;
+    }
+
+    public void setUsuarioController(UsuarioController usuarioController)
+    {
+        this.usuarioController = usuarioController;
+    }
+    
     public CompraEspecieController getCompraEspecieController()
     {
         return compraEspecieController;
@@ -72,6 +87,16 @@ public class UnidadController implements Serializable
         unidad.setCodigo(UUID.randomUUID().toString());
         if (db.create(unidad))
         {
+            Auditoria auditoria = new Auditoria();
+            AuditoriaDB auditoDB = new AuditoriaDB();
+            auditoria.setUsuario(usuarioController.getUsuario());
+            Date fecha = new Date();
+            auditoria.setFecha(fecha);
+            auditoria.setHora(fecha);
+            auditoria.setTipo("REGISTRO EN INVENTARIO");
+            auditoria.setDescripcion("REGISTRO DE "+unidad.getPeso()+" KG DE "+unidad.getNombre()
+                    +" DE ORDEN "+unidad.getCompraEspecie().getCompra().getOrden()+" EN LA CAVA "+unidad.getCava().getNombre());
+            auditoDB.create(auditoria);
             unidad = new Ubicacion();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unidad ubicada exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);

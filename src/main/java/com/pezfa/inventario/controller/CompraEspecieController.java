@@ -1,6 +1,8 @@
 package com.pezfa.inventario.controller;
 
+import com.pezfa.inventario.database.AuditoriaDB;
 import com.pezfa.inventario.database.CompraEspecieDB;
+import com.pezfa.inventario.models.Auditoria;
 import com.pezfa.inventario.models.Compra;
 import com.pezfa.inventario.models.CompraEspecie;
 import java.io.Serializable;
@@ -122,7 +124,7 @@ public class CompraEspecieController implements Serializable
 
     public List<CompraEspecie> getCompraEspecies()
     {
-        compraEspecies = db.read("from CompraEspecie com join fetch com.especie");
+        compraEspecies = db.read("from CompraEspecie com join fetch com.especie join fetch com.compra");
         return compraEspecies;
     }
 
@@ -159,6 +161,16 @@ public class CompraEspecieController implements Serializable
         {
             if (db.createList(miLista))
             {
+                Auditoria auditoria = new Auditoria();
+                AuditoriaDB auditoDB = new AuditoriaDB();
+                Compra compra = compraController.getCompra();
+                auditoria.setUsuario(compra.getUsuario());
+                auditoria.setFecha(compra.getFecha());
+                auditoria.setHora(compra.getFecha());
+                auditoria.setTipo("REGISTRO DE COMPRAS");
+                auditoria.setDescripcion("REGISTRO DE COMPRAS CON ORDEN DE COMPRA "+compra.getOrden()+
+                        " A PROVEEDOR CON RIF "+compra.getProveedor().getRif());
+                auditoDB.create(auditoria);
                 miLista.clear();
                 compraController.setCompra(new Compra());
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Compra registrada exitosamente", null);

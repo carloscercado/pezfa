@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <h:body>
+        <ui:composition template="./../../template/menu.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:dataTable widgetVar="auditorias" emptyMessage="No se encontrar&oacute;n datos" reflow="true"
+                                 var="auditoria" value="#{auditoriaController.auditorias}">
+                        <f:facet name="header">
+                            <div class="row">
+                                <div  class="col-md-8 text-left header-tabla-hidden">
+                                    <p:selectOneButton value="#{auditoriaController.consulta}">
+                                        <p:ajax event="change" update="@widgetVar(auditorias)"/>
+                                        <f:selectItem itemLabel="Del Día" itemValue="from Auditoria audi join fetch audi.usuario user join fetch user.empleado 
+                                                      where month(audi.fecha)=#{auditoriaController.fecha.month+1} and year(audi.fecha)=#{auditoriaController.fecha.year+1900} and day(audi.fecha)=#{auditoriaController.fecha.date}" />
+                                        <f:selectItem itemLabel="Del Mes" itemValue="from Auditoria audi join fetch audi.usuario user join fetch user.empleado 
+                                                      where month(audi.fecha)=#{auditoriaController.fecha.month+1} and year(audi.fecha)=#{auditoriaController.fecha.year+1900}" />
+                                        <f:selectItem itemLabel="Del Año" itemValue="from Auditoria audi join fetch audi.usuario user join fetch user.empleado 
+                                                      where year(audi.fecha)=#{auditoriaController.fecha.year+1900}" />  
+                                        <f:selectItem itemLabel="Todo" itemValue="from Auditoria audi join fetch audi.usuario user join fetch user.empleado"/>
+                                    </p:selectOneButton>
+                                </div>
+
+                                <div class="col-md-4 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('auditorias').filter()" placeholder="Buscar"/>
+                                </div>
+                            </div>
+                        </f:facet>
+                        <p:column headerText="Empleado"  filterStyle="display: none" filterBy="#{auditoria.usuario.empleado.primerApellido}">
+                            #{auditoria.usuario.empleado.primerApellido} #{auditoria.usuario.empleado.primerNombre}, 
+                            con usuario '#{auditoria.usuario.usuario}'
+                        </p:column>
+
+                        <p:column filterBy="#{auditoria.tipo}" width="20%">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('auditorias').filter()">
+                                    <f:selectItem noSelectionOption="true" itemValue="#{null}" itemLabel="TIPO"/>
+                                    <f:selectItem itemLabel="ACCESO" itemValue="ACCESO"/>
+                                    <f:selectItem itemLabel="VENTAS" itemValue="REGISTRO DE VENTAS"/>
+                                    <f:selectItem itemLabel="COMPRAS" itemValue="REGISTRO DE COMPRAS"/>
+                                    <f:selectItem itemLabel="INVENTARIO" itemValue="REGISTRA EN INVENTARIO"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                            #{auditoria.tipo}
+                        </p:column>
+
+                        <p:column headerText="Descripción"  filterBy="#{auditoria.usuario.empleado.primerNombre}" width="40%" filterStyle="display: none">
+                            #{auditoria.descripcion}
+                        </p:column>
+                        <p:column headerText="Fecha"  filterBy="#{auditoria.usuario.usuario}" filterStyle="display: none">
+                            #{auditoria.fecha} #{auditoria.hora}
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>               
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</html>

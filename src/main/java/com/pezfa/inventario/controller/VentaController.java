@@ -1,8 +1,10 @@
 package com.pezfa.inventario.controller;
 
+import com.pezfa.inventario.database.AuditoriaDB;
 import com.pezfa.inventario.database.UnidadDB;
 import com.pezfa.inventario.database.UbicacionDB;
 import com.pezfa.inventario.database.VentaDB;
+import com.pezfa.inventario.models.Auditoria;
 import com.pezfa.inventario.models.ProductoSalida;
 import com.pezfa.inventario.models.Unidad;
 import com.pezfa.inventario.models.Ubicacion;
@@ -12,6 +14,7 @@ import com.pezfa.inventario.models.VentaUnidad;
 import com.pezfa.inventario.models.VentaEspecie;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,6 +58,7 @@ public class VentaController implements Serializable
         ventaDetalle = new VentaDetalle();
         lista = new HashSet<>();
         venta = new Venta();
+        venta.setFecha(new Date());
         cant = 1;
     }
 
@@ -186,8 +190,19 @@ public class VentaController implements Serializable
             salida = db.create_venta(lista);
             if (salida != null)
             {
+                Auditoria auditoria = new Auditoria();
+                AuditoriaDB auditoDB = new AuditoriaDB();
+                
+                auditoria.setUsuario(venta.getUsuario());
+                auditoria.setFecha(venta.getFecha());
+                auditoria.setHora(venta.getFecha());
+                auditoria.setTipo("REGISTRO DE VENTAS");
+                auditoria.setDescripcion("REGISTRO DE VENTA CON FACTURA "+venta.getFactura()+
+                        " A CLIENTE CON RIF "+venta.getCliente().getRif());
+                auditoDB.create(auditoria);
                 lista.clear();
                 venta = new Venta();
+                venta.setFecha(new Date());
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Venta registrada exitosamente", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
                 RequestContext con = RequestContext.getCurrentInstance();
