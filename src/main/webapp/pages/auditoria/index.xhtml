@@ -16,15 +16,15 @@
                         <f:facet name="header">
                             <div class="row">
                                 <div  class="col-md-8 text-left header-tabla-hidden">
-                                    <p:selectOneButton value="#{auditoriaController.consulta}">
-                                        <p:ajax event="change" update="@widgetVar(auditorias)"/>
+                                    <p:selectOneButton  value="#{auditoriaController.consulta}">
+                                        <p:ajax event="change" onstart="PF('auditorias').clearFilters()"  update="@widgetVar(auditorias)"/>
                                         <f:selectItem itemLabel="Del Día" itemValue="from Auditoria audi join fetch audi.usuario user join fetch user.empleado 
-                                                      where month(audi.fecha)=#{auditoriaController.fecha.month+1} and year(audi.fecha)=#{auditoriaController.fecha.year+1900} and day(audi.fecha)=#{auditoriaController.fecha.date}" />
+                                                      where month(audi.fecha)=#{auditoriaController.fecha.month+1} and year(audi.fecha)=#{auditoriaController.fecha.year+1900} and day(audi.fecha)=#{auditoriaController.fecha.date} order by audi.fecha" />
                                         <f:selectItem itemLabel="Del Mes" itemValue="from Auditoria audi join fetch audi.usuario user join fetch user.empleado 
-                                                      where month(audi.fecha)=#{auditoriaController.fecha.month+1} and year(audi.fecha)=#{auditoriaController.fecha.year+1900}" />
+                                                      where month(audi.fecha)=#{auditoriaController.fecha.month+1} and year(audi.fecha)=#{auditoriaController.fecha.year+1900} order by audi.fecha" />
                                         <f:selectItem itemLabel="Del Año" itemValue="from Auditoria audi join fetch audi.usuario user join fetch user.empleado 
-                                                      where year(audi.fecha)=#{auditoriaController.fecha.year+1900}" />  
-                                        <f:selectItem itemLabel="Todo" itemValue="from Auditoria audi join fetch audi.usuario user join fetch user.empleado"/>
+                                                      where year(audi.fecha)=#{auditoriaController.fecha.year+1900} order by audi.fecha" />  
+                                        <f:selectItem itemLabel="Todo" itemValue="from Auditoria audi join fetch audi.usuario user join fetch user.empleado order by audi.fecha"/>
                                     </p:selectOneButton>
                                 </div>
 

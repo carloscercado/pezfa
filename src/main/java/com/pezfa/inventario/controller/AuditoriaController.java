@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
@@ -59,7 +60,7 @@ public class AuditoriaController implements Serializable
 
     public List<Auditoria> getAuditorias()
     {
-        auditorias = db.read(consulta+" order by audi.fecha");
+        auditorias = db.read(consulta);
         return auditorias;
     }
 
