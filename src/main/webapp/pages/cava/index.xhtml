@@ -57,9 +57,9 @@
                     <h:form>
                         <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="Nombre: (*)"/>
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="10" onkeypress="return letras(event)" value="#{cavaController.cava.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
-                            <p:outputLabel value="Almac&eacute;n: (*)"/>
+                            <p:outputLabel value="Almac&eacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{cavaController.cava.almacen}" filter="true" filterMatchMode="contains" converter="almacen" required="true" requiredMessage="Seleccione el almac&eacute;n" >
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                                 <f:selectItems value="#{almacenController.almacenes}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}"/>
@@ -89,9 +89,9 @@
                            <p:growl id="mensaje"/> 
                             
                             <p:panelGrid columns="2">
-                                <p:outputLabel value="Nombre: (*)"/>
+                                <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                                 <p:inputText autocomplete="off" value="#{cavaController.cava.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
-                                <p:outputLabel value="Almac&eacute;n: (*)"/>
+                                <p:outputLabel value="Almac&eacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                                 <p:selectOneMenu value="#{cavaController.cava.almacen}" filter="true" filterMatchMode="contains" converter="almacen" required="true" requiredMessage="Seleccione el almac&eacute;n" >
                                     <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                                     <f:selectItems value="#{almacenController.almacenes}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}"/>

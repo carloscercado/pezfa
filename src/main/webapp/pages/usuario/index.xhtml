@@ -12,14 +12,23 @@
 
             <ui:define name="content">
                 <h:form>
-                    <h3 style="margin-top:0">Aqu&iacute; va el cuadro de b&uacute;squeda</h3>
-                    <p:dataTable emptyMessage="No se encontraron datos." var="usuario" widgetVar="usuarios" value="#{usuarioController.usuarios}" reflow="true">
-
+                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="usuarios" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="usuario" value="#{usuarioController.usuarios}">
                         <f:facet name="header">
-                            <p:commandButton value="Agregar" icon="fa fa-plus" class="bg-primary" oncomplete="PF('registrar').show()"/>
-                            Gestionar usuarios            
-                        </f:facet> 
+                            <div class="row">
+                                <div  class="col-md-6 text-left header-tabla-hidden">
+                                    <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                </div>
 
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('usuarios').filter()" placeholder="Buscar"/>
+                                </div>
+                            </div>
+                        </f:facet>
+                        <p:column width="5%" class="column-hidden">
+                            <center>
+                                <span class="fa fa-user-md"/>
+                            </center>
+                        </p:column>
                         <p:column headerText="Empleado">
                             <span  class="fa fa-user" /> #{usuario.empleado.primerNombre} #{usuario.empleado.primerApellido} 
                         </p:column>
@@ -32,58 +41,89 @@
                             #{usuario.rol} 
                         </p:column>
 
-                        <p:column headerText="Opciones">
-                            <center>
-                                <p:commandButton icon="fa fa-trash" class="btn-danger" update="@widgetVar(eliminar)" oncomplete="PF('eliminar').show()">
+                        <p:column width="15%" class="column-hidden" headerText="Opciones">
+                            <center>  
+                                <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger"> 
                                     <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usuario}"/>
                                 </p:commandButton>
-                                <p:commandButton icon="fa fa-edit" class="btn-warning"/>
-                            </center>
+                                <p:commandButton icon="fa fa-edit" title="Modificar" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
+                                    <f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usuario}"/>
+                                </p:commandButton>
+                            </center> 
                         </p:column>
                     </p:dataTable>
                 </h:form>
                 <p:dialog header="Registrar usuario" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true" closable="false">
                     <f:facet name="onHide">
-                        <p:ajax update="@widgetVar(usuarios)"/>
+                        <p:ajax update="@widgetVar(usuarios)" listener="#{usuarioController.reset()}"/>
                     </f:facet>
                     <h:form>
                         <p:growl id="mensaje"/>
                         <p:panelGrid columns="2">
 
-                            <p:outputLabel value="Empleado:"/>
-                            <p:selectOneMenu value="#{usuarioController.usuario.empleado}" filter="true" filterMatchMode="contains" converter="empleado" required="true" requiredMessage="Escoja el empleado" >
+                            <p:outputLabel value="Empleado:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:selectOneMenu value="#{usuarioController.usuario.empleado}" filter="true" filterMatchMode="contains" converter="empleado" required="true" requiredMessage="Seleccione el empleado" >
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                                 <f:selectItems value="#{empleadoController.empleadores}" var="empleado" itemLabel="#{empleado.primerNombre} #{empleado.primerApellido}" itemValue="#{empleado}"/>
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="Usuario:"/>
-                            <p:inputText value="#{usuarioController.usuario.usuario}" required="true" requiredMessage="Ingrese usuario" placeholder="Usuario"/>
+                            <p:outputLabel value="Usuario:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:inputText value="#{usuarioController.usuario.usuario}" required="true" requiredMessage="Registre usuario" placeholder="Usuario"/>
 
-                            <p:outputLabel value="Rol:"/>
-                            <p:selectOneMenu value="#{usuarioController.usuario.rol}">
-                                <f:selectItem itemValue="M" itemLabel="Masculino"/>
-                                <f:selectItem itemValue="F" itemLabel="Femenino"/>
-                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
+                            
+                            <p:outputLabel value="Rol:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:selectOneMenu value="#{usuarioController.usuario.rol}" filter="true" filterMatchMode="contains" converter="empleado" required="true" requiredMessage="Seleccione el rol">
+                               <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar" />
+                               <f:selectItems value="#{empleadoController.empleadores}" var="empleado" itemLabel="#{empleado.cargo}" itemValue="#{empleado}"/>
                             </p:selectOneMenu>
 
                         </p:panelGrid>
-                        <br/>
+                       <br/>
                         <center>
-                            <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{usuarioController.register()}"/>
-                            <p:commandButton value="Cancelar" icon="fa fa-times" class="btn-danger" onclick="PF('registrar').hide()"/>
+                            <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{usuarioController.register()}"/> 
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
                         </center>
                     </h:form>
                 </p:dialog>
                 
-                <p:dialog header="&iquest;Est&aacute;s seguro que deseas eliminar&#63;" widgetVar="eliminar" modal="true" draggable="false" resizable="false" responsive="true" closable="false">                  
+                <p:dialog closable="false" header="&#191; Est&aacute;s seguro que deseas eliminar al usuario #{usuarioController.usuario.usuario} &#63;" widgetVar="eliminar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
-                        <p:growl id="mensaje"/>
+                        <p:growl id="mensaje"/> 
                         <center>
-                            <p:commandButton value="Si" icon="fa fa-check" style="margin: 5%" update="mensaje @widgetVar(usuarios)" actionListener="#{usuarioController.delete()}"/>
-                            <p:commandButton value="No" icon="fa fa-times" onclick="PF('eliminar').hide()" class="btn-danger"/>
+                            <p:commandButton value="Si" icon="fa fa-check"  actionListener="#{usuarioController.delete()}" update="mensaje @widgetVar(usuarios)"/> 
+                            <p:commandButton value="No" icon="fa fa-times" class="btn-danger" oncomplete="PF('eliminar').hide()" actionListener="#{usuarioController.reset()}"/>
                         </center>
                     </h:form>
                 </p:dialog>
+                
+                <p:dialog closable="false" header="Modificar usuario" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Empleado:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:selectOneMenu value="#{usuarioController.usuario.empleado}" filter="true" filterMatchMode="contains" converter="empleado" required="true" requiredMessage="Seleccione el empleado" >
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
+                                <f:selectItems value="#{empleadoController.empleadores}" var="empleado" itemLabel="#{empleado.primerNombre} #{empleado.primerApellido}" itemValue="#{empleado}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Usuario:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:inputText value="#{usuarioController.usuario.usuario}" required="true" requiredMessage="Registre usuario" placeholder="Usuario"/>
+
+                            
+                            <p:outputLabel value="Rol:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:selectOneMenu value="#{usuarioController.usuario.rol}" filter="true" filterMatchMode="contains" converter="empleado" required="true" requiredMessage="Seleccione el rol">
+                               <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar" />
+                               <f:selectItems value="#{empleadoController.empleadores}" var="empleado" itemLabel="#{empleado.cargo}" itemValue="#{empleado}"/>
+                            </p:selectOneMenu>
+                           </p:panelGrid>
+
+                        <br/>
+                            <center>
+                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(usuarios)" actionListener="#{usuarioController.update()}"/> 
+                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{usuarioController.reset()}" oncomplete="PF('modificar').hide()"/>
+                            </center>
+                    </h:form>
+                </p:dialog> 
             </ui:define>
 
         </ui:composition>

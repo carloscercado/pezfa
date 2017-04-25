@@ -149,6 +149,7 @@ public class CompraEspecieController implements Serializable
     {
         compraController.getCompra().setUsuario(usuarioController.getSesion());
         compraEspecie.setCompra(compraController.getCompra());
+        compraEspecie.setUbicados(0.0);
         miLista.add(compraEspecie);
         compraEspecie = new CompraEspecie();
         RequestContext con = RequestContext.getCurrentInstance();

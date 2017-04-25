@@ -117,7 +117,12 @@ public class Producto  implements java.io.Serializable {
         this.unidads = unidads;
     }
 
-
+    public void toUpperCase(String nombre, String categoria, String descripcion)
+    {
+       this.nombre = this.nombre.toUpperCase();
+       this.categoria = this.categoria.toUpperCase();
+       this.descripcion = this.descripcion.toUpperCase();
+    }
 
 
 }

@@ -4,14 +4,9 @@ import com.pezfa.inventario.hibernate.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
 
-/**
- *
- * @author Carlos Cercado
- * @email cercadocarlos@gmail.com
- */
+
 public interface Crud<T>
 {
-
     default boolean create(T obj)
     {
         Session sesion = null;//inicializa la session

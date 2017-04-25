@@ -4,7 +4,8 @@
 		(3, 'ALMACEN C', 'AV. EL PEÑON', '(293)-8796450'),
 		(4, 'ALMACEN D', 'AV. PERIMETRAL', '(293)-1637531'),
 		(5, 'ALMACEN E', 'AV. CANCAMURE', '(293)-4734373');
-
+
+
        
 insert into empleado
 	VALUES (1, '15764832', 'MARIA', 'JOSE', 'PEREZ', 'ALVARADO', now(), 'F', 'ADMINISTRADOR'),
@@ -49,8 +50,8 @@ INSERT INTO CAVA
 		(5, 'CAVA 5', 5);
 
 INSERT INTO usuario
-	values (1, 'ADMIN', 'ADMIN', 'ADMINISTRADOR', 1),
-		(2, 'USUARIO', '1234', 'EMPLEADO', 2),
-		(3, 'ROSA', '12345', 'ADMINISTRADOR', 3),
-		(4, 'PABLO', '123456', 'ADMINISTRADOR', 4),
-		(5, 'USUA', '1234567', 'EMPLEADA', 5);
+	values (1, 'admin', 'admin', 'ADMINISTRADOR', 1),
+		(2, 'usuario', '1234', 'EMPLEADO', 2),
+		(3, 'rosa', '12345', 'ADMINISTRADOR', 3),
+		(4, 'pablo', '123456', 'ADMINISTRADOR', 4),
+		(5, 'usua', '1234567', 'EMPLEADA', 5);

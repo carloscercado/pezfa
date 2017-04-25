@@ -26,7 +26,7 @@
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>
-                                <span class="fa fa-truck" style="color: #0033cc" />
+                                <span class="fa fa-truck" />
                             </center>
                         </p:column>
                          
@@ -43,7 +43,7 @@
                         </p:column>
                          
                         <p:column headerText="Tel&eacute;fono">
-                            <span class="fa fa-phone" style="color: #0033cc"/>  #{proveedor.telefono}
+                            <span class="fa fa-phone"/>  #{proveedor.telefono}
                         </p:column>
                         
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
@@ -65,16 +65,18 @@
                     <h:form>
                         <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="RIF:" />
+                            <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" required="true" value="#{proveedorController.proveedor.rif}"/>
-                            <p:outputLabel value="Nombre:" />
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" placeholder="Nombre" requiredMessage="Registrar el nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
-                            <p:outputLabel value="Direcci&oacute;n:" />
+                            <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" placeholder="Direcci&oacute;n" requiredMessage="Registrar la Direcci&oacute;n" required="true" value="#{proveedorController.proveedor.direccion}"  />
-                            <p:outputLabel value="Tel&eacute;fono"/>
+                            <p:outputLabel value="Tel&eacute;fono"/> 
                             <p:inputMask  value="#{proveedorController.proveedor.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
-                            <p:outputLabel value="Correo:" />
-                            <p:inputText placeholder="Correo" autocomplete="off" value="#{proveedorController.proveedor.correo}"/>
+                            <p:outputLabel for="regex" value="Correo:"/>
+                            <p:inputText id="regex" value="#{proveedorController.proveedor.correo}" placeholder="ejemplo@gmail.com">
+                              <f:validateRegex pattern="[a-zA-Z]+@+[a-zA-Z]+.+[a-zA-Z]" />
+                            </p:inputText>
                         </p:panelGrid>
                         <br/>
                         <center>
@@ -98,16 +100,18 @@
                     <h:form>
                         <p:growl id="mensaje"/> 
                           <p:panelGrid columns="2">
-                            <p:outputLabel value="RIF"/>
-                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.rif}" disabled="true" required="true" requiredMessage="Ingrese el RIF" placeholder="RIF"/>
-                            <p:outputLabel value="Nombre"/>
-                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
-                            <p:outputLabel value="Direcci&oacute;n"/>
-                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
+                            <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" required="true" value="#{proveedorController.proveedor.rif}"/>
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:inputText autocomplete="off" maxlength="20" placeholder="Nombre" requiredMessage="Registrar el nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
+                            <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:inputText autocomplete="off" placeholder="Direcci&oacute;n" requiredMessage="Registrar la Direcci&oacute;n" required="true" value="#{proveedorController.proveedor.direccion}"  />
                             <p:outputLabel value="Tel&eacute;fono"/>
                             <p:inputMask  value="#{proveedorController.proveedor.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
-                            <p:outputLabel value="Correo"/>
-                            <p:inputText autocomplete="off" value="#{proveedorController.proveedor.correo}" placeholder="Correo"/>
+                            <p:outputLabel for="regex" value="Correo:"/>
+                            <p:inputText id="regex" value="#{proveedorController.proveedor.correo}" placeholder="ejemplo@gmail.com">
+                              <f:validateRegex pattern="[a-zA-Z]+@+[a-zA-Z]+.+[a-zA-Z]" />
+                            </p:inputText>
                         </p:panelGrid>
 
                         <br/>

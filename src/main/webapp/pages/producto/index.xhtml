@@ -68,11 +68,11 @@
                     <h:form>
                         <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="C&oacute;digo: (*)"/>
+                            <p:outputLabel value="C&oacute;digo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="30" value="#{productoController.producto.codigo}" required="true" requiredMessage="Ingrese el c&oacute;digo" placeholder="C&oacute;digo"/>
-                            <p:outputLabel value="Nombre: (*)"/>
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{productoController.producto.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
-                            <p:outputLabel value="Categor&iacute;a: (*)"/>
+                            <p:outputLabel value="Categor&iacute;a:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu requiredMessage="Ingrese una categor&iacute;a"  required="true"  value="#{productoController.producto.categoria}">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
                                 <f:selectItem itemValue="Del mar" itemLabel="Del mar"/>
@@ -80,7 +80,7 @@
                                 <f:selectItem itemValue="DFE" itemLabel="DEF"/>
                                 <f:selectItem itemValue="GHI" itemLabel="GHI"/>
                                 </p:selectOneMenu>
-                            <p:outputLabel value="Precio: (*)"/>
+                            <p:outputLabel value="Precio:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputNumber value="#{productoController.producto.precio}" symbol=" Bs.F" symbolPosition="suffix" placeholder="Precio" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="." requiredMessage="Ingrese el precio"/>
                             </p:panelGrid>
                         <br>
@@ -107,9 +107,9 @@
                            <p:growl id="mensaje"/> 
                             
                             <p:panelGrid columns="2">
-                                <p:outputLabel value="C&oacute;digo: (*)"/>
+                                <p:outputLabel value="C&oacute;digo:"> <span style="color: #D20005">*</span></p:outputLabel>
                                 <p:inputText autocomplete="off" value="#{productoController.producto.codigo}" disabled="true" required="true" requiredMessage="Ingrese el c&oacute;digo" placeholder="C&oacute;digo"/>
-                                <p:outputLabel value="Nombre: (*)"/>
+                                <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                                 <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{productoController.producto.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                                 <p:outputLabel value="Cantidad"/>
                                 <p:inputText autocomplete="off" onkeypress="return numeros(event)" value="#{productoController.producto.cantidad}" placeholder="Cantidad"/>
@@ -117,7 +117,7 @@
                                 <p:inputText autocomplete="off" onkeypress="return numeros(event)" value="#{productoController.producto.maximo}" placeholder="M&aacute;ximo"/>
                                 <p:outputLabel value="M&iacute;nimo"/>
                                 <p:inputText autocomplete="off" onkeypress="return numeros(event)" value="#{productoController.producto.minimo}" placeholder="M&iacute;nimo"/>
-                                <p:outputLabel value="Categor&iacute;a: (*)"/>
+                                <p:outputLabel value="Categor&iacute;a:"> <span style="color: #D20005">*</span></p:outputLabel>
                                 <p:selectOneMenu requiredMessage="Ingrese una categor&iacute;a"  required="true"  value="#{productoController.producto.categoria}">
                                     <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
                                     <f:selectItem itemValue="Del mar" itemLabel="Del mar"/>
@@ -125,7 +125,7 @@
                                     <f:selectItem itemValue="DFE" itemLabel="DEF"/>
                                     <f:selectItem itemValue="GHI" itemLabel="GHI"/>
                                 </p:selectOneMenu>
-                                <p:outputLabel value="Precio: (*)"/>
+                                <p:outputLabel value="Precio:"> <span style="color: #D20005">*</span></p:outputLabel>
                                 <p:inputNumber value="#{productoController.producto.precio}"  symbol=" Bs.F" symbolPosition="suffix" placeholder="Precio" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="." requiredMessage="Ingrese el precio"/>  
                             
                             </p:panelGrid>

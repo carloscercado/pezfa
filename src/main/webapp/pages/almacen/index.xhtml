@@ -60,10 +60,10 @@
                         <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
 
-                            <p:outputLabel value="Nombre: (*)"/>
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText value="#{almacenController.almacen.nombre}" autocomplete="off" maxlength="20" onkeypress="return letras(event)" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
 
-                            <p:outputLabel value="Direcci&oacute;n: (*)"/>
+                            <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText value="#{almacenController.almacen.direccion}" autocomplete="off" maxlength="30" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
 
                             <p:outputLabel value="Tel&eacute;fono:"/>
@@ -93,13 +93,13 @@
                         <p:growl id="mensaje"/> 
                         <p:panelGrid columns="2">
 
-                            <p:outputLabel value="Nombre: (*)"/>
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText value="#{almacenController.almacen.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
 
-                            <p:outputLabel value="Direcci&oacute;n: (*)"/>
+                            <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText value="#{almacenController.almacen.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
 
-                            <p:outputLabel value="Tel&eacute;fono:"/>
+                            <p:outputLabel value="Tel&eacute;fono:"/> 
                             <p:inputMask value="#{almacenController.almacen.telefono}" mask="(999)999-9999" placeholder="Tel&eacute;fono"/>
 
                         </p:panelGrid>

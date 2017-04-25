@@ -70,4 +70,9 @@ public class ProductoSalida
         this.precio = precio;
     }    
     
+    public void toUpperCase(String nombre)
+    {
+       this.nombre = this.nombre.toUpperCase();
+    }
+    
 }

@@ -90,7 +90,10 @@ public class Cava  implements java.io.Serializable {
         return true;
     }
 
-    
+    public void toUpperCase(String nombre)
+    {
+       this.nombre = this.nombre.toUpperCase();
+    }
 }
 
 

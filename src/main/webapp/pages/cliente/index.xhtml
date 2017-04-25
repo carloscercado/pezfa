@@ -24,7 +24,7 @@
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>
-                                <span class="fa fa-user" style="color: #0033cc" />
+                                <span class="fa fa-user"/>
                             </center>
                         </p:column>
                         <p:column width="15%" filterBy="#{cliente.rif}" headerText="RIF" filterStyle="display: none">
@@ -37,7 +37,7 @@
                             #{cliente.direccion}
                         </p:column>
                         <p:column width="20%"  headerText="Tel&eacute;fono">
-                            <span class="fa fa-phone"  style="color: #0033cc"/> #{cliente.telefono}
+                            <span class="fa fa-phone"/> #{cliente.telefono}
                         </p:column>
 
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
@@ -59,16 +59,18 @@
                     <h:form>
                         <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="RIF (*):"/>
+                            <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" value="#{clienteController.cliente.rif}" required="true" requiredMessage="Ingrese el RIF" placeholder="RIF"/>
-                            <p:outputLabel value="Nombre: (*)"/>
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
-                            <p:outputLabel value="Direcci&oacute;n: (*)"/>
+                            <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="30" onkeypress="return letras(event)" value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
                             <p:outputLabel value="Tel&eacute;fono:"/>
                             <p:inputMask  value="#{clienteController.cliente.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
-                            <p:outputLabel value="Correo:"/>
-                            <p:inputText value="#{clienteController.cliente.correo}"  onkeypress="return letras(event)" placeholder="Correo"/>
+                            <p:outputLabel for="regex" value="Correo:"/>                    
+                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com">
+                              <f:validateRegex pattern="[a-zA-Z]+@+[a-zA-Z]+.+[a-zA-Z]" />
+                            </p:inputText>
                         </p:panelGrid>
                         <br/>
                         <center>
@@ -92,17 +94,20 @@
                     <h:form>
                         <p:growl id="mensaje"/> 
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="RIF: (*)"/>
+                            <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" value="#{clienteController.cliente.rif}" required="true" requiredMessage="Ingrese el RIF" placeholder="RIF"/>
-                            <p:outputLabel value="Nombre: (*)"/>
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
-                            <p:outputLabel value="Direcci&oacute;n: (*)"/>
+                            <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
-                            <p:outputLabel value="Tel&eacute;fono:"/>
+                            <p:outputLabel value="Tel&eacute;fono:"/> 
                             <p:inputMask  value="#{clienteController.cliente.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
-                            <p:outputLabel value="Correo:"/>
-                            <p:inputText autocomplete="off" value="#{clienteController.cliente.correo}"  placeholder="Correo"/>
-                        </p:panelGrid>
+                            <p:outputLabel for="regex" value="Correo:"/>                    
+                            <p:inputText id="regex" value="#{clienteController.cliente.correo}">
+                              <f:validateRegex pattern="^[a-zA-Z]+$" />
+                            </p:inputText>
+ 
+                           </p:panelGrid>
 
                         <br/>
                             <center>

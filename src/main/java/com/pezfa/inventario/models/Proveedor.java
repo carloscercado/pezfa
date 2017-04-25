@@ -118,7 +118,11 @@ public class Proveedor  implements java.io.Serializable {
         return true;
     }
 
-    
+    public void toUpperCase(String nombre, String direccion)
+    {
+       this.nombre = this.nombre.toUpperCase();
+       this.direccion = this.direccion.toUpperCase();
+    }
 
 
 }

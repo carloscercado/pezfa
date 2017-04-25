@@ -30,7 +30,7 @@
                             </center>
                         </p:column>
                        <p:column headerText="C&eacute;dula" filterBy="#{empleado.cedula}" filterStyle="display: none">
-                           <span class="fa fa-vcard-o"/> #{empleado.cedula} 
+                           <span class="fa fa-credit-card"/> #{empleado.cedula} 
                         </p:column>
 
                        <p:column  headerText="Nombres" filterBy="#{empleado.primerNombre}" filterStyle="display: none">
@@ -85,9 +85,9 @@
 
                             <p:outputLabel value="Sexo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.sexo}" required="true" requiredMessage="Ingrese el sexo">
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                                 <f:selectItem itemValue="M" itemLabel="Masculino"/>
                                 <f:selectItem itemValue="F" itemLabel="Femenino"/>
-                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Cargo:"> <span style="color: #D20005">*</span></p:outputLabel>
@@ -124,39 +124,40 @@
                         <p:growl id="mensaje"/> 
                         <p:panelGrid columns="2">
 
-                            <p:outputLabel value="C&eacute;dula: (*)"/>
+                            <p:outputLabel value="C&eacute;dula:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText value="#{empleadoController.empleado.cedula}" required="true" requiredMessage="Ingrese la c&eacute;dula" placeholder="C&eacute;dula"/>
-
-                            <p:outputLabel value="Nombres: (*)"/>
+                            
+                            <p:outputLabel value="Nombres:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:tab>
                                 <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{empleadoController.empleado.primerNombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Primer nombre"/>
                                 <p:inputText autocomplete="off" value="#{empleadoController.empleado.segundoNombre}" maxlength="20" onkeypress="return letras(event)" placeholder="Segundo nombre"/>
                             </p:tab>
                             
-                            <p:outputLabel value="Apellidos (*):"/>
+                            <p:outputLabel value="Apellidos:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:tab>
                                 <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{empleadoController.empleado.primerApellido}" required="true" requiredMessage="Ingrese el apellido" placeholder="Primer apellido"/>
                                 <p:inputText autocomplete="off" value="#{empleadoController.empleado.segundoApellido}" maxlength="20" onkeypress="return letras(event)" placeholder="Segundo apellido" />
                             </p:tab>
                             
-                            <p:outputLabel value="Nacimiento: (*)"/>
+                            <p:outputLabel value="Nacimiento:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:calendar effect="fold" value="#{empleadoController.empleado.nacimiento}" required="true" requiredMessage="Ingrese la fecha de nacimiento" locale="es" navigator="true" placeholder="Nacimiento"/>
 
-                            <p:outputLabel value="Sexo: (*)"/>
+                            <p:outputLabel value="Sexo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.sexo}" required="true" requiredMessage="Ingrese el sexo">
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                                 <f:selectItem itemValue="M" itemLabel="Masculino"/>
                                 <f:selectItem itemValue="F" itemLabel="Femenino"/>
-                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="Cargo: (*)"/>
+                            <p:outputLabel value="Cargo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.cargo}" required="true" requiredMessage="Ingrese el cargo">
-                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar" />
-                                <f:selectItem itemValue="Administradora" itemLabel="Administrador(a)"/>
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
+                                <f:selectItem itemValue="Administrador(a)" itemLabel="Administrador(a)"/>
                                 <f:selectItem itemValue="Secretaria" itemLabel="Secretaria"/>
                                 <f:selectItem itemValue="Producci&oacute;n" itemLabel="Producci&oacute;n"/>
                                 <f:selectItem itemValue="Almacenista" itemLabel="Almacenista"/>
                                 </p:selectOneMenu>
+
 
                         </p:panelGrid>
 

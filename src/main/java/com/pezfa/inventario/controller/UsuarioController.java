@@ -50,6 +50,11 @@ public class UsuarioController implements Serializable {
             }
         }
     }
+    
+    public void reset()
+    {
+        usuario = new Usuario();
+    }
 
     //getter y setter
     public Usuario getUsuario() {

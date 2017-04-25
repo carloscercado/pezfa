@@ -31,6 +31,7 @@ public class CompraEspecieDB implements Crud<CompraEspecie>
             sesion.save(compra);
             for (CompraEspecie obj : objs)
             {
+                obj.setUbicados(0.0);
                 sesion.save(obj);//guardar el objeto cliente
             }
             sesion.getTransaction().commit();//finalizar la transaccion
