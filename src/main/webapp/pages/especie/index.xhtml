@@ -12,6 +12,8 @@
 
             <ui:define name="content">
                 <h:form>
+                    <h3 align="center" style="color: #045491">Administrar especies</h3>
+                    
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="especie" value="#{especieController.especies}">
                         <f:facet name="header">
                             <div class="col-md-6 text-left header-tabla-hidden">
@@ -46,7 +48,7 @@
                         </p:column>
 
                         <p:column headerText="Min" class="text-right" width="12%">
-                            #{especie.minimo} Kg
+                           <span class="fa fa-minus-circle"/> #{especie.minimo} Kg
                         </p:column>
 
                         <p:column headerText="Precio" width="15%" class="text-right">

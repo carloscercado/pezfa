@@ -6,17 +6,21 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
     <body>
 
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
                 <h:form id="local">
+                    <h3 align="center" style="color: #045491">Procesar compras</h3>
+                    
                     <div class="row">
 
                         <div class="col-sm-4">
                             <div class="text-muted">
-                                <strong>Mercancia en transito</strong>
+                                <strong>Mercancia en tránsito</strong>
                             </div>
                             <div class="hero-widget well well-sm">
                                 <span class="fa fa-cubes fa-3x"/>
@@ -28,7 +32,7 @@
 
                         <div class="col-sm-4">
                             <div class="text-muted">
-                                <strong>Costo de mercancia en transito</strong>
+                                <strong>Costo de mercancia en tránsito</strong>
                             </div>
                             <div class="hero-widget well well-sm">
                                 <span class="fa fa-usd fa-3x"/>
@@ -39,7 +43,7 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="text-muted">
-                                <strong>Gasto en compras en transito</strong>
+                                <strong>Gasto de compras en tránsito</strong>
                             </div>
                             <div class="hero-widget well well-sm">
                                 <span class="fa fa-usd fa-3x"/>
@@ -159,7 +163,7 @@
                     </h:form>
                 </p:dialog>
 
-                <p:dialog header="Registrar mercancia a almacenes" widgetVar="registrar" responsive="true" resizable="false" 
+                <p:dialog header="Registrar mercancia en almacenes" widgetVar="registrar" responsive="true" resizable="false" 
                           draggable="false" modal="true" width="600" >
 
                     <h:form>
@@ -196,7 +200,7 @@
                                             <span class="fa fa-square fa-3x" style="color: #045491"/>
                                             <p:selectOneMenu value="#{almacenController.almacen}" converter="almacen">
                                                 <p:ajax update="@widgetVar(cavas)"/>
-                                                <f:selectItem itemLabel="Almacen" noSelectionOption="true" itemValue="#{null}"/>
+                                                <f:selectItem itemLabel="Almac&eacute;n" noSelectionOption="true" itemValue="#{null}"/>
 
                                                 <f:selectItems value="#{almacenController.almacenes}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}"/>
                                             </p:selectOneMenu>

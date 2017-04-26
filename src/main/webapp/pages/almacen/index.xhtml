@@ -9,9 +9,11 @@
     <body>
 
         <ui:composition template="./../../template/menu.xhtml">
-
+            
             <ui:define name="content">
                 <h:form>
+                    <h3 align="center" style="color: #045491">Administrar almacenes</h3>
+                    
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="almacenes" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="almacen" value="#{almacenController.almacenes}">
                         <f:facet name="header">
                               <div class="row">

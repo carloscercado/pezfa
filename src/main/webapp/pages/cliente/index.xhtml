@@ -5,11 +5,14 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <body>
         <ui:composition template="./../../template/menu.xhtml">
             <ui:define name="content">
-                <h:form>
+                 
+                 <h:form>
+                   <h3 align="center" style="color: #045491">Administrar Clientes</h3>
+                    
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="clientes" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cliente" value="#{clienteController.clientes}">
                         <f:facet name="header">
                             <div class="row">
@@ -68,8 +71,8 @@
                             <p:outputLabel value="Tel&eacute;fono:"/>
                             <p:inputMask  value="#{clienteController.cliente.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
                             <p:outputLabel for="regex" value="Correo:"/>                    
-                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com">
-                              <f:validateRegex pattern="[a-zA-Z]+@+[a-zA-Z]+.+[a-zA-Z]" />
+                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Correo incorrecto">
+                              <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$' not matched" />
                             </p:inputText>
                         </p:panelGrid>
                         <br/>

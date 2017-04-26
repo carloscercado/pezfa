@@ -7,21 +7,22 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf">
 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <body>
 
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
                 <h:form id="todo">
-
-                    <div class="row">
+                    <h3 align="center" style="color: #045491">Gestionar compras</h3>
+                    <div class="row" >
 
                         <div class="col-sm-5">
                             <div class="hero-widget well well-sm">
                                 <center> 
-                                    <div class="icon">
-                                        <p:selectOneMenu class="pull-right" value="#{compraController.compra.proveedor}" filter="true" filterMatchMode="contains" converter="proveedor" required="true" requiredMessage="Seleccione el proveedor" >
-                                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Proveedor"/>
+                                    <div class="icon" >
+                                        <p:selectOneMenu class="pull-right" value="#{compraController.compra.proveedor}" filter="true" filterMatchMode="contains" converter="proveedor" required="true" requiredMessage="Seleccione el proveedor">
+                                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Proveedor" />
                                             <f:selectItems value="#{proveedorController.provedores}" var="proveedor" itemLabel="#{proveedor.rif}, #{proveedor.nombre}" itemValue="#{proveedor}"/>
                                         </p:selectOneMenu>
                                         <span class="fa fa-truck fa-3x" style="color: #045491"/>
@@ -40,7 +41,7 @@
 
                                         <p:inputText  class="pull-right" placeholder="Orden de compra" required="true"
                                                       requiredMessage="La orden de compra es necesaria" 
-                                                      value="#{compraController.compra.orden}"/>
+                                                      value="#{compraController.compra.orden}" autocomplete="off"/>
                                     </div>
                                 </center>
                             </div>
@@ -140,7 +141,7 @@
                         <p:growl id="mensaje" />
                         <div class="text-muted" style="font-weight: bold">
                             <span class="fa fa-info-circle fa-2x"/>
-                            Busque el insumo comprado y haga click en el boton 'agregar'.
+                            Busque el insumo comprado y haga click en el botón 'agregar'.
                         </div>
                         <br/>
                         <h:form>
@@ -195,7 +196,7 @@
                             <p:growl id="mensaje" />
                             <div class="text-muted" style="font-weight: bold">
                                 <span class="fa fa-info-circle fa-2x"/>
-                                A continuacion ingrese la cantidad en KG de #{compraEspecieController.compraEspecie.especie.nombre} 
+                                A continuación ingrese la cantidad en KG de #{compraEspecieController.compraEspecie.especie.nombre} 
                                 a comprar y su respectivo costo por KG.
                             </div>
                             <br/>

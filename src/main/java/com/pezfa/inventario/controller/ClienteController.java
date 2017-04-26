@@ -47,6 +47,7 @@ public class ClienteController implements Serializable
     {
         cliente = new Cliente();
     }
+    
     public void register()
     {
         if(db.create(cliente))
