@@ -55,3 +55,15 @@ INSERT INTO usuario
 		(3, 'rosa', '12345', 'ADMINISTRADOR', 3),
 		(4, 'pablo', '123456', 'ADMINISTRADOR', 4),
 		(5, 'usua', '1234567', 'EMPLEADA', 5);
+
+INSERT INTO COMPRA 
+	VALUES (1, '0001', NOW (), 1, 1, 'PROCESADO', 2400),
+	(2, '0002', NOW (), 2, 1, 'PROCESADO', 2500),
+	(3, '0003', NOW (), 3, 1, 'PROCESADO', 2000),
+	(4, '0004', NOW (), 4, 1, 'PROCESADO', 2200),
+	(5, '0005', NOW (), 5, 1, 'PROCESADO', 2100),
+	(6, '0006', NOW (), 1, 1, 'PROCESADO', 2400),
+	(7, '0007', NOW (), 2, 1, 'PROCESADO', 2500),
+	(8, '0008', NOW (), 3, 1, 'PROCESADO', 2000),
+	(9, '0009', NOW (), 4, 1, 'PROCESADO', 2200),
+	(10, '0010', NOW (), 5, 1, 'PROCESADO', 2100);
