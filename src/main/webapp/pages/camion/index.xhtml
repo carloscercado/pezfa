@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/menu.xhtml">
+            
+            <ui:define name="content">
+                <h:form>
+                    <h3 align="center" style="color: #045491">Administrar almacenes</h3>
+                    
+                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="almacenes" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="almacen" value="#{almacenController.almacenes}">
+                        <f:facet name="header">
+                              <div class="row">
+                                <div  class="col-md-6 text-left header-tabla-hidden">
+                                    <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                </div>
+
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('almacenes').filter()" placeholder="Buscar"/>
+                                </div>
+                                </div>
+                        </f:facet>
+                        <p:column width="5%" class="column-hidden">
+                            <center>
+                                <span class="fa fa-bank" />
+                            </center>
+                        </p:column>
+                        <p:column headerText="Nombre" filterBy="#{almacen.nombre}" filterStyle="display: none">
+                            #{almacen.nombre} 
+                        </p:column>
+
+                        <p:column headerText="Direcci&oacute;n">
+                            #{almacen.direccion}
+                        </p:column>
+
+                        <p:column headerText="Tel&eacute;fono">
+                           <span class="fa fa-phone" /> #{almacen.telefono} 
+                        </p:column>
+                        <p:column width="15%" class="column-hidden" headerText="Opciones">
+                            <center>  
+                                <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger"> 
+                                    <f:setPropertyActionListener target="#{almacenController.almacen}" value="#{almacen}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="fa fa-edit" title="Modificar" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
+                                    <f:setPropertyActionListener target="#{almacenController.almacen}" value="#{almacen}"/>
+                                </p:commandButton>
+                            </center> 
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog closable="false" header="Registrar almac&eacute;n" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <f:facet name="onHide">
+                        <p:ajax update="@widgetVar(almacenes)" listener="#{almacenController.reset()}"/>
+                    </f:facet>
+                    <h:form>
+                        <p:growl id="mensaje"/>  
+                        <p:panelGrid columns="2">
+
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:inputText value="#{almacenController.almacen.nombre}" autocomplete="off" maxlength="20" onkeypress="return letras(event)" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
+
+                            <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:inputText value="#{almacenController.almacen.direccion}" autocomplete="off" maxlength="30" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
+
+                            <p:outputLabel value="Tel&eacute;fono:"/>
+                            <p:inputMask value="#{almacenController.almacen.telefono}" mask="(999)999-9999" placeholder="Tel&eacute;fono"/>
+
+                        </p:panelGrid>
+                        <br/>
+                        <center>
+                            <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{almacenController.register()}"/> 
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog closable="false" header="&#191; Est&aacute;s seguro que deseas eliminar el almac&eacute;n #{almacenController.almacen.nombre} &#63;" widgetVar="eliminar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <center>
+                            <p:commandButton value="Si" icon="fa fa-check"  actionListener="#{almacenesController.delete()}" update="mensaje @widgetVar(almacenes)"/> 
+                            <p:commandButton value="No" icon="fa fa-times" class="btn-danger" oncomplete="PF('eliminar').hide()" actionListener="#{almacenController.reset()}"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog closable="false" header="Modificar almac&eacute;n" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <p:panelGrid columns="2">
+
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:inputText value="#{almacenController.almacen.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
+
+                            <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:inputText value="#{almacenController.almacen.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
+
+                            <p:outputLabel value="Tel&eacute;fono:"/> 
+                            <p:inputMask value="#{almacenController.almacen.telefono}" mask="(999)999-9999" placeholder="Tel&eacute;fono"/>
+
+                        </p:panelGrid>
+
+                        <br/>
+                            <center>
+                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(almacenes)" actionListener="#{almacenController.update()}"/> 
+                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{almacenController.reset()}" oncomplete="PF('modificar').hide()"/>
+                            </center>
+                    </h:form>
+                </p:dialog> 
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
