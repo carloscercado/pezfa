@@ -1,7 +1,7 @@
 package com.pezfa.inventario.converter;
 
-import com.pezfa.inventario.database.EmpleadoDB;
-import com.pezfa.inventario.models.Empleado;
+import com.pezfa.inventario.database.CamionDB;
+import com.pezfa.inventario.models.Camion;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -11,21 +11,21 @@ import javax.faces.view.Location;
 
 /**
  *
- * @author Alicia
+ * @author Romario Guerrero
  */
-@FacesConverter(forClass = Location.class, value = "empleado")
-public class EmpleadoConverter implements Converter {
+@FacesConverter(forClass = Location.class, value = "camion")
+public class CamionConverter implements Converter {
 
-    public static List<Empleado> empleados;
+    public static List<Camion> camions;
 
-    public EmpleadoConverter() {
-        EmpleadoDB db = new EmpleadoDB();
-        empleados = db.read("From empleado");
+    public CamionConverter() {
+        CamionDB db = new CamionDB();
+        camions = db.read("From Camion");
     }
 
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         Integer code =  Integer.parseInt(value);
-        Empleado obj = buscar(code);
+        Camion obj = buscar(code);
         return obj;
         
     }
@@ -36,13 +36,13 @@ public class EmpleadoConverter implements Converter {
             return "";
         }else
         {
-            return String.valueOf(((Empleado)o).getId());
+            return String.valueOf(((Camion)o).getId());
         }
     }
     
-    public Empleado buscar(int id)
+    public Camion buscar(int id)
     {
-        for (Empleado obj : empleados)
+        for (Camion obj : camions)
         {
             if(obj.getId()==id)
             {

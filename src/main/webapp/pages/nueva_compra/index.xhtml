@@ -57,6 +57,35 @@
                                 </center>
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="hero-widget well well-sm">
+                                <center> 
+                                    <div class="icon">
+                                        <span class="fa fa-child fa-3x" style="color: #045491"/>
+                                        <p:selectOneMenu class="pull-right" value="#{compraController.compra.chofer}" filter="true" filterMatchMode="contains"
+                                                         converter="empleado" required="true" requiredMessage="Seleccione el chofer">
+                                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Chofer" />
+                                            <f:selectItems value="#{empleadoController.choferes}" var="chofer" itemLabel="#{chofer.cedula}, #{chofer.primerNombre}, #{chofer.primerApellido}" itemValue="#{chofer}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="hero-widget well well-sm">
+                                <center> 
+                                    <div class="icon">
+                                        <span class="fa fa-truck fa-3x" style="color: #045491"/>
+                                        <p:selectOneMenu class="pull-right" value="#{compraController.compra.camion}" filter="true" filterMatchMode="contains"
+                                                         converter="camion" required="true" requiredMessage="Seleccione el cami&oacute;n">
+                                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Camion" />
+                                            <f:selectItems value="#{camionController.camiones}" var="camion" itemLabel="#{camion.marca}, #{camion.modelo},
+                                                                    #{camion.placa}" itemValue="#{camion}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
                     </div>
 
 

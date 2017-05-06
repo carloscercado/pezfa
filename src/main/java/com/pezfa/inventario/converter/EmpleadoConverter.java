@@ -20,7 +20,7 @@ public class EmpleadoConverter implements Converter {
 
     public EmpleadoConverter() {
         EmpleadoDB db = new EmpleadoDB();
-        empleados = db.read("From empleado");
+        empleados = db.read("From Empleado emp where emp.cargo='CHOFER'");
     }
 
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {

@@ -11,6 +11,12 @@
         <many-to-one name="proveedor" class="com.pezfa.inventario.models.Proveedor" fetch="select">
             <column name="proveedor" not-null="true" />
         </many-to-one>
+        <many-to-one name="chofer" class="com.pezfa.inventario.models.Empleado" fetch="select">
+            <column name="chofer" not-null="true" />
+        </many-to-one>
+        <many-to-one name="camion" class="com.pezfa.inventario.models.Camion" fetch="select">
+            <column name="camion" not-null="true" />
+        </many-to-one>
         <many-to-one name="usuario" class="com.pezfa.inventario.models.Usuario" fetch="select">
             <column name="usuario" not-null="true" />
         </many-to-one>

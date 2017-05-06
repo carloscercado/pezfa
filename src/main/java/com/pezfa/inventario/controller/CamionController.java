@@ -1,7 +1,7 @@
 package com.pezfa.inventario.controller;
 
-import com.pezfa.inventario.database.AlmacenDB;
-import com.pezfa.inventario.models.Almacen;
+import com.pezfa.inventario.database.CamionDB;
+import com.pezfa.inventario.models.Camion;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -12,51 +12,51 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
-public class AlmacenController implements Serializable
+public class CamionController implements Serializable
 {
 
-    private Almacen almacen = null; // objeto a controlar
-    private List<Almacen> almacenes = null; // lista de objetos de tipo almace
-    private AlmacenDB db;
+    private Camion camion = null;  
+    private List<Camion> camiones = null;
+    private CamionDB db;
 
     //constructor
-    public AlmacenController()
+    public CamionController()
     {
-        almacen = new Almacen(); //instancio el objeto almacen
-        db = new AlmacenDB();
+        camion = new Camion();
+        db = new CamionDB();
     }
 
     //getter y setter
-    public Almacen getAlmacen()
+    public Camion getCamion()
     {
-        return almacen;
+        return camion;
     }
 
-    public void setAlmacen(Almacen almacen)
+    public void setCamion(Camion camion)
     {
-        this.almacen = almacen;
+        this.camion = camion;
     }
 
-    public List<Almacen> getAlmacenes()
+    public List<Camion> getCamiones()
     {
-        almacenes = db.read("from Almacen");
-        return almacenes;
+        camiones = db.read("from Camion");
+        return camiones;
     }
 
-    public void setAlmacenes(List<Almacen> almacenes)
+    public void setCamiones(List<Camion> camiones)
     {
-        this.almacenes = almacenes;
+        this.camiones = camiones;
     }
     
      public void reset()
     {
-        almacen = new Almacen();
+        camion = new Camion();
     }
     public void register()
     {
-        if (db.create(almacen))
+        if (db.create(camion))
         {
-            almacen = new Almacen();
+            camion = new Camion();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
@@ -68,12 +68,12 @@ public class AlmacenController implements Serializable
         }
     }
 
-    //logica para eliminar un almacen
+    //logica para eliminar un camion
     public void delete()
     {
-        if (db.delete(almacen))
+        if (db.delete(camion))
         {
-            almacen = new Almacen();
+            camion = new Camion();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
@@ -87,9 +87,9 @@ public class AlmacenController implements Serializable
     
     public void update()
     {
-        if(db.update(almacen))
+        if(db.update(camion))
        {
-            almacen = new Almacen();
+            camion = new Camion();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
