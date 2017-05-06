@@ -72,19 +72,21 @@
                         <p:ajax update="@widgetVar(especies)" listener="#{especieController.reset()}"/>
                     </f:facet>
                     <h:form>
-                        <p:growl id="mensaje"/>  
+                        <p:growl id="mensaje"/> 
+                        <p:messages id="msj" closable="true"/> 
                         <p:panelGrid columns="2">
                             <p:outputLabel value="C&oacute;digo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" placeholder="C&oacute;digo" requiredMessage="Ingrese el c&oacute;digo" required="true" value="#{especieController.especie.codigo}"/>
+                            <p:inputText autocomplete="off" placeholder="C&oacute;digo" id="espe" requiredMessage="Ingrese el c&oacute;digo" required="true" value="#{especieController.especie.codigo}">
+                            <p:ajax event="change" listener="#{especieController.validarCodigo()}" update="msj espe"/>
+                            </p:inputText>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" placeholder="Nombre" requiredMessage="Ingrese el nombre" required="true"  value="#{especieController.especie.nombre}"/>
                             <p:outputLabel value="Tipo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu requiredMessage="Ingrese una opci&oacute;n"  required="true"  value="#{especieController.especie.tipo}">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
-                                <f:selectItem itemValue="ABC" itemLabel="ABC"/>
-                                <f:selectItem itemValue="DEF" itemLabel="DEF"/>
-                                <f:selectItem itemValue="GHI" itemLabel="GHI"/>
-                                <f:selectItem itemValue="JKL" itemLabel="JKL"/>
+                                <f:selectItem itemValue="MOLUSCOS" itemLabel="MOLUSCOS"/>
+                                <f:selectItem itemValue="CRUSTACEOS" itemLabel="CRUSTACEOS"/>
+                                <f:selectItem itemValue="PEZ" itemLabel="PEZ"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
                         <br/>
@@ -108,9 +110,12 @@
                 <p:dialog closable="false" header="Modificar especies" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/> 
+                        <p:messages id="msj" closable="true"/> 
                         <p:panelGrid columns="2">
                             <p:outputLabel value="C&oacute;digo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" value="#{especieController.especie.codigo}" disabled="true" required="true" requiredMessage="Ingrese el c&oacute;digo" placeholder="C&oacute;digo"/>
+                            <p:inputText autocomplete="off" placeholder="C&oacute;digo" id="espe" requiredMessage="Ingrese el c&oacute;digo" required="true" value="#{especieController.especie.codigo}">
+                            <p:ajax event="change" listener="#{especieController.validarCodigo()}" update="msj espe"/>
+                            </p:inputText>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{especieController.especie.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Cantidad:"> <span style="color: #D20005">*</span></p:outputLabel>
@@ -122,10 +127,9 @@
                             <p:outputLabel value="Tipo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu requiredMessage="Ingrese el tipo"  required="true"  value="#{especieController.especie.tipo}">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
-                                <f:selectItem itemValue="ABC" itemLabel="ABC"/>
-                                <f:selectItem itemValue="DEF" itemLabel="DEF"/>
-                                <f:selectItem itemValue="GHI" itemLabel="GHI"/>
-                                <f:selectItem itemValue="JKL" itemLabel="JKL"/>
+                               <f:selectItem itemValue="MOLUSCOS" itemLabel="MOLUSCOS"/>
+                                <f:selectItem itemValue="CRUSTACEOS" itemLabel="CRUSTACEOS"/>
+                                <f:selectItem itemValue="PEZ" itemLabel="PEZ"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Precio:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputNumber value="#{especieController.especie.precio}" symbol=" Bs.F" symbolPosition="suffix" placeholder="Precio" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="." requiredMessage="Ingrese el precio"/>

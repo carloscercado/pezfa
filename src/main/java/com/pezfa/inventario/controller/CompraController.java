@@ -4,8 +4,10 @@ import com.pezfa.inventario.database.CompraDB;
 import com.pezfa.inventario.models.Compra;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
@@ -38,6 +40,16 @@ public class CompraController implements Serializable
     public void setCompras(List<Compra> compras)
     {
         this.compras = compras;
+    }
+    
+    public void validarOrden()
+    {  
+        if(db.validarOrden(this.compra.getOrden()))
+        {
+            this.compra.setOrden("");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrada esta compra", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);            
+        }
     }
     
     public void register()

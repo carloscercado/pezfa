@@ -52,8 +52,20 @@ public class ProveedorController implements Serializable
     {
         proveedor = new Proveedor();
     }
+    
+    public void validarRif()
+    {  
+        if(db.validarRif(this.proveedor.getRif()))
+        {
+            this.proveedor.setRif("");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrado este proveedor", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);            
+        }
+    }
+    
     public void register()
     {
+        proveedor.toUpperCase();
         if(db.create(proveedor))
         {
             proveedor = new Proveedor();
@@ -70,6 +82,7 @@ public class ProveedorController implements Serializable
     
     public void update()
     {
+        proveedor.toUpperCase();
         if(db.update(proveedor))
         {
             proveedor = new Proveedor();

@@ -118,7 +118,7 @@ public class Empleado  implements java.io.Serializable {
         this.usuarios = usuarios;
     }
 
-    public void toUpperCase(String primerNombre, String segundoNombre,String primerApellido, String segundoApellido, String cargo, String sexo)
+    public void toUpperCase()
     {
        this.primerNombre = this.primerNombre.toUpperCase();
        this.segundoNombre = this.segundoNombre.toUpperCase();

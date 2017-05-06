@@ -35,13 +35,16 @@
 
                         <div class="col-sm-4">
                             <div class="hero-widget well well-sm">
+                                <p:growl id="mensaje"/> 
                                 <center> 
                                     <div class="icon">
                                         <span class="fa fa-file fa-3x" style="color: #045491"/>
 
-                                        <p:inputText  class="pull-right" placeholder="Orden de compra" required="true"
+                                        <p:inputText  class="pull-right" placeholder="Orden de compra" id="comp" required="true"
                                                       requiredMessage="La orden de compra es necesaria" 
-                                                      value="#{compraController.compra.orden}" autocomplete="off"/>
+                                                      value="#{compraController.compra.orden}" autocomplete="off">
+                                            <p:ajax event="change" listener="#{compraController.validarOrden()}" update="mensaje comp"/>
+                                        </p:inputText>
                                     </div>
                                 </center>
                             </div>

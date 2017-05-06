@@ -102,7 +102,7 @@ public class Ubicacion extends ProductoSalida  implements java.io.Serializable {
     public int hashCode()
     {
         int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.compraEspecie);
+        hash = 37 * hash + Objects.hashCode(this.compraEspecie.getEspecie());
         return hash;
     }
 
@@ -122,7 +122,7 @@ public class Ubicacion extends ProductoSalida  implements java.io.Serializable {
             return false;
         }
         final Ubicacion other = (Ubicacion) obj;
-        if (!Objects.equals(this.compraEspecie, other.compraEspecie))
+        if (!Objects.equals(this.compraEspecie.getEspecie(), other.compraEspecie.getEspecie()))
         {
             return false;
         }

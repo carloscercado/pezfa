@@ -86,6 +86,7 @@ public class CavaController implements Serializable
 
     public void register()
     {
+        cava.toUpperCase();
         if (db.create(cava))
         {
             cava = new Cava();
@@ -102,6 +103,7 @@ public class CavaController implements Serializable
 
     public void update()
     {
+        cava.toUpperCase();
         if (db.update(cava))
         {
             cava = new Cava();

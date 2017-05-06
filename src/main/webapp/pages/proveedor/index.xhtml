@@ -66,9 +66,12 @@
                     </f:facet>
                     <h:form>
                         <p:growl id="mensaje"/>  
+                        <p:messages id="msj" closable="true"/>
                         <p:panelGrid columns="2">
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" required="true" value="#{proveedorController.proveedor.rif}"/>
+                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="prove" required="true" value="#{proveedorController.proveedor.rif}">
+                                <p:ajax event="change" listener="#{proveedorController.validarRif()}" update="msj prove"/>
+                            </p:inputText>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" placeholder="Nombre" requiredMessage="Registrar el nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
                             <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
@@ -101,9 +104,12 @@
                 <p:dialog closable="false" header="Modificar proveedor" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/> 
-                          <p:panelGrid columns="2">
+                          <p:messages id="msj" closable="true"/>
+                        <p:panelGrid columns="2">
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" required="true" value="#{proveedorController.proveedor.rif}"/>
+                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="prove" required="true" value="#{proveedorController.proveedor.rif}">
+                                <p:ajax event="change" listener="#{proveedorController.validarRif()}" update="msj prove"/>
+                            </p:inputText>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" placeholder="Nombre" requiredMessage="Registrar el nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
                             <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>

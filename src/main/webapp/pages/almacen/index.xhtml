@@ -84,7 +84,7 @@
                     <h:form>
                         <p:growl id="mensaje"/> 
                         <center>
-                            <p:commandButton value="Si" icon="fa fa-check"  actionListener="#{almacenesController.delete()}" update="mensaje @widgetVar(almacenes)"/> 
+                            <p:commandButton value="Si" icon="fa fa-check"  actionListener="#{almacenController.delete()}" update="mensaje @widgetVar(almacenes)"/> 
                             <p:commandButton value="No" icon="fa fa-times" class="btn-danger" oncomplete="PF('eliminar').hide()" actionListener="#{almacenController.reset()}"/>
                         </center>
                     </h:form>

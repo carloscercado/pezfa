@@ -97,7 +97,7 @@ public class Usuario  implements java.io.Serializable {
         this.compras = compras;
     }
 
-    public void toUpperCase(String rol)
+    public void toUpperCase()
     {
        this.rol = this.rol.toUpperCase();
     }

@@ -60,10 +60,13 @@
                         <p:ajax update="@widgetVar(clientes)" listener="#{clienteController.reset()}"/>
                     </f:facet>
                     <h:form>
-                        <p:growl id="mensaje"/>  
+                        <p:growl id="mensaje"/> 
+                        <p:messages id="msj" closable="true"/> 
                         <p:panelGrid columns="2">
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" value="#{clienteController.cliente.rif}" required="true" requiredMessage="Ingrese el RIF" placeholder="RIF"/>
+                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="clien" required="true" value="#{clienteController.cliente.rif}">
+                                <p:ajax event="change" listener="#{clienteController.validarRif()}" update="msj clien"/>
+                            </p:inputText> 
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
@@ -96,10 +99,12 @@
                 <p:dialog closable="false" header="Modificar cliente" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/> 
+                          <p:messages id="msj" closable="true"/> 
                         <p:panelGrid columns="2">
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" value="#{clienteController.cliente.rif}" required="true" requiredMessage="Ingrese el RIF" placeholder="RIF"/>
-                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="clien" required="true" value="#{clienteController.cliente.rif}">
+                            <p:ajax event="change" listener="#{clienteController.validarRif()}" update="msj clien"/>
+                            </p:inputText> <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>

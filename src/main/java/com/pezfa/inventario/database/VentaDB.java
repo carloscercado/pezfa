@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -100,5 +101,33 @@ public class VentaDB implements Crud<Venta>
         List<Unidad> lista = db.read("from Unidad ter join fetch ter.produccion pro join fetch ter.producto produc "
                 + "where produc.codigo ='" + codigo + "' and ter.estado = true order by ter.vencimiento");
         return lista.get(0);
+    }
+    
+    public boolean validarFactura(String factura) {
+        Venta venta = null;
+        Session sesion = null;
+        boolean state = false;
+        try {
+            sesion = HibernateUtil.getSesion().openSession();
+            sesion.beginTransaction();
+            Query consulta = sesion.createQuery("from Venta vent where vent.factura= :factura");
+            consulta.setParameter("factura", factura);
+            venta = (Venta) consulta.list().get(0);
+            if (venta != null) {
+                state = true;
+            }
+            sesion.getTransaction().commit();
+
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+            sesion.getTransaction().rollback();
+            state = false;
+
+        } finally {
+            if (sesion != null) {
+                sesion.close();
+            }
+        }
+        return state;
     }
 }

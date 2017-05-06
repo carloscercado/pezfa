@@ -182,6 +182,21 @@ public class VentaController implements Serializable
         lista.remove(ventaDetalle);
     }
 
+    public void reset()
+    {
+        venta = new Venta();
+    }
+    
+    public void validarFactura()
+    {  
+        if(db.validarFactura(this.venta.getFactura()))
+        {
+            this.venta.setFactura("");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrada esta venta", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);            
+        }
+    }
+    
     //logica para registrar un venta
     public void register()
     {
@@ -234,7 +249,7 @@ public class VentaController implements Serializable
         try
         {
             productos = new ArrayList<>();
-            udb.read("from Ubicacion uni join fetch uni.compraEspecie deta join fetch deta.especie esp where esp.cantidad > 0")
+            udb.read("from Ubicacion uni join fetch uni.ventaEspecie deta join fetch deta.especie esp where esp.cantidad > 0")
                     .stream().distinct().forEach(x ->
                     {
                         x.setNombre(x.getCompraEspecie().getEspecie().getNombre());

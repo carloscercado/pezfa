@@ -39,6 +39,7 @@ public class ProduccionController implements Serializable
 
     public void register()
     {
+        produccion.toUpperCase();
         if (db.create(produccion))
         {
             System.out.println("Registrado");
@@ -62,6 +63,7 @@ public class ProduccionController implements Serializable
     //logica para actualizar un almacen
     public void update()
     {
+        produccion.toUpperCase();
         if (db.update(produccion))
         {
             System.out.println("Actualizador");

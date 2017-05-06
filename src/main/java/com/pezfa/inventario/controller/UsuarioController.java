@@ -87,6 +87,7 @@ public class UsuarioController implements Serializable {
     public void register() {
         String user = usuario.getUsuario();
         usuario.setClave(user);
+        usuario.toUpperCase();
         if (db.create(usuario)) {
             usuario = new Usuario();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro existoso", null);
@@ -115,6 +116,7 @@ public class UsuarioController implements Serializable {
 
     //logica para actualizar un usuario
     public void update() {
+        usuario.toUpperCase();
         if (db.update(usuario)) {
             System.out.println("Actualizado");
         } else {

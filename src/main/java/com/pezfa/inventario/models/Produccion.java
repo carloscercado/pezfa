@@ -78,7 +78,7 @@ public class Produccion  implements java.io.Serializable {
         this.detalleProduccions = detalleProduccions;
     }
 
-    public void toUpperCase(String descripcion)
+    public void toUpperCase()
     {
        this.descripcion = this.descripcion.toUpperCase();
     }
