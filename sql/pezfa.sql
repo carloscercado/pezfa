@@ -1,4 +1,18 @@
-﻿create table if not exists proveedor
+﻿create table if not exists indicador
+(
+  id serial PRIMARY KEY,
+  nombre character varying(20) NOT NULL,
+  bueno double precision NOT NULL,
+  malo double precision NOT NULL,
+  mensaje_bueno text NOT NULL,
+  mensaje_malo text NOT NULL,
+  mensaje_aceptable text NOT NULL,
+  descripcion text NOT NULL
+);
+
+
+
+create table if not exists proveedor
 (
     id serial primary key,
     rif varchar(20) not null unique,
@@ -126,7 +140,9 @@ create table if not exists cava
 (
     id serial primary key,
     nombre varchar(10) not null,
-    almacen int not null references almacen (id)
+    capacidad float,
+    capacidad_disponible float,
+    almacen int not null references almacen (id)    
 );
 
 create table if not exists compra_especie

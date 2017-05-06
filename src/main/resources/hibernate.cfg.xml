@@ -6,7 +6,11 @@
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/pezfa</property>
     <property name="hibernate.connection.username">postgres</property>
+<<<<<<< HEAD
     <property name="hibernate.connection.password">admin</property>
+=======
+    <property name="hibernate.connection.password">123456</property>
+>>>>>>> 0cc8fd77adfd6313621563ff426920d56343fcca
     <mapping resource="com/pezfa/inventario/models/DetalleProduccion.hbm.xml"/>
     <mapping resource="com/pezfa/inventario/models/Cliente.hbm.xml"/>
     <mapping resource="com/pezfa/inventario/models/Usuario.hbm.xml"/>
@@ -26,5 +30,6 @@
     <mapping resource="com/pezfa/inventario/models/Venta.hbm.xml"/>
     <mapping resource="com/pezfa/inventario/models/VentaUnidad.hbm.xml"/>
     <mapping resource="com/pezfa/inventario/models/VentaEspecie.hbm.xml"/>
+    <mapping resource="com/pezfa/inventario/models/Indicador.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
