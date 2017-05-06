@@ -1,4 +1,18 @@
-﻿create table if not exists proveedor
+﻿create table if not exists indicador
+(
+  id serial PRIMARY KEY,
+  nombre character varying(20) NOT NULL,
+  bueno double precision NOT NULL,
+  malo double precision NOT NULL,
+  mensaje_bueno text NOT NULL,
+  mensaje_malo text NOT NULL,
+  mensaje_aceptable text NOT NULL,
+  descripcion text NOT NULL
+);
+
+
+
+create table if not exists proveedor
 (
     id serial primary key,
     rif varchar(20) not null unique,
@@ -6,6 +20,14 @@
     direccion text not null,
     telefono varchar(15),
     correo text
+);
+
+create table if not exists camion
+(
+    id serial primary key,
+    marca varchar(15) not null,
+    modelo varchar(15) not null,
+    placa varchar(15) not null
 );
 
 create table if not exists cliente
@@ -98,6 +120,8 @@ create table if not exists compra
     fecha date default now()::date,
     proveedor int not null references proveedor (id),
     usuario int not null references usuario(id),
+    camion int not null references camion(id),
+    chofer int not null references empleado(id),
     estado varchar(20),
     gasto numeric(10,2) default 0
 );
@@ -116,7 +140,9 @@ create table if not exists cava
 (
     id serial primary key,
     nombre varchar(10) not null,
-    almacen int not null references almacen (id)
+    capacidad float,
+    capacidad_disponible float,
+    almacen int not null references almacen (id)    
 );
 
 create table if not exists compra_especie

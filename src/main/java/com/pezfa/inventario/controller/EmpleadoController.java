@@ -21,6 +21,8 @@ public class EmpleadoController implements Serializable
 
     private Empleado empleado = null;
     private List<Empleado> empleadores = null;
+    private List<Empleado> choferes = null;
+
     private EmpleadoDB db;
 
     //constructor
@@ -29,6 +31,19 @@ public class EmpleadoController implements Serializable
         db = new EmpleadoDB();
         empleado = new Empleado();
     }
+
+    public List<Empleado> getChoferes()
+    {
+        choferes = db.read("from Empleado emp where emp.cargo='CHOFER'");
+        return choferes;
+    }
+
+    public void setChoferes(List<Empleado> choferes)
+    {
+        this.choferes = choferes;
+    }
+    
+    
 
     //getter y setter
     public Empleado getEmpleado()

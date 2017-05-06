@@ -11,14 +11,17 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-                 <h:form>
-                     <h3 align="center" style="color: #045491">Administrar proveedores</h3>
-                    
-                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="proveedores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="proveedor" value="#{proveedorController.provedores}">
+                <h:form>
+                    <h3 align="center" style="color: #045491">Administrar proveedores</h3>
+
+                    <p:dataTable scrollable="true" id="tabla" scrollHeight="350" widgetVar="proveedores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="proveedor" value="#{proveedorController.provedores}">
                         <f:facet name="header">
                             <div class="row">
                                 <div  class="col-md-6 text-left header-tabla-hidden">
                                     <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                    <p:commandButton value="Imprimir" icon="fa fa-print" >
+                                        <p:dataExporter type="pdf" target="tabla" fileName="proveedores" />
+                                    </p:commandButton>
                                 </div>
 
                                 <div class="col-md-6 text-right header-tabla-center">
@@ -31,23 +34,23 @@
                                 <span class="fa fa-truck" />
                             </center>
                         </p:column>
-                         
+
                         <p:column headerText="RIF" width="15%" filterBy="#{proveedor.rif}" filterStyle="display: none">
                             <span class="fa fa-credit-card"/> #{proveedor.rif}
                         </p:column>
-                         
+
                         <p:column headerText="Nombre" filterBy="#{proveedor.nombre}" filterStyle="display: none">
                             #{proveedor.nombre}
                         </p:column>
-                         
-                         <p:column headerText="Direcci&oacute;n" width="25%">
+
+                        <p:column headerText="Direcci&oacute;n" width="25%">
                             #{proveedor.direccion}
                         </p:column>
-                         
+
                         <p:column headerText="Tel&eacute;fono">
                             <span class="fa fa-phone"/>  #{proveedor.telefono}
                         </p:column>
-                        
+
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
                             <center>  
                                 <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger"> 
@@ -80,7 +83,7 @@
                             <p:inputMask  value="#{proveedorController.proveedor.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
                             <p:outputLabel for="regex" value="Correo:"/>
                             <p:inputText id="regex" value="#{proveedorController.proveedor.correo}" placeholder="ejemplo@gmail.com">
-                              <f:validateRegex pattern="[a-zA-Z]+@+[a-zA-Z]+.+[a-zA-Z]" />
+                                <f:validateRegex pattern="[a-zA-Z]+@+[a-zA-Z]+.+[a-zA-Z]" />
                             </p:inputText>
                         </p:panelGrid>
                         <br/>
@@ -104,7 +107,10 @@
                 <p:dialog closable="false" header="Modificar proveedor" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/> 
+<<<<<<< HEAD
                           <p:messages id="msj" closable="true"/>
+=======
+>>>>>>> 25fa71d0a8bb4086d9518aefe53737d7d67549d7
                         <p:panelGrid columns="2">
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="prove" required="true" value="#{proveedorController.proveedor.rif}">
@@ -118,18 +124,18 @@
                             <p:inputMask  value="#{proveedorController.proveedor.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
                             <p:outputLabel for="regex" value="Correo:"/>
                             <p:inputText id="regex" value="#{proveedorController.proveedor.correo}" placeholder="ejemplo@gmail.com">
-                              <f:validateRegex pattern="[a-zA-Z]+@+[a-zA-Z]+.+[a-zA-Z]" />
+                                <f:validateRegex pattern="[a-zA-Z]+@+[a-zA-Z]+.+[a-zA-Z]" />
                             </p:inputText>
                         </p:panelGrid>
 
                         <br/>
-                            <center>
-                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(proveedores)" actionListener="#{proveedorController.update()}"/> 
-                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{proveedorController.reset()}" oncomplete="PF('modificar').hide()"/>
-                            </center>
+                        <center>
+                            <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(proveedores)" actionListener="#{proveedorController.update()}"/> 
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{proveedorController.reset()}" oncomplete="PF('modificar').hide()"/>
+                        </center>
                     </h:form>
                 </p:dialog> 
-                
+
             </ui:define>
 
         </ui:composition>

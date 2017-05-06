@@ -29,6 +29,8 @@ public class CompraEspecieController implements Serializable
     private UsuarioController usuarioController;
     @ManagedProperty(value = "#{compraController}")
     private CompraController compraController;
+    @ManagedProperty(value = "#{camionController}")
+    private CamionController camionController;
     private CompraEspecieDB db;
 
     public CompraEspecieController()
@@ -36,6 +38,16 @@ public class CompraEspecieController implements Serializable
         compraEspecie = new CompraEspecie();
         miLista = new HashSet<CompraEspecie>();
         db = new CompraEspecieDB();
+    }
+
+    public CamionController getCamionController()
+    {
+        return camionController;
+    }
+
+    public void setCamionController(CamionController camionController)
+    {
+        this.camionController = camionController;
     }
 
     public double getTotal()
@@ -64,6 +76,7 @@ public class CompraEspecieController implements Serializable
     {
         compraEspecie = new CompraEspecie();
     }
+
     public double getGastoTransito()
     {
         return this.getCompraEspecies().stream()
@@ -169,8 +182,8 @@ public class CompraEspecieController implements Serializable
                 auditoria.setFecha(compra.getFecha());
                 auditoria.setHora(compra.getFecha());
                 auditoria.setTipo("REGISTRO DE COMPRAS");
-                auditoria.setDescripcion("REGISTRO DE COMPRAS CON ORDEN DE COMPRA "+compra.getOrden()+
-                        " A PROVEEDOR CON RIF "+compra.getProveedor().getRif());
+                auditoria.setDescripcion("REGISTRO DE COMPRAS CON ORDEN DE COMPRA " + compra.getOrden()
+                        + " A PROVEEDOR CON RIF " + compra.getProveedor().getRif());
                 auditoDB.create(auditoria);
                 miLista.clear();
                 compraController.setCompra(new Compra());
