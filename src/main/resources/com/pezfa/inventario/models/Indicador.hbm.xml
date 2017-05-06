@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/04/2017 02:02:48 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pezfa.inventario.models.Indicador" table="indicador" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="20" not-null="true" />
+        </property>
+        
+        <property name="bueno" type="double">
+            <column name="bueno"  not-null="true" />
+        </property>
+        
+         <property name="malo" type="double">
+            <column name="malo"  not-null="true" />
+        </property>
+        
+         <property name="mensajeBueno" type="string">
+            <column name="mensaje_bueno"  not-null="true" />
+        </property>
+        <property name="mensajeMalo" type="string">
+            <column name="mensaje_malo"  not-null="true" />
+        </property>
+        <property name="mensajeAceptable" type="string">
+            <column name="mensaje_aceptable"  not-null="true" />
+        </property>
+        
+        <property name="descripcion" type="string">
+            <column name="descripcion"  not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

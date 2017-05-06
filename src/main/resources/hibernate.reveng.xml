@@ -3,6 +3,7 @@
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="pezfa"/>
   <table-filter match-name="venta_unidad"/>
+  <table-filter match-name="indicador"/>
   <table-filter match-name="ubicacion"/>
   <table-filter match-name="usuario"/>
   <table-filter match-name="produccion"/>

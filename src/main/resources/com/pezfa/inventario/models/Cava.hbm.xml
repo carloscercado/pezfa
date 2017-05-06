@@ -11,6 +11,15 @@
         <many-to-one name="almacen" class="com.pezfa.inventario.models.Almacen" fetch="select">
             <column name="almacen" not-null="true" />
         </many-to-one>
+        
+        <property name="capacidad" type="double">
+            <column name="capacidad" not-null="true" />
+        </property>
+        
+        <property name="capacidadDisponible" type="double">
+            <column name="capacidad_disponible" not-null="true" />
+        </property>
+        
         <property name="nombre" type="string">
             <column name="nombre" length="10" not-null="true" />
         </property>

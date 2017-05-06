@@ -14,8 +14,7 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
-public class CavaController implements Serializable
-{
+public class CavaController implements Serializable {
 
     private Cava cava = null;
     private List<Cava> cavas = null;
@@ -24,109 +23,94 @@ public class CavaController implements Serializable
     @ManagedProperty(value = "#{almacenController}")
     private AlmacenController almacenController;
 
-    public CavaController()
-    {
+    public CavaController() {
         db = new CavaDB();
         cava = new Cava();
     }
 
-    public AlmacenController getAlmacenController()
-    {
+    public double getCapacidad() {
+        double totalCapacidad = this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
+        double totalDisponible = this.getCavas().stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
+        return ((totalDisponible/totalCapacidad)*100);
+    }
+
+    public AlmacenController getAlmacenController() {
         return almacenController;
     }
 
-    public void setAlmacenController(AlmacenController almacenController)
-    {
+    public void setAlmacenController(AlmacenController almacenController) {
         this.almacenController = almacenController;
     }
 
-    public List<Cava> getCavasFiltro()
-    {
-        try
-        {
+    public List<Cava> getCavasFiltro() {
+        try {
             int almacen = almacenController.getAlmacen().getId();
             cavasFiltro = db.read(almacen);
             return cavasFiltro;
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             return new ArrayList<>();
         }
     }
 
-    public void setCavasFiltro(List<Cava> cavasFiltro)
-    {
+    public void setCavasFiltro(List<Cava> cavasFiltro) {
         this.cavasFiltro = cavasFiltro;
     }
 
-    public Cava getCava()
-    {
+    public Cava getCava() {
         return cava;
     }
 
-    public void setCava(Cava cava)
-    {
+    public void setCava(Cava cava) {
         this.cava = cava;
     }
 
-    public List<Cava> getCavas()
-    {
+    public List<Cava> getCavas() {
         cavas = db.read("from Cava cavita join fetch cavita.almacen");
         return cavas;
     }
 
-    public void setCavas(List<Cava> cavas)
-    {
+    public void setCavas(List<Cava> cavas) {
         this.cavas = cavas;
     }
 
-    public void reset()
-    {
+    public void reset() {
         cava = new Cava();
     }
 
-    public void register()
-    {
-        if (db.create(cava))
-        {
+    public void register() {
+        if (db.create(cava)) {
             cava = new Cava();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('registrar').hide();");
-        } else
-        {
+        } else {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser guardado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 
-    public void update()
-    {
-        if (db.update(cava))
-        {
+    public void update() {
+        if (db.update(cava)) {
             cava = new Cava();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('modificar').hide();");
-        } else
-        {
+        } else {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 
-    public void delete()
-    {
-        if (db.delete(cava))
-        {
+    public void delete() {
+        if (db.delete(cava)) {
             cava = new Cava();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('eliminar').hide();");
-        } else
-        {
+        } else {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este registro no puede ser eliminado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
