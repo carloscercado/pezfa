@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/04/2017 02:02:48 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pezfa.inventario.models.Camion" table="camion" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment" />
+        </id>
+        <property name="marca" type="string">
+            <column name="marca" length="15" not-null="true" />
+        </property>
+        <property name="modelo" type="string">
+            <column name="modelo" length="15" not-null="true" />
+        </property>
+        <property name="placa" type="string">
+            <column name="placa" length="15" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

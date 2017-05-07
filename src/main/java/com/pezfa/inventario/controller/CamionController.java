@@ -1,7 +1,7 @@
 package com.pezfa.inventario.controller;
 
-import com.pezfa.inventario.database.AlmacenDB;
-import com.pezfa.inventario.models.Almacen;
+import com.pezfa.inventario.database.CamionDB;
+import com.pezfa.inventario.models.Camion;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -12,79 +12,90 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
-public class AlmacenController implements Serializable {
+public class CamionController implements Serializable
+{
 
-    private Almacen almacen = null; // objeto a controlar
-    private List<Almacen> almacenes = null; // lista de objetos de tipo almace
-    private AlmacenDB db;
+    private Camion camion = null;  
+    private List<Camion> camiones = null;
+    private CamionDB db;
 
     //constructor
-    public AlmacenController() {
-        almacen = new Almacen(); //instancio el objeto almacen
-        db = new AlmacenDB();
+    public CamionController()
+    {
+        camion = new Camion();
+        db = new CamionDB();
     }
 
     //getter y setter
-    public Almacen getAlmacen() {
-        return almacen;
+    public Camion getCamion()
+    {
+        return camion;
     }
 
-    public void setAlmacen(Almacen almacen) {
-        this.almacen = almacen;
+    public void setCamion(Camion camion)
+    {
+        this.camion = camion;
     }
 
-    public List<Almacen> getAlmacenes() {
-        almacenes = db.read("from Almacen");
-        return almacenes;
+    public List<Camion> getCamiones()
+    {
+        camiones = db.read("from Camion");
+        return camiones;
     }
 
-    public void setAlmacenes(List<Almacen> almacenes) {
-        this.almacenes = almacenes;
+    public void setCamiones(List<Camion> camiones)
+    {
+        this.camiones = camiones;
     }
-
-    public void reset() {
-        almacen = new Almacen();
+    
+     public void reset()
+    {
+        camion = new Camion();
     }
-
-    public void register() {
-        almacen.toUpperCase();
-
-        if (db.create(almacen)) {
-            almacen = new Almacen();
+    public void register()
+    {
+        if (db.create(camion))
+        {
+            camion = new Camion();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('registrar').hide();");
-        } else {
+        } else
+        {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser guardado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 
-    //logica para eliminar un almacen
-    public void delete() {
-        if (db.delete(almacen)) {
-            almacen = new Almacen();
+    //logica para eliminar un camion
+    public void delete()
+    {
+        if (db.delete(camion))
+        {
+            camion = new Camion();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('eliminar').hide();");
-        } else {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este registro no puede ser eliminado", null);
+        } else
+        {
+             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este registro no puede ser eliminado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
-
-    public void update() {
-        almacen.toUpperCase();
-
-        if (db.update(almacen)) {
-            almacen = new Almacen();
+    
+    public void update()
+    {
+        if(db.update(camion))
+       {
+            camion = new Camion();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('modificar').hide();");
-        } else {
+        }else
+        {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }

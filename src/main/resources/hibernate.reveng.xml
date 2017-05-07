@@ -11,6 +11,7 @@
   <table-filter match-name="venta_especie"/>
   <table-filter match-name="cava"/>
   <table-filter match-name="almacen"/>
+  <table-filter match-name="camion"/>
   <table-filter match-name="compra"/>
   <table-filter match-name="especie"/>
   <table-filter match-name="unidad"/>

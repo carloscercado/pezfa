@@ -48,8 +48,19 @@ public class ClienteController implements Serializable
         cliente = new Cliente();
     }
     
+    public void validarRif()
+    {  
+        if(db.validarRif(this.cliente.getRif()))
+        {
+            this.cliente.setRif("");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrado este cliente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);            
+        }
+    }
+    
     public void register()
     {
+        cliente.toUpperCase();
         if(db.create(cliente))
         {
             cliente = new Cliente();
@@ -66,6 +77,7 @@ public class ClienteController implements Serializable
     
     public void update()
     {
+        cliente.toUpperCase();
         if(db.update(cliente))
         {
             cliente = new Cliente();

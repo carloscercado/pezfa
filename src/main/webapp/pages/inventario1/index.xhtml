@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/menu.xhtml">
+
+            <ui:define name="content">
+                
+               
+                <h:form>
+                    <h3 align="center" style="color: #045491">Inventario de especies por cavas </h3>
+                    
+                    <p:dataTable scrollable="true" scrollHeight="350"  widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
+                        <f:facet name="header">
+                        <div class="row">
+                                <div class="col-md-6 text-left header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('ubicacion').filter()" placeholder="Buscar"/>
+                                </div>
+                        </div>
+                        </f:facet>
+                        
+                        <p:column width="5%" class="column-hidden">
+                            <center>
+                                <span class="fa fa-square" />
+                            </center>
+                        </p:column>
+                        <p:column filterBy="#{cava.nombre}"  headerText="" filterStyle="display: none">
+                         #{cava.nombre}
+                        </p:column>
+                        <p:column filterBy="#{cava.almacen.nombre}"  headerText="Almac&eacute;n" filterStyle="display: none">
+                           <span class="fa fa-bank"/> #{cava.almacen.nombre},  #{cava.almacen.direccion}
+                        </p:column>
+                        <p:column width="25%" class="column-hidden" headerText="Opciones">
+                            <center>  
+                                <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger">
+                                    <f:setPropertyActionListener target="#{cavaController.cava}" value="#{cava}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="fa fa-edit" title="Modificar" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
+                                    <f:setPropertyActionListener target="#{cavaController.cava}" value="#{cava}"/>
+                                </p:commandButton>
+                            </center> 
+                                
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+               
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

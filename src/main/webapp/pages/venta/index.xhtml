@@ -35,13 +35,16 @@
 
                         <div class="col-sm-4">
                             <div class="hero-widget well well-sm">
+                                <p:growl id="mensaje"/> 
                                 <center> 
                                     <div class="icon">
                                         <span class="fa fa-file fa-3x" style="color: #045491"/>
 
-                                        <p:inputText  class="pull-right" placeholder="Factura" required="true"
+                                        <p:inputText  class="pull-right" placeholder="Factura" id="vent" required="true"
                                                       requiredMessage="La factura es necesaria" 
-                                                      value="#{ventaController.venta.factura}"/>
+                                                      value="#{ventaController.venta.factura}" autocomplete="off">
+                                         <p:ajax event="change" listener="#{compraController.validarOrden()}" update="mensaje vent"/>
+                                        </p:inputText>
                                     </div>
                                 </center>
                             </div>
@@ -275,6 +278,7 @@
                         </center>
                     </h:form>
                 </p:dialog>
+                
             </ui:define>
 
         </ui:composition>

@@ -28,7 +28,7 @@ declare
 objeto record;
 begin
 
-for objeto in (select especie, venta_especie.cantidad as cantidad, especie.precio valor, ubicacion.cava as cava venta_especie.cantidad as cantidad, ubicacion.id as ubicacion from venta_especie join ubicacion on ubicacion=ubicacion.id join compra_especie on compra_especie.id=ubicacion.detalle join especie on especie.id=especie
+for objeto in (select especie, venta_especie.cantidad as cantidad, especie.precio valor, ubicacion.cava as cava, venta_especie.cantidad as cantidad, ubicacion.id as ubicacion from venta_especie join ubicacion on ubicacion=ubicacion.id join compra_especie on compra_especie.id=ubicacion.detalle join especie on especie.id=especie
 where ubicacion.id=new.ubicacion) loop
 update especie set cantidad=cantidad-objeto.cantidad where id=objeto.especie;
 update cava set capacidad_disponible = (capacidad_disponible + new.cantidad) where id = new.cava;

@@ -107,7 +107,7 @@ public class Especie  implements java.io.Serializable {
         this.compraEspecies = compraEspecies;
     }
 
-    public void toUpperCase(String nombre, String tipo)
+    public void toUpperCase()
     {
        this.nombre = this.nombre.toUpperCase();
        this.tipo = this.tipo.toUpperCase();

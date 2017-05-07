@@ -77,8 +77,12 @@ public class CavaController implements Serializable {
         cava = new Cava();
     }
 
-    public void register() {
-        if (db.create(cava)) {
+    public void register()
+    {
+        cava.toUpperCase();
+        if (db.create(cava))
+        {
+
             cava = new Cava();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
@@ -90,8 +94,11 @@ public class CavaController implements Serializable {
         }
     }
 
-    public void update() {
-        if (db.update(cava)) {
+    public void update()
+    {
+        cava.toUpperCase();
+        if (db.update(cava))
+        {
             cava = new Cava();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);

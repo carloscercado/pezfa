@@ -51,8 +51,19 @@ public class ProductoController implements Serializable
         producto = new Producto();
     }
 
+    public void validarCodigo()
+    {  
+        if(db.validarCodigo(this.producto.getCodigo()))
+        {
+            this.producto.setCodigo("");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrado este producto", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);            
+        }
+    }
+    
     public void register()
     {
+        producto.toUpperCase();
         if (db.create(producto))
         {
             producto = new Producto();
@@ -69,6 +80,7 @@ public class ProductoController implements Serializable
 
     public void update()
     {
+        producto.toUpperCase();
         if (db.update(producto))
         {
             producto = new Producto();

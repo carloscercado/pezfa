@@ -58,17 +58,29 @@ public class EspecieController implements Serializable
     public List<String> getTipos() 
     {
         tipos = new ArrayList<String>();
-        tipos.add("Crustaceos");
-        tipos.add("Moluscos");
-        tipos.add("Pescados");
+        tipos.add("CRUSTACEOS");
+        tipos.add("MOLUSCOS");
+        tipos.add("PEZ");
         return tipos;
     }
      public void reset()
     {
         especie = new Especie();
     }
+     
+     public void validarCodigo()
+    {  
+        if(db.validarCodigo(this.especie.getCodigo()))
+        {
+            this.especie.setCodigo("");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrado esta especie", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);            
+        }
+    }
+     
     public void register()
     {
+        especie.toUpperCase();
         if(db.create(especie))
         {
             especie = new Especie();
@@ -85,6 +97,7 @@ public class EspecieController implements Serializable
     
     public void update()
     {
+        especie.toUpperCase();
         if(db.update(especie))
         {
             especie = new Especie();

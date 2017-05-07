@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <body>
+
+        <ui:composition template="./../../template/menu.xhtml">
+
+            <ui:define name="content">
+                <h:form id="todo">
+                    <h3 align="center" style="color: #045491">Gestionar compras</h3>
+                    <div class="row" >
+
+                        <div class="col-sm-5">
+                            <div class="hero-widget well well-sm">
+                                <center> 
+                                    <div class="icon" >
+                                        <p:selectOneMenu class="pull-right" value="#{compraController.compra.proveedor}" filter="true" filterMatchMode="contains" converter="proveedor" required="true" requiredMessage="Seleccione el proveedor">
+                                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Proveedor" />
+                                            <f:selectItems value="#{proveedorController.provedores}" var="proveedor" itemLabel="#{proveedor.rif}, #{proveedor.nombre}" itemValue="#{proveedor}"/>
+                                        </p:selectOneMenu>
+                                        <span class="fa fa-truck fa-3x" style="color: #045491"/>
+
+                                    </div>
+
+                                </center>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="hero-widget well well-sm">
+                                <center> 
+                                    <div class="icon">
+                                        <span class="fa fa-file fa-3x" style="color: #045491"/>
+
+                                        <p:inputText  class="pull-right" placeholder="Orden de compra" required="true"
+                                                      requiredMessage="La orden de compra es necesaria" 
+                                                      value="#{compraController.compra.orden}" autocomplete="off"/>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="hero-widget well well-sm">
+                                <center> 
+                                    <div class="icon">
+                                        <span class="fa fa-calendar fa-3x" style="color: #045491"/>
+                                        <p:calendar  locale="es" size="10" placeholder="Fecha" value="#{compraController.compra.fecha}" 
+                                                     required="true" requiredMessage="La fecha de compra es necesaria" class="pull-right"/>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="hero-widget well well-sm">
+                                <center> 
+                                    <div class="icon">
+                                        <span class="fa fa-child fa-3x" style="color: #045491"/>
+                                        <p:selectOneMenu class="pull-right" value="#{compraController.compra.chofer}" filter="true" filterMatchMode="contains"
+                                                         converter="empleado" required="true" requiredMessage="Seleccione el chofer">
+                                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Chofer" />
+                                            <f:selectItems value="#{empleadoController.choferes}" var="chofer" itemLabel="#{chofer.cedula}, #{chofer.primerNombre}, #{chofer.primerApellido}" itemValue="#{chofer}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="hero-widget well well-sm">
+                                <center> 
+                                    <div class="icon">
+                                        <span class="fa fa-truck fa-3x" style="color: #045491"/>
+                                        <p:selectOneMenu class="pull-right" value="#{compraController.compra.camion}" filter="true" filterMatchMode="contains"
+                                                         converter="camion" required="true" requiredMessage="Seleccione el cami&oacute;n">
+                                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Camion" />
+                                            <f:selectItems value="#{camionController.camiones}" var="camion" itemLabel="#{camion.marca}, #{camion.modelo},
+                                                                    #{camion.placa}" itemValue="#{camion}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br/>
+                    <p:dataTable  scrollHeight="250" scrollable="true" id="tabla" widgetVar="compraEspecie" 
+                                  var="detalle" value="#{compraEspecieController.miLista}"
+                                  emptyMessage="No hay productos agregados." reflow="true">
+                        <f:facet name="header">
+                            <div class="row">
+                                <div  class="col-md-6 text-left ">
+                                    <p:commandButton immediate="true" value="Agregar" class="right" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                </div>
+
+                                <div class="col-md-6 text-right" jsf:rendered="#{!(compraController.compras.size() eq 0)}">
+                                    <a href="/pezfa/pages/entrada/">
+                                        Compras por procesar 
+                                        <span class="badge btn-danger" >#{compraController.compras.size()}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </f:facet>
+
+                        <p:column headerText="Especie">
+                            #{detalle.especie.nombre}
+
+                        </p:column>
+                        <p:column headerText="Cantidad" class="text-right" width="20%">
+                            #{detalle.cantidad} Kg
+
+                        </p:column>
+
+                        <p:column headerText="Costo por Kilo" class="text-right" width="20%">
+                            <p:outputLabel value="#{detalle.costo}">
+                                <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                            </p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Costo total" class="text-right" width="20%">
+                            <p:outputLabel value="#{detalle.costo*detalle.cantidad}">
+                                <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                            </p:outputLabel>
+
+                        </p:column>
+                        <p:column headerText="Quitar" width="15%">
+
+                            <center>
+                                <p:commandButton immediate="true" icon="fa fa-trash" title="Eliminar" update="@widgetVar(eliminar)"  oncomplete="PF('eliminar').show()" class="btn-danger">
+                                    <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie}" value="#{detalle}"/>
+                                </p:commandButton>
+
+                            </center>
+                        </p:column>
+                        <f:facet name="footer">
+                            <div class="row">
+                                <div  class="col-md-6 text-left ">
+                                    Total: 
+                                    <p:outputLabel value="#{compraEspecieController.total}">
+                                        <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                    </p:outputLabel>
+                                </div>
+
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:growl id="mensaje" life="5000"/>
+
+                                    <p:commandButton id="guardar" value="Guardar compra" class="btn-success" icon="fa fa-save" update="mensaje todo menu2" actionListener="#{compraEspecieController.register()}"/>
+                                    <p:blockUI block="tabla" trigger="guardar">
+                                        Registrando...<br/>
+                                        <span class="fa fa-spin fa-3x fa-spinner"></span>
+                                    </p:blockUI>
+                                </div>
+                            </div>
+
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>
+                    
+                <p:dialog width="700" draggable="false" header="Especies registradas" resizable="false" responsive="true" widgetVar="registrar" modal="true">
+
+                    <h:form>
+                        <p:growl id="mensaje" />
+                        <div class="text-muted" style="font-weight: bold">
+                            <span class="fa fa-info-circle fa-2x"/>
+                            Busque el insumo comprado y haga click en el botón 'agregar'.
+                        </div>
+                        <br/>
+                        <h:form>
+                            <p:dataTable widgetVar="especies" scrollable="true" scrollHeight="250"
+                                         var="especie" value="#{especieController.especies}" reflow="true"
+                                         emptyMessage="No existen registros con el criterio de busqueda.">
+                                <f:facet name="header">
+                                    <div class="row">
+                                        <div  class="col-md-6 text-left ">
+                                        </div>
+
+                                        <div class="col-md-6 text-right header-tabla-center">
+                                            <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar"/>
+                                        </div>
+                                    </div>
+                                </f:facet>
+                                <p:column headerText="Nombre" filterBy="#{especie.nombre}" filterStyle="display: none">
+                                    #{especie.nombre}
+
+                                </p:column>
+
+                                <p:column headerText="Precio" class="text-right">
+                                    <p:outputLabel value="#{especie.precio}">
+                                        <f:convertNumber currencySymbol="BsF " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                    </p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Tipo" >
+                                    #{especie.tipo}
+                                </p:column>
+                                <p:column headerText="Agregar" priority="2">
+
+                                    <center>
+                                        <p:commandButton icon="fa fa-plus" title="Agregar" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
+                                            <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie.especie}" value="#{especie}"/>
+                                        </p:commandButton>
+
+                                    </center>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+
+
+                        <br></br>
+
+                    </h:form>
+                </p:dialog> 
+                <p:dialog draggable="false" header="#{compraEspecieController.compraEspecie.especie.nombre}" resizable="false"
+                          responsive="true" widgetVar="agregar" modal="true" width="400">
+
+                    <h:form>
+                        <center>
+                            <p:growl id="mensaje" />
+                            <div class="text-muted" style="font-weight: bold">
+                                <span class="fa fa-info-circle fa-2x"/>
+                                A continuación ingrese la cantidad en KG de #{compraEspecieController.compraEspecie.especie.nombre} 
+                                a comprar y su respectivo costo por KG.
+                            </div>
+                            <br/>
+                            <p:panelGrid columns="2">
+                                <p:outputLabel value="KG:" />
+                                <p:inputNumber autocomplete="off" placeholder="Cantidad" value="#{compraEspecieController.compraEspecie.cantidad}" decimalPlaces="2" 
+                                               required="true"  requiredMessage="Cantidad es necesaria" symbol=" Kg" symbolPosition="suffix" thousandSeparator="." decimalSeparator="," />
+                                <p:outputLabel value="Costo:" />
+                                <p:inputNumber autocomplete="off" value="#{compraEspecieController.compraEspecie.costo}" symbol=" Bs.F" symbolPosition="suffix" 
+                                               placeholder="Costo" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="."
+                                               requiredMessage="Ingrese el costo"/>
+                            </p:panelGrid>
+                            <br></br>
+                            <center>
+                                <p:commandButton icon="fa fa-save" value="Agregar" update="@widgetVar(compraEspecie) mensaje" actionListener="#{compraEspecieController.add()}"   />
+                                <p:commandButton  icon="fa fa-times" value="Cancelar" onclick="PF('agregar').hide()" class="btn-danger"/>
+                            </center>
+                            <br/>
+                        </center>
+                    </h:form>
+                </p:dialog> 
+
+                <p:dialog closable="false" draggable="false" header="&#191; Est&aacute;s seguro de que desea eliminar &#63;" resizable="false" 
+                          responsive="true" widgetVar="eliminar" modal="true">
+                    <f:facet name="onHide()">
+                        <p:ajax listener="#{compraEspecieController.reset()}"/>
+                    </f:facet>
+                    <h:form>
+                        <p:growl id="mensaje"/>
+                        <center>
+                            <p:commandButton  icon="fa fa-check" value="Si" oncomplete="PF('eliminar').hide()" actionListener="#{compraEspecieController.remove()}" update="@widgetVar(compraEspecie)" />
+                            <p:commandButton immediate="true" icon="fa fa-times" value="No" onclick="PF('eliminar').hide()" class="btn-danger"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -20,27 +20,49 @@ public class Compra  implements java.io.Serializable {
      private Date fecha;
      private String estado;
      private BigDecimal gasto;
+     private Empleado chofer;
+     private Camion camion;
      private Set compraEspecies = new HashSet(0);
 
     public Compra() {
     }
 
-	
-    public Compra(Proveedor proveedor, Usuario usuario, String orden) {
+    public Compra(int id, Proveedor proveedor, Usuario usuario, String orden, Date fecha, String estado, BigDecimal gasto, Empleado chofer, Camion camion)
+    {
+        this.id = id;
         this.proveedor = proveedor;
         this.usuario = usuario;
         this.orden = orden;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.gasto = gasto;
+        this.chofer = chofer;
+        this.camion = camion;
     }
-    public Compra(Proveedor proveedor, Usuario usuario, String orden, Date fecha, String estado, BigDecimal gasto, Set compraEspecies) {
-       this.proveedor = proveedor;
-       this.usuario = usuario;
-       this.orden = orden;
-       this.fecha = fecha;
-       this.estado = estado;
-       this.gasto = gasto;
-       this.compraEspecies = compraEspecies;
+
+	
+    
+    public Empleado getChofer()
+    {
+        return chofer;
+    }
+
+    public void setChofer(Empleado chofer)
+    {
+        this.chofer = chofer;
+    }
+
+    public Camion getCamion()
+    {
+        return camion;
+    }
+
+    public void setCamion(Camion camion)
+    {
+        this.camion = camion;
     }
    
+    
     public int getId() {
         return this.id;
     }

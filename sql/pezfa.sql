@@ -22,6 +22,14 @@ create table if not exists proveedor
     correo text
 );
 
+create table if not exists camion
+(
+    id serial primary key,
+    marca varchar(15) not null,
+    modelo varchar(15) not null,
+    placa varchar(15) not null
+);
+
 create table if not exists cliente
 (
     id serial primary key,
@@ -112,6 +120,8 @@ create table if not exists compra
     fecha date default now()::date,
     proveedor int not null references proveedor (id),
     usuario int not null references usuario(id),
+    camion int not null references camion(id),
+    chofer int not null references empleado(id),
     estado varchar(20),
     gasto numeric(10,2) default 0
 );

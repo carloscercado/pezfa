@@ -21,6 +21,8 @@ public class EmpleadoController implements Serializable
 
     private Empleado empleado = null;
     private List<Empleado> empleadores = null;
+    private List<Empleado> choferes = null;
+
     private EmpleadoDB db;
 
     //constructor
@@ -29,6 +31,19 @@ public class EmpleadoController implements Serializable
         db = new EmpleadoDB();
         empleado = new Empleado();
     }
+
+    public List<Empleado> getChoferes()
+    {
+        choferes = db.read("from Empleado emp where emp.cargo='CHOFER'");
+        return choferes;
+    }
+
+    public void setChoferes(List<Empleado> choferes)
+    {
+        this.choferes = choferes;
+    }
+    
+    
 
     //getter y setter
     public Empleado getEmpleado()
@@ -59,8 +74,18 @@ public class EmpleadoController implements Serializable
         System.out.println("Reseteado");
     }
 
+    public void validarCedula()
+    {  
+        if(db.validarCedula(this.empleado.getCedula()))
+        {
+            this.empleado.setCedula("");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrado este empleado", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);            
+        }
+    }
     public void register()
     {
+        empleado.toUpperCase();
         if (db.create(empleado))
         {
             empleado = new Empleado();
@@ -77,6 +102,7 @@ public class EmpleadoController implements Serializable
 
     public void update()
     {
+        empleado.toUpperCase();
         if (db.update(empleado))
         {
             empleado = new Empleado();
