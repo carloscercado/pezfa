@@ -84,13 +84,17 @@ public class Cava  implements java.io.Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + this.id;
+        int hash = 5;
+        hash = 31 * hash + this.id;
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }

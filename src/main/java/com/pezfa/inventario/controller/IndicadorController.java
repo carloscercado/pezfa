@@ -12,20 +12,29 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
-public class IndicadorController implements Serializable
-{
+public class IndicadorController implements Serializable {
+
     private Indicador indicador = null;
+    private Indicador capacidad = null;
     private List<Indicador> indicadores = null;
     private IndicadorDB db;
-    
-    public IndicadorController()
-    {
-        indicador = new Indicador(); 
+
+    public IndicadorController() {
+        indicador = new Indicador();
         db = new IndicadorDB();
-        
+        capacidad = this.getCapacidad();
+
     }
 
-    
+    public Indicador getCapacidad() {
+        capacidad = db.read("from Indicador indi where indi.id=1").get(0);
+        return capacidad;
+    }
+
+    public void setCapacidad(Indicador capacidad) {
+        this.capacidad = capacidad;
+    }
+
     public Indicador getIndicador() {
         return indicador;
     }
@@ -42,25 +51,19 @@ public class IndicadorController implements Serializable
     public void setIndicadores(List<Indicador> indicadores) {
         this.indicadores = indicadores;
     }
-    
-   
-    
-    public void reset()
-    {
+
+    public void reset() {
         indicador = new Indicador();
     }
-    
-    public void update()
-    {
-        if(db.update(indicador))
-        {
+
+    public void update() {
+        if (db.update(indicador)) {
             indicador = new Indicador();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('modificar').hide();");
-        }else
-        {
+        } else {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }

@@ -37,6 +37,9 @@
                         <p:column filterBy="#{cava.almacen.nombre}"  headerText="Almac&eacute;n" filterStyle="display: none">
                            <span class="fa fa-bank"/> #{cava.almacen.nombre},  #{cava.almacen.direccion}
                         </p:column>
+                        <p:column filterBy="#{cava.capacidad}"  headerText="Capacidad" filterStyle="display: none">
+                            #{cava.capacidad} Kg
+                        </p:column>
                         <p:column width="25%" class="column-hidden" headerText="Opciones">
                             <center>  
                                 <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger">
@@ -66,6 +69,8 @@
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                                 <f:selectItems value="#{almacenController.almacenes}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}"/>
                             </p:selectOneMenu>
+                             <p:outputLabel value="Capacidad:"> <span style="color: #D20005">*</span></p:outputLabel>
+                                <p:inputText autocomplete="off" value="#{cavaController.cava.capacidad}" required="true" requiredMessage="Ingrese la capacidad" placeholder="Capacidad"/>
                         </p:panelGrid>
                         <br>
                             <center>
@@ -91,6 +96,7 @@
                            <p:growl id="mensaje"/> 
                             
                             <p:panelGrid columns="2">
+                                
                                 <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                                 <p:inputText autocomplete="off" value="#{cavaController.cava.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                                 <p:outputLabel value="Almac&eacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
@@ -98,6 +104,8 @@
                                     <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
                                     <f:selectItems value="#{almacenController.almacenes}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}"/>
                                 </p:selectOneMenu>
+                                <p:outputLabel value="Capacidad:"> <span style="color: #D20005">*</span></p:outputLabel>
+                                <p:inputText autocomplete="off" value="#{cavaController.cava.capacidad}" required="true" requiredMessage="Ingrese la capacidad" placeholder="Capacidad"/>
                             </p:panelGrid>
                             <br>
                             <center>
