@@ -1,4 +1,8 @@
-﻿insert into almacen 
+﻿insert into indicador
+values (1, 'CAPACIDAD', 80,50,'MENSAJE BUENO','MENSAJE MALO','MENSAJE ACEPTABLE','MEDIR LA CAPACIDAD DE CAVA');
+		
+
+insert into almacen 
 	values (1, 'ALMACEN A', 'AV. LAS PALOMAS', '(293)-1234561'),
 		(2, 'ALMACEN B', 'AV. GRAN MARISCAL', '(293)-4653782'),
 		(3, 'ALMACEN C', 'AV. EL PEÑON', '(293)-8796450'),

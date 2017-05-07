@@ -79,6 +79,8 @@ public class CavaController implements Serializable {
 
     public void register()
     {
+        
+        cava.setCapacidadDisponible(cava.getCapacidad());
         cava.toUpperCase();
         if (db.create(cava))
         {
