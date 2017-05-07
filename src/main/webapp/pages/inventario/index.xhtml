@@ -63,11 +63,67 @@
                              <span  class="fa fa-circle fa-2x" jsf:rendered="#{especie.cantidad le especie.minimo}" style="color: #f63a1e"/>
                              <span  class="fa fa-circle fa-2x" jsf:rendered="#{((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo+1) and (especie.cantidad le especie.minimo+100))}" style="color: #f68e1e"/>
                              <span  class="fa fa-circle fa-2x" jsf:rendered="#{!(especie.cantidad le especie.minimo+100)}" style="color: #1ef664"/>
-                         </p:column>             
+                         </p:column>  
+                         
+                          <p:column width="10%" class="column-hidden" headerText="Detalles">
+                            <center>  
+                                <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)" class="btn-secundary"> 
+                                    <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie}"/>
+                                </p:commandButton>
+                            </center> 
+                        </p:column>
 
+                    </p:dataTable>         
+                   
+                </h:form>
+               
+                <p:dialog closable="true" header="Detalles de la especie" widgetVar="verDetalle" 
+                          responsive="true" resizable="false" draggable="false" modal="true" width="600">
+                    <h:form>
+                        <p:panelGrid columns="6">
+
+                            <p:outputLabel value="C&oacute;digo"/>
+                            <p:outputLabel value="Nombre"/>
+                            <p:outputLabel value="Cantidad"/>
+                            <p:outputLabel value="Precio"/>
+                            <p:outputLabel value="M&aacute;ximo"/>
+                            <p:outputLabel value="M&iacute;nimo"/>
+                            <p:outputLabel value="#{especieController.especie.codigo}"/>
+                            <p:outputLabel value="#{especieController.especie.nombre}"/>
+                            <p:outputLabel value="#{especieController.especie.cantidad}"> Kg</p:outputLabel>
+                            <p:outputLabel value="#{especieController.especie.precio}"> Bs </p:outputLabel>
+                            <p:outputLabel value="#{especieController.especie.maximo}">Kg</p:outputLabel>
+                            <p:outputLabel value="#{especieController.especie.minimo}">Kg</p:outputLabel>
+                        </p:panelGrid>
+                    <br/>
+                         <p:dataTable  
+                             widgetVar="ubicaciones" var="ubicacion" value="#{unidadController.unidades}"
+                                 emptyMessage="No se encontrar&oacute;n datos" reflow="true" scrollable="true" scrollHeight="250">
+                        
+                        <p:column headerText="Cava">
+                            #{ubicacion.cava.nombre}
+                        </p:column>
+
+                        <p:column headerText="Orden">
+                            #{ubicacion.compraEspecie.compra.orden}
+                        </p:column>
+                        
+                        <p:column headerText="Cantidad" class="text-right">
+                            #{ubicacion.compraEspecie.cantidad} Kg
+                        </p:column>
+                             
+                        <p:column headerText="Proveedor" width="30%">
+                            #{ubicacion.compraEspecie.compra.proveedor.nombre}
+                        </p:column> 
+                        
+                             
+                        <p:column headerText="Fecha">
+                            #{ubicacion.compraEspecie.compra.fecha}
+                        </p:column>
+                        
                     </p:dataTable>
                 </h:form>
-                
+                </p:dialog>
                 
             </ui:define>
 

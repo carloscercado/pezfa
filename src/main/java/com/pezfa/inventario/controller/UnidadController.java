@@ -30,6 +30,8 @@ public class UnidadController implements Serializable
     private CompraEspecieController compraEspecieController;
     @ManagedProperty(value = "#{usuarioController}")
     private UsuarioController usuarioController;
+    @ManagedProperty(value = "#{especieController}")
+    private EspecieController especieController;
     private UbicacionDB db;
 
     public UnidadController()
@@ -38,6 +40,15 @@ public class UnidadController implements Serializable
         db = new UbicacionDB();
     }
 
+    public EspecieController getEspecieController() {
+        return especieController;
+    }
+
+    public void setEspecieController(EspecieController especieController) {
+        this.especieController = especieController;
+    }
+
+    
     public Ubicacion getUnidad()
     {
         return unidad;
@@ -70,7 +81,11 @@ public class UnidadController implements Serializable
 
     public List<Ubicacion> getUnidades()
     {
-        unidades = db.read("from Unidad uni join fetch uni.cava cav join fetch cav.almacen join fetch uni.compraEspecie cpe join fetch cpe.especie");
+        int id = especieController.getEspecie().getId();
+        unidades = db.read("from Ubicacion ubi join fetch ubi.compraEspecie cp"
+                + " join fetch cp.especie esp join fetch ubi.cava cav join fetch cp.compra comp"
+                + " join fetch comp.proveedor where esp.id="+id);
+       
         return unidades;
     }
 

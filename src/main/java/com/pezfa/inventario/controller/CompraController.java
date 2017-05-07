@@ -5,6 +5,7 @@ import com.pezfa.inventario.models.Camion;
 import com.pezfa.inventario.models.Compra;
 import com.pezfa.inventario.models.Empleado;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,6 +23,7 @@ public class CompraController implements Serializable
     private List<Compra> compras = null;
     private List<Compra> historico = null;
     private CompraDB db;
+    private Date fecha = new Date();
 
     public CompraController()
     {
@@ -37,6 +39,14 @@ public class CompraController implements Serializable
                 + "join fetch comprita.chofer join fetch comprita.camion order by comprita.fecha");
 
         return historico;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public void setHistorico(List<Compra> historico)

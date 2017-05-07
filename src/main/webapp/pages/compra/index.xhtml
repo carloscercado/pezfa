@@ -1,4 +1,4 @@
- <?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -16,62 +16,9 @@
                 <h:form>
                     <h3 align="center" style="color: #045491">Historial de compras</h3>
 
-<<<<<<< HEAD
-                        <div class="col-sm-5">
-                            <div class="hero-widget well well-sm">
-                                <center> 
-                                    <div class="icon" >
-                                        <p:selectOneMenu class="pull-right" value="#{compraController.compra.proveedor}" filter="true" filterMatchMode="contains" converter="proveedor" required="true" requiredMessage="Seleccione el proveedor">
-                                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Proveedor" />
-                                            <f:selectItems value="#{proveedorController.provedores}" var="proveedor" itemLabel="#{proveedor.rif}, #{proveedor.nombre}" itemValue="#{proveedor}"/>
-                                        </p:selectOneMenu>
-                                        <span class="fa fa-truck fa-3x" style="color: #045491"/>
-
-                                    </div>
-
-                                </center>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="hero-widget well well-sm">
-                                <p:growl id="mensaje"/> 
-                                <center> 
-                                    <div class="icon">
-                                        <span class="fa fa-file fa-3x" style="color: #045491"/>
-
-                                        <p:inputText  class="pull-right" placeholder="Orden de compra" id="comp" required="true"
-                                                      requiredMessage="La orden de compra es necesaria" 
-                                                      value="#{compraController.compra.orden}" autocomplete="off">
-                                            <p:ajax event="change" listener="#{compraController.validarOrden()}" update="mensaje comp"/>
-                                        </p:inputText>
-                                    </div>
-                                </center>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="hero-widget well well-sm">
-                                <center> 
-                                    <div class="icon">
-                                        <span class="fa fa-calendar fa-3x" style="color: #045491"/>
-                                        <p:calendar  locale="es" size="10" placeholder="Fecha" value="#{compraController.compra.fecha}" 
-                                                     required="true" requiredMessage="La fecha de compra es necesaria" class="pull-right"/>
-                                    </div>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <br/>
-                    <p:dataTable  scrollHeight="250" scrollable="true" id="tabla" widgetVar="compraEspecie" 
-                                  var="detalle" value="#{compraEspecieController.miLista}"
-                                  emptyMessage="No hay productos agregados." reflow="true">
-=======
                     <p:dataTable selectionMode="single" selection="#{compraController.compra}" rowKey="#{compra.id}"
                                  widgetVar="historico" var="compra" value="#{compraController.historico}"
                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true">
->>>>>>> 25fa71d0a8bb4086d9518aefe53737d7d67549d7
                         <f:facet name="header">
                             <p:ajax event="rowSelect" listener="#{compraController.onRowSelect}" />
                         </f:facet>

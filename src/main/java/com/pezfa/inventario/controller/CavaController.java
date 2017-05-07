@@ -45,7 +45,7 @@ public class CavaController implements Serializable {
     public List<Cava> getCavasFiltro() {
         try {
             int almacen = almacenController.getAlmacen().getId();
-            cavasFiltro = db.read(almacen);
+            cavasFiltro = db.read("from Cava cava join fetch cava.almacen al where al.id="+almacen);
             return cavasFiltro;
         } catch (Exception e) {
             return new ArrayList<>();
