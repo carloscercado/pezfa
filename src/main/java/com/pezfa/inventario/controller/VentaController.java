@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -41,6 +42,7 @@ public class VentaController implements Serializable
     private List<ProductoSalida> productos;
     private ProductoSalida producto;
     private List<ProductoSalida> salida;
+    private List<Venta> historico = null;
     private Set<VentaDetalle> lista;
     private VentaEspecie ventaUnidad;
     private VentaUnidad ventaTerminado;
@@ -62,9 +64,28 @@ public class VentaController implements Serializable
         cant = 1;
     }
 
+    public List<Venta> getHistorico()
+    {
+        historico = db.read("from Venta ven join fetch ven.cliente "
+                + "join fetch ven.venta_especie order by ven.fecha");
+
+        return historico;
+    }
+
+    public void setHistorico(List<Venta> historico)
+    {
+        this.historico = historico;
+    }
+   
     public List<ProductoSalida> getSalida()
     {
         return salida;
+    }
+    
+    public void onRowSelect(SelectEvent event) 
+    {
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('detalles').show();");
     }
 
     public void setSalida(List<ProductoSalida> salida)
@@ -136,15 +157,15 @@ public class VentaController implements Serializable
     {
         return this.lista.stream()
                 .mapToDouble(x ->
-                {
-                    if (x instanceof VentaEspecie)
-                    {
-                        return ((VentaEspecie) x).getUbicacion().getPrecio().doubleValue() * x.getCantidad();
-                    } else if (x instanceof VentaUnidad)
-                    {
-                        return ((VentaUnidad) x).getUnidad().getPrecio().doubleValue() * x.getCantidad();
-                    }
-                    return 0;
+                        {
+                            if (x instanceof VentaEspecie)
+                            {
+                                return ((VentaEspecie) x).getUbicacion().getPrecio().doubleValue() * x.getCantidad();
+                            } else if (x instanceof VentaUnidad)
+                            {
+                                return ((VentaUnidad) x).getUnidad().getPrecio().doubleValue() * x.getCantidad();
+                            }
+                            return 0;
                 })
                 .sum();
     }
@@ -186,17 +207,17 @@ public class VentaController implements Serializable
     {
         venta = new Venta();
     }
-    
+
     public void validarFactura()
-    {  
-        if(db.validarFactura(this.venta.getFactura()))
+    {
+        if (db.validarFactura(this.venta.getFactura()))
         {
             this.venta.setFactura("");
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrada esta venta", null);
-            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);            
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
-    
+
     //logica para registrar un venta
     public void register()
     {
@@ -207,13 +228,13 @@ public class VentaController implements Serializable
             {
                 Auditoria auditoria = new Auditoria();
                 AuditoriaDB auditoDB = new AuditoriaDB();
-                
+
                 auditoria.setUsuario(venta.getUsuario());
                 auditoria.setFecha(venta.getFecha());
                 auditoria.setHora(venta.getFecha());
                 auditoria.setTipo("REGISTRO DE VENTAS");
-                auditoria.setDescripcion("REGISTRO DE VENTA CON FACTURA "+venta.getFactura()+
-                        " A CLIENTE CON RIF "+venta.getCliente().getRif());
+                auditoria.setDescripcion("REGISTRO DE VENTA CON FACTURA " + venta.getFactura()
+                        + " A CLIENTE CON RIF " + venta.getCliente().getRif());
                 auditoDB.create(auditoria);
                 lista.clear();
                 venta = new Venta();
@@ -251,19 +272,19 @@ public class VentaController implements Serializable
             productos = new ArrayList<>();
             udb.read("from Ubicacion uni join fetch uni.ventaEspecie deta join fetch deta.especie esp where esp.cantidad > 0")
                     .stream().distinct().forEach(x ->
-                    {
-                        x.setNombre(x.getCompraEspecie().getEspecie().getNombre());
-                        x.setCodigo(x.getCompraEspecie().getEspecie().getCodigo());
-                        x.setPrecio(x.getCompraEspecie().getEspecie().getPrecio());
-                        productos.add((ProductoSalida) x);
+                            {
+                                x.setNombre(x.getCompraEspecie().getEspecie().getNombre());
+                                x.setCodigo(x.getCompraEspecie().getEspecie().getCodigo());
+                                x.setPrecio(x.getCompraEspecie().getEspecie().getPrecio());
+                                productos.add((ProductoSalida) x);
                     });
             tdb.read("from Unidad ter join fetch ter.producto produ where produ.cantidad > 0").stream()
                     .distinct().forEach(x ->
-                    {
-                        x.setNombre(x.getProducto().getNombre());
-                        x.setCodigo(x.getProducto().getCodigo());
-                        x.setPrecio(x.getProducto().getPrecio());
-                        productos.add((ProductoSalida) x);
+                            {
+                                x.setNombre(x.getProducto().getNombre());
+                                x.setCodigo(x.getProducto().getCodigo());
+                                x.setPrecio(x.getProducto().getPrecio());
+                                productos.add((ProductoSalida) x);
                     });
 
             return productos;

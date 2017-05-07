@@ -152,6 +152,14 @@ public class CompraEspecieController implements Serializable
         detalleCompra = db.findBy(id);
         return detalleCompra;
     }
+    
+    public List<CompraEspecie> getDetalles()
+    {
+        int id = compraController.getCompra().getId();
+        List<CompraEspecie> result =  db.read("from CompraEspecie ce join fetch ce.compra com join fetch ce.especie where com.id="+id);
+        System.err.println(result);
+        return result;
+    } 
 
     public void setDetalleCompra(List<CompraEspecie> detalleCompra)
     {
