@@ -61,7 +61,7 @@
                          
                          <p:column headerText="Estado" class="text-center" width="12%">
                              <span  class="fa fa-circle fa-2x" jsf:rendered="#{especie.cantidad le especie.minimo}" style="color: #f63a1e"/>
-                             <span  class="fa fa-circle fa-2x" jsf:rendered="#{((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo) and (especie.cantidad le especie.minimo+100))}" style="color: #f68e1e"/>
+                             <span  class="fa fa-circle fa-2x" jsf:rendered="#{((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo+1) and (especie.cantidad le especie.minimo+100))}" style="color: #f68e1e"/>
                              <span  class="fa fa-circle fa-2x" jsf:rendered="#{!(especie.cantidad le especie.minimo+100)}" style="color: #1ef664"/>
                          </p:column>             
 
