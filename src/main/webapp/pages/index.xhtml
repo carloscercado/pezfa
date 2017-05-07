@@ -4,8 +4,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <body>
 
@@ -14,28 +15,34 @@
             <ui:define name="content">
                 <br/>
                 <h3 align="center" style="color: #045491">Sistema de gestión de inventario de Pezfa C.A. </h3>
-                    
+
 
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="hero-widget well well-sm">
-                            <center> <div class="icon">
-                                    <i class="fa fa-truck fa-5x" style="color: #045491"></i>
-                                </div>
-                            </center>
-                            <div class="text-center">
-                                <var><strong>#{proveedorController.provedores.size()}</strong></var>
-                                <label class="text-muted">Total de proveedores</label>
-                            </div>
-                            <div class="options">
-                                <center>
-                                    <a href="/pezfa/pages/proveedor" class="btn btn-secundary" >
-                                        <span class="fa fa-search"/> Ver todos
-                                    </a>
+                    <a href="#">
+                        <div class="col-sm-4">
+                            <div class="hero-widget well well-sm">
+                                <center> <div class="icon">
+                                        <i class="fa fa-dashboard fa-5x" style="color: #045491"></i>
+                                    </div>
                                 </center>
+                                <div class="text-center">
+                                    <label class="text-muted">Capacidad: </label>
+                                    <strong jsf:rendered="" style="font-size: 18px">
+                                        #{cavaController.capacidad} %
+                                    </strong>
+                                    <strong jsf:rendered="" style="font-size: 18px">
+                                        #{cavaController.capacidad} %
+                                    </strong>
+                                    <strong jsf:rendered="" style="font-size: 18px">
+                                        #{cavaController.capacidad} %
+                                    </strong>
+
+
+                                </div>
+
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <div class="col-sm-4">
                         <div class="hero-widget well well-sm">
@@ -56,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-sm-4">
                         <div class="hero-widget well well-sm">
                             <center> <div class="icon">
@@ -76,15 +83,15 @@
                             </div>
                         </div>
                     </div>
-                  
+
                 </div>
                 <h:form>
-                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" 
-                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true"
-                                  var="especie" value="#{especieController.especies}"
-                                  rowStyleClass="#{especie.cantidad le especie.minimo ? 'estilo1':
-                                               ((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo) and (especie.cantidad le especie.minimo+5)) ? 'estilo3':
-                                                !(especie.cantidad le especie.minimo+5) ? 'estilo2': null}">
+                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" 
+                                 emptyMessage="No se encontrar&oacute;n datos" reflow="true"
+                                 var="especie" value="#{especieController.especies}"
+                                 rowStyleClass="#{especie.cantidad le especie.minimo ? 'estilo1':
+                                                  ((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo) and (especie.cantidad le especie.minimo+5)) ? 'estilo3':
+                                                  !(especie.cantidad le especie.minimo+5) ? 'estilo2': null}">
                         <f:facet name="header">
                             <center>
                                 <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar"/>
@@ -95,30 +102,30 @@
                                 <span class="fa fa-cube" />
                             </center>
                         </p:column>
-                         
-                         <p:column headerText="C&oacute;digo" filterBy="#{especie.codigo}" filterStyle="display: none" width="10%">
+
+                        <p:column headerText="C&oacute;digo" filterBy="#{especie.codigo}" filterStyle="display: none" width="10%">
                             #{especie.codigo}
                         </p:column>
-                         
-                         <p:column filterBy="#{especie.tipo}" width="20%">
-                             <f:facet name="filter">
-                                 <p:selectOneMenu  onchange="PF('especies').filter()">
-                                     <f:selectItem itemLabel="Tipo" itemValue="#{null}" noSelectionOption="true" />
-                                     <f:selectItems value="#{especieController.tipos}" var="tipo" itemValue="#{tipo}"  />
+
+                        <p:column filterBy="#{especie.tipo}" width="20%">
+                            <f:facet name="filter">
+                                <p:selectOneMenu  onchange="PF('especies').filter()">
+                                    <f:selectItem itemLabel="Tipo" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{especieController.tipos}" var="tipo" itemValue="#{tipo}"  />
                                 </p:selectOneMenu>
-                             </f:facet>
+                            </f:facet>
                             #{especie.tipo}
                         </p:column>
-                      
-                         <p:column headerText="Nombre" filterBy="#{especie.nombre}" filterStyle="display: none">
+
+                        <p:column headerText="Nombre" filterBy="#{especie.nombre}" filterStyle="display: none">
                             #{especie.nombre}
                         </p:column>
-                         
-                         <p:column headerText="Kilos" class="text-right" width="12%">
+
+                        <p:column headerText="Kilos" class="text-right" width="12%">
                             #{especie.cantidad} Kg
                         </p:column>
-                         
-                         <p:column headerText="M&iacute;nimo" class="text-right" width="12%">
+
+                        <p:column headerText="M&iacute;nimo" class="text-right" width="12%">
                             #{especie.minimo} Kg
                         </p:column>
 
