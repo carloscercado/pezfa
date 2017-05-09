@@ -85,7 +85,7 @@
                             </p:tab>
                             
                             <p:outputLabel value="Nacimiento:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:calendar effect="fold" value="#{empleadoController.empleado.nacimiento}" required="true" requiredMessage="Ingrese la fecha de nacimiento" locale="es" navigator="true" placeholder="Nacimiento"/>
+                            <p:calendar effect="fold" value="#{empleadoController.empleado.nacimiento}" required="true" maxdate="#{empleadoController.fecha}" requiredMessage="Ingrese la fecha de nacimiento" locale="es" navigator="true" placeholder="Nacimiento"/>
 
                             <p:outputLabel value="Sexo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.sexo}" required="true" requiredMessage="Ingrese el sexo">

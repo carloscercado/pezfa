@@ -43,7 +43,7 @@
                                         <p:inputText  class="pull-right" placeholder="Factura" id="vent" required="true"
                                                       requiredMessage="La factura es necesaria" 
                                                       value="#{ventaController.venta.factura}" autocomplete="off">
-                                         <p:ajax event="change" listener="#{compraController.validarOrden()}" update="mensaje vent"/>
+                                            <p:ajax event="change" listener="#{ventaController.validarFactura()}" update="mensaje vent"/>
                                         </p:inputText>
                                     </div>
                                 </center>
@@ -55,7 +55,7 @@
                                     <div class="icon">
                                         <span class="fa fa-calendar fa-3x" style="color: #045491"/>
                                         <p:calendar  locale="es" size="10" placeholder="Fecha" value="#{ventaController.venta.fecha}" 
-                                                     required="true" requiredMessage="La fecha  es necesaria" class="pull-right"/>
+                                                     required="true" maxdate="#{ventaController.fecha}" requiredMessage="La fecha  es necesaria" class="pull-right"/>
                                     </div>
                                 </center>
                             </div>
@@ -64,7 +64,7 @@
 
 
                     <br/>
-                    <p:dataTable  scrollHeight="250" scrollable="true" id="tabla" widgetVar="detalles" 
+                    <p:dataTable  scrollHeight="250" id="tabla" widgetVar="detalles" 
                                   var="detalle" value="#{ventaController.lista}"
                                   emptyMessage="No hay productos agregados." reflow="true">
                         <f:facet name="header">

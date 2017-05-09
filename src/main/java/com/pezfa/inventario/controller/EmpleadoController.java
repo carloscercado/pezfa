@@ -3,6 +3,7 @@ package com.pezfa.inventario.controller;
 import com.pezfa.inventario.database.EmpleadoDB;
 import com.pezfa.inventario.models.Empleado;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,9 +23,9 @@ public class EmpleadoController implements Serializable
     private Empleado empleado = null;
     private List<Empleado> empleadores = null;
     private List<Empleado> choferes = null;
-
     private EmpleadoDB db;
-
+    private Date fecha = new Date();
+    
     //constructor
     public EmpleadoController()
     {
@@ -46,6 +47,14 @@ public class EmpleadoController implements Serializable
     
 
     //getter y setter
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
     public Empleado getEmpleado()
     {
         return empleado;
