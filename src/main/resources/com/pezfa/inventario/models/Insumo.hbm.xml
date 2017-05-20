@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/04/2017 02:02:48 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pezfa.inventario.models.Insumo" table="insumo" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="increment" />
+        </id>
+        <property name="codigo" type="string">
+            <column name="codigo" length="30" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="20" not-null="true" />
+        </property>
+        <property name="cantidad" type="double">
+            <column name="cantidad" not-null="true" default="0"/>
+        </property>
+        <property name="medida" type="string">
+            <column name="medida" length="20" not-null="true" default="0" />
+        </property>
+        <property name="minimo" type="double">
+            <column name="minimo" not-null="true" default="10" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="tipo" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
+

@@ -87,7 +87,8 @@ CREATE OR REPLACE FUNCTION actualizar_gasto_compra()
   RETURNS trigger AS
 $BODY$
 begin
-update compra set gasto=gasto+(new.costo*new.cantidad) where id=new.compra;
+update compra set gasto=gasto+(new.costo*new.cantidad), kilo_total=(kilo_total+new.cantidad) where id=new.compra;
+update compra set kilo_total=(kilo_total+new.cantidad) where id=new.compra;
 return null;
 end;
 $BODY$

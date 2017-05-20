@@ -15,13 +15,13 @@
             <column name="nombre" length="20" not-null="true" />
         </property>
         <property name="cantidad" type="java.lang.Double">
-            <column name="cantidad" precision="17" scale="17" />
+            <column name="cantidad" precision="17" scale="17" default="0" />
         </property>
         <property name="maximo" type="java.lang.Double">
-            <column name="maximo" precision="17" scale="17" />
+            <column name="maximo" precision="17" scale="17" default="100"/>
         </property>
         <property name="minimo" type="java.lang.Double">
-            <column name="minimo" precision="17" scale="17" />
+            <column name="minimo" precision="17" scale="17" default="10" />
         </property>
         <property name="tipo" type="string">
             <column name="tipo" length="20" not-null="true" />

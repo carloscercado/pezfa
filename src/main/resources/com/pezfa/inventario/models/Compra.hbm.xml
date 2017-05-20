@@ -32,6 +32,9 @@
         <property name="gasto" type="big_decimal">
             <column name="gasto" precision="10" />
         </property>
+        <property name="kiloTotal" type="double">
+            <column name="kilo_total" not-null="true"/>
+        </property>
         <set name="compraEspecies" table="compra_especie" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="compra" not-null="true" />

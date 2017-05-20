@@ -20,6 +20,7 @@ public class Compra  implements java.io.Serializable {
      private Date fecha;
      private String estado;
      private BigDecimal gasto;
+     private double kiloTotal;
      private Empleado chofer;
      private Camion camion;
      private Set compraEspecies = new HashSet(0);
@@ -27,8 +28,7 @@ public class Compra  implements java.io.Serializable {
     public Compra() {
     }
 
-    public Compra(int id, Proveedor proveedor, Usuario usuario, String orden, Date fecha, String estado, BigDecimal gasto, Empleado chofer, Camion camion)
-    {
+    public Compra(int id, Proveedor proveedor, Usuario usuario, String orden, Date fecha, String estado, BigDecimal gasto, double kiloTotal, Empleado chofer, Camion camion) {
         this.id = id;
         this.proveedor = proveedor;
         this.usuario = usuario;
@@ -36,10 +36,20 @@ public class Compra  implements java.io.Serializable {
         this.fecha = fecha;
         this.estado = estado;
         this.gasto = gasto;
+        this.kiloTotal = kiloTotal;
         this.chofer = chofer;
         this.camion = camion;
     }
 
+    public double getKiloTotal() {
+        return kiloTotal;
+    }
+
+    public void setKiloTotal(double kiloTotal) {
+        this.kiloTotal = kiloTotal;
+    }
+
+    
 	
     
     public Empleado getChofer()
