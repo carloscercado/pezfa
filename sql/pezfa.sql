@@ -1,4 +1,17 @@
-﻿create table if not exists indicador
+﻿create table if not exists insumo
+(
+  id serial primary key,
+    codigo varchar(30) not null unique,
+    nombre varchar(20) not null,
+    cantidad float default 0,
+    medida varchar(20),
+    minimo float default 10,
+    tipo varchar(20) not null
+    
+);
+
+
+create table if not exists indicador
 (
   id serial PRIMARY KEY,
   nombre character varying(20) NOT NULL,
@@ -123,7 +136,8 @@ create table if not exists compra
     camion int not null references camion(id),
     chofer int not null references empleado(id),
     estado varchar(20),
-    gasto numeric(10,2) default 0
+    gasto numeric(10,2) default 0,
+    kilo_total float default 0
 );
 
 create table if not exists venta

@@ -25,6 +25,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
 
 @ManagedBean
 @ViewScoped
@@ -45,15 +49,8 @@ public class VentaController implements Serializable {
     @ManagedProperty(value = "#{usuarioController}")
     private UsuarioController usuarioController;
     private double cant;
+    private BarChartModel ventasAnual;
     private Date fecha = new Date();
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
 
     //constructor
     public VentaController() {
@@ -65,6 +62,81 @@ public class VentaController implements Serializable {
         venta = new Venta();
         venta.setFecha(new Date());
         cant = 1;
+    }
+
+    public BarChartModel getVentasAnual() {
+        ventasAnual = this.inicializarGrafica();
+        return ventasAnual;
+    }
+
+    public void setVentasAnual(BarChartModel ventasAnual) {
+        this.ventasAnual = ventasAnual;
+    }
+
+    public BarChartModel inicializarGrafica() {
+        double[] meses = this.getIndicadorVentas();
+
+        ventasAnual = initBarModel(meses);
+
+        ventasAnual.setAnimate(true);
+        ventasAnual.setNegativeSeriesColors("22c80a");
+
+        Axis xAxis = ventasAnual.getAxis(AxisType.X);
+
+        Axis yAxis = ventasAnual.getAxis(AxisType.Y);
+        yAxis.setMin(0);
+        yAxis.setMax(this.getMontoMayor(meses));
+        return ventasAnual;
+    }
+
+    private BarChartModel initBarModel(double[] meses) {
+        BarChartModel model = new BarChartModel();
+
+        ChartSeries res = new ChartSeries();
+        res.set("Ene", meses[0]);
+        res.set("Feb", meses[1]);
+        res.set("Mar", meses[2]);
+        res.set("Abri",meses[3]);
+        res.set("May", meses[4]);
+        res.set("Jun", meses[5]);
+        res.set("jul", meses[6]);
+        res.set("Ago",meses[7] );
+        res.set("Sep",meses[8]);
+        res.set("Oct", meses[9]);
+        res.set("Nov",meses[10]);
+        res.set("Dic",meses[11]);
+        model.addSeries(res);
+
+        return model;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public double[] getIndicadorVentas() {
+        double[] meses = new double[12];
+        int anio_actual = new Date().getYear() + 1900;
+        for (int i = 1; i <= 12; i++) {
+            List<Venta> res = db.read("from Venta ven where month(ven.fecha)=" + i + " and year(ven.fecha)=" + anio_actual);
+            double valor = res.stream().mapToDouble(x -> x.getIngreso().doubleValue()).sum();
+            meses[i - 1] = valor;
+        }
+        return meses;
+    }
+
+    public double getMontoMayor(double[] meses) {
+        double mayor = 0;
+        for (int i = 0; i < 12; i++) {
+            if (meses[i] > mayor) {
+                mayor = meses[i];
+            }
+        }
+        return mayor;
     }
 
     public List<Venta> getHistorico() {

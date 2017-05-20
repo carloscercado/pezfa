@@ -67,14 +67,16 @@ INSERT INTO CAMION
 	VALUES (1, 'SUBARU', 'MITSUBUSHI', 'RIP203'),
 	(2, '350', 'FORD', 'TR1SI2');
 
-/*INSERT INTO COMPRA 
-	VALUES (1, '0001', NOW (), 1, 1, 1, 3, 'PROCESADO', 2400),
-	(2, '0002', NOW (), 2, 1, 2, 6, 'PROCESADO', 2500),
-	(3, '0003', NOW (), 3, 1, 1, 5, 'PROCESADO', 2000),
-	(4, '0004', NOW (), 4, 1, 2, 6, 'PROCESADO', 2200),
-	(5, '0005', NOW (), 5, 1, 1, 5, 'PROCESADO', 2100),
-	(6, '0006', NOW (), 1, 1, 2, 5, 'PROCESADO', 2400),
-	(7, '0007', NOW (), 2, 1, 2, 3, 'PROCESADO', 2500),
-	(8, '0008', NOW (), 3, 1, 1, 6, 'PROCESADO', 2000),
-	(9, '0009', NOW (), 4, 1, 2, 1, 'PROCESADO', 2200),
-	(10, '0010', NOW (), 5, 1, 1, 5, 'PROCESADO', 2100);*/
+INSERT INTO COMPRA 
+	VALUES (1, '0001', NOW (), 1, 1, 1, 3, 'PROCESADO'),
+	(2, '0002', NOW (), 2, 1, 2, 6, 'PROCESADO'),
+	(3, '0003', NOW (), 3, 1, 1, 5, 'PROCESADO'),
+	(4, '0004', NOW (), 4, 1, 2, 6, 'PROCESADO'),
+	(5, '0005', NOW (), 5, 1, 1, 5, 'PROCESADO');	
+
+INSERT INTO COMPRA_ESPECIE
+	VALUES (1, 1, 1, 30, 500, 30),
+		(2, 2, 2, 60, 500, 60),
+		(3, 3, 3, 15, 500, 15),
+		(4, 4, 4, 80, 500, 80),
+		(5, 5, 5, 20, 500, 20);
