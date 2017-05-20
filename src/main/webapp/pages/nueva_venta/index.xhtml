@@ -42,7 +42,7 @@
 
                                         <p:inputText  class="pull-right" placeholder="Factura" id="vent" required="true"
                                                       requiredMessage="La factura es necesaria" 
-                                                      value="#{ventaController.venta.factura}" autocomplete="off">
+                                                      value="#{ventaController.venta.factura}" immediate="true" autocomplete="off">
                                             <p:ajax event="change" listener="#{ventaController.validarFactura()}" update="mensaje vent"/>
                                         </p:inputText>
                                     </div>
@@ -72,6 +72,7 @@
                                 <div  class="col-md-6 text-left ">
                                     <p:commandButton immediate="true" value="Agregar" class="right" icon="fa fa-plus" oncomplete="PF('registrar2').show()" update="@widgetVar(registrar2)"/>
                                     <p:commandButton  immediate="true" value="Nuevo cliente" class="right" icon="fa fa-user" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                    <p:commandButton value="Limpiar" class="right btn-danger" icon="fa fa-times" actionListener="#{ventaController.remove()}" update="@widgetVar(detalles)"/>
 
                                 </div>
 
@@ -121,18 +122,6 @@
                             </div>
                         </p:column>
 
-
-
-
-                        <p:column headerText="Quitar" width="15%">
-
-                            <center>
-                                <p:commandButton icon="fa fa-trash" title="Eliminar" update="@widgetVar(eliminar)"  oncomplete="PF('eliminar').show()" class="btn-danger">
-                                    <f:setPropertyActionListener target="#{ventaController.ventaDetalle}" value="#{detalle}"/>
-                                </p:commandButton>
-
-                            </center>
-                        </p:column>
                         <f:facet name="footer">
                             <div class="row">
                                 <div  class="col-md-6 text-left ">
@@ -278,7 +267,7 @@
                         </center>
                     </h:form>
                 </p:dialog>
-                
+               
             </ui:define>
 
         </ui:composition>

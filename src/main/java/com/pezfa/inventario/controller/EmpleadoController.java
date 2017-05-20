@@ -11,10 +11,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
-/**
- *
- * @author Romario Guerrero
- */
 @ManagedBean
 @ViewScoped
 public class EmpleadoController implements Serializable

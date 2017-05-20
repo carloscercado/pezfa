@@ -18,8 +18,7 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
-public class CompraEspecieController implements Serializable
-{
+public class CompraEspecieController implements Serializable {
 
     private CompraEspecie compraEspecie;
     private Set<CompraEspecie> miLista;
@@ -33,159 +32,132 @@ public class CompraEspecieController implements Serializable
     private CamionController camionController;
     private CompraEspecieDB db;
 
-    public CompraEspecieController()
-    {
+    public CompraEspecieController() {
         compraEspecie = new CompraEspecie();
         miLista = new HashSet<CompraEspecie>();
         db = new CompraEspecieDB();
     }
 
-    public CamionController getCamionController()
-    {
+    public CamionController getCamionController() {
         return camionController;
     }
 
-    public void setCamionController(CamionController camionController)
-    {
+    public void setCamionController(CamionController camionController) {
         this.camionController = camionController;
     }
+    
+    
 
-    public double getTotal()
-    {
+    public double getTotal() {
         return this.miLista.stream()
                 .mapToDouble(x -> x.getCosto().doubleValue() * x.getCantidad())
                 .sum();
     }
 
-    public double getCantidadDesubicados()
-    {
+    public double getCantidadDesubicados() {
         return this.getCompraEspecies().stream()
                 .mapToDouble(x -> x.getCantidad() - x.getUbicados())
                 .sum();
     }
 
-    public double getCostoTransito()
-    {
+    public double getCostoTransito() {
         return this.getCompraEspecies().stream()
                 .mapToDouble(x -> (x.getCantidad() - x.getUbicados()) * x.getCosto().floatValue())
                 .sum();
 
     }
 
-    public void reset()
-    {
+    public void reset() {
         compraEspecie = new CompraEspecie();
     }
 
-    public double getGastoTransito()
-    {
+    public double getGastoTransito() {
         return this.getCompraEspecies().stream()
                 .mapToDouble(x -> x.getCosto().doubleValue() * x.getCantidad())
                 .sum();
     }
 
-    public UsuarioController getUsuarioController()
-    {
+    public UsuarioController getUsuarioController() {
         return usuarioController;
     }
 
-    public void setUsuarioController(UsuarioController usuarioController)
-    {
+    public void setUsuarioController(UsuarioController usuarioController) {
         this.usuarioController = usuarioController;
     }
 
-    public double obtenerCostoTotal()
-    {
-        try
-        {
+    public double obtenerCostoTotal() {
+        try {
             return this.compraEspecie.getCosto().floatValue() * this.compraEspecie.getCantidad();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             return 0;
         }
     }
 
-    public CompraController getCompraController()
-    {
+    public CompraController getCompraController() {
         return compraController;
     }
 
-    public void setCompraController(CompraController compraController)
-    {
+    public void setCompraController(CompraController compraController) {
         this.compraController = compraController;
     }
 
-    public Set<CompraEspecie> getMiLista()
-    {
+    public Set<CompraEspecie> getMiLista() {
         return miLista;
     }
 
-    public void setMiLista(Set<CompraEspecie> miLista)
-    {
+    public void setMiLista(Set<CompraEspecie> miLista) {
         this.miLista = miLista;
     }
 
-    public CompraEspecie getCompraEspecie()
-    {
+    public CompraEspecie getCompraEspecie() {
         return compraEspecie;
     }
 
-    public void setCompraEspecie(CompraEspecie compraEspecie)
-    {
+    public void setCompraEspecie(CompraEspecie compraEspecie) {
         this.compraEspecie = compraEspecie;
     }
 
-    public List<CompraEspecie> getCompraEspecies()
-    {
+    public List<CompraEspecie> getCompraEspecies() {
         compraEspecies = db.read("from CompraEspecie com join fetch com.especie join fetch com.compra");
         return compraEspecies;
     }
 
-    public void setCompraEspecies(List<CompraEspecie> compraEspecies)
-    {
+    public void setCompraEspecies(List<CompraEspecie> compraEspecies) {
         this.compraEspecies = compraEspecies;
     }
 
-    public List<CompraEspecie> getDetalleCompra()
-    {
+    public List<CompraEspecie> getDetalleCompra() {
         int id = compraController.getCompra().getId();
         detalleCompra = db.findBy(id);
         return detalleCompra;
     }
-    
-    public List<CompraEspecie> getDetalles()
-    {
+
+    public List<CompraEspecie> getDetalles() {
         int id = compraController.getCompra().getId();
-        List<CompraEspecie> result =  db.read("from CompraEspecie ce join fetch ce.compra com join fetch ce.especie where com.id="+id);
+        List<CompraEspecie> result = db.read("from CompraEspecie ce join fetch ce.compra com join fetch ce.especie where com.id=" + id);
         System.err.println(result);
         return result;
-    } 
+    }
 
-    public void setDetalleCompra(List<CompraEspecie> detalleCompra)
-    {
+    public void setDetalleCompra(List<CompraEspecie> detalleCompra) {
         this.detalleCompra = detalleCompra;
     }
 
-    public void add()
-    {
-        compraController.getCompra().setUsuario(usuarioController.getSesion());
-        compraEspecie.setCompra(compraController.getCompra());
-        compraEspecie.setUbicados(0.0);
+    public void add() {
         miLista.add(compraEspecie);
         compraEspecie = new CompraEspecie();
         RequestContext con = RequestContext.getCurrentInstance();
         con.execute("PF('agregar').hide(); PF('registrar').hide();");
     }
 
-    public void register()
-    {
-        if (this.miLista.size() > 0)
-        {
-            if (db.createList(miLista))
-            {
+    public void register() {
+        if (this.miLista.size() > 0) {
+            compraController.getCompra().setUsuario(usuarioController.getSesion());
+            compraEspecie.setCompra(compraController.getCompra());
+            Compra compra = compraController.getCompra();
+            if (db.createList(miLista, compra)) {
                 Auditoria auditoria = new Auditoria();
                 AuditoriaDB auditoDB = new AuditoriaDB();
-                Compra compra = compraController.getCompra();
                 auditoria.setUsuario(compra.getUsuario());
                 auditoria.setFecha(compra.getFecha());
                 auditoria.setHora(compra.getFecha());
@@ -197,20 +169,17 @@ public class CompraEspecieController implements Serializable
                 compraController.setCompra(new Compra());
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Compra registrada exitosamente", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
-            } else
-            {
+            } else {
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas al registrar compra", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             }
-        } else
-        {
+        } else {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe agregar minimo un producto a la lista", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 
-    public void remove()
-    {
+    public void remove() {
         miLista.remove(compraEspecie);
         compraEspecie = new CompraEspecie();
     }

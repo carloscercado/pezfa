@@ -17,7 +17,16 @@
 
             <p:outputLabel value="#{proveedorController.provedores.size() }" class="invisible"/>            
             <h:form id="pa">
-
+                Inicial + Final #{indicadorController.totalInventarioActual}+#{indicadorController.totalVendido} = #{ini_fin =indicadorController.totalVendido+indicadorController.totalInventarioActual}<hr/>
+                Promedio: #{promedio = ini_fin/2}<hr/>
+                Vendido: #{vendido = indicadorController.costoVendido}<hr/>
+                Rotacion = #{rotacion = vendido/promedio}<hr/>
+                Dias funcionando = #{dias = indicadorController.getDiasFuncionando(indicadorController.fechaInicial)}<hr/>
+                Dias de rotacion = #{dias/rotacion}
+                
+                <hr/>
+                
+                #{indicadorController.rotacion}
                 <div class="container">
                     <div class="row ">
 

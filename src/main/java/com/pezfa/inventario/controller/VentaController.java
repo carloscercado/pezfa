@@ -26,10 +26,6 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-/**
- *
- * @author Romario Guerrero
- */
 @ManagedBean
 @ViewScoped
 public class VentaController implements Serializable {
@@ -164,14 +160,12 @@ public class VentaController implements Serializable {
         if (this.producto instanceof Ubicacion) {
             vu = new VentaEspecie();
             vu.setUbicacion((Ubicacion) this.producto);
-            vu.setVenta(venta);
             vu.setCantidad(cant);
             lista.add(vu);
             cant = 1;
         } else if (this.producto instanceof Unidad) {
             vt = new VentaUnidad();
             vt.setUnidad((Unidad) this.producto);
-            vt.setVenta(venta);
             vt.setCantidad(cant);
             lista.add(vt);
             cant = 1;
@@ -182,7 +176,7 @@ public class VentaController implements Serializable {
     }
 
     public void remove() {
-        lista.remove(ventaDetalle);
+        lista.clear();
     }
 
     public void reset() {
@@ -200,7 +194,7 @@ public class VentaController implements Serializable {
     //logica para registrar un venta
     public void register() {
         if (this.lista.size() > 0) {
-            salida = db.create_venta(lista);
+            salida = db.create_venta(lista, venta);
             if (salida != null) {
                 Auditoria auditoria = new Auditoria();
                 AuditoriaDB auditoDB = new AuditoriaDB();

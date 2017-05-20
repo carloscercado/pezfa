@@ -4,10 +4,7 @@ package com.pezfa.inventario.models;
 
 import java.util.HashSet;
 import java.util.Set;
-/**
 
- * @author Meritzabeth Yegres
- */
 public class Cava  implements java.io.Serializable {
 
 

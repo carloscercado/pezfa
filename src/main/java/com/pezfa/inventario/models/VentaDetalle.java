@@ -1,10 +1,5 @@
 package com.pezfa.inventario.models;
 
-/**
- *
- * @author Carlos Cercado
- * @email cercadocarlos@gmail.com
- */
 public class VentaDetalle 
 {
     private Venta venta;

@@ -5,11 +5,6 @@ import com.pezfa.inventario.models.Especie;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-/**
- *
- * @author Efrain Serrano
- */
-
 public class EspecieDB implements Crud<Especie>
 {
     public boolean validarCodigo(String codigo) {

@@ -5,10 +5,6 @@ import com.pezfa.inventario.models.Producto;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-/**
- *
- * @author yulitza,
- */
 public class ProductoDB implements Crud<Producto>
 {
     public boolean validarCodigo(String codigo) {

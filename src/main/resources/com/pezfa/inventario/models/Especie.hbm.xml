@@ -29,11 +29,6 @@
         <property name="precio" type="big_decimal">
             <column name="precio" precision="10" default="0" />
         </property>
-        <set name="compraEspecies" table="compra_especie" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="especie" not-null="true" />
-            </key>
-            <one-to-many class="com.pezfa.inventario.models.CompraEspecie" />
-        </set>
+        
     </class>
 </hibernate-mapping>

@@ -7,10 +7,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-/**
- *
- * @author Romario Guerrero
- */
 @ManagedBean
 @ViewScoped
 public class VentaTerminadoController implements Serializable

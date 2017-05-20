@@ -3,11 +3,6 @@ package com.pezfa.inventario.models;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-/**
- *
- * @author Carlos Cercado
- * @email cercadocarlos@gmail.com
- */
 public class ProductoSalida 
 {
     private int id;

@@ -1,10 +1,5 @@
 package com.pezfa.inventario.database;
 
-/**
- *
- * @author yulitza
- */
-
 import com.pezfa.inventario.hibernate.HibernateUtil;
 import java.util.List;
 import com.pezfa.inventario.models.Cava;

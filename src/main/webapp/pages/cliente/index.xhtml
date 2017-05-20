@@ -62,8 +62,13 @@
                     <h:form>
                         <p:growl id="mensaje"/> 
                         <p:messages id="msj" closable="true"/> 
-                        <p:panelGrid columns="2">
+                        <p:panelGrid columns="2" >
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:selectOneMenu value="#{clienteController.cliente.rif}" autoWidth="true">
+                                <f:selectItem itemValue="J" itemLabel="J-"/>
+                                <f:selectItem itemValue="V" itemLabel="V-"/>
+                                <f:selectItem itemValue="E" itemLabel="E-"/>
+                             </p:selectOneMenu>
                             <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="clien" required="true" value="#{clienteController.cliente.rif}">
                                 <p:ajax event="change" listener="#{clienteController.validarRif()}" update="msj clien"/>
                             </p:inputText> 

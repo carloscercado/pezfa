@@ -9,10 +9,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.Location;
 
-/**
- *
- * @author Romario Guerrero
- */
 @FacesConverter(forClass = Location.class, value = "camion")
 public class CamionConverter implements Converter {
 

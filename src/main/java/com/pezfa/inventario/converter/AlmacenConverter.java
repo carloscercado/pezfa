@@ -14,10 +14,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.Location;
 
-/**
- *
- * @author Alicia
- */
 @FacesConverter(forClass = Location.class, value = "almacen")
 public class AlmacenConverter implements Converter
 {

@@ -7,10 +7,6 @@ import java.util.Date;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-/**
- *
- * @author Romario Guerrero
- */
 public class UsuarioDB implements Crud<Usuario>
 {
 
@@ -47,5 +43,32 @@ public class UsuarioDB implements Crud<Usuario>
             return usuario;
         }
     }
+    
+    public boolean validarContrasena(String clave) {
+        Usuario usuario = null;
+        Session sesion = null;
+        boolean state = false;
+        try {
+            sesion = HibernateUtil.getSesion().openSession();
+            sesion.beginTransaction();
+            Query consulta = sesion.createQuery("from Usuario usuar where usuar.clave= :clave");
+            consulta.setParameter("clave", clave);
+            usuario = (Usuario) consulta.list().get(0);
+            if (usuario != null) {
+                state = true;
+            }
+            sesion.getTransaction().commit();
 
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+            sesion.getTransaction().rollback();
+            state = false;
+
+        } finally {
+            if (sesion != null) {
+                sesion.close();
+            }
+        }
+        return state;
+    }
 }
