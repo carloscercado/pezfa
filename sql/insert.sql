@@ -12,11 +12,11 @@ insert into almacen
 
        
 insert into empleado
-	VALUES (1, '15764832', 'MARIA', 'JOSE', 'PEREZ', 'ALVARADO', now(), 'F', 'ADMINISTRADOR'),
-		(2, '24657978', 'PEDRO', 'JOSE', 'GARCIA', 'ALVARADO', now(), 'M', 'EMPLEADO'),
-		(3, '19375232', 'ROSA', 'JOSE', 'MARQUEZ', 'ALVARADO', now(), 'F', 'ADMINISTRADOR'),
-		(4, '16425538', 'PABLO', 'JOSE', 'LOPEZ', 'ALVARADO', now(), 'M', 'ADMINISTRADOR'),
-		(5, '21685725', 'PATRICIA', 'JOSE', 'ROMERO', 'ALVARADO', now(), 'F', 'EMPLEADA'),
+	VALUES (1, '15764832', 'MARIA', 'JOSE', 'PEREZ', 'ALVARADO', now(), 'F', 'ADMINISTRACION'),
+		(2, '24657978', 'PEDRO', 'JOSE', 'GARCIA', 'ALVARADO', now(), 'M', 'RRHH'),
+		(3, '19375232', 'ROSA', 'JOSE', 'MARQUEZ', 'ALVARADO', now(), 'F', 'PRODUCCION'),
+		(4, '16425538', 'PABLO', 'JOSE', 'LOPEZ', 'ALVARADO', now(), 'M', 'OPERACION'),
+		(5, '21685725', 'PATRICIA', 'JOSE', 'ROMERO', 'ALVARADO', now(), 'F', 'ADMINISTRACION'),
 		(6, '22785825', 'ARTURO', 'MERLIN', 'CORAZON', 'DE LEON', now(), 'M', 'CHOFER'),
 		(7, '24645225', 'CHARLES', 'WINSTON', 'CHURCHILL', 'LEON', now(), 'M', 'CHOFER');
 		
@@ -57,24 +57,26 @@ INSERT INTO CAVA
 		(5, 'CAVA 5', 1000,1000,5);
 
 INSERT INTO usuario
-	values (1, 'admin', 'admin', 'ADMINISTRADOR', 1),
-		(2, 'usuario', '1234', 'EMPLEADO', 2),
-		(3, 'rosa', '12345', 'ADMINISTRADOR', 3),
-		(4, 'pablo', '123456', 'ADMINISTRADOR', 4),
-		(5, 'usua', '1234567', 'EMPLEADA', 5);
+	values (1, 'admin', 'admin', 'ADMINISTRACION', 1),
+		(2, 'usuario', '1234', 'RRHH', 2),
+		(3, 'rosa', '12345', 'PRODUCCION', 3),
+		(4, 'pablo', '123456', 'OPERACION', 4),
+		(5, 'usua', '1234567', 'ADMINISTRACION', 5);
 
 INSERT INTO CAMION 
 	VALUES (1, 'SUBARU', 'MITSUBUSHI', 'RIP203'),
 	(2, '350', 'FORD', 'TR1SI2');
 
 INSERT INTO COMPRA 
-	VALUES (1, '0001', NOW (), 1, 1, 1, 3, 'PROCESADO', 2400),
-	(2, '0002', NOW (), 2, 1, 2, 6, 'PROCESADO', 2500),
-	(3, '0003', NOW (), 3, 1, 1, 5, 'PROCESADO', 2000),
-	(4, '0004', NOW (), 4, 1, 2, 6, 'PROCESADO', 2200),
-	(5, '0005', NOW (), 5, 1, 1, 5, 'PROCESADO', 2100),
-	(6, '0006', NOW (), 1, 1, 2, 5, 'PROCESADO', 2400),
-	(7, '0007', NOW (), 2, 1, 2, 3, 'PROCESADO', 2500),
-	(8, '0008', NOW (), 3, 1, 1, 6, 'PROCESADO', 2000),
-	(9, '0009', NOW (), 4, 1, 2, 1, 'PROCESADO', 2200),
-	(10, '0010', NOW (), 5, 1, 1, 5, 'PROCESADO', 2100);
+	VALUES (1, '0001', NOW (), 1, 1, 1, 3, 'PROCESADO'),
+	(2, '0002', NOW (), 2, 1, 2, 6, 'PROCESADO'),
+	(3, '0003', NOW (), 3, 1, 1, 5, 'PROCESADO'),
+	(4, '0004', NOW (), 4, 1, 2, 6, 'PROCESADO'),
+	(5, '0005', NOW (), 5, 1, 1, 5, 'PROCESADO');	
+
+INSERT INTO COMPRA_ESPECIE
+	VALUES (1, 1, 1, 30, 500, 30),
+		(2, 2, 2, 60, 500, 60),
+		(3, 3, 3, 15, 500, 15),
+		(4, 4, 4, 80, 500, 80),
+		(5, 5, 5, 20, 500, 20);

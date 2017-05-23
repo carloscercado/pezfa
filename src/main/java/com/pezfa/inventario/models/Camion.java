@@ -1,9 +1,5 @@
 package com.pezfa.inventario.models;
-/**
- *
- * @author Romario Guerrero
- * @email romarioguerreroh@gmail.com
- */
+
 public class Camion implements java.io.Serializable {
 
     private int id;

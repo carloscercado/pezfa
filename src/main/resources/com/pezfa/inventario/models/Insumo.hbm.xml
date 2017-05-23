@@ -3,32 +3,29 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 22/04/2017 02:02:48 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.pezfa.inventario.models.Especie" table="especie" schema="public" optimistic-lock="version">
+    <class name="com.pezfa.inventario.models.Insumo" table="insumo" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
             <generator class="increment" />
         </id>
         <property name="codigo" type="string">
-            <column name="codigo" length="30" not-null="true" unique="true" />
+            <column name="codigo" length="30" not-null="true" />
         </property>
         <property name="nombre" type="string">
             <column name="nombre" length="20" not-null="true" />
         </property>
-        <property name="cantidad" type="java.lang.Double">
-            <column name="cantidad" precision="17" scale="17" default="0" />
+        <property name="cantidad" type="double">
+            <column name="cantidad" not-null="true" default="0"/>
         </property>
-        <property name="maximo" type="java.lang.Double">
-            <column name="maximo" precision="17" scale="17" default="100"/>
+        <property name="medida" type="string">
+            <column name="medida" length="20" not-null="true" default="0" />
         </property>
-        <property name="minimo" type="java.lang.Double">
-            <column name="minimo" precision="17" scale="17" default="10" />
+        <property name="minimo" type="double">
+            <column name="minimo" not-null="true" default="10" />
         </property>
         <property name="tipo" type="string">
             <column name="tipo" length="20" not-null="true" />
         </property>
-        <property name="precio" type="big_decimal">
-            <column name="precio" precision="10" default="0" />
-        </property>
-        
     </class>
 </hibernate-mapping>
+

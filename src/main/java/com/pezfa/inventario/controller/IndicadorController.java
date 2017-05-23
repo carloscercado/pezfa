@@ -1,8 +1,13 @@
 package com.pezfa.inventario.controller;
 
+import com.pezfa.inventario.database.CompraDB;
+import com.pezfa.inventario.database.CompraEspecieDB;
 import com.pezfa.inventario.database.IndicadorDB;
+import com.pezfa.inventario.database.VentaEspecieDB;
+import com.pezfa.inventario.models.Compra;
 import com.pezfa.inventario.models.Indicador;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -18,12 +23,30 @@ public class IndicadorController implements Serializable {
     private Indicador capacidad = null;
     private List<Indicador> indicadores = null;
     private IndicadorDB db;
+    private CompraEspecieDB db1;
+    private VentaEspecieDB db2;
+    private CompraDB db3;
 
     public IndicadorController() {
         indicador = new Indicador();
         db = new IndicadorDB();
+        db1 = new CompraEspecieDB();
+        db2 = new VentaEspecieDB();
+        db3 = new CompraDB();
         capacidad = this.getCapacidad();
 
+    }
+
+    public Date getFechaInicial() {
+        Compra compra = db3.read("from Compra cmp order by cmp.fecha").get(0);
+        return compra.getFecha();
+    }
+
+    public int getDiasFuncionando(Date menor) {
+        Date hoy = new Date();
+        long diferencia = hoy.getTime() - menor.getTime();
+        long dias = diferencia / (1000 * 60 * 60 * 24);
+        return (int) dias;
     }
 
     public Indicador getCapacidad() {
@@ -37,6 +60,29 @@ public class IndicadorController implements Serializable {
 
     public Indicador getIndicador() {
         return indicador;
+    }
+
+    public double getTotalInventarioActual() {
+        return db1.read("from CompraEspecie cp join fetch cp.especie").stream()
+                .mapToDouble(x -> x.getEspecie().getCantidad() * x.getCosto().doubleValue()).sum();
+    }
+
+    public double getTotalVendido() {
+        return db2.read("from VentaEspecie ve join fetch ve.ubicacion ubi join fetch ubi.compraEspecie").stream()
+                .mapToDouble(x -> x.getCantidad() * x.getUbicacion().getCompraEspecie().getCosto().doubleValue()).sum();
+    }
+
+    public double getCostoVendido() {
+        return db2.read("from VentaEspecie ve join fetch ve.ubicacion ubi join fetch ubi.compraEspecie cp join fetch cp.especie").stream()
+                .mapToDouble(x -> x.getCantidad() * x.getUbicacion().getCompraEspecie().getEspecie().getPrecio().doubleValue()).sum();
+    }
+
+    public double getRotacion() {
+        double actual = this.getTotalInventarioActual();
+        double inventarioPromedio = ((actual+ this.getTotalVendido()) / 2);
+        double rotacion = (this.getCostoVendido() / inventarioPromedio);
+
+        return (this.getDiasFuncionando(this.getFechaInicial()) / rotacion);
     }
 
     public void setIndicador(Indicador indicador) {

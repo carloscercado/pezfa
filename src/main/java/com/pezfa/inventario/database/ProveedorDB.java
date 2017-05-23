@@ -1,9 +1,5 @@
 package com.pezfa.inventario.database;
 
-/**
- *
- * @author yulitza
- */
 import com.pezfa.inventario.hibernate.HibernateUtil;
 import com.pezfa.inventario.models.Proveedor;
 import org.hibernate.Query;

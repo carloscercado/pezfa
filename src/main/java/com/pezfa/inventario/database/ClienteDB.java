@@ -5,10 +5,7 @@ import com.pezfa.inventario.hibernate.HibernateUtil;
 import com.pezfa.inventario.models.Cliente;
 import org.hibernate.Query;
 import org.hibernate.Session;
-/**
- *
- * @author Romario Guerrero
- */
+
 public class ClienteDB implements Crud<Cliente>
 {
      public boolean validarRif(String rif) {

@@ -15,8 +15,6 @@
             <ui:define name="content">
                 <br/>
                 <h3 align="center" style="color: #045491">Sistema de gestión de inventario de Pezfa C.A. </h3>
-
-
                 <div class="row">
                     <a href="#" onclick="PF('indicador').show()">
                         <div class="col-sm-4">
@@ -31,10 +29,10 @@
                                             style="color: #f63a1e; font-size: 18px">
                                         #{cavaController.capacidad} %
                                     </strong>
-                                    
+
                                     <strong style="color: #ff6600; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
                                                                                                     and (cavaController.capacidad le indicadorController.capacidad.malo+1))}" >
-                                        #{cavaController.capacidad} %
+                                            #{cavaController.capacidad} %
                                     </strong>
                                     <strong jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.malo)}" 
                                             style="color: #1ef664; font-size: 18px">
@@ -48,45 +46,13 @@
                         </div>
                     </a>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-8">
                         <div class="hero-widget well well-sm">
-                            <center> <div class="icon">
-                                    <i class="fa fa-users fa-5x" style="color: #045491"></i>
-                                </div>
-                            </center>
-                            <div class="text-center">
-                                <var><strong>#{clienteController.clientes.size()}</strong></var>
-                                <label class="text-muted">Total de clientes</label>
-                            </div>
-                            <div class="options">
-                                <center>
-                                    <a href="/pezfa/pages/cliente" class="btn btn-secundary" >
-                                        <span class="fa fa-search"/> Ver todos
-                                    </a>
-                                </center>
-                            </div>
+                            <p:chart type="bar" model="#{ventaController.ventasAnual}" style="height:100px"/>
                         </div>
                     </div>
 
-                    <div class="col-sm-4">
-                        <div class="hero-widget well well-sm">
-                            <center> <div class="icon">
-                                    <i class="fa fa-cubes fa-5x" style="color: #045491"></i>
-                                </div>
-                            </center>
-                            <div class="text-center">
-                                <var><strong>#{productoController.productos.size()}</strong></var>
-                                <label class="text-muted">Total de productos</label>
-                            </div>
-                            <div class="options">
-                                <center>
-                                    <a href="/pezfa/pages/producto" class="btn btn-secundary" >
-                                        <span class="fa fa-search"/> Ver todos
-                                    </a>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
+
 
                 </div>
                 <h:form>
@@ -135,58 +101,58 @@
 
                     </p:dataTable>
                 </h:form>
-                
+
                 <p:dialog  header="informacion de indicador" widgetVar="indicador" responsive="true" 
                            resizable="false" draggable="false" modal="true">
-              
-                   
-                    
-                    
-                        <p:panelGrid columns="2">
 
-                            <p:outputLabel value="Nombre del indicador:"> 
-                            </p:outputLabel>
-                            <p:outputLabel value="#{indicadorController.capacidad.nombre}"/>
-                            
-                            <p:outputLabel value="Descripcion:"> 
-                            </p:outputLabel>
-                            <p:outputLabel value="#{indicadorController.capacidad.descripcion}"/>
-                            
-                            <p:outputLabel value="Bueno:">
-                            </p:outputLabel>
-                            <p:outputLabel value="#{indicadorController.capacidad.bueno}"/>
-                            
-                            <p:outputLabel value="Malo:">
-                            </p:outputLabel>
-                            <p:outputLabel value="#{indicadorController.capacidad.malo}"/>
-                            
-                            <p:outputLabel value=" Rango optimo:">
-                            </p:outputLabel>
-                            <p:outputLabel value=" #{indicadorController.capacidad.malo} % - #{indicadorController.capacidad.bueno} %"/>
-                            
-                            <p:outputLabel value=" Medida:">
-                            </p:outputLabel>
-                            <p:outputLabel value=" #{cavaController.capacidad} % "/>
-                            <p:outputLabel value="Recomendacion:"/>
-                            <p:outputLabel rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}" value="#{indicadorController.capacidad.mensajeMalo}"/>
-                            <p:outputLabel rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
-                                                                                                    and (cavaController.capacidad le indicadorController.capacidad.malo+1))}" 
-                                           value="#{indicadorController.capacidad.mensajeAceptable}" />
-                            
-                            <p:outputLabel rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" value="#{indicadorController.capacidad.mensajeBueno}"/>
-                            
-                           
-                            
-                        </p:panelGrid>
-                 
-                                    
-                                   
-                   
-                        <br/>
-                       
-                    
-                         
-            
+
+
+
+                    <p:panelGrid columns="2">
+
+                        <p:outputLabel value="Nombre del indicador:"> 
+                        </p:outputLabel>
+                        <p:outputLabel value="#{indicadorController.capacidad.nombre}"/>
+
+                        <p:outputLabel value="Descripcion:"> 
+                        </p:outputLabel>
+                        <p:outputLabel value="#{indicadorController.capacidad.descripcion}"/>
+
+                        <p:outputLabel value="Bueno:">
+                        </p:outputLabel>
+                        <p:outputLabel value="#{indicadorController.capacidad.bueno}"/>
+
+                        <p:outputLabel value="Malo:">
+                        </p:outputLabel>
+                        <p:outputLabel value="#{indicadorController.capacidad.malo}"/>
+
+                        <p:outputLabel value=" Rango optimo:">
+                        </p:outputLabel>
+                        <p:outputLabel value=" #{indicadorController.capacidad.malo} % - #{indicadorController.capacidad.bueno} %"/>
+
+                        <p:outputLabel value=" Medida:">
+                        </p:outputLabel>
+                        <p:outputLabel value=" #{cavaController.capacidad} % "/>
+                        <p:outputLabel value="Recomendacion:"/>
+                        <p:outputLabel rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}" value="#{indicadorController.capacidad.mensajeMalo}"/>
+                        <p:outputLabel rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
+                                                   and (cavaController.capacidad le indicadorController.capacidad.malo+1))}" 
+                                       value="#{indicadorController.capacidad.mensajeAceptable}" />
+
+                        <p:outputLabel rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" value="#{indicadorController.capacidad.mensajeBueno}"/>
+
+
+
+                    </p:panelGrid>
+
+
+
+
+                    <br/>
+
+
+
+
                 </p:dialog>
 
             </ui:define>

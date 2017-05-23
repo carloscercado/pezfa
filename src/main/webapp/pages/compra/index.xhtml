@@ -16,7 +16,7 @@
                 <h:form>
                     <h3 align="center" style="color: #045491">Historial de compras</h3>
                     <p:tooltip  for="tabla" value="Seleccione un registro para ver el detalle" position="top" />
-    <p:dataTable id="tabla" selectionMode="single" selection="#{compraController.compra}" rowKey="#{compra.id}" widgetVar="historico" var="compra" value="#{compraController.historico}"
+                    <p:dataTable id="tabla" selectionMode="single" selection="#{compraController.compra}" rowKey="#{compra.id}" widgetVar="historico" var="compra" value="#{compraController.historico}"
                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true">
                         <f:facet name="header">
                             <p:ajax event="rowSelect" update="@widgetVar(detalles)" listener="#{compraController.onRowSelect}" /> 

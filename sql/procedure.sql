@@ -31,7 +31,7 @@ begin
 for objeto in (select especie, venta_especie.cantidad as cantidad, especie.precio valor, ubicacion.cava as cava, venta_especie.cantidad as cantidad, ubicacion.id as ubicacion from venta_especie join ubicacion on ubicacion=ubicacion.id join compra_especie on compra_especie.id=ubicacion.detalle join especie on especie.id=especie
 where ubicacion.id=new.ubicacion) loop
 update especie set cantidad=cantidad-objeto.cantidad where id=objeto.especie;
-update cava set capacidad_disponible = (capacidad_disponible + new.cantidad) where id = new.cava;
+update cava set capacidad_disponible = (capacidad_disponible + new.cantidad) where id = objeto.cava;
 update venta set ingreso = ingreso+(objeto.valor*objeto.cantidad) where id = new.venta;
 end loop;
 return null;
@@ -87,7 +87,8 @@ CREATE OR REPLACE FUNCTION actualizar_gasto_compra()
   RETURNS trigger AS
 $BODY$
 begin
-update compra set gasto=gasto+(new.costo*new.cantidad) where id=new.compra;
+update compra set gasto=gasto+(new.costo*new.cantidad), kilo_total=(kilo_total+new.cantidad) where id=new.compra;
+update compra set kilo_total=(kilo_total+new.cantidad) where id=new.compra;
 return null;
 end;
 $BODY$

@@ -11,10 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
 
-/**
- *
- * @author Romario Guerrero
- */
 @ManagedBean
 @ViewScoped
 public class UsuarioController implements Serializable {
@@ -82,11 +78,10 @@ public class UsuarioController implements Serializable {
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
-
+    
     //logica para registrar un usuario
     public void register() {
-        String user = usuario.getUsuario();
-        usuario.setClave(user);
+        
         usuario.toUpperCase();
         if (db.create(usuario)) {
             usuario = new Usuario();
@@ -117,10 +112,18 @@ public class UsuarioController implements Serializable {
     //logica para actualizar un usuario
     public void update() {
         usuario.toUpperCase();
-        if (db.update(usuario)) {
-            System.out.println("Actualizado");
-        } else {
-            System.out.println("No Actualizado");
+        if(db.update(usuario))
+        {
+            usuario = new Usuario();
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("PF('modificar').hide();");
+        }else
+        {
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
+    
 }

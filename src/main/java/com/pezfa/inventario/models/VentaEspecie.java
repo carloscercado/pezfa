@@ -8,8 +8,6 @@ public class VentaEspecie extends VentaDetalle  implements java.io.Serializable 
 
     public VentaEspecie() {
     }
-
-   
    
     public int getId() {
         return this.id;

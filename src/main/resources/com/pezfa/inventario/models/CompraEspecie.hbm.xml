@@ -23,11 +23,6 @@
         <property name="ubicados" type="java.lang.Double">
             <column name="ubicados" default="0" precision="17" scale="17" />
         </property>
-        <set name="ubicacions" table="ubicacion" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="detalle" not-null="true" />
-            </key>
-            <one-to-many class="com.pezfa.inventario.models.Ubicacion" />
-        </set>
+        
     </class>
 </hibernate-mapping>

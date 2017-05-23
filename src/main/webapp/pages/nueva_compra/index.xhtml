@@ -42,7 +42,7 @@
 
                                         <p:inputText  class="pull-right" placeholder="Orden de compra" id="comp" required="true"
                                                       requiredMessage="La orden de compra es necesaria" 
-                                                      value="#{compraController.compra.orden}" autocomplete="off">
+                                                      value="#{compraController.compra.orden}" autocomplete="off" immediate="true">
                                             <p:ajax event="change" listener="#{compraController.validarOrden()}" update="mensaje comp"/>
                                         </p:inputText>
                                     </div>
@@ -190,22 +190,32 @@
                                         </div>
                                     </div>
                                 </f:facet>
+                                <p:column headerText="Estado" class="text-center" width="12%">
+                                    <span  class="fa fa-circle fa-2x" jsf:rendered="#{especie.cantidad le especie.minimo}" style="color: #f63a1e"/>
+                                    <span  class="fa fa-circle fa-2x" jsf:rendered="#{((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo+1) and (especie.cantidad le especie.minimo+100))}" style="color: #f68e1e"/>
+                                    <span  class="fa fa-circle fa-2x" jsf:rendered="#{!(especie.cantidad le especie.minimo+100)}" style="color: #1ef664"/>
+                                </p:column> 
+                                
                                 <p:column headerText="Nombre" filterBy="#{especie.nombre}" filterStyle="display: none">
                                     #{especie.nombre}
 
                                 </p:column>
 
-                                <p:column headerText="Precio" class="text-right">
-                                    <p:outputLabel value="#{especie.precio}">
-                                        <f:convertNumber currencySymbol="BsF " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
-                                    </p:outputLabel>
-                                </p:column>
                                 <p:column headerText="Tipo" >
                                     #{especie.tipo}
                                 </p:column>
+                                
+                                     
+                               <p:column headerText="Cantidad" class="text-right">
+                                    #{especie.cantidad} Kg
+                               </p:column>
+                                
+                                <p:column headerText="M&iacute;nimo" >
+                                    #{especie.minimo} Kg
+                                </p:column>
+                                
                                 <p:column headerText="Agregar" priority="2">
-
-                                    <center>
+                               <center>
                                         <p:commandButton icon="fa fa-plus" title="Agregar" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
                                             <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie.especie}" value="#{especie}"/>
                                         </p:commandButton>
@@ -244,7 +254,7 @@
                             <br></br>
                             <center>
                                 <p:commandButton icon="fa fa-save" value="Agregar" update="@widgetVar(compraEspecie) mensaje" actionListener="#{compraEspecieController.add()}"   />
-                                <p:commandButton  icon="fa fa-times" value="Cancelar" onclick="PF('agregar').hide()" class="btn-danger"/>
+                                <p:commandButton  icon="fa fa-times" value="Cancelar" immediate="true" onclick="PF('agregar').hide()" class="btn-danger"/>
                             </center>
                             <br/>
                         </center>

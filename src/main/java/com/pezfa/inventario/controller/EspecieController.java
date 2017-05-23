@@ -3,6 +3,7 @@ package com.pezfa.inventario.controller;
 import com.pezfa.inventario.database.EspecieDB;
 import com.pezfa.inventario.models.Especie;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -80,6 +81,11 @@ public class EspecieController implements Serializable
      
     public void register()
     {
+        especie.setMinimo(10.0);
+        especie.setCantidad(0.0);
+        especie.setPrecio(BigDecimal.ZERO);
+        especie.setMaximo(100.0);
+        
         especie.toUpperCase();
         if(db.create(especie))
         {

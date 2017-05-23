@@ -9,14 +9,14 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.Location;
 
-@FacesConverter(forClass = Location.class, value = "empleado")
-public class EmpleadoConverter implements Converter {
+@FacesConverter(forClass = Location.class, value = "empleadores")
+public class EmpleadoConverter2 implements Converter {
 
     public static List<Empleado> empleados;
 
-    public EmpleadoConverter() {
+    public EmpleadoConverter2() {
         EmpleadoDB db = new EmpleadoDB();
-        empleados = db.read("From Empleado emp where emp.cargo='CHOFER'");
+        empleados = db.read("From Empleado emp");
     }
 
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {

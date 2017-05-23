@@ -5,10 +5,6 @@ import com.pezfa.inventario.models.Empleado;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-/**
- *
- * @author Romario Guerrero
- */
 public class EmpleadoDB implements Crud<Empleado>
 {
     public boolean validarCedula(String cedula) {

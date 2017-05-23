@@ -7,10 +7,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-/**
- *
- * @author Romario Guerrero
- */
 @ManagedBean
 @ViewScoped
 public class VentaUnidadController implements Serializable
@@ -37,6 +33,8 @@ public class VentaUnidadController implements Serializable
     {
         this.ventaunidad = ventaunidad;
     }
+    
+   
 
     public List<VentaEspecie> getVentauni()
     {

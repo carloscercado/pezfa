@@ -1,9 +1,5 @@
 package com.pezfa.inventario.database;
 
-/**
- *
- * @author yulitza
- */
 import com.pezfa.inventario.hibernate.HibernateUtil;
 import com.pezfa.inventario.models.Compra;
 import java.util.List;
@@ -15,7 +11,7 @@ import org.hibernate.Session;
 public class CompraEspecieDB implements Crud<CompraEspecie>
 {
 
-    public static boolean createList(Set<CompraEspecie> objs)
+    public static boolean createList(Set<CompraEspecie> objs, Compra compra)
     {
         Session sesion = null;//inicializa la session
         boolean state = false;//inicializa la variable state
@@ -23,14 +19,12 @@ public class CompraEspecieDB implements Crud<CompraEspecie>
         {
             sesion = HibernateUtil.getSesion().openSession(); //Hibernanteutil clase pertenenciente a la base de datos... abrir y obtener conexion en la base de datos
             sesion.beginTransaction(); //iniciar la transaccion... transaccion: son las operaciones crud
-            Compra compra = null;
-            for(CompraEspecie obj : objs)
-                compra = obj.getCompra(); 
             compra.setEstado("Comprado");
             compra.setGasto(BigDecimal.ZERO);
             sesion.save(compra);
             for (CompraEspecie obj : objs)
             {
+                obj.setCompra(compra);
                 obj.setUbicados(0.0);
                 sesion.save(obj);//guardar el objeto cliente
             }
