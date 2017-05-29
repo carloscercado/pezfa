@@ -140,8 +140,7 @@ public class VentaController implements Serializable {
     }
 
     public List<Venta> getHistorico() {
-        historico = db.read("from Venta ven join fetch ven.cliente "
-                + "join fetch ven.venta_especie order by ven.fecha");
+        historico = db.read("from Venta ven join fetch ven.cliente");
 
         return historico;
     }
@@ -149,14 +148,14 @@ public class VentaController implements Serializable {
     public void setHistorico(List<Venta> historico) {
         this.historico = historico;
     }
-
-    public List<ProductoSalida> getSalida() {
-        return salida;
-    }
-
+    
     public void onRowSelect(SelectEvent event) {
         RequestContext con = RequestContext.getCurrentInstance();
         con.execute("PF('detalles').show();");
+    }
+
+    public List<ProductoSalida> getSalida() {
+        return salida;
     }
 
     public void setSalida(List<ProductoSalida> salida) {

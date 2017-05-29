@@ -9,14 +9,15 @@
     <body>
 
         <ui:composition template="./../../template/menu.xhtml">
-            
+
             <ui:define name="content">
                 <h:form>
                     <h3 align="center" style="color: #045491">Administrar almacenes</h3>
-                    
+                    <p:commandButton value="Reporte" actionListener="#{almacenController.reporte()}"/>
+
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="almacenes" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="almacen" value="#{almacenController.almacenes}">
                         <f:facet name="header">
-                              <div class="row">
+                            <div class="row">
                                 <div  class="col-md-6 text-left header-tabla-hidden">
                                     <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
                                 </div>
@@ -24,7 +25,7 @@
                                 <div class="col-md-6 text-right header-tabla-center">
                                     <p:inputText id="globalFilter" onkeyup="PF('almacenes').filter()" placeholder="Buscar"/>
                                 </div>
-                                </div>
+                            </div>
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>
@@ -40,7 +41,7 @@
                         </p:column>
 
                         <p:column headerText="Tel&eacute;fono">
-                           <span class="fa fa-phone" /> #{almacen.telefono} 
+                            <span class="fa fa-phone" /> #{almacen.telefono} 
                         </p:column>
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
                             <center>  
@@ -107,13 +108,13 @@
                         </p:panelGrid>
 
                         <br/>
-                            <center>
-                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(almacenes)" actionListener="#{almacenController.update()}"/> 
-                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{almacenController.reset()}" oncomplete="PF('modificar').hide()"/>
-                            </center>
+                        <center>
+                            <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(almacenes)" actionListener="#{almacenController.update()}"/> 
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{almacenController.reset()}" oncomplete="PF('modificar').hide()"/>
+                        </center>
                     </h:form>
                 </p:dialog> 
-                
+
             </ui:define>
 
         </ui:composition>

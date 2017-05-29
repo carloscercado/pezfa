@@ -2,6 +2,7 @@ package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.AlmacenDB;
 import com.pezfa.inventario.models.Almacen;
+import com.pezfa.inventario.reports.ReporteConstructor;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -38,6 +39,11 @@ public class AlmacenController implements Serializable {
         return almacenes;
     }
 
+    public void reporte()
+    {
+       /* ReporteConstructor rep = new ReporteConstructor();
+        rep.build();*/
+    }
     public void setAlmacenes(List<Almacen> almacenes) {
         this.almacenes = almacenes;
     }

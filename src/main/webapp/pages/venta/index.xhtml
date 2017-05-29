@@ -17,7 +17,7 @@
                     <h3 align="center" style="color: #045491">Historial de ventas</h3>
                     <p:tooltip  for="tabla" value="Seleccione un registro para ver el detalle" position="top" />
     <p:dataTable id="tabla" selectionMode="single" selection="#{ventaController.venta}" rowKey="#{venta.id}"
-                                 widgetVar="historico" var="ventas" value="#{ventaController.historico}"
+                                 widgetVar="historico" var="venta" value="#{ventaController.historico}"
                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true">
                         <f:facet name="header">
                             <p:ajax event="rowSelect" update="@widgetVar(detalles)" listener="#{ventaController.onRowSelect}" /> 
@@ -63,24 +63,24 @@
                             </p:inputText>
                         </p:panelGrid>
 
-                        <br/>
-                        <p:dataTable  value="#{ventaEspecieController.detalles}" var="detallesVentas" 
-                                      widgetVar="detallesVentas" emptyMessage="No hay productos asociados al historial de ventas."> 
+                        <!-- <br/>
+                        <p:dataTable  value="#{ventaController.historico}" var="historicoVentas" 
+                                      widgetVar="detalles" emptyMessage="No hay productos asociados al historial de ventas."> 
 
                             <p:column headerText="Factura">
-                                #{detallesVentas.especie.codigo} 
+                                #{historicoVentas.venta.factura} 
                             </p:column>
 
-                            <p:column headerText="Especie">
-                                #{detallesVentas.especie.nombre} 
+                            <p:column headerText="Cliente">
+                                #{historicoVentas.nombre} 
                             </p:column>
 
-                            <p:column headerText="Cantidad" class="text-right" width="12%">
-                                #{detallesVentas.cantidad} Kg
+                            <p:column headerText="Fecha" class="text-right" width="12%">
+                                #{historicoVentas.fecha}
                             </p:column>
 
-                            <p:column headerText="Costo" class="text-right">
-                                <h:outputLabel value="#{ventaEspecie.costo}">
+                            <p:column headerText="Ingreso" class="text-right">
+                                <h:outputLabel value="#{historicoVentas.ingreso}">
                                     <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                                 </h:outputLabel> 
                             </p:column>
@@ -90,7 +90,7 @@
                                     <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                                 </h:outputLabel> 
                             </p:column>
-                        </p:dataTable>
+                        </p:dataTable> !-->
                     </h:form>
                 </p:dialog>
 
