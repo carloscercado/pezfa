@@ -13,9 +13,7 @@
         <ui:composition template="./../template/menu.xhtml">
 
             <ui:define name="content">
-                <br/>
-                <h3 align="center" style="color: #045491">Sistema de gestión de inventario de Pezfa C.A. </h3>
-                <div class="row">
+                 <div class="row">
                     <a href="#" onclick="PF('indicador').show()">
                         <div class="col-sm-4">
                             <div class="hero-widget well well-sm">
@@ -39,18 +37,18 @@
                                         #{cavaController.capacidad} %
                                     </strong>
 
-
                                 </div>
-
                             </div>
                         </div>
+                        
                     </a>
 
                     <div class="col-sm-8">
                         <div class="hero-widget well well-sm">
-                            <p:chart type="bar" model="#{ventaController.ventasAnual}" style="height:100px"/>
+                            <p:chart type="bar" model="#{ventaController.ventasAnual}" style="height:150px"/>
                         </div>
                     </div>
+                     
 
 
 
@@ -102,11 +100,8 @@
                     </p:dataTable>
                 </h:form>
 
-                <p:dialog  header="informacion de indicador" widgetVar="indicador" responsive="true" 
+                <p:dialog  header="Informaci&oacute;n de indicador" widgetVar="indicador" responsive="true" 
                            resizable="false" draggable="false" modal="true">
-
-
-
 
                     <p:panelGrid columns="2">
 
@@ -114,7 +109,7 @@
                         </p:outputLabel>
                         <p:outputLabel value="#{indicadorController.capacidad.nombre}"/>
 
-                        <p:outputLabel value="Descripcion:"> 
+                        <p:outputLabel value="Descripci&oacute;n:"> 
                         </p:outputLabel>
                         <p:outputLabel value="#{indicadorController.capacidad.descripcion}"/>
 
@@ -126,14 +121,14 @@
                         </p:outputLabel>
                         <p:outputLabel value="#{indicadorController.capacidad.malo}"/>
 
-                        <p:outputLabel value=" Rango optimo:">
+                        <p:outputLabel value=" Rango &oacute;ptimo:">
                         </p:outputLabel>
                         <p:outputLabel value=" #{indicadorController.capacidad.malo} % - #{indicadorController.capacidad.bueno} %"/>
 
                         <p:outputLabel value=" Medida:">
                         </p:outputLabel>
                         <p:outputLabel value=" #{cavaController.capacidad} % "/>
-                        <p:outputLabel value="Recomendacion:"/>
+                        <p:outputLabel value="Estado:"/>
                         <p:outputLabel rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}" value="#{indicadorController.capacidad.mensajeMalo}"/>
                         <p:outputLabel rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
                                                    and (cavaController.capacidad le indicadorController.capacidad.malo+1))}" 
@@ -141,17 +136,9 @@
 
                         <p:outputLabel rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" value="#{indicadorController.capacidad.mensajeBueno}"/>
 
-
-
                     </p:panelGrid>
 
-
-
-
                     <br/>
-
-
-
 
                 </p:dialog>
 

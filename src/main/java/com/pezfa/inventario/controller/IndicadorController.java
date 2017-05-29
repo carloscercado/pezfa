@@ -77,12 +77,16 @@ public class IndicadorController implements Serializable {
                 .mapToDouble(x -> x.getCantidad() * x.getUbicacion().getCompraEspecie().getEspecie().getPrecio().doubleValue()).sum();
     }
 
-    public double getRotacion() {
+    public int getRotacion() {
         double actual = this.getTotalInventarioActual();
         double inventarioPromedio = ((actual+ this.getTotalVendido()) / 2);
         double rotacion = (this.getCostoVendido() / inventarioPromedio);
 
-        return (this.getDiasFuncionando(this.getFechaInicial()) / rotacion);
+        double resultado = (this.getDiasFuncionando(this.getFechaInicial()) / rotacion);
+        if (resultado>0)
+            return (int) resultado;
+        else
+            return 0;
     }
 
     public void setIndicador(Indicador indicador) {
