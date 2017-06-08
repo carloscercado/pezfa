@@ -18,6 +18,7 @@ public class LoginController implements Serializable {
     private final FacesContext contexto;
 
     public LoginController() {
+        System.out.println("hao");
         contexto = FacesContext.getCurrentInstance();
         req = (HttpServletRequest) contexto.getExternalContext().getRequest();
         Usuario userr = (Usuario) req.getSession().getAttribute("sesion");

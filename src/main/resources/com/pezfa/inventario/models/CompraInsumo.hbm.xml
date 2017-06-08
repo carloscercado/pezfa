@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2017 11:52:58 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pezfa.inventario.models.CompraInsumo" table="compra_insumo" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="compra" class="com.pezfa.inventario.models.Compra" fetch="select">
+            <column name="compra" not-null="true" />
+        </many-to-one>
+        <many-to-one name="insumo" class="com.pezfa.inventario.models.Insumo" fetch="select">
+            <column name="insumo" not-null="true" />
+        </many-to-one>
+        <property name="cantidad" type="double">
+            <column name="cantidad" precision="17" scale="17" not-null="true" />
+        </property>
+        <property name="costo" type="big_decimal">
+            <column name="costo" precision="10" />
+        </property>
+    </class>
+</hibernate-mapping>

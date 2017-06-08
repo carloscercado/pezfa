@@ -64,8 +64,15 @@
                     </a>
 
                     <div class="col-sm-8">
+                        <label class="text-muted">ventas por año por bolivares: </label>
                         <div class="hero-widget well well-sm">
                             <p:chart type="bar" model="#{ventaController.ventasAnual}" style="height:150px"/>
+                        </div>
+                    </div>
+                   <div class="col-sm-8">
+                       <label class="text-muted">ventas por año por kilos: </label> 
+                       <div class="hero-widget well well-sm">
+                            <p:chart type="bar" model="#{ventaController.ventasAnualKilos}" style="height:150px"/>
                         </div>
                     </div>
                </div>

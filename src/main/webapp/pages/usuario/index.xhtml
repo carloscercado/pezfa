@@ -6,12 +6,13 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
-    <body>
+   <body >
 
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-                <h:form>
+                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+
                     <h3 align="center" style="color: #045491">Administrar usuarios</h3>
 
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="usuarios" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="usuario" value="#{usuarioController.usuarios}">
@@ -55,6 +56,15 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
+
+                <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                    <center>
+                        <p:graphicImage name="/images/401.png" height="400"/>
+                        <br/>
+                        <p:commandButton onclick="location.href = '/pezfa'" icon="fa fa-home" value="Volver al inicio"/>
+                    </center>                    
+                </h:form>
+
                 <p:dialog header="Registrar usuario" widgetVar="registrar" modal="true" draggable="false" resizable="false" responsive="true" closable="false">
                     <f:facet name="onHide">
                         <p:ajax update="@widgetVar(usuarios)" listener="#{usuarioController.reset()}"/>
@@ -78,28 +88,28 @@
                             <p:password validatorMessage="No coinciden las contrase&ntilde;as"  id="pwd1" value="#{usuarioController.usuario.clave}" match="pwd2" label="Password 1" required="true"
                                         feedback="true" inline="true" requiredMessage="Registre la contrase&ntilde;a" placeholder="Contrase&ntilde;a" 
                                         promptLabel="Elija una contrase&ntilde;a" weakLabel="F&aacute;cil" goodLabel="Normal" strongLabel="Segura" maxlength="20"/>
-                           
+
                             <p:outputLabel value="Repetir contrase&ntilde;a:"><span style="color: #D20005">*</span></p:outputLabel>
                             <p:password id="pwd2" value="#{usuarioController.usuario.clave}" label="Password 2" required="true" 
                                         requiredMessage="Registre la contrase&ntilde;a" placeholder="Contrase&ntilde;a" maxlength="20"/>
 
 
-                    <p:outputLabel value="Rol:"> <span style="color: #D20005">*</span></p:outputLabel>
-                    <p:selectOneMenu value="#{usuarioController.usuario.rol}" filter="true" required="true" requiredMessage="Seleccione el rol">
-                        <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar" />
-                        <f:selectItem itemValue="Administraci&oacute;n" itemLabel="Administraci&oacute;n"/>
-                        <f:selectItem itemValue="RRHH" itemLabel="Recursos Humanos"/>
-                        <f:selectItem itemValue="Producci&oacute;n" itemLabel="Producci&oacute;n"/>
-                        <f:selectItem itemValue="Operaci&oacute;n" itemLabel="Operaci&oacute;n"/>      
-                        <f:selectItem itemValue="Chofer" itemLabel="Chofer"/>
-                    </p:selectOneMenu>
+                            <p:outputLabel value="Rol:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:selectOneMenu value="#{usuarioController.usuario.rol}" filter="true" required="true" requiredMessage="Seleccione el rol">
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar" />
+                                <f:selectItem itemValue="Administraci&oacute;n" itemLabel="Administraci&oacute;n"/>
+                                <f:selectItem itemValue="RRHH" itemLabel="Recursos Humanos"/>
+                                <f:selectItem itemValue="Producci&oacute;n" itemLabel="Producci&oacute;n"/>
+                                <f:selectItem itemValue="Operaci&oacute;n" itemLabel="Operaci&oacute;n"/>      
+                                <f:selectItem itemValue="Chofer" itemLabel="Chofer"/>
+                            </p:selectOneMenu>
 
-                    </p:panelGrid>
-                    <br/>
-                    <center>
-                        <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{usuarioController.register()}"/> 
-                        <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
-                    </center>
+                        </p:panelGrid>
+                        <br/>
+                        <center>
+                            <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{usuarioController.register()}"/> 
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
+                        </center>
                     </h:form>
                 </p:dialog>
 
@@ -131,7 +141,7 @@
                             <p:password redisplay="true" validatorMessage="No coinciden las contrase&ntilde;as"  id="pwd1" value="#{usuarioController.usuario.clave}" match="pwd2" label="Password 1" required="true"
                                         feedback="true" inline="true" requiredMessage="Registre la contrase&ntilde;a" placeholder="Contrase&ntilde;a" 
                                         promptLabel="Elija una contrase&ntilde;a" weakLabel="F&aacute;cil" goodLabel="Normal" strongLabel="Segura" maxlength="20"/>
-                           
+
                             <p:outputLabel value="Repetir contrase&ntilde;a:"><span style="color: #D20005">*</span></p:outputLabel>
                             <p:password redisplay="true" id="pwd2" value="#{usuarioController.usuario.clave}" label="Password 2" required="true" 
                                         requiredMessage="Registre la contrase&ntilde;a" placeholder="Contrase&ntilde;a" maxlength="20"/>
@@ -145,7 +155,7 @@
                                 <f:selectItem itemValue="Operaci&oacute;n" itemLabel="Operaci&oacute;n"/>
                                 <f:selectItem itemValue="Chofer" itemLabel="Chofer"/>
                             </p:selectOneMenu>
-                    </p:panelGrid>
+                        </p:panelGrid>
 
                         <br/>
                         <center>

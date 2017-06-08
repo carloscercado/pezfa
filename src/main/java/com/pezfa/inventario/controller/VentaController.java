@@ -50,6 +50,7 @@ public class VentaController implements Serializable {
     private UsuarioController usuarioController;
     private double cant;
     private BarChartModel ventasAnual;
+    private BarChartModel ventasAnualKilos;
     private Date fecha = new Date();
 
     //constructor
@@ -65,7 +66,7 @@ public class VentaController implements Serializable {
     }
 
     public BarChartModel getVentasAnual() {
-        ventasAnual = this.inicializarGrafica();
+        ventasAnual = this.inicializarGrafica()[0];
         return ventasAnual;
     }
 
@@ -73,20 +74,43 @@ public class VentaController implements Serializable {
         this.ventasAnual = ventasAnual;
     }
 
-    public BarChartModel inicializarGrafica() {
+    public BarChartModel getVentasAnualKilos() {
+        ventasAnualKilos = this.inicializarGrafica()[1];
+        return ventasAnualKilos;
+    }
+
+    public void setVentasAnualKilos(BarChartModel ventasAnualKilos) {
+        this.ventasAnualKilos = ventasAnualKilos;
+    }
+
+    
+    public BarChartModel[] inicializarGrafica() {
         double[] meses = this.getIndicadorVentas();
-
+        double[] mesesKilos = this.getIndicadorVentasKilos();
+        
+        BarChartModel[] modelos = new BarChartModel[2];
+        
+        
         ventasAnual = initBarModel(meses);
-
+        ventasAnualKilos = initBarModel(mesesKilos);
         ventasAnual.setAnimate(true);
         ventasAnual.setNegativeSeriesColors("22c80a");
+        
+        ventasAnualKilos.setAnimate(true);
+        ventasAnualKilos.setNegativeSeriesColors("22c80a");
 
         Axis xAxis = ventasAnual.getAxis(AxisType.X);
-
         Axis yAxis = ventasAnual.getAxis(AxisType.Y);
+        
+        Axis xAxis2 = ventasAnualKilos.getAxis(AxisType.X);
+        Axis yAxis2 = ventasAnualKilos.getAxis(AxisType.Y);
         yAxis.setMin(0);
         yAxis.setMax(this.getMontoMayor(meses));
-        return ventasAnual;
+        yAxis2.setMin(0);
+        yAxis2.setMax(this.getMontoMayor(mesesKilos));
+        modelos[0] = ventasAnual;
+        modelos[1] = ventasAnualKilos;
+        return modelos;
     }
 
     private BarChartModel initBarModel(double[] meses) {
@@ -124,6 +148,17 @@ public class VentaController implements Serializable {
         for (int i = 1; i <= 12; i++) {
             List<Venta> res = db.read("from Venta ven where month(ven.fecha)=" + i + " and year(ven.fecha)=" + anio_actual);
             double valor = res.stream().mapToDouble(x -> x.getIngreso().doubleValue()).sum();
+            meses[i - 1] = valor;
+        }
+        return meses;
+    }
+    
+    public double[] getIndicadorVentasKilos() {
+        double[] meses = new double[12];
+        int anio_actual = new Date().getYear() + 1900;
+        for (int i = 1; i <= 12; i++) {
+            List<Venta> res = db.read("from Venta ven where month(ven.fecha)=" + i + " and year(ven.fecha)=" + anio_actual);
+            double valor = res.stream().mapToDouble(x -> x.getKiloTotal()).sum();
             meses[i - 1] = valor;
         }
         return meses;
@@ -283,7 +318,7 @@ public class VentaController implements Serializable {
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Venta registrada exitosamente", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
                 RequestContext con = RequestContext.getCurrentInstance();
-                con.execute(" PF('productossalida').show()");
+                
             } else {
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas al registrar venta", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);

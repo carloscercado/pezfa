@@ -33,6 +33,8 @@ where ubicacion.id=new.ubicacion) loop
 update especie set cantidad=cantidad-objeto.cantidad where id=objeto.especie;
 update cava set capacidad_disponible = (capacidad_disponible + new.cantidad) where id = objeto.cava;
 update venta set ingreso = ingreso+(objeto.valor*objeto.cantidad) where id = new.venta;
+update venta set kilo_total = (kilo_total+objeto.cantidad) where id = new.venta;
+
 end loop;
 return null;
 end;

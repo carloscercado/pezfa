@@ -2,7 +2,6 @@ package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.AlmacenDB;
 import com.pezfa.inventario.models.Almacen;
-import com.pezfa.inventario.reports.ReporteConstructor;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;

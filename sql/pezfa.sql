@@ -1,4 +1,6 @@
-﻿create table if not exists insumo
+﻿
+
+create table if not exists insumo
 (
   id serial primary key,
     codigo varchar(30) not null unique,
@@ -140,6 +142,14 @@ create table if not exists compra
     kilo_total float default 0
 );
 
+create table if not exists compra_insumo
+(
+    id serial primary key,  
+    compra int not null references compra(id),
+    insumo int not null references insumo(id),
+    cantidad float not null,
+    costo numeric(10,2) default 0
+);
 create table if not exists venta
 (
     id serial primary key,
@@ -147,7 +157,8 @@ create table if not exists venta
     fecha date default now()::date,
     cliente int not null references cliente (id),
     usuario int not null references usuario(id),
-    ingreso numeric(10,2) default 0
+    ingreso numeric(10,2) default 0,
+    kilo_total float default 0
 );
 
 create table if not exists cava

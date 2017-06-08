@@ -1,7 +1,6 @@
 package com.pezfa.inventario.database;
 
 import com.pezfa.inventario.hibernate.HibernateUtil;
-import com.pezfa.inventario.models.Producto;
 import com.pezfa.inventario.models.ProductoSalida;
 import com.pezfa.inventario.models.Unidad;
 import com.pezfa.inventario.models.Ubicacion;
@@ -50,7 +49,7 @@ public class VentaDB implements Crud<Venta> {
             }
             sesion.getTransaction().commit();
         } catch (Exception hi) {
-            System.out.println("Aqui " + hi.getMessage());
+            System.out.println("Aqui ESTOY " + hi.getMessage());
             sesion.getTransaction().rollback();
             lista = null;
         }

@@ -13,7 +13,13 @@
         <ui:composition template="./../template/menu.xhtml">
 
             <ui:define name="content">
-                 <div class="row">
+                <br/>
+                <div class="hero-widget well well-sm">
+                    <p:chart type="bar" model="#{ventaController.ventasAnualKilos}" style="height:100px"/>
+                </div>
+                <h3 align="center" style="color: #045491">Sistema de gestión de inventario de Pezfa C.A. </h3>
+                <div class="row">
+
                     <a href="#" onclick="PF('indicador').show()">
                         <div class="col-sm-4">
                             <div class="hero-widget well well-sm">

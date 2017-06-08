@@ -14,7 +14,6 @@
         <h:outputStylesheet name="/css/bootstrap.min.css"/>
         <h:outputStylesheet name="/css/cssLayout.css"/>
 
-        <h:outputStylesheet name="/css/font-awesome.min.css"/>
         <h:outputScript name="/js/bootstrap.min.js"/>
         <script>
             function numero(e)
@@ -99,7 +98,7 @@
 
                                 <div class="collapse navbar-collapse " id="colapse">
                                     <ul class="nav navbar-nav"> 
-                                        <li class="dropdown" >
+                                        <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}" class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                                 <i class="fa fa-gears"></i> <strong>Administrar </strong>
                                                 <i class="fa fa-caret-down"></i>
@@ -179,6 +178,13 @@
                                             </ul>
                                         </li>
 
+                                         <li jsf:rendered="#{(usuarioController.sesion.rol eq 'USUARIO')}">
+                                            <a href="/pezfa/pages/especie">
+                                                <span class="fa fa-cube"></span>
+                                                <strong>Especie</strong>
+                                            </a>
+                                        </li>
+                                            
                                         <li>
                                             <a href="/pezfa/pages/compra/">
                                                 <span class="fa fa-shopping-cart"></span>
@@ -188,6 +194,7 @@
                                                 </strong>
                                             </a>
                                         </li>
+                                       
                                         <li>
                                             <a href="/pezfa/pages/venta/">
                                                 <span class="fa fa-dollar"></span>
@@ -195,22 +202,22 @@
                                             </a>
                                         </li>
 
-                                        <li>
+                                        <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
                                             <a href="/pezfa/pages/inventario/">
                                                 <span class="fa fa-list-ul"></span>
                                                 <strong>Inventario</strong>
                                             </a>
                                         </li>
                                         
-                                        <li>
+                                        <li jsf:rendered="#{!(usuarioController.sesion.rol eq 'USUARIO')}">
                                             <a href="/pezfa/pages/rotacion/">
                                                 <span class="fa fa-bar-chart"></span>
-                                                <strong>Indicadores</strong>
+                                                <strong>Cuadro de mando</strong>
                                             </a>
                                             
                                         </li>
                                         
-                                        <li>
+                                        <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
                                             <a href="/pezfa/pages/auditoria/">
                                                 <span class="fa fa-newspaper-o"></span>
                                                 <strong>Auditoria</strong>
