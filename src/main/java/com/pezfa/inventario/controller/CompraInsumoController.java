@@ -25,7 +25,7 @@ import org.primefaces.context.RequestContext;
 public class CompraInsumoController implements Serializable
 {       
 
-    private CompraInsumo compraInsumo;
+    /*private CompraInsumo compraInsumo;
     private Set<CompraInsumo> miLista;
     private List<CompraInsumo> compraInsumos;
     private List<CompraInsumo> detalleCompra;
@@ -155,7 +155,7 @@ public class CompraInsumoController implements Serializable
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe agregar minimo un producto a la lista", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
-    }*/
+    }
     public void register()
     {
         if (db.create(compraInsumo))
@@ -172,7 +172,7 @@ public class CompraInsumoController implements Serializable
         }
 
     
-}
+*/
 
 }      
     
