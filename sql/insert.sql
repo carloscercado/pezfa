@@ -58,9 +58,9 @@ INSERT INTO CAVA
 
 INSERT INTO usuario
 	values (1, 'admin', 'admin', 'ADMINISTRACION', 1),
-		(2, 'usuario', '1234', 'RRHH', 2),
+		(2, 'usuario', '1234', 'USUARIO', 2),
 		(3, 'rosa', '12345', 'PRODUCCION', 3),
-		(4, 'pablo', '123456', 'OPERACION', 4),
+		(4, 'pablo', '123456', 'USUARIO', 4),
 		(5, 'usua', '1234567', 'ADMINISTRACION', 5);
 
 INSERT INTO CAMION 

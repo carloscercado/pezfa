@@ -11,7 +11,7 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-               <h:form>
+                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
                    <h3 align="center" style="color: #045491">Administrar empleados</h3>
                     
                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="empleadores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="empleado" value="#{empleadoController.empleadores}">
@@ -59,6 +59,15 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
+                
+                <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                    <center>
+                        <p:graphicImage name="/images/401.png" height="400"/>
+                        <br/>
+                        <p:commandButton onclick="location.href = '/pezfa'" icon="fa fa-home" value="Volver al inicio"/>
+                    </center>
+                </h:form>
+                
                 <p:dialog closable="false" header="Registrar empleado" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
                     <f:facet name="onHide">
                         <p:ajax update="@widgetVar(empleadores)" listener="#{empleadoController.reset()}"/>

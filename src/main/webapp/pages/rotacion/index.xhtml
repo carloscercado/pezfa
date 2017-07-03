@@ -11,26 +11,6 @@
         <ui:composition template="./../../template/menu.xhtml">
             
             <ui:define name="content">
-                 <a href="#" onclick="PF('indicador').show()">
-                        <div class="col-sm-4">
-                            <div class="hero-widget well well-sm">
-                                <center> <div class="icon">
-                                        <i class="fa fa-dashboard fa-5x" style="color: #045491"></i>
-                                    </div>
-                                </center>
-                                <div class="text-center"> 
-                                <div class="panel-body">
-                                    <label class="text-muted">Rotaci&oacute;n de inventario: </label>
-                                    <strong>
-                                        <br/>
-                                        #{indicadorController.rotacion} días
-                                    </strong>
-                                </div>
-
-                            </div>
-                        </div>
-                        </div>
-                    </a>
                 
                <div class="row">
                     <a href="#" onclick="PF('indicador').show()" >
@@ -64,13 +44,13 @@
                     </a>
 
                     <div class="col-sm-8">
-                        <label class="text-muted">ventas por año por bolivares: </label>
+                        <label class="text-muted">Ventas por año en bolivares: </label>
                         <div class="hero-widget well well-sm">
                             <p:chart type="bar" model="#{ventaController.ventasAnual}" style="height:150px"/>
                         </div>
                     </div>
                    <div class="col-sm-8">
-                       <label class="text-muted">ventas por año por kilos: </label> 
+                       <label class="text-muted">Ventas por año en kilos: </label> 
                        <div class="hero-widget well well-sm">
                             <p:chart type="bar" model="#{ventaController.ventasAnualKilos}" style="height:150px"/>
                         </div>

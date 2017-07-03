@@ -38,10 +38,14 @@
 
                         <p:column headerText="Cliente">
                             #{venta.cliente.nombre} #{venta.cliente.rif}
-                        </p:column>                    
-
+                        </p:column> 
+                        
                         <p:column headerText="Ingreso">
                             #{venta.ingreso}
+                        </p:column>
+        
+                        <p:column headerText="Cantidad">
+                            #{venta.kiloTotal} Kg
                         </p:column>
 
                     </p:dataTable>
@@ -61,6 +65,10 @@
                             <p:inputText value="#{ventaController.venta.ingreso}" readonly="true">
                                 <f:convertNumber currencySymbol="Bs" locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                             </p:inputText>
+                            <p:outputLabel value="Producto"/>
+                            <p:inputText  value="#{ventaController.producto.nombre}" readonly="true"/>
+                            <p:outputLabel value="Cantidad"/>
+                            <p:inputText  value="#{ventaController.venta.kiloTotal} Kg" readonly="true" />
                         </p:panelGrid>
 
                         <!-- <br/>
