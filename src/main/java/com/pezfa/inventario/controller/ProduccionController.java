@@ -1,6 +1,7 @@
 package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.ProduccionDB;
+import com.pezfa.inventario.models.Compra;
 import com.pezfa.inventario.models.Produccion;
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,8 @@ public class ProduccionController implements Serializable
     Produccion produccion = null; // objeto a controlar
     List<Produccion> producciones = null; // lista de objetos de tipo almace
     private ProduccionDB db;
+    
+    
 
     public ProduccionController()
     {
@@ -72,5 +75,6 @@ public class ProduccionController implements Serializable
             System.out.println("No Actualizado");
         }
     }
+    
 
 }

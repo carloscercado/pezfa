@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <body>
+
+        <ui:composition template="./../../template/menu.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <h3 align="center" style="color: #045491">Historial de produccion</h3>
+                    <p:tooltip  for="tabla" value="Seleccione un registro para ver el detalle" position="top" />
+                    <p:dataTable id="tabla" selectionMode="single" selection="#{produccionController.produccion}" rowKey="#{produccion.id}"  var="produccion" value="#{produccionController.producciones}"
+                                 emptyMessage="No se encontrar&oacute;n datos" reflow="true">
+                        <f:facet name="header">
+                            <p:ajax event="rowSelect" update="@widgetVar(detalles)" listener="#{produccionController.onRowSelect}" /> 
+                            <div class="row">
+                                <div  class="col-md-6 text-left ">
+                                    <p:commandButton immediate="true" value="Nueva " class="right" icon="fa fa-plus" onclick="location.href = '/pezfa/pages/nueva_produccion/'"/>           
+                                </div>
+                            </div>    
+                        </f:facet>
+
+                        <p:column headerText="Descripcion">
+                            <span class="fa fa-file"/> #{produccion.descripcion}
+                        </p:column>
+
+                        <p:column headerText="Fecha">
+                            #{produccion.fecha}
+                        </p:column>
+
+                        <p:column headerText="Inversion">
+                            #{produccion.inversion}
+                        </p:column>
+
+                        
+
+                    </p:dataTable>
+                </h:form>
+
+                <p:dialog header="Detalles del historial" widgetVar="detalles" responsive="true" 
+                          resizable="false" draggable="false" modal="true" width="700" >
+                    <h:form>        
+                        <p:panelGrid columns="4">
+                            <p:outputLabel value="Produccion"/>
+                            <p:inputText   readonly="true"/>
+                            <p:outputLabel value="Ubicacion"/>
+                            <p:inputText   readonly="true"/>
+                            <p:outputLabel value="Cantidad"/>
+                            <p:inputText   readonly="true"/>
+                            
+                        </p:panelGrid>
+
+           
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -40,6 +40,9 @@
                         <p:column filterBy="#{cava.capacidad}"  headerText="Capacidad" filterStyle="display: none">
                             #{cava.capacidad} Kg
                         </p:column>
+                        <p:column filterBy="#{cava.capacidadDisponible}"  headerText="Capacidad disponible" filterStyle="display: none">
+                            #{cava.capacidadDisponible} Kg
+                        </p:column>
                         <p:column width="25%" class="column-hidden" headerText="Opciones">
                             <center>  
                                 <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger">
@@ -114,6 +117,8 @@
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Capacidad:"> <span style="color: #D20005">*</span></p:outputLabel>
                                 <p:inputText autocomplete="off" value="#{cavaController.cava.capacidad}" required="true" requiredMessage="Ingrese la capacidad" placeholder="Capacidad"/>
+                                <p:outputLabel  value="Capacidad disponible:"> <span style="color: #D20005">*</span></p:outputLabel>
+                                <p:inputText disabled="true" autocomplete="off" value="#{cavaController.cava.capacidadDisponible}" required="true" requiredMessage="Ingrese la capacidad" placeholder="Capacidad"/>
                             </p:panelGrid>
                             <br>
                             <center>
