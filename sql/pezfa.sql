@@ -49,6 +49,7 @@ create table if not exists cliente
 (
     id serial primary key,
     rif varchar(20) not null unique,
+    tipo varchar(1) not null,
     nombre text not null,
     direccion text not null,
     telefono varchar(15),

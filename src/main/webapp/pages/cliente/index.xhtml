@@ -5,14 +5,14 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <body>
         <ui:composition template="./../../template/menu.xhtml">
             <ui:define name="content">
-                 
+
                 <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
-                   <h3 align="center" style="color: #045491">Administrar Clientes</h3>
-                    
+                    <h3 align="center" style="color: #045491">Administrar Clientes</h3>
+
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="clientes" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cliente" value="#{clienteController.clientes}">
                         <f:facet name="header">
                             <div class="row">
@@ -31,7 +31,7 @@
                             </center>
                         </p:column>
                         <p:column width="15%" filterBy="#{cliente.rif}" headerText="RIF" filterStyle="display: none">
-                           <span class="fa fa-credit-card" /> #{cliente.rif}
+                            <span class="fa fa-credit-card" /> #{cliente.tipo}- #{cliente.rif}
                         </p:column>
                         <p:column width="15%" filterBy="#{cliente.nombre}" headerText="Nombre" filterStyle="display: none">
                             #{cliente.nombre}
@@ -55,7 +55,7 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                
+
                 <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
                     <center>
                         <p:graphicImage name="/images/401.png" height="400"/>
@@ -63,7 +63,7 @@
                         <p:commandButton onclick="location.href = '/pezfa'" icon="fa fa-home" value="Volver al inicio"/>
                     </center>                    
                 </h:form>
-                
+
                 <p:dialog closable="false" header="Registrar cliente" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
                     <f:facet name="onHide">
                         <p:ajax update="@widgetVar(clientes)" listener="#{clienteController.reset()}"/>
@@ -73,14 +73,16 @@
                         <p:messages id="msj" closable="true"/> 
                         <p:panelGrid columns="2" >
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:selectOneMenu value="#{clienteController.cliente.rif}" autoWidth="true">
-                                <f:selectItem itemValue="J" itemLabel="J-"/>
-                                <f:selectItem itemValue="V" itemLabel="V-"/>
-                                <f:selectItem itemValue="E" itemLabel="E-"/>
-                             </p:selectOneMenu>
-                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="clien" required="true" value="#{clienteController.cliente.rif}">
-                                <p:ajax event="change" listener="#{clienteController.validarRif()}" update="msj clien"/>
-                            </p:inputText> 
+                            <p:outputLabel>
+                                <p:selectOneMenu required="true" requiredMessage="ahahsdahsd" style="float: left" value="#{clienteController.cliente.tipo}">
+                                    <f:selectItem itemValue="J" itemLabel="J"/>
+                                    <f:selectItem itemValue="V" itemLabel="V"/>
+                                    <f:selectItem itemValue="E" itemLabel="E"/>
+                                </p:selectOneMenu>
+                                <p:inputText placeholder="RIF" autocomplete="off" onkeypress="return numero(event)" requiredMessage="Registrar el RIF" id="clien" required="true" value="#{clienteController.cliente.rif}">
+                                    <p:ajax event="change" listener="#{clienteController.validarRif()}" update="msj clien"/>
+                                </p:inputText> 
+                            </p:outputLabel>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
@@ -88,8 +90,8 @@
                             <p:outputLabel value="Tel&eacute;fono:"/>
                             <p:inputMask  value="#{clienteController.cliente.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
                             <p:outputLabel for="regex" value="Correo:"/>                    
-                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Correo incorrecto">
-                              <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$' not matched" />
+                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Ingrese el correo">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </p:inputText>
                         </p:panelGrid>
                         <br/>
@@ -113,11 +115,11 @@
                 <p:dialog closable="false" header="Modificar cliente" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/> 
-                          <p:messages id="msj" closable="true"/> 
+                        <p:messages id="msj" closable="true"/> 
                         <p:panelGrid columns="2">
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="clien" required="true" value="#{clienteController.cliente.rif}">
-                            <p:ajax event="change" listener="#{clienteController.validarRif()}" update="msj clien"/>
+                                <p:ajax event="change" listener="#{clienteController.validarRif()}" update="msj clien"/>
                             </p:inputText> <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
@@ -125,20 +127,20 @@
                             <p:outputLabel value="Tel&eacute;fono:"/> 
                             <p:inputMask  value="#{clienteController.cliente.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
                             <p:outputLabel for="regex" value="Correo:"/>                    
-                            <p:inputText id="regex" value="#{clienteController.cliente.correo}">
-                              <f:validateRegex pattern="^[a-zA-Z]+$" />
+                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Ingrese el correo">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </p:inputText>
- 
-                           </p:panelGrid>
+
+                        </p:panelGrid>
 
                         <br/>
-                            <center>
-                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(clientes)" actionListener="#{clienteController.update()}"/> 
-                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{clienteController.reset()}" oncomplete="PF('modificar').hide()"/>
-                            </center>
+                        <center>
+                            <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(clientes)" actionListener="#{clienteController.update()}"/> 
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{clienteController.reset()}" oncomplete="PF('modificar').hide()"/>
+                        </center>
                     </h:form>
                 </p:dialog> 
-                
+
             </ui:define>
 
         </ui:composition>

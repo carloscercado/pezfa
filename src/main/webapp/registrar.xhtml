@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+
+        <title>Pezfa </title>
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet"/> 
+        <link href="resources/css/cssLayout.css" rel="stylesheet"/> 
+
+        <h:outputScript name="/js/bootstrap.min.js"/>
+    </h:head>
+
+    <h:body style="background: #e8e8e8 ">
+        
+        <div>
+
+            <p:outputLabel value="#{proveedorController.provedores.size() }" class="invisible"/>            
+            <h:form id="pa">
+                          <div class="container">
+
+                    <div class="row ">
+
+
+                        <div style="margin-top: 5%" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                            <div class="panel panel-default sombra">
+                                <div class="panel-heading">
+
+                                    <center>
+
+                                        <strong> <i class="fa fa-user fa-2x"></i>Registrar cuenta</strong>  </center>
+                                </div>
+                                <div class="panel-body">
+                                    <p:growl   id="msg"  life="5000"/>
+                                    
+                                      
+                                    <div class="form-group input-group">
+                                        <p:inputText value="#{empleadoController.empleado.cedula}" class="form-control"
+                                        autocomplete="off" required="true" requiredMessage="Ingrese la c&eacute;dula" placeholder="C&eacute;dula"/>
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    </div>
+                                    
+                                    <div class="form-group input-group">
+                                          <p:tab>
+                                            <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" class="form-control" value="#{empleadoController.empleado.primerNombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Primer nombre"/>
+                                            <p:inputText autocomplete="off" value="#{empleadoController.empleado.segundoNombre}" maxlength="20" class="form-control" onkeypress="return letras(event)" placeholder="Segundo nombre"/>
+                                          </p:tab>
+                                        <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
+                                    </div>
+                                    
+                                    <div class="form-group input-group">
+                                        <p:tab>
+                                            <p:inputText autocomplete="off" maxlength="20" class="form-control" onkeypress="return letras(event)" value="#{empleadoController.empleado.primerApellido}" required="true" requiredMessage="Ingrese el apellido" placeholder="Primer apellido"/>
+                                            <p:inputText autocomplete="off" class="form-control" value="#{empleadoController.empleado.segundoApellido}" maxlength="20" onkeypress="return letras(event)" placeholder="Segundo apellido" />
+                                        </p:tab>
+                                        <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
+                                    </div>
+                                    
+                                    <div class="form-group input-group">
+                                        <p:calendar effect="fold" value="#{empleadoController.empleado.nacimiento}" required="true" maxdate="#{empleadoController.fecha}" requiredMessage="Ingrese la fecha de nacimiento" locale="es" navigator="true" placeholder="Nacimiento"/>
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <br/>
+                                    
+                                    
+                                    <div>
+                                        <p:selectOneMenu value="#{empleadoController.empleado.sexo}" required="true" requiredMessage="Ingrese el sexo">
+                                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Sexo"/>
+                                            <f:selectItem itemValue="M" itemLabel="Masculino"/>
+                                            <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                                         </p:selectOneMenu>
+                                         </div>
+                                    <br/>
+                                    
+                                    <div>
+                                        <p:selectOneMenu value="#{empleadoController.empleado.cargo}" required="true" requiredMessage="Ingrese el cargo">
+                                            <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Cargo"/>
+                                            <f:selectItem itemValue="Administraci&oacute;n" itemLabel="Administraci&oacute;n"/>
+                                            <f:selectItem itemValue="RRHH" itemLabel="Recursos Humanos"/>
+                                            <f:selectItem itemValue="Producci&oacute;n" itemLabel="Producci&oacute;n"/>
+                                            <f:selectItem itemValue="Operaci&oacute;n" itemLabel="Operaci&oacute;n"/>
+                                            <f:selectItem itemValue="Chofer" itemLabel="Chofer"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <br/>
+                                    
+                                    <center>
+
+                                        <strong> <i class="fa fa-user fa-2x"></i>Cuenta de usuario</strong>  </center>
+                                    <div class="form-group input-group">
+                                        <p:inputText value="#{usuarioController.usuario.usuario}" autocomplete="off" 
+                                                     required="true" class="form-control" requiredMessage="Registre usuario" placeholder="Usuario"/>
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    </div>
+
+                                    <div class="form-group input-group">
+                                       <p:password validatorMessage="No coinciden las contrase&ntilde;as"  id="pwd1" value="#{usuarioController.usuario.clave}" match="pwd2" label="Password 1" required="true"
+                                        feedback="true" inline="true" requiredMessage="Registre la contrase&ntilde;a" placeholder="Contrase&ntilde;a" 
+                                        promptLabel="Elija una contrase&ntilde;a" weakLabel="F&aacute;cil" goodLabel="Normal" strongLabel="Segura" maxlength="20"/>
+                            <p:password id="pwd2" value="#{usuarioController.usuario.clave}" label="Password 2" required="true" 
+                                        requiredMessage="Registre la contrase&ntilde;a" placeholder="Contrase&ntilde;a" maxlength="20"/> 
+                                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
+
+                                    </div>
+                                    
+                                    <div>
+                                        <p:selectOneMenu value="#{usuarioController.usuario.rol}" required="true" requiredMessage="Seleccione el rol">
+                                        <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Rol del usuario" />
+                                        <f:selectItem itemValue="Administraci&oacute;n" itemLabel="Administraci&oacute;n"/>
+                                        <f:selectItem itemValue="Usuario" itemLabel="Usuario"/>
+                                        </p:selectOneMenu>
+                                    </div>
+
+
+                                    <center>
+                                        <p:commandButton class="btn-primary" id="entrar"  style="margin-top: 3%; margin-bottom: 3%"
+                                                         value="Iniciar sesi&oacute;n" icon="fa fa-sign-in" resetValues="true" update="msg" 
+                                                         actionListener="#{loginController.validate()}"/>
+                                    </center>
+
+                                    <p:blockUI block="@(.panel)" trigger="entrar">
+                                        Validando...<br/>
+                                        <span class="fa fa-spin fa-3x fa-spinner"></span>
+                                    </p:blockUI>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </h:form>
+
+
+        </div>
+    </h:body>
+</html>
+ 

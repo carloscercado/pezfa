@@ -146,13 +146,7 @@
                                                         <strong>Especies</strong>
                                                     </a>
                                                 </li>
-                                                <li class="divider"></li>
-                                                <li>
-                                                    <a href="/pezfa/pages/insumo/">
-                                                        <span class="fa fa-cube"></span>
-                                                        <strong>Insumos</strong>
-                                                    </a>
-                                                </li>
+                                               
                                                 <li class="divider"></li>
                                                 <li>
                                                     <a href="/pezfa/pages/producto/">
@@ -201,29 +195,45 @@
                                                 <strong>Ventas</strong>
                                             </a>
                                         </li>
-
+                                        
+                                        
                                         <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
                                             <a href="/pezfa/pages/inventario/">
                                                 <span class="fa fa-list-ul"></span>
                                                 <strong>Inventario</strong>
                                             </a>
                                         </li>
-                                        
-                                        <li jsf:rendered="#{!(usuarioController.sesion.rol eq 'USUARIO')}">
-                                            <a href="/pezfa/pages/rotacion/">
-                                                <span class="fa fa-bar-chart"></span>
-                                                <strong>Cuadro de mando</strong>
+                                        <li class="dropdown" >
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                <i class="fa fa-gears"></i> <strong>Gestionar</strong>
+                                                <i class="fa fa-caret-down"></i>
                                             </a>
-                                            
-                                        </li>
-                                        
-                                        <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
-                                            <a href="/pezfa/pages/auditoria/">
+                                           <ul class="dropdown-menu dropdown-messages">
+                                            <li jsf:rendered="#{!(usuarioController.sesion.rol eq 'USUARIO')}">
+                                                <a href="/pezfa/pages/rotacion/">
+                                                <span class="fa fa-bar-chart"></span>
+                                                <strong>Indicadores</strong>
+                                                </a>
+                                            </li>
+                                               <li class="divider"></li>
+                                                <li>
+                                                    <a href="/pezfa/pages/#">
+                                                        <span class="fa fa-cubes"></span>
+                                                        <strong>Reportes</strong>
+                                                    </a>
+                                                </li>
+                                               <li class="divider"></li>
+                                             <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                                                <a href="/pezfa/pages/auditoria/">
                                                 <span class="fa fa-newspaper-o"></span>
                                                 <strong>Auditoria</strong>
-                                            </a>
+                                                </a>
+                                            </li>
+                                        
+                                            </ul>
                                         </li>
-                                        <li class="dropdown" >
+                                        
+                                       <li class="dropdown" >
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                                 <i class="fa fa-question-circle" title="Ayuda"></i> <strong>Ayuda </strong>
                                                 <i class="fa fa-caret-down"></i>
@@ -248,7 +258,7 @@
                                         </li>
 
                                     </ul>
-
+                                     
 
 
                                     <ul class="nav navbar-nav navbar-right">
