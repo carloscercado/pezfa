@@ -182,7 +182,12 @@
                                             </p:outputLabel>
                                             <br/><br/>
                                             Cantidad:
-                                            <p:outputLabel value="#{compraEspecieController.compraEspecie.cantidad}">
+                                            <p:outputLabel  value="#{compraEspecieController.compraEspecie.cantidad}">
+                                                <f:convertNumber locale="es" minFractionDigits="2" maxFractionDigits="2" />
+                                            </p:outputLabel> Kg
+                                             <br/><br/>
+                                            Capacidad:
+                                            <p:outputLabel id="abc" value="#{unidadController.unidad.cava.capacidadDisponible}">
                                                 <f:convertNumber locale="es" minFractionDigits="2" maxFractionDigits="2" />
                                             </p:outputLabel> Kg
                                         </div>
@@ -215,9 +220,11 @@
                                     <center> 
                                         <div class="icon">
                                             <span class="fa fa-archive fa-3x" style="color: #045491"/>
-                                            <p:selectOneMenu required="true" requiredMessage="Escoja la cava donde guardara la unidad" widgetVar="cavas" value="#{unidadController.unidad.cava}" 
+                                            <p:selectOneMenu  required="true" requiredMessage="Escoja la cava donde guardara la unidad" widgetVar="cavas" value="#{unidadController.unidad.cava}" 
                                                              converter="cava" filter="true" filterMatchMode="contains">
+                                                <p:ajax update="abc"/>
                                                 <f:selectItem itemLabel="Cava" noSelectionOption="true" itemValue="#{null}"/>
+                                                
 
                                                 <f:selectItems value="#{cavaController.cavasFiltro}" var="cava" itemLabel="#{cava.nombre}" itemValue="#{cava}"/>
                                             </p:selectOneMenu>

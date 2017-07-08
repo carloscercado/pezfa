@@ -31,7 +31,7 @@ public class CavaController implements Serializable {
     public double getCapacidad() {
         double totalCapacidad = this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
         double totalDisponible = this.getCavas().stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
-        return ((totalDisponible/totalCapacidad)*100);
+        return Math.rint ((totalDisponible / totalCapacidad) * 100);
     }
 
     public AlmacenController getAlmacenController() {
@@ -45,7 +45,7 @@ public class CavaController implements Serializable {
     public List<Cava> getCavasFiltro() {
         try {
             int almacen = almacenController.getAlmacen().getId();
-            cavasFiltro = db.read("from Cava cava join fetch cava.almacen al where al.id="+almacen);
+            cavasFiltro = db.read("from Cava cava join fetch cava.almacen al where al.id=" + almacen);
             return cavasFiltro;
         } catch (Exception e) {
             return new ArrayList<>();
@@ -77,13 +77,11 @@ public class CavaController implements Serializable {
         cava = new Cava();
     }
 
-    public void register()
-    {
-        
+    public void register() {
+
         cava.setCapacidadDisponible(cava.getCapacidad());
         cava.toUpperCase();
-        if (db.create(cava))
-        {
+        if (db.create(cava)) {
 
             cava = new Cava();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro guardado exitosamente", null);
@@ -96,11 +94,16 @@ public class CavaController implements Serializable {
         }
     }
 
-    public void update()
-    {
+    public void update() {
         cava.toUpperCase();
-        if (db.update(cava))
-        {
+        if (cava.getCapacidadDisponible() < cava.getCapacidad()) {
+            cava.setCapacidadDisponible(cava.getCapacidad() - cava.getCapacidadDisponible());
+        } else {
+            cava.setCapacidadDisponible(cava.getCapacidad());
+
+        }
+
+        if (db.update(cava)) {
             cava = new Cava();
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado exitosamente", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
