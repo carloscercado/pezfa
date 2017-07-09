@@ -92,7 +92,7 @@
 
                 </h:form>
 
-                <p:dialog width="700" draggable="false" header="Especies registradas" resizable="false" responsive="true" widgetVar="registrar" modal="true">
+                <p:dialog width="700" draggable="false" header="Materia prima" resizable="false" responsive="true" widgetVar="registrar" modal="true">
 
                     <h:form>
                         <p:growl id="mensaje" />
@@ -103,7 +103,7 @@
                         <br/>
                         <h:form>
                             <p:dataTable widgetVar="especies" scrollable="true" scrollHeight="250"
-                                         var="especie" value="#{especieController.especies}" reflow="true"
+                                         var="especie" value="#{produccionController.inventario}" reflow="true"
                                          emptyMessage="No existen registros con el criterio de busqueda.">
                                 <f:facet name="header">
                                     <div class="row">
@@ -115,29 +115,14 @@
                                         </div>
                                     </div>
                                 </f:facet>
-                                <p:column headerText="Estado" class="text-center" width="12%">
-                                    <span  class="fa fa-circle fa-2x" jsf:rendered="#{especie.cantidad le especie.minimo}" style="color: #f63a1e"/>
-                                    <span  class="fa fa-circle fa-2x" jsf:rendered="#{((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo+1) and (especie.cantidad le especie.minimo+100))}" style="color: #f68e1e"/>
-                                    <span  class="fa fa-circle fa-2x" jsf:rendered="#{!(especie.cantidad le especie.minimo+100)}" style="color: #1ef664"/>
-                                </p:column> 
+
 
                                 <p:column headerText="Nombre" filterBy="#{especie.nombre}" filterStyle="display: none">
                                     #{especie.nombre}
 
                                 </p:column>
 
-                                <p:column headerText="Tipo" >
-                                    #{especie.tipo}
-                                </p:column>
-
-
-                                <p:column headerText="Cantidad" class="text-right">
-                                    #{especie.cantidad} Kg
-                                </p:column>
-
-                                <p:column headerText="M&iacute;nimo" >
-                                    #{especie.minimo} Kg
-                                </p:column>
+                              
 
                                 <p:column headerText="Agregar" priority="2">
                                     <center>
