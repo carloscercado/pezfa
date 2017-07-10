@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf">
- 
+
     <h:head >
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -178,13 +178,13 @@
                                             </ul>
                                         </li>
 
-                                         <li jsf:rendered="#{(usuarioController.sesion.rol eq 'USUARIO')}">
+                                        <li jsf:rendered="#{(usuarioController.sesion.rol eq 'USUARIO')}">
                                             <a href="/pezfa/pages/especie">
                                                 <span class="fa fa-cube"></span>
                                                 <strong>Especie</strong>
                                             </a>
                                         </li>
-                                            
+
                                         <li>
                                             <a href="/pezfa/pages/compra/">
                                                 <span class="fa fa-shopping-cart"></span>
@@ -194,7 +194,7 @@
                                                 </strong>
                                             </a>
                                         </li>
-                                       
+
                                         <li>
                                             <a href="/pezfa/pages/venta/">
                                                 <span class="fa fa-dollar"></span>
@@ -208,15 +208,15 @@
                                                 <strong>Inventario</strong>
                                             </a>
                                         </li>
-                                        
+
                                         <li jsf:rendered="#{!(usuarioController.sesion.rol eq 'USUARIO')}">
                                             <a href="/pezfa/pages/rotacion/">
                                                 <span class="fa fa-bar-chart"></span>
                                                 <strong>Cuadro de mando</strong>
                                             </a>
-                                            
+
                                         </li>
-                                        
+
                                         <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
                                             <a href="/pezfa/pages/auditoria/">
                                                 <span class="fa fa-newspaper-o"></span>
@@ -225,22 +225,46 @@
                                         </li>
                                         <li class="dropdown" >
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                <i class="fa fa-question-circle" title="Ayuda"></i> <strong>Ayuda </strong>
+                                                <i class="fa fa-file" title="Reportes"></i> <strong>Reportes </strong>
                                                 <i class="fa fa-caret-down"></i>
                                             </a>
                                             <ul class="dropdown-menu dropdown-messages">
                                                 <li>
-                                                    <a href="#">
-                                                        <span class="fa fa-list-ul"></span>
-                                                        <strong>Manual</strong>
+                                                    <a target="_blank" href="/pezfa/reporte?nombre=compra">
+                                                        <span class="fa fa-file-pdf-o"></span>
+                                                        <strong>Reporte de Compras</strong>
                                                     </a>
                                                 </li>
 
                                                 <li class="divider"></li>
                                                 <li>
-                                                    <a href="#">
-                                                        <span class="fa fa-info-circle"></span>
-                                                        <strong>Acerca de</strong>
+                                                    <a target="_blank" href="/pezfa/reporte?nombre=venta">
+                                                        <span class="fa fa-file-pdf-o"></span>
+                                                        <strong>Reporte de Ventas</strong>
+                                                    </a>
+                                                </li>
+                                                
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <a target="_blank" href="/pezfa/reporte?nombre=proveedor">
+                                                        <span class="fa fa-file-pdf-o"></span>
+                                                        <strong>Reporte de Proveedores</strong>
+                                                    </a>
+                                                </li>
+                                                
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <a target="_blank" href="/pezfa/reporte?nombre=cliente">
+                                                        <span class="fa fa-file-pdf-o"></span>
+                                                        <strong>Reporte de Clientes</strong>
+                                                    </a>
+                                                </li>
+
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <a target="_blank" href="/pezfa/reporte?nombre=inventario">
+                                                        <span class="fa fa-file-pdf-o"></span>
+                                                        <strong>Reporte General de Especies</strong>
                                                     </a>
                                                 </li>
 

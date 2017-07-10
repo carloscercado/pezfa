@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="template" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="6298f427-f5d0-4230-b83d-a086fd99ea07">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select ROW_NUMBER()
+        OVER (ORDER BY rif) as numero, compra.orden, proveedor.rif, proveedor.nombre, compra.fecha, compra.estado, compra.gasto, compra.kilo_total
+from compra, proveedor
+where compra.proveedor = proveedor.id]]>
+	</queryString>
+	<field name="numero" class="java.lang.Long"/>
+	<field name="orden" class="java.lang.String"/>
+	<field name="rif" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="gasto" class="java.math.BigDecimal"/>
+	<field name="kilo_total" class="java.lang.Double"/>
+	<title>
+		<band height="92" splitType="Stretch">
+			<staticText>
+				<reportElement x="122" y="20" width="310" height="40" uuid="99366464-7a75-46c5-8822-26cfda90dfdf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="24" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Reporte de Compras]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="81" width="550" height="1" uuid="671067dc-23de-4bba-9313-804330bdd40a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="450" y="50" width="100" height="30" uuid="c66c897e-772a-4272-9368-428fbc9e7c34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="53" height="29" backcolor="#00CCCC" uuid="f50da080-a25d-4e43-8adf-1ae98b07f47e"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="61" y="0" width="50" height="29" backcolor="#00CCCC" uuid="678e514d-0378-46b6-ae38-b92420dfd6f9"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Orden]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="118" y="0" width="90" height="29" backcolor="#00CCCC" uuid="090e39a9-4777-49bf-837e-db5f207cc863"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RIF o Cédula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="217" y="0" width="123" height="29" backcolor="#00CCCC" uuid="01857a81-3ad7-49f8-9de9-4cff8c6ff061"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre o Compañía]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="349" y="0" width="43" height="29" backcolor="#00CCCC" uuid="858c0881-db10-4d5d-946e-e810d95b6b12"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="402" y="0" width="69" height="29" backcolor="#00CCCC" uuid="26f40101-b3ad-4afc-bb66-5af39b08dd16"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gasto (Bs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="481" y="0" width="74" height="29" backcolor="#00CCCC" uuid="ed94be0e-06f4-40d7-aebc-61498f78cd23"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total (Kg)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24">
+			<textField>
+				<reportElement x="0" y="0" width="53" height="20" uuid="7be76cdb-9b9e-45d5-a251-4c534db1f8d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="61" y="0" width="50" height="20" uuid="679b2df5-6448-464e-8496-63418469fc6f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{orden}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="0" width="90" height="20" uuid="e495aae5-1863-43dc-a8d2-595e0e0d9d13"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{rif}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="0" width="123" height="20" uuid="fe04c018-d434-43db-b56c-11ff2b08a41c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="349" y="0" width="43" height="20" uuid="f01c7990-cb9b-4c2b-8aff-f88b865622a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="0" width="69" height="20" uuid="6c7e6145-0d32-4311-9596-a9bd1fe2f6f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{gasto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="0" width="74" height="20" uuid="d5382556-bae7-4020-a038-940040aff5be"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{kilo_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="227" y="10" width="113" height="40" uuid="3c5a6dfe-ce38-4070-acb0-b028fdb3d048"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="-1" width="551" height="2" uuid="299fa8e2-1a7d-4bc4-8a65-eb68228cbc38">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

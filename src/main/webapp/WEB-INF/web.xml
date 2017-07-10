@@ -9,11 +9,10 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-     <context-param>
+    <context-param>
         <param-name>primefaces.FONT_AWESOME</param-name>
         <param-value>true</param-value>
     </context-param>
-    
     <mime-mapping>
         <extension>woff2</extension>
         <mime-type>application/x-font-woff2</mime-type>
@@ -34,10 +33,17 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>omega</param-value>
     </context-param>
-   
+    <servlet>
+        <servlet-name>reporte</servlet-name>
+        <servlet-class>com.pezfa.inventario.reporte.reporte</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reporte</servlet-name>
+        <url-pattern>/reporte</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

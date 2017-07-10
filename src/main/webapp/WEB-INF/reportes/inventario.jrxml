@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="template" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="6298f427-f5d0-4230-b83d-a086fd99ea07">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT  ROW_NUMBER()
+        OVER (ORDER BY codigo) as numero, especie.codigo,
+	especie.nombre,
+	especie.cantidad,
+	especie.minimo,
+	especie.tipo
+FROM especie]]>
+	</queryString>
+	<field name="numero" class="java.lang.Long"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Double"/>
+	<field name="minimo" class="java.lang.Double"/>
+	<field name="tipo" class="java.lang.String"/>
+	<title>
+		<band height="92" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="81" width="550" height="1" uuid="671067dc-23de-4bba-9313-804330bdd40a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="94" y="24" width="371" height="40" uuid="99366464-7a75-46c5-8822-26cfda90dfdf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="24" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Reporte de General de Especies]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="0" width="65" height="29" backcolor="#00CCCC" uuid="61f30761-cdaa-4cdd-8a21-2876caecd069"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="81" y="0" width="91" height="29" backcolor="#00CCCC" uuid="cd0e7ae8-c76c-4a16-a115-322bad2d43f3"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="182" y="0" width="96" height="29" backcolor="#00CCCC" uuid="a41ed939-9473-4d50-999a-bb70b3cc4352"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="476" y="0" width="79" height="29" backcolor="#00CCCC" uuid="5c0b5e64-3da0-4412-8f2d-e773319d5ee4"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="391" y="0" width="69" height="29" backcolor="#00CCCC" uuid="0799ec1c-cc7e-4bc9-906d-bd1989f8c679"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mínimo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="294" y="0" width="83" height="29" backcolor="#00CCCC" uuid="d48cd37b-61ee-4c17-b940-feb1dfd81591"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24">
+			<textField>
+				<reportElement x="1" y="0" width="65" height="21" uuid="ba5b8a56-c029-464b-931d-b20f5869b65a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="1" width="91" height="20" uuid="0c21596e-2efa-47d0-9d75-a10f912aa4b9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="182" y="1" width="96" height="20" uuid="cfcceef7-b249-4e7f-91b6-5ea09e7d3eed"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="476" y="1" width="79" height="20" uuid="7c857081-becf-4ce1-a499-92cdee7c8222"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="0" width="83" height="20" uuid="7c698f90-a422-4ca6-a6fc-7daffed1f05e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="391" y="0" width="69" height="20" uuid="43437d51-5d5f-4a85-b70d-6491559d2941"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{minimo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="227" y="10" width="113" height="40" uuid="3c5a6dfe-ce38-4070-acb0-b028fdb3d048"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="-1" width="551" height="2" uuid="299fa8e2-1a7d-4bc4-8a65-eb68228cbc38">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>
