@@ -11,22 +11,14 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <h3 align="center" style="color: #045491">Administrar proveedores</h3>
-                    
-                    <h:commandLink id="pdf">
-                        ssd
-                        <p:dataExporter type="pdf" target="tabla" fileName="proveedores"/>
-                    </h:commandLink>
-
+                   
                     <p:dataTable scrollable="true" id="tabla" scrollHeight="350" widgetVar="proveedores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="proveedor" value="#{proveedorController.provedores}">
                         <f:facet name="header">
                             <div class="row">
                                 <div  class="col-md-6 text-left header-tabla-hidden">
                                     <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
-                                    <p:commandButton value="Imprimir" icon="fa fa-print" >
-                                        <p:dataExporter type="pdf" target="tabla" fileName="proveedores" />
-                                    </p:commandButton>
                                 </div>
 
                                 <div class="col-md-6 text-right header-tabla-center">
@@ -69,7 +61,7 @@
                     </p:dataTable>
                 </h:form>
                 
-                <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <center>
                         <p:graphicImage name="/images/401.png" height="400"/>
                         <br/>
@@ -86,7 +78,7 @@
                         <p:messages id="msj" closable="true"/>
                         <p:panelGrid columns="2">
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="prove" required="true" value="#{proveedorController.proveedor.rif}">
+                            <p:inputText placeholder="RIF" onkeypress="return numero(event)" autocomplete="off" requiredMessage="Registrar el RIF" id="prove" required="true" value="#{proveedorController.proveedor.rif}">
                                 <p:ajax event="change" listener="#{proveedorController.validarRif()}" update="msj prove"/>
                             </p:inputText>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
@@ -95,9 +87,9 @@
                             <p:inputText autocomplete="off" placeholder="Direcci&oacute;n" requiredMessage="Registrar la Direcci&oacute;n" required="true" value="#{proveedorController.proveedor.direccion}"  />
                             <p:outputLabel value="Tel&eacute;fono"/> 
                             <p:inputMask  value="#{proveedorController.proveedor.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
-                            <p:outputLabel for="regex" value="Correo:"/>
-                            <p:inputText id="regex" value="#{proveedorController.proveedor.correo}" placeholder="ejemplo@gmail.com">
-                                <f:validateRegex pattern="[a-zA-Z]+@+[a-zA-Z]+.+[a-zA-Z]" />
+                            <p:outputLabel for="regex" value="Correo:"/>                    
+                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Ingrese el correo">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </p:inputText>
                         </p:panelGrid>
                         <br/>
@@ -133,9 +125,9 @@
                             <p:inputText autocomplete="off" placeholder="Direcci&oacute;n" requiredMessage="Registrar la Direcci&oacute;n" required="true" value="#{proveedorController.proveedor.direccion}"  />
                             <p:outputLabel value="Tel&eacute;fono"/>
                             <p:inputMask  value="#{proveedorController.proveedor.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
-                            <p:outputLabel for="regex" value="Correo:"/>
-                            <p:inputText id="regex" value="#{proveedorController.proveedor.correo}" placeholder="ejemplo@gmail.com">
-                                <f:validateRegex pattern="[a-zA-Z]+@+[a-zA-Z]+.+[a-zA-Z]" />
+                            <p:outputLabel for="regex" value="Correo:"/>                    
+                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Ingrese el correo">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </p:inputText>
                         </p:panelGrid>
 

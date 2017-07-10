@@ -13,6 +13,7 @@ public class Cliente  implements java.io.Serializable {
      private String nombre;
      private String direccion;
      private String telefono;
+     private String tipo;
      private String correo;
      private Set ventas = new HashSet(0);
 
@@ -33,7 +34,16 @@ public class Cliente  implements java.io.Serializable {
        this.correo = correo;
        this.ventas = ventas;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
    
+    
     public int getId() {
         return this.id;
     }

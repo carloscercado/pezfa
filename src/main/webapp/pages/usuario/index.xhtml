@@ -11,7 +11,7 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
 
                     <h3 align="center" style="color: #045491">Administrar usuarios</h3>
 
@@ -57,7 +57,7 @@
                     </p:dataTable>
                 </h:form>
 
-                <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <center>
                         <p:graphicImage name="/images/401.png" height="400"/>
                         <br/>
@@ -95,13 +95,10 @@
 
 
                             <p:outputLabel value="Rol:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:selectOneMenu value="#{usuarioController.usuario.rol}" filter="true" required="true" requiredMessage="Seleccione el rol">
+                            <p:selectOneMenu value="#{usuarioController.usuario.rol}" required="true" requiredMessage="Seleccione el rol">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar" />
-                                <f:selectItem itemValue="Administraci&oacute;n" itemLabel="Administraci&oacute;n"/>
-                                <f:selectItem itemValue="RRHH" itemLabel="Recursos Humanos"/>
-                                <f:selectItem itemValue="Producci&oacute;n" itemLabel="Producci&oacute;n"/>
-                                <f:selectItem itemValue="Operaci&oacute;n" itemLabel="Operaci&oacute;n"/>      
-                                <f:selectItem itemValue="Chofer" itemLabel="Chofer"/>
+                                <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
+                                <f:selectItem itemValue="Usuario" itemLabel="Usuario"/>
                             </p:selectOneMenu>
 
                         </p:panelGrid>
@@ -149,11 +146,8 @@
                             <p:outputLabel value="Rol:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{usuarioController.usuario.rol}" required="true" requiredMessage="Ingrese el Rol">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
-                                <f:selectItem itemValue="Administraci&oacute;n" itemLabel="Administraci&oacute;n"/>
-                                <f:selectItem itemValue="RRHH" itemLabel="Recursos Humanos"/>
-                                <f:selectItem itemValue="Producci&oacute;n" itemLabel="Producci&oacute;n"/>
-                                <f:selectItem itemValue="Operaci&oacute;n" itemLabel="Operaci&oacute;n"/>
-                                <f:selectItem itemValue="Chofer" itemLabel="Chofer"/>
+                                <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
+                                <f:selectItem itemValue="Usuario" itemLabel="Usuario"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
 

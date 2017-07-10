@@ -11,7 +11,7 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <h3 align="center" style="color: #045491">Administrar almacenes</h3>
                     <p:commandButton value="Reporte" actionListener="#{almacenController.reporte()}"/>
 

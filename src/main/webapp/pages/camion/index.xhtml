@@ -11,7 +11,7 @@
         <ui:composition template="./../../template/menu.xhtml">
             
             <ui:define name="content">
-                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <h3 align="center" style="color: #045491">Administrar Camiones</h3>
                     
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="camion" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="camion" value="#{camionController.camiones}">
@@ -56,7 +56,7 @@
                     
                     </h:form>
                
-                <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <center>
                         <p:graphicImage name="/images/401.png" height="400"/>
                         <br/>
@@ -78,7 +78,7 @@
                             <p:outputLabel value="Modelo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText value="#{camionController.camion.modelo}" autocomplete="off" maxlength="20" required="true" requiredMessage="Ingrese el modelo" placeholder="Modelo"/>
 
-                            <p:outputLabel value="Placa:"/>
+                            <p:outputLabel value="Placa:">  <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText value="#{camionController.camion.placa}" autocomplete="off" maxlength="20" required="true" requiredMessage="Ingrese la placa" placeholder="Placa" />
 
                         </p:panelGrid>
@@ -111,7 +111,7 @@
                             <p:outputLabel value="Modelo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText value="#{camionController.camion.modelo}" required="true" requiredMessage="Ingrese el modelo" placeholder="Modelo"/>
 
-                            <p:outputLabel value="Placa:"/> 
+                            <p:outputLabel value="Placa:">  <span style="color: #D20005">*</span></p:outputLabel> 
                             <p:inputText value="#{camionController.camion.placa}"  placeholder="Placa"/>
 
                         </p:panelGrid>

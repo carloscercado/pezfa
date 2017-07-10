@@ -98,7 +98,7 @@
 
                                 <div class="collapse navbar-collapse " id="colapse">
                                     <ul class="nav navbar-nav"> 
-                                        <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}" class="dropdown">
+                                        <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}" class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                                 <i class="fa fa-gears"></i> <strong>Administrar </strong>
                                                 <i class="fa fa-caret-down"></i>
@@ -146,13 +146,7 @@
                                                         <strong>Especies</strong>
                                                     </a>
                                                 </li>
-                                                <li class="divider"></li>
-                                                <li>
-                                                    <a href="/pezfa/pages/insumo/">
-                                                        <span class="fa fa-cube"></span>
-                                                        <strong>Insumos</strong>
-                                                    </a>
-                                                </li>
+                                               
                                                 <li class="divider"></li>
                                                 <li>
                                                     <a href="/pezfa/pages/producto/">
@@ -178,7 +172,11 @@
                                             </ul>
                                         </li>
 
+
                                         <li jsf:rendered="#{(usuarioController.sesion.rol eq 'USUARIO')}">
+
+                                         <li>
+
                                             <a href="/pezfa/pages/especie">
                                                 <span class="fa fa-cube"></span>
                                                 <strong>Especie</strong>
@@ -201,13 +199,15 @@
                                                 <strong>Ventas</strong>
                                             </a>
                                         </li>
-
-                                        <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                                        
+                                        
+                                        <li>
                                             <a href="/pezfa/pages/inventario/">
                                                 <span class="fa fa-list-ul"></span>
                                                 <strong>Inventario</strong>
                                             </a>
                                         </li>
+
 
                                         <li jsf:rendered="#{!(usuarioController.sesion.rol eq 'USUARIO')}">
                                             <a href="/pezfa/pages/rotacion/">
@@ -219,11 +219,39 @@
 
                                         <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
                                             <a href="/pezfa/pages/auditoria/">
+
+                                        <li class="dropdown" >
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                <i class="fa fa-gears"></i> <strong>Gestionar</strong>
+                                                <i class="fa fa-caret-down"></i>
+                                            </a>
+                                           <ul class="dropdown-menu dropdown-messages">
+                                            <li>
+                                                <a href="/pezfa/pages/rotacion/">
+                                                <span class="fa fa-bar-chart"></span>
+                                                <strong>Indicadores</strong>
+                                                </a>
+                                            </li>
+                                               <li class="divider"></li>
+                                                <li>
+                                                    <a href="/pezfa/pages/#">
+                                                        <span class="fa fa-cubes"></span>
+                                                        <strong>Reportes</strong>
+                                                    </a>
+                                                </li>
+                                               <li class="divider"></li>
+                                             <li jsf:rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
+                                                <a href="/pezfa/pages/auditoria/">
+
                                                 <span class="fa fa-newspaper-o"></span>
                                                 <strong>Auditoria</strong>
-                                            </a>
+                                                </a>
+                                            </li>
+                                        
+                                            </ul>
                                         </li>
-                                        <li class="dropdown" >
+                                        
+                                       <li class="dropdown" >
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                                 <i class="fa fa-file" title="Reportes"></i> <strong>Reportes </strong>
                                                 <i class="fa fa-caret-down"></i>
@@ -272,7 +300,7 @@
                                         </li>
 
                                     </ul>
-
+                                     
 
 
                                     <ul class="nav navbar-nav navbar-right">

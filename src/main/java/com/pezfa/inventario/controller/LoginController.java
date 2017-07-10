@@ -8,53 +8,72 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @RequestScoped
-public class LoginController implements Serializable {
+public class LoginController implements Serializable
+{
 
     private Usuario cuenta;
     private final HttpServletRequest req;
     private final FacesContext contexto;
+    private UsuarioDB data = new UsuarioDB();
 
-    public LoginController() {
-        System.out.println("hao");
+    public LoginController()
+    {
+        if (data.read("from Usuario").size() == 0)
+        {
+            RequestContext con = RequestContext.getCurrentInstance();
+            con.execute("location.href='/pezfa/registrar.jsf'");
+        }
         contexto = FacesContext.getCurrentInstance();
         req = (HttpServletRequest) contexto.getExternalContext().getRequest();
         Usuario userr = (Usuario) req.getSession().getAttribute("sesion");
-        if (userr != null) {
-            try {
+        if (userr != null)
+        {
+            try
+            {
                 contexto.getExternalContext().redirect("pages/");
-            } catch (Exception ex) {
+            } catch (Exception ex)
+            {
                 contexto.addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_FATAL, "Problemas: "
                         + ex.getMessage(), null));
             }
-        } else {
+        } else
+        {
             cuenta = new Usuario();
         }
     }
 
-    public Usuario getUsuario() {
+    public Usuario getUsuario()
+    {
         return cuenta;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(Usuario usuario)
+    {
         this.cuenta = usuario;
     }
 
-    public void validate() {
+    public void validate()
+    {
         cuenta.setUsuario(cuenta.getUsuario().toLowerCase());
         Usuario user = UsuarioDB.validateUser(cuenta.getUsuario(), cuenta.getClave());
-        if (user != null) {
-            try {
+        if (user != null)
+        {
+            try
+            {
                 req.getSession().setAttribute("sesion", user);
                 contexto.getExternalContext().redirect("pages/");
-            } catch (Exception ex) {
+            } catch (Exception ex)
+            {
                 contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ""
                         + "Ocurrio un problema de conexion, comuniquese con el administrador",
                         null));
             }
-        } else {
+        } else
+        {
             contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos incorrectos",
                     null));
         }

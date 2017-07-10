@@ -11,6 +11,9 @@
         <property name="rif" type="string">
             <column name="rif" length="20" not-null="true" unique="true" />
         </property>
+        <property name="tipo" type="string">
+            <column name="tipo" length="1" not-null="true" />
+        </property>
         <property name="nombre" type="string">
             <column name="nombre" not-null="true" />
         </property>
