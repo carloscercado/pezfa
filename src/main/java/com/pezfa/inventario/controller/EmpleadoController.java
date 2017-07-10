@@ -1,7 +1,9 @@
 package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.EmpleadoDB;
+import com.pezfa.inventario.database.UsuarioDB;
 import com.pezfa.inventario.models.Empleado;
+import com.pezfa.inventario.models.Usuario;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean
@@ -21,7 +24,7 @@ public class EmpleadoController implements Serializable
     private List<Empleado> choferes = null;
     private EmpleadoDB db;
     private Date fecha = new Date();
-    
+
     //constructor
     public EmpleadoController()
     {
@@ -39,18 +42,18 @@ public class EmpleadoController implements Serializable
     {
         this.choferes = choferes;
     }
-    
-    
 
     //getter y setter
-    public Date getFecha() {
+    public Date getFecha()
+    {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(Date fecha)
+    {
         this.fecha = fecha;
     }
-    
+
     public Empleado getEmpleado()
     {
         return empleado;
@@ -80,14 +83,15 @@ public class EmpleadoController implements Serializable
     }
 
     public void validarCedula()
-    {  
-        if(db.validarCedula(this.empleado.getCedula()))
+    {
+        if (db.validarCedula(this.empleado.getCedula()))
         {
             this.empleado.setCedula("");
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrado este empleado", null);
-            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);            
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
+
     public void register()
     {
         empleado.toUpperCase();
@@ -105,6 +109,7 @@ public class EmpleadoController implements Serializable
         }
     }
 
+    
     public void update()
     {
         empleado.toUpperCase();

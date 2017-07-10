@@ -14,9 +14,9 @@
 
             <ui:define name="content">
                 <h:form>
-                    <h3 align="center" style="color: #045491">Historial de produccion</h3>
+                    <h3 align="center" style="color: #045491">Historial de producciones</h3>
                     <p:tooltip  for="tabla" value="Seleccione un registro para ver el detalle" position="top" />
-                    <p:dataTable id="tabla" selectionMode="single" selection="#{produccionController.produccion}" rowKey="#{produccion.id}"  var="produccion" value="#{produccionController.producciones}"
+                    <p:dataTable id="tabla"  selectionMode="single" selection="#{produccionController.produccion}" rowKey="#{produccion.id}"  var="produccion" value="#{produccionController.producciones}"
                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true">
                         <f:facet name="header">
                             <p:ajax event="rowSelect" update="@widgetVar(detalles)" listener="#{produccionController.onRowSelect}" /> 
