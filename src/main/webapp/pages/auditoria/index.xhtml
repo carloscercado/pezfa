@@ -10,7 +10,7 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <h3 align="center" style="color: #045491">Administrar auditoria</h3>
                     
                     <p:dataTable widgetVar="auditorias" emptyMessage="No se encontrar&oacute;n datos" reflow="true"
@@ -63,7 +63,7 @@
                     </p:dataTable>
                 </h:form> 
                 
-                <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRACION')}">
+                <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <center>
                         <p:graphicImage name="/images/401.png" height="400"/>
                         <br/>

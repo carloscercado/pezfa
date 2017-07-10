@@ -56,11 +56,11 @@ INSERT INTO CAVA
 		(5, 'CAVA 5', 10000,10000,5);
 
 INSERT INTO usuario
-	values (1, 'admin', 'admin', 'ADMINISTRACION', 1),
+	values (1, 'admin', 'admin', 'ADMINISTRADOR', 1),
 		(2, 'usuario', '1234', 'USUARIO', 2),
-		(3, 'rosa', '12345', 'ADMINISTRACION', 3),
+		(3, 'rosa', '12345', 'ADMINISTRADOR', 3),
 		(4, 'pablo', '123456', 'USUARIO', 4),
-		(5, 'usua', '1234567', 'ADMINISTRACION', 5);
+		(5, 'usua', '1234567', 'ADMINISTRADOR', 5);
 
 INSERT INTO CAMION 
 	VALUES (1, 'SUBARU', 'MITSUBUSHI', 'RIP203'),
