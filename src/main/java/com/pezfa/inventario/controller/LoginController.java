@@ -18,10 +18,11 @@ public class LoginController implements Serializable
     private Usuario cuenta;
     private final HttpServletRequest req;
     private final FacesContext contexto;
-    private UsuarioDB data = new UsuarioDB();
+    private UsuarioDB data;
 
     public LoginController()
     {
+        data = new UsuarioDB();
         if (data.read("from Usuario").size() == 0)
         {
             RequestContext con = RequestContext.getCurrentInstance();

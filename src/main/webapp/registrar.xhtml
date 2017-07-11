@@ -95,33 +95,6 @@
                                         </p:selectOneMenu>
                                     </div>
                                     <br/>
-                    
-                                    <center>
-
-                                        <strong> <i class="fa fa-user fa-2x"></i>Cuenta de usuario</strong>  </center>
-                                    <div class="form-group input-group">
-                                        <p:inputText value="#{usuarioController.usuario.usuario}" autocomplete="off" 
-                                                     required="true" class="form-control" requiredMessage="Registre usuario" placeholder="Usuario"/>
-                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    </div>
-
-                                    <div class="form-group input-group">
-                                       <p:password validatorMessage="No coinciden las contrase&ntilde;as"  id="pwd1" value="#{usuarioController.usuario.clave}" match="pwd2" label="Password 1" required="true"
-                                        feedback="true" inline="true" requiredMessage="Registre la contrase&ntilde;a" placeholder="Contrase&ntilde;a" 
-                                        promptLabel="Elija una contrase&ntilde;a" weakLabel="F&aacute;cil" goodLabel="Normal" strongLabel="Segura" maxlength="20"/>
-                            <p:password id="pwd2" value="#{usuarioController.usuario.clave}" label="Password 2" required="true" 
-                                        requiredMessage="Registre la contrase&ntilde;a" placeholder="Contrase&ntilde;a" maxlength="20"/> 
-                                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
-
-                                    </div>
-                                    
-                                    <div>
-                                        <p:selectOneMenu value="#{usuarioController.usuario.rol}" required="true" requiredMessage="Seleccione el rol">
-                                        <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Rol del usuario" />
-                                        <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
-                                        <f:selectItem itemValue="Usuario" itemLabel="Usuario"/>
-                                        </p:selectOneMenu>
-                                    </div>
 
                     
                                     <center>
