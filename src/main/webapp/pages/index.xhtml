@@ -28,16 +28,13 @@
                                 <div class="text-center">
                                     <label class="text-muted">Capacidad: </label>
                                     <strong jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
-                                            style="color: #f63a1e; font-size: 18px">
+                                            style="color:#1ef664; font-size: 18px">
                                         #{cavaController.capacidad} %
                                     </strong>
 
-                                    <strong style="color: #ff6600; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
-                                                                                                    and (cavaController.capacidad le indicadorController.capacidad.malo+1))}" >
-                                            #{cavaController.capacidad} %
-                                    </strong>
-                                    <strong jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.malo)}" 
-                                            style="color: #1ef664; font-size: 18px">
+                                    
+                                    <strong jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" 
+                                            style="color: #f63a1e; font-size: 18px">
                                         #{cavaController.capacidad} %
                                     </strong>
 
