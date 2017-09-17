@@ -24,11 +24,15 @@
                             <div class="row">
                                 <div  class="col-md-6 text-left ">
                                     <p:commandButton immediate="true" value="Nueva venta" class="right" icon="fa fa-plus" onclick="location.href = '/pezfa/pages/nueva_venta/'"/>           
-                                </div>                         
+                                </div>
+                                
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('historico').filter()" placeholder="Buscar"/>
+                                </div>
                             </div>    
                         </f:facet>
 
-                        <p:column headerText="Factura">
+                        <p:column headerText="Factura" filterBy="#{venta.factura}" filterStyle="display: none">
                             <span class="fa fa-file"/> #{venta.factura}
                         </p:column>
 
@@ -44,11 +48,18 @@
                             #{venta.ingreso}
                         </p:column>
         
-                        <p:column headerText="Cantidad">
+                        <p:column headerText="Cantidad" width="20%">
                             #{venta.kiloTotal} Kg
                         </p:column>
-
-                    </p:dataTable>
+        
+                        <p:column width="15%" class="column-hidden" headerText="Opciones">
+                            <center>  
+                                <p:commandButton icon="fa fa-edit" title="Devoluciones" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
+                                    <f:setPropertyActionListener target="#{ventaController.registrarDevolucion()}" value="#{cliente}"/>
+                                </p:commandButton>
+                            </center> 
+                        </p:column>
+                        </p:dataTable>
                 </h:form>
 
                 <p:dialog header="Detalles del historial" widgetVar="detalles" responsive="true" 

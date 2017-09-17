@@ -66,7 +66,7 @@ public class CompraController implements Serializable
 
     public List<Compra> getCompras()
     {
-        compras = db.read("from Compra comprita join fetch comprita.proveedor join fetch comprita.usuario where comprita.estado = 'Comprado'");
+        compras = db.read("from Compra comprita join fetch comprita.proveedor join fetch comprita.usuario where comprita.estado = 'COMPRADO'");
         return compras;
     }
 

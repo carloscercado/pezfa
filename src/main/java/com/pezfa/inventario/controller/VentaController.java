@@ -52,6 +52,7 @@ public class VentaController implements Serializable {
     private BarChartModel ventasAnual;
     private BarChartModel ventasAnualKilos;
     private Date fecha = new Date();
+    private List<Ubicacion> listaInterna = new ArrayList();
 
     //constructor
     public VentaController() {
@@ -83,25 +84,23 @@ public class VentaController implements Serializable {
         this.ventasAnualKilos = ventasAnualKilos;
     }
 
-    
     public BarChartModel[] inicializarGrafica() {
         double[] meses = this.getIndicadorVentas();
         double[] mesesKilos = this.getIndicadorVentasKilos();
-        
+
         BarChartModel[] modelos = new BarChartModel[2];
-        
-        
+
         ventasAnual = initBarModel(meses);
         ventasAnualKilos = initBarModel(mesesKilos);
         ventasAnual.setAnimate(true);
         ventasAnual.setNegativeSeriesColors("22c80a");
-        
+
         ventasAnualKilos.setAnimate(true);
         ventasAnualKilos.setNegativeSeriesColors("22c80a");
 
         Axis xAxis = ventasAnual.getAxis(AxisType.X);
         Axis yAxis = ventasAnual.getAxis(AxisType.Y);
-        
+
         Axis xAxis2 = ventasAnualKilos.getAxis(AxisType.X);
         Axis yAxis2 = ventasAnualKilos.getAxis(AxisType.Y);
         yAxis.setMin(0);
@@ -120,15 +119,15 @@ public class VentaController implements Serializable {
         res.set("Ene", meses[0]);
         res.set("Feb", meses[1]);
         res.set("Mar", meses[2]);
-        res.set("Abri",meses[3]);
+        res.set("Abri", meses[3]);
         res.set("May", meses[4]);
         res.set("Jun", meses[5]);
         res.set("jul", meses[6]);
-        res.set("Ago",meses[7] );
-        res.set("Sep",meses[8]);
+        res.set("Ago", meses[7]);
+        res.set("Sep", meses[8]);
         res.set("Oct", meses[9]);
-        res.set("Nov",meses[10]);
-        res.set("Dic",meses[11]);
+        res.set("Nov", meses[10]);
+        res.set("Dic", meses[11]);
         model.addSeries(res);
 
         return model;
@@ -152,7 +151,7 @@ public class VentaController implements Serializable {
         }
         return meses;
     }
-    
+
     public double[] getIndicadorVentasKilos() {
         double[] meses = new double[12];
         int anio_actual = new Date().getYear() + 1900;
@@ -183,7 +182,7 @@ public class VentaController implements Serializable {
     public void setHistorico(List<Venta> historico) {
         this.historico = historico;
     }
-    
+
     public void onRowSelect(SelectEvent event) {
         RequestContext con = RequestContext.getCurrentInstance();
         con.execute("PF('detalles').show();");
@@ -248,40 +247,46 @@ public class VentaController implements Serializable {
     public double getTotal() {
         return this.lista.stream()
                 .mapToDouble(x -> {
-                    if (x instanceof VentaEspecie) {
                         return ((VentaEspecie) x).getUbicacion().getPrecio().doubleValue() * x.getCantidad();
-                    } else if (x instanceof VentaUnidad) {
-                        return ((VentaUnidad) x).getUnidad().getPrecio().doubleValue() * x.getCantidad();
-                    }
-                    return 0;
-                })
+                    })
                 .sum();
     }
 
     public void add() {
         VentaEspecie vu;
         VentaUnidad vt;
+        RequestContext con = RequestContext.getCurrentInstance();
 
         venta.setUsuario(usuarioController.getSesion());
         if (this.producto instanceof Ubicacion) {
-            vu = new VentaEspecie();
-            vu.setUbicacion((Ubicacion) this.producto);
-            vu.setCantidad(cant);
-            lista.add(vu);
-            cant = 1;
+            long numero = listaInterna.stream().filter(x -> x.getId() == this.producto.getId()).count();
+            if (numero > 0) {
+                con.execute("PF('agregar').hide();");
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este producto ya fue agregado", null);
+                FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            } else {
+                listaInterna.add((Ubicacion) this.producto);
+                vu = new VentaEspecie();
+                vu.setUbicacion((Ubicacion) this.producto);
+                vu.setCantidad(cant);
+                lista.add(vu);
+                cant = 1;
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto agregado exitosamente", null);
+                FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            }
         } else if (this.producto instanceof Unidad) {
             vt = new VentaUnidad();
             vt.setUnidad((Unidad) this.producto);
             vt.setCantidad(cant);
+
             lista.add(vt);
             cant = 1;
         }
-
-        RequestContext con = RequestContext.getCurrentInstance();
         con.execute("PF('agregar').hide();");
     }
 
     public void remove() {
+        listaInterna.clear();
         lista.clear();
     }
 
@@ -304,7 +309,6 @@ public class VentaController implements Serializable {
             if (salida != null) {
                 Auditoria auditoria = new Auditoria();
                 AuditoriaDB auditoDB = new AuditoriaDB();
-
                 auditoria.setUsuario(venta.getUsuario());
                 auditoria.setFecha(venta.getFecha());
                 auditoria.setHora(venta.getFecha());
@@ -312,13 +316,13 @@ public class VentaController implements Serializable {
                 auditoria.setDescripcion("REGISTRO DE VENTA CON FACTURA " + venta.getFactura()
                         + " A CLIENTE CON RIF " + venta.getCliente().getRif());
                 auditoDB.create(auditoria);
-                lista.clear();
+                this.remove();
                 venta = new Venta();
                 venta.setFecha(new Date());
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Venta registrada exitosamente", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
                 RequestContext con = RequestContext.getCurrentInstance();
-                
+
             } else {
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas al registrar venta", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);

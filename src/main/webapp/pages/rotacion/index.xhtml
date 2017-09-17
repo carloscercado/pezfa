@@ -13,6 +13,8 @@
             <ui:define name="content">
                 
                <div class="row">
+                   <p:chart type="pie" model="#{empleadoController.capacitacionProfesionales}" />
+                   <p:chart type="pie"  model="#{empleadoController.capacitacionNoProfesionales}" />
                     <a href="#" onclick="PF('indicador').show()" >
                         <div class="col-sm-4">
                             <div class="hero-widget well well-sm">

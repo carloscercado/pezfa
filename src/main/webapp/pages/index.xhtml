@@ -14,46 +14,7 @@
 
             <ui:define name="content">
                 <br/>
-                
-                <h3 align="center" style="color: #045491">Sistema de gestión de inventario de Pezfa C.A. </h3>
-                <div class="row">
-
-                    <a href="#" onclick="PF('indicador').show()">
-                        <div class="col-sm-4">
-                            <div class="hero-widget well well-sm">
-                                <center> <div class="icon">
-                                        <i class="fa fa-dashboard fa-5x" style="color: #045491"></i>
-                                    </div>
-                                </center>
-                                <div class="text-center">
-                                    <label class="text-muted">Capacidad: </label>
-                                    <strong jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
-                                            style="color:#1ef664; font-size: 18px">
-                                        #{cavaController.capacidad} %
-                                    </strong>
-
-                                    
-                                    <strong jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" 
-                                            style="color: #f63a1e; font-size: 18px">
-                                        #{cavaController.capacidad} %
-                                    </strong>
-
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </a>
-
-                    <div class="col-sm-8">
-                        <div class="hero-widget well well-sm">
-                            <p:chart type="bar" model="#{ventaController.ventasAnual}" style="height:150px"/>
-                        </div>
-                    </div>
-                     
-
-
-
-                </div>
+                             
                 <h:form>
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" 
                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true"

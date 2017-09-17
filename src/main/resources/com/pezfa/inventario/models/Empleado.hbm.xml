@@ -32,6 +32,9 @@
         <property name="cargo" type="string">
             <column name="cargo" length="20" not-null="true" />
         </property>
+        <property name="educacion" type="int">
+            <column name="educacion" not-null="true" default="0"/>
+        </property>
         <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="empleado" not-null="true" />

@@ -10,6 +10,7 @@ public class Empleado  implements java.io.Serializable {
 
 
      private int id;
+     private int educacion; 
      private String cedula;
      private String primerNombre;
      private String segundoNombre;
@@ -24,24 +25,14 @@ public class Empleado  implements java.io.Serializable {
     }
 
 	
-    public Empleado(String cedula, String primerNombre, String primerApellido, Date nacimiento, String sexo, String cargo) {
+    public Empleado(String cedula, int educacion, String primerNombre, String primerApellido, Date nacimiento, String sexo, String cargo) {
         this.cedula = cedula;
+        this.educacion = educacion;
         this.primerNombre = primerNombre;
         this.primerApellido = primerApellido;
         this.nacimiento = nacimiento;
         this.sexo = sexo;
         this.cargo = cargo;
-    }
-    public Empleado(String cedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, Date nacimiento, String sexo, String cargo, Set usuarios) {
-       this.cedula = cedula;
-       this.primerNombre = primerNombre;
-       this.segundoNombre = segundoNombre;
-       this.primerApellido = primerApellido;
-       this.segundoApellido = segundoApellido;
-       this.nacimiento = nacimiento;
-       this.sexo = sexo;
-       this.cargo = cargo;
-       this.usuarios = usuarios;
     }
    
     public int getId() {
@@ -60,6 +51,14 @@ public class Empleado  implements java.io.Serializable {
     }
     public String getPrimerNombre() {
         return this.primerNombre;
+    }
+
+    public int getEducacion() {
+        return educacion;
+    }
+
+    public void setEducacion(int educacion) {
+        this.educacion = educacion;
     }
     
     public void setPrimerNombre(String primerNombre) {

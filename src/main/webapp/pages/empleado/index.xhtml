@@ -78,9 +78,15 @@
                         <p:panelGrid columns="2">
 
                             <p:outputLabel value="C&eacute;dula:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText value="#{empleadoController.empleado.cedula}" required="true" id="emple" requiredMessage="Ingrese la c&eacute;dula" placeholder="C&eacute;dula">
-                            <p:ajax event="change" listener="#{empleadoController.validarCedula()}" update="msj emple"/>
-                            </p:inputText>
+                            <p:outputLabel>
+                                <p:selectOneMenu required="true" requiredMessage="Ingrese la c&eacute;dula" style="float: left" value="#{empleadoController.empleado.cedula}">
+                                    <f:selectItem itemValue="V" itemLabel="V"/>
+                                    <f:selectItem itemValue="E" itemLabel="E"/>
+                                </p:selectOneMenu>
+                                <p:inputText placeholder="C&eacute;dula" maxlength="10" autocomplete="off" onkeypress="return numero(event)" requiredMessage="Registrar la c&eacute;dula" id="clien" required="true" value="#{empleadoController.empleado.cedula}">
+                                    <p:ajax event="change" listener="#{empleadoController.validarCedula()}" update="msj clien"/>
+                                </p:inputText> 
+                            </p:outputLabel>
                             <p:outputLabel value="Nombres:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:tab>
                                 <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{empleadoController.empleado.primerNombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Primer nombre"/>

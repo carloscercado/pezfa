@@ -1,4 +1,11 @@
-﻿
+﻿create table if not exists devoluciones
+(
+   id serial primary key,
+   anio int not null,
+   mes int not null,
+   ventas int not null,
+   devoluciones int not null
+ );
 
 create table if not exists insumo
 (
@@ -66,7 +73,8 @@ create table if not exists empleado
     segundo_apellido varchar(20),
     nacimiento date not null,
     sexo varchar(1) not null,
-    cargo varchar(20) not null
+    cargo varchar(20) not null,
+    educacion int default(0) not null 
 );
 
 create table if not exists almacen
@@ -259,3 +267,9 @@ CREATE TRIGGER actualizar_ubicados
   ON ubicacion
   FOR EACH ROW
   EXECUTE PROCEDURE actualizar_ubicados();
+
+  CREATE TRIGGER contar_ventas
+  AFTER INSERT
+  ON venta
+  FOR EACH ROW
+  EXECUTE PROCEDURE contar_ventas();

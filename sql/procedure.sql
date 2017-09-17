@@ -28,8 +28,8 @@ declare
 objeto record;
 begin
 
-for objeto in (select especie, venta_especie.cantidad as cantidad, especie.precio valor, ubicacion.cava as cava, venta_especie.cantidad as cantidad, ubicacion.id as ubicacion from venta_especie join ubicacion on ubicacion=ubicacion.id join compra_especie on compra_especie.id=ubicacion.detalle join especie on especie.id=especie
-where ubicacion.id=new.ubicacion) loop
+for objeto in (select especie, especie.precio valor, ubicacion.cava as cava, venta_especie.cantidad as cantidad, ubicacion.id as ubicacion from venta_especie join ubicacion on ubicacion=ubicacion.id join compra_especie on compra_especie.id=ubicacion.detalle join especie on especie.id=especie
+where venta_especie.id=new.id) loop
 update especie set cantidad=cantidad-objeto.cantidad where id=objeto.especie;
 update cava set capacidad_disponible = (capacidad_disponible + new.cantidad) where id = objeto.cava;
 update venta set ingreso = ingreso+(objeto.valor*objeto.cantidad) where id = new.venta;
@@ -118,11 +118,34 @@ for objeto in (select compra from compra_especie where id = new.detalle limit 1)
 		valor =	 1;
 	end loop;
 	if valor = 0 then
-		update compra set estado = 'Procesado' where id = objeto.compra;
+		update compra set estado = 'PROCESADO' where id = objeto.compra;
 	end if;
 end loop;
 return null;
 end;
 $BODY$
   LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION contar_ventas()
+  RETURNS trigger AS
+$BODY$
+declare
+resultado record;
+valor int;
+begin
+	valor = 0;
+	for resultado in (select * from devoluciones where anio = date_part('year', new.fecha) and date_part('month', new.fecha) = mes) loop
+		valor =	 1;
+	end loop;
+	if valor = 0 then
+		insert into devoluciones (anio, mes, ventas, devoluciones) values(date_part('year', new.fecha), date_part('month', new.fecha), 1, 0);
+	else
+		update devoluciones set ventas = ventas + 1 where anio = date_part('year', new.fecha) and mes = date_part('month', new.fecha);
+	end if;
+return null;
+end;
+$BODY$
+  LANGUAGE plpgsql;
+  
   
