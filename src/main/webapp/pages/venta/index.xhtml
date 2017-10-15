@@ -13,10 +13,10 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-                <h:form>
+                <h:form id="formulario">
                     <h3 align="center" style="color: #045491">Historial de ventas</h3>
                     <p:tooltip  for="tabla" value="Seleccione un registro para ver el detalle" position="top" />
-    <p:dataTable id="tabla" selectionMode="single" selection="#{ventaController.venta}" rowKey="#{venta.id}"
+                    <p:dataTable id="tabla" selectionMode="single" selection="#{ventaController.venta}" rowKey="#{venta.id}"
                                  widgetVar="historico" var="venta" value="#{ventaController.historico}"
                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true">
                         <f:facet name="header">
@@ -25,7 +25,7 @@
                                 <div  class="col-md-6 text-left ">
                                     <p:commandButton immediate="true" value="Nueva venta" class="right" icon="fa fa-plus" onclick="location.href = '/pezfa/pages/nueva_venta/'"/>           
                                 </div>
-                                
+
                                 <div class="col-md-6 text-right header-tabla-center">
                                     <p:inputText id="globalFilter" onkeyup="PF('historico').filter()" placeholder="Buscar"/>
                                 </div>
@@ -43,23 +43,24 @@
                         <p:column headerText="Cliente">
                             #{venta.cliente.nombre} #{venta.cliente.rif}
                         </p:column> 
-                        
+
                         <p:column headerText="Ingreso">
                             #{venta.ingreso}
                         </p:column>
-        
+
                         <p:column headerText="Cantidad" width="20%">
                             #{venta.kiloTotal} Kg
                         </p:column>
-        
+
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
                             <center>  
-                                <p:commandButton icon="fa fa-edit" title="Devoluciones" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
-                                    <f:setPropertyActionListener target="#{ventaController.registrarDevolucion()}" value="#{cliente}"/>
+                                <p:commandButton rendered="#{!venta.devuelta}" icon="fa fa-edit" title="Devoluciones" oncomplete="PF('devolucion').show()" update="@widgetVar(devolucion)" class="btn-warning">
+                                    <f:setPropertyActionListener target="#{ventaController.venta}" value="#{venta}"/>
                                 </p:commandButton>
+                                <p:outputLabel value="Devuelta" rendered="#{venta.devuelta}"/>
                             </center> 
                         </p:column>
-                        </p:dataTable>
+                    </p:dataTable>
                 </h:form>
 
                 <p:dialog header="Detalles del historial" widgetVar="detalles" responsive="true" 
@@ -87,29 +88,40 @@
                                       widgetVar="detalles" emptyMessage="No hay productos asociados al historial de ventas."> 
 
                             <p:column headerText="Factura">
-                                #{historicoVentas.venta.factura} 
-                            </p:column>
+                        #{historicoVentas.venta.factura} 
+                    </p:column>
 
-                            <p:column headerText="Cliente">
-                                #{historicoVentas.nombre} 
-                            </p:column>
+                    <p:column headerText="Cliente">
+                        #{historicoVentas.nombre} 
+                    </p:column>
 
-                            <p:column headerText="Fecha" class="text-right" width="12%">
-                                #{historicoVentas.fecha}
-                            </p:column>
+                    <p:column headerText="Fecha" class="text-right" width="12%">
+                        #{historicoVentas.fecha}
+                    </p:column>
 
-                            <p:column headerText="Ingreso" class="text-right">
-                                <h:outputLabel value="#{historicoVentas.ingreso}">
-                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
-                                </h:outputLabel> 
-                            </p:column>
+                    <p:column headerText="Ingreso" class="text-right">
+                        <h:outputLabel value="#{historicoVentas.ingreso}">
+                            <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                        </h:outputLabel> 
+                    </p:column>
 
-                            <p:column headerText="Total" class="text-right">
-                                <h:outputLabel value="#{ventaEspecie.costo*ventaEspecie.cantidad}">
-                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
-                                </h:outputLabel> 
-                            </p:column>
-                        </p:dataTable> !-->
+                    <p:column headerText="Total" class="text-right">
+                        <h:outputLabel value="#{ventaEspecie.costo*ventaEspecie.cantidad}">
+                            <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                        </h:outputLabel> 
+                    </p:column>
+                </p:dataTable> !-->
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog widgetVar="devolucion" modal="true" maximizable="false"
+                          header="¿Esta seguro que desea registrar la devolucion de esta venta?">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <center>
+                            <p:commandButton value="Si, estoy seguro" icon="fa fa-check"  actionListener="#{ventaController.registrarDevolucion()}"/> 
+                            <p:commandButton value="No" icon="fa fa-times" class="btn-danger" oncomplete="PF('devolucion').hide()"/>
+                        </center>
                     </h:form>
                 </p:dialog>
 

@@ -167,8 +167,10 @@ create table if not exists venta
     cliente int not null references cliente (id),
     usuario int not null references usuario(id),
     ingreso numeric(10,2) default 0,
-    kilo_total float default 0
+    kilo_total float default 0,
+    devuelta boolean default false
 );
+
 
 create table if not exists cava
 (
@@ -273,3 +275,9 @@ CREATE TRIGGER actualizar_ubicados
   ON venta
   FOR EACH ROW
   EXECUTE PROCEDURE contar_ventas();
+
+  CREATE TRIGGER registrar_devoluciones
+  AFTER update
+  ON venta
+  FOR EACH ROW
+  EXECUTE PROCEDURE registrar_devoluciones();

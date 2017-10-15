@@ -1,10 +1,12 @@
 package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.AuditoriaDB;
+import com.pezfa.inventario.database.DevolucionDB;
 import com.pezfa.inventario.database.UnidadDB;
 import com.pezfa.inventario.database.UbicacionDB;
 import com.pezfa.inventario.database.VentaDB;
 import com.pezfa.inventario.models.Auditoria;
+import com.pezfa.inventario.models.Devoluciones;
 import com.pezfa.inventario.models.ProductoSalida;
 import com.pezfa.inventario.models.Unidad;
 import com.pezfa.inventario.models.Ubicacion;
@@ -111,6 +113,7 @@ public class VentaController implements Serializable {
         modelos[1] = ventasAnualKilos;
         return modelos;
     }
+    
 
     private BarChartModel initBarModel(double[] meses) {
         BarChartModel model = new BarChartModel();
@@ -247,8 +250,8 @@ public class VentaController implements Serializable {
     public double getTotal() {
         return this.lista.stream()
                 .mapToDouble(x -> {
-                        return ((VentaEspecie) x).getUbicacion().getPrecio().doubleValue() * x.getCantidad();
-                    })
+                    return ((VentaEspecie) x).getUbicacion().getPrecio().doubleValue() * x.getCantidad();
+                })
                 .sum();
     }
 
@@ -331,6 +334,16 @@ public class VentaController implements Serializable {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe agregar minimo un producto a la lista", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
+    }
+
+    public void registrarDevolucion() {
+        venta.setDevuelta(true);
+        db.update(venta);
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Devolucion registrada exitosamente", null);
+        FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+        RequestContext con = RequestContext.getCurrentInstance();
+        con.execute("PF('devolucion').hide();");
+        con.update("formulario:tabla");
     }
 
     public Venta getVenta() {

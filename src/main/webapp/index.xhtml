@@ -38,9 +38,8 @@
                                     </center>
                                     <br />
 
-
+                                    <p:outputLabel value="Usuario:"> <span style="color: #D20005">*</span></p:outputLabel>
                                     <div class="form-group input-group">
-                                      <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                                          <p:inputText requiredMessage="Ingrese el usuario" class="form-control" autocomplete="off" 
                                                      value="#{loginController.usuario.usuario}" 
                                                      placeholder="Nombre de usuario"
@@ -48,10 +47,10 @@
                                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
                                     </div>
-
+                                    
+                                    <p:outputLabel value="Contrase&ntilde;a:"> <span style="color: #D20005">*</span></p:outputLabel>
                                     <div class="form-group input-group">
-                                        <p:outputLabel value="Contrase&ntilde;a:"> <span style="color: #D20005">*</span></p:outputLabel>
-                                        <p:password requiredMessage="Ingrese la contrase&ntilde;a" class="form-control" autocomplete="off" 
+                                         <p:password requiredMessage="Ingrese la contrase&ntilde;a" class="form-control" autocomplete="off" 
                                                     value="#{loginController.usuario.clave}"  placeholder="Contrase&ntilde;a"
                                                     required="true"     />
                                         <span class="input-group-addon"><i class="fa fa-key"></i></span>

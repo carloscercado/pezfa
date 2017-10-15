@@ -6,7 +6,6 @@ import com.pezfa.inventario.models.Unidad;
 import com.pezfa.inventario.models.Ubicacion;
 import com.pezfa.inventario.models.Venta;
 import com.pezfa.inventario.models.VentaDetalle;
-import com.pezfa.inventario.models.VentaUnidad;
 import com.pezfa.inventario.models.VentaEspecie;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ public class VentaDB implements Crud<Venta> {
         List<ProductoSalida> lista = new ArrayList<>();
         VentaDB dbVenta = new VentaDB();
         venta.setIngreso(BigDecimal.ZERO);
+        venta.setDevuelta(false);
         dbVenta.create(venta);
 
         for (VentaDetalle obj : objs) {
