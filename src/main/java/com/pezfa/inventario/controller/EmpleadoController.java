@@ -17,7 +17,6 @@ import org.primefaces.model.chart.PieChartModel;
 public class EmpleadoController implements Serializable {
 
     private PieChartModel capacitacionProfesionales;
-    private PieChartModel capacitacionNoProfesionales;
     private Empleado empleado = null;
     private List<Empleado> empleadores = null;
     private List<Empleado> choferes = null;
@@ -34,14 +33,11 @@ public class EmpleadoController implements Serializable {
         this.capacitacionProfesionales = capacitacionProfesionales;
     }
 
-    public void setCapacitacionNoProfesionales(PieChartModel capacitacionNoProfesionales) {
-        this.capacitacionNoProfesionales = capacitacionNoProfesionales;
-    }
-
+ 
     public PieChartModel getCapacitacionProfesionales() {
         capacitacionProfesionales = new PieChartModel();
         List<Empleado> profesionales;
-        profesionales = db.read("from Empleado emp where emp.cargo!='CHOFER'");
+        profesionales = db.read("from Empleado");
         float universitarios = profesionales.stream().filter(x -> x.getEducacion() == 4).count();
         float secundaria = profesionales.stream().filter(x -> x.getEducacion() == 3).count();
         float primaria = profesionales.stream().filter(x -> x.getEducacion() == 2).count();
@@ -57,24 +53,6 @@ public class EmpleadoController implements Serializable {
         return capacitacionProfesionales;
     }
 
-    public PieChartModel getCapacitacionNoProfesionales() {
-        capacitacionNoProfesionales = new PieChartModel();
-        List<Empleado> noProfesionales;
-        noProfesionales = db.read("from Empleado emp where emp.cargo='CHOFER'");
-        float universitarios = noProfesionales.stream().filter(x -> x.getEducacion() == 3).count();
-        float secundaria = noProfesionales.stream().filter(x -> x.getEducacion() == 2).count();
-        float primaria = noProfesionales.stream().filter(x -> x.getEducacion() == 1).count();
-        float sinEducacion = noProfesionales.stream().filter(x -> x.getEducacion() == 0).count();
-        capacitacionNoProfesionales.set("Sin estudios", sinEducacion);
-        capacitacionNoProfesionales.set("Primaria", primaria);
-        capacitacionNoProfesionales.set("Secundaria", secundaria);
-        capacitacionNoProfesionales.set("Universitaria", universitarios);
-        capacitacionNoProfesionales.setTitle("No Profesionales");
-        capacitacionNoProfesionales.setLegendPosition("w");
-        capacitacionNoProfesionales.setShowDataLabels(true);
-        capacitacionNoProfesionales.setSeriesColors("ef6868, 79ef68, 68c8ef, efde68");
-        return capacitacionNoProfesionales;
-    }
 
     public List<Empleado> getChoferes() {
         choferes = db.read("from Empleado emp where emp.cargo='CHOFER'");

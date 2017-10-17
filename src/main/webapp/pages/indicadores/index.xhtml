@@ -58,7 +58,6 @@
         <p:tab title="Estudio de Empleados">
             <p:panelGrid>
                 <p:chart type="pie" model="#{empleadoController.capacitacionProfesionales}" style="width: 80%" />
-                <p:chart type="pie"  model="#{empleadoController.capacitacionNoProfesionales}" />
             </p:panelGrid>
         </p:tab>
         <p:tab title="Ventas por año en bolivares">
@@ -83,7 +82,7 @@
             </p:panelGrid>
                         
         </p:tab>
-        <p:tab>
+                <p:tab title="sdhsjghjg">
             <a onclick="PF('devoluciones').show()">
                 <p:chart type="bar" model="#{devolucionController.devolucionesIndicador}"/>
             </a>         
@@ -133,7 +132,7 @@
 
                 </p:dialog>
                 
-                <p:dialog modal="true" widgetVar="devoluciones" width="500" resizable="false" header="Insatisfaccion del año #{devolucionController.devoluciones.get(0).anio} ">
+                <p:dialog modal="true" widgetVar="devoluciones" width="500" resizable="false" header="Insatisfaccion del año #{compraController.fecha.year+1900} ">
                         <p:dataTable value="#{devolucionController.devoluciones}" var="devol">
                             <p:column headerText="Mes">
                                 #{devol.mesString}
