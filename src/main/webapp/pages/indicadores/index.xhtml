@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        <ui:composition template="./../../template/menu.xhtml">
+            
+            <ui:define name="content">
+                 
+                <h3 align="center" style="color: #045491">Indicadores de gesti&oacute;n</h3>
+               
+                
+                    
+                    <a href="/pezfa/pages/indicador/">
+                        <span class="fa fa-line-chart"></span>
+                    <strong>Modificar rango</strong>
+                    </a>
+                   
+              
+                
+                <p:tabView dynamic="true" cache="true" style="height: 100%">
+            <p:tab title="Capacidad">
+            <p:panelGrid>
+                <a href="#" onclick="PF('indicador').show()" >
+                        <div style="width: 50%">
+                            <div class="hero-widget well well-sm">
+                                <center> <div class="icon">
+                                        <i class="fa fa-dashboard fa-5x" style="color: #045491"></i>
+                                    </div>
+                                </center>
+                                <div class="text-center">
+                                    <div class="panel-body">
+                                    <label class="text-muted">Capacidad: </label> <br/> 
+                                    <strong jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
+                                            style="color: #f63a1e; font-size: 18px">
+                                        #{cavaController.capacidad} %
+                                    </strong>
+
+                                    <strong style="color: #ff6600; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
+                                                                                                    and (cavaController.capacidad le indicadorController.capacidad.malo+1))}" >
+                                            #{cavaController.capacidad} %
+                                    </strong>
+                                    <strong jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.malo)}" 
+                                            style="color: #1ef664; font-size: 18px">
+                                        #{cavaController.capacidad} %
+                                    </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </a>
+            </p:panelGrid>
+        </p:tab>
+        <p:tab title="Estudio de Empleados">
+            <p:panelGrid>
+                <p:chart type="pie" model="#{empleadoController.capacitacionProfesionales}" style="width: 80%" />
+                <p:chart type="pie"  model="#{empleadoController.capacitacionNoProfesionales}" />
+            </p:panelGrid>
+        </p:tab>
+        <p:tab title="Ventas por año en bolivares">
+            <p:panelGrid >
+                <div>
+                    <label class="text-muted">Ventas por año en bolivares: </label>
+                    <div class="hero-widget well well-sm">
+                        <p:chart type="bar" model="#{ventaController.ventasAnual}" style="height:150px"/>
+                    </div>
+                </div>
+            </p:panelGrid>
+        </p:tab>
+                    
+        <p:tab title="Ventas por año en kilos">
+            <p:panelGrid>
+                <div>
+                    <label class="text-muted">Ventas por año en kilos: </label> 
+                   <div class="hero-widget well well-sm">
+                       <p:chart type="bar" model="#{ventaController.ventasAnualKilos}" style="height:150px"/>
+                    </div>
+                </div>
+            </p:panelGrid>
+                        
+        </p:tab>
+    </p:tabView>
+              
+                
+                <p:dialog  header="Informaci&oacute;n de indicador" widgetVar="indicador" responsive="true" 
+                           resizable="false" draggable="false" modal="true">
+
+                    <p:panelGrid columns="2">
+
+                        <p:outputLabel value="Nombre del indicador:"> 
+                        </p:outputLabel>
+                        <p:outputLabel value="#{indicadorController.capacidad.nombre}"/>
+
+                        <p:outputLabel value="Descripci&oacute;n:"> 
+                        </p:outputLabel>
+                        <p:outputLabel value="#{indicadorController.capacidad.descripcion}"/>
+
+                        <p:outputLabel value="Bueno:">
+                        </p:outputLabel>
+                        <p:outputLabel value="#{indicadorController.capacidad.bueno}"/>
+
+                        <p:outputLabel value="Malo:">
+                        </p:outputLabel>
+                        <p:outputLabel value="#{indicadorController.capacidad.malo}"/>
+
+                        <p:outputLabel value=" Rango &oacute;ptimo:">
+                        </p:outputLabel>
+                        <p:outputLabel value=" #{indicadorController.capacidad.malo} % - #{indicadorController.capacidad.bueno} %"/>
+
+                        <p:outputLabel value=" Medida:">
+                        </p:outputLabel>
+                        <p:outputLabel value=" #{cavaController.capacidad} % "/>
+                        <p:outputLabel value="Estado:"/>
+                        <p:outputLabel rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}" value="#{indicadorController.capacidad.mensajeMalo}"/>
+                        <p:outputLabel rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
+                                                   and (cavaController.capacidad le indicadorController.capacidad.malo+1))}" 
+                                       value="#{indicadorController.capacidad.mensajeAceptable}" />
+
+                        <p:outputLabel rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" value="#{indicadorController.capacidad.mensajeBueno}"/>
+
+                    </p:panelGrid>
+
+                    <br/>
+
+                </p:dialog>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

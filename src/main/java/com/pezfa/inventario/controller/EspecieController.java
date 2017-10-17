@@ -94,6 +94,7 @@ public class EspecieController implements Serializable
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('registrar').hide();");
+            con.execute("PF('registrarp').hide();");
         }else
         {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser guardado", null);
@@ -111,6 +112,7 @@ public class EspecieController implements Serializable
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('modificar').hide();");
+            con.execute("PF('modificarPrecio').hide;");
         }else
         {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);

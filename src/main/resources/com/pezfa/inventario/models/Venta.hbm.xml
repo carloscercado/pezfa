@@ -26,6 +26,9 @@
         <property name="kiloTotal" type="double">
             <column name="kilo_total" not-null="true"/>
         </property>
+        <property name="devuelta" type="boolean">
+            <column name="devuelta"/>
+        </property>
         <set name="ventaEspecies" table="venta_especie" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="venta" not-null="true" />

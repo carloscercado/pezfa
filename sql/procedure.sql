@@ -147,5 +147,17 @@ return null;
 end;
 $BODY$
   LANGUAGE plpgsql;
-  
-  
+
+
+CREATE OR REPLACE FUNCTION registrar_devoluciones()
+  RETURNS trigger AS
+$BODY$
+begin
+	if new.devuelta = true then
+		update devoluciones set devoluciones = devoluciones + 1 where anio = date_part('year', new.fecha) and mes = date_part('month', new.fecha);
+	end if;
+	
+return null;
+end;
+$BODY$
+  LANGUAGE plpgsql;

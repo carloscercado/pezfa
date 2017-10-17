@@ -63,4 +63,5 @@ Contributor(s):
   <table-filter match-name="ubicacion"/>
   <table-filter match-name="venta_unidad"/>
   <table-filter match-name="usuario"/>
+  <table-filter match-name="devoluciones"/>
 </hibernate-reverse-engineering>

@@ -42,10 +42,10 @@ public class EmpleadoController implements Serializable {
         capacitacionProfesionales = new PieChartModel();
         List<Empleado> profesionales;
         profesionales = db.read("from Empleado emp where emp.cargo!='CHOFER'");
-        float universitarios = profesionales.stream().filter(x -> x.getEducacion() == 3).count();
-        float secundaria = profesionales.stream().filter(x -> x.getEducacion() == 2).count();
-        float primaria = profesionales.stream().filter(x -> x.getEducacion() == 1).count();
-        float sinEducacion = profesionales.stream().filter(x -> x.getEducacion() == 0).count();
+        float universitarios = profesionales.stream().filter(x -> x.getEducacion() == 4).count();
+        float secundaria = profesionales.stream().filter(x -> x.getEducacion() == 3).count();
+        float primaria = profesionales.stream().filter(x -> x.getEducacion() == 2).count();
+        float sinEducacion = profesionales.stream().filter(x -> x.getEducacion() == 1).count();
         capacitacionProfesionales.set("Sin estudios", sinEducacion);
         capacitacionProfesionales.set("Primaria", primaria);
         capacitacionProfesionales.set("Secundaria", secundaria);

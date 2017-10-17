@@ -82,14 +82,14 @@
                                 <p:ajax event="change" listener="#{proveedorController.validarRif()}" update="msj prove"/>
                             </p:inputText>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" maxlength="20" placeholder="Nombre" requiredMessage="Registrar el nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
+                            <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)"  placeholder="Nombre" requiredMessage="Registrar el nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
                             <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" placeholder="Direcci&oacute;n" requiredMessage="Registrar la Direcci&oacute;n" required="true" value="#{proveedorController.proveedor.direccion}"  />
                             <p:outputLabel value="Tel&eacute;fono"/> 
                             <p:inputMask  value="#{proveedorController.proveedor.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
-                            <p:outputLabel for="regex" value="Correo:"/>                    
-                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Ingrese el correo">
-                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            <p:outputLabel for="regex" value="Correo:"/>                   
+                            <p:inputText id="regex" value="#{proveedorController.proveedor.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Correo invalido">
+                                <f:validateRegex pattern="(^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)?" />
                             </p:inputText>
                         </p:panelGrid>
                         <br/>
@@ -116,18 +116,18 @@
                         <p:messages id="msj" closable="true"/>
                         <p:panelGrid columns="2">
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="prove" required="true" value="#{proveedorController.proveedor.rif}">
+                            <p:inputText placeholder="RIF" autocomplete="off" onkeypress="return numero(event)" requiredMessage="Registrar el RIF" id="prove" required="true" value="#{proveedorController.proveedor.rif}">
                                 <p:ajax event="change" listener="#{proveedorController.validarRif()}" update="msj prove"/>
                             </p:inputText>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" maxlength="20" placeholder="Nombre" requiredMessage="Registrar el nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
+                            <p:inputText autocomplete="off" onkeypress="return letras(event)" maxlength="20" placeholder="Nombre" requiredMessage="Registrar el nombre" required="true" value="#{proveedorController.proveedor.nombre}"/>
                             <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" placeholder="Direcci&oacute;n" requiredMessage="Registrar la Direcci&oacute;n" required="true" value="#{proveedorController.proveedor.direccion}"  />
                             <p:outputLabel value="Tel&eacute;fono"/>
                             <p:inputMask  value="#{proveedorController.proveedor.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
-                            <p:outputLabel for="regex" value="Correo:"/>                    
-                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Ingrese el correo">
-                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                             <p:outputLabel for="regex" value="Correo:"/>                   
+                            <p:inputText id="regex" value="#{proveedorController.proveedor.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Correo invalido">
+                                <f:validateRegex pattern="(^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)?" />
                             </p:inputText>
                         </p:panelGrid>
 
