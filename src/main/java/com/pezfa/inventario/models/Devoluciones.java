@@ -1,40 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pezfa.inventario.models;
 
-/**
- *
- * @author yulitza
- */
-public class Devoluciones implements java.io.Serializable {
+import java.util.HashMap;
+import java.util.Map;
+
+public class Devoluciones {
 
     private int id;
     private int anio;
     private int mes;
     private int devoluciones;
     private int ventas;
+    private Map meses;
 
-    public Devoluciones(int anio, int mes, int devoluciones, int ventas) {
-        this.anio = anio;
-        this.mes = mes;
-        this.devoluciones = devoluciones;
-        this.ventas = ventas;
+    public Devoluciones() {
+        meses = new HashMap();
+        meses.put(1, "Ene");
+        meses.put(2, "Feb");
+        meses.put(3, "Mar");
+        meses.put(4, "Abr");
+        meses.put(5, "May");
+        meses.put(6, "Jun");
+        meses.put(7, "Jul");
+        meses.put(8, "Ago");
+        meses.put(9, "Sep");
+        meses.put(10, "Oct");
+        meses.put(11, "Nov");
+        meses.put(12, "Dic");
     }
 
-   
-
-    public int getVentas() {
-        return ventas;
-    }
-
-    public void setVentas(int ventas) {
-        this.ventas = ventas;
-    }
-
-    
     public int getId() {
         return id;
     }
@@ -66,5 +59,18 @@ public class Devoluciones implements java.io.Serializable {
     public void setDevoluciones(int devoluciones) {
         this.devoluciones = devoluciones;
     }
+    
+    public int getVentas() {
+        return ventas;
+    }
 
+    public void setVentas(int ventas) {
+        this.ventas = ventas;
+    }
+    
+    public String getMesString()
+    {
+        return this.meses.get(this.mes).toString();
+    }
+    
 }

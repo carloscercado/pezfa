@@ -1,10 +1,12 @@
 package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.AuditoriaDB;
+import com.pezfa.inventario.database.DevolucionDB;
 import com.pezfa.inventario.database.UnidadDB;
 import com.pezfa.inventario.database.UbicacionDB;
 import com.pezfa.inventario.database.VentaDB;
 import com.pezfa.inventario.models.Auditoria;
+import com.pezfa.inventario.models.Devoluciones;
 import com.pezfa.inventario.models.ProductoSalida;
 import com.pezfa.inventario.models.Unidad;
 import com.pezfa.inventario.models.Ubicacion;
@@ -111,7 +113,7 @@ public class VentaController implements Serializable {
         modelos[1] = ventasAnualKilos;
         return modelos;
     }
-    
+
     private BarChartModel initBarModel(double[] meses) {
         BarChartModel model = new BarChartModel();
 

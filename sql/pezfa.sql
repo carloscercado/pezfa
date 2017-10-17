@@ -171,6 +171,7 @@ create table if not exists venta
     devuelta boolean default false
 );
 
+
 create table if not exists cava
 (
     id serial primary key,

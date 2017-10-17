@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,16 +16,12 @@
                  
                 <h3 align="center" style="color: #045491">Indicadores de gesti&oacute;n</h3>
                
-                
-                    
                     <a href="/pezfa/pages/indicador/">
                         <span class="fa fa-line-chart"></span>
                     <strong>Modificar rango</strong>
                     </a>
-                   
-              
-                
-                <p:tabView dynamic="true" cache="true" style="height: 100%">
+                       
+            <p:tabView dynamic="true" cache="true" style="height: 100%">
             <p:tab title="Capacidad">
             <p:panelGrid>
                 <a href="#" onclick="PF('indicador').show()" >
@@ -86,6 +83,11 @@
             </p:panelGrid>
                         
         </p:tab>
+        <p:tab>
+            <a onclick="PF('devoluciones').show()">
+                <p:chart type="bar" model="#{devolucionController.devolucionesIndicador}"/>
+            </a>         
+        </p:tab>
     </p:tabView>
               
                 
@@ -131,6 +133,37 @@
 
                 </p:dialog>
                 
+                <p:dialog modal="true" widgetVar="devoluciones" width="500" resizable="false" header="Insatisfaccion del año #{devolucionController.devoluciones.get(0).anio} ">
+                        <p:dataTable value="#{devolucionController.devoluciones}" var="devol">
+                            <p:column headerText="Mes">
+                                #{devol.mesString}
+                            </p:column>
+                            <p:column headerText="Venta">
+                                #{devol.ventas}
+                            </p:column>
+                            <p:column headerText="Devoluciones">
+                                #{devol.devoluciones}
+                            </p:column>
+                            <ui:param name="valor" value="#{(100 - devol.devoluciones/devol.ventas*100)}" />
+                           
+                            <p:column headerText="Satisfaccion">
+                                <h:outputLabel value="#{valor}">
+                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="number"/>
+                                </h:outputLabel> %
+
+                            </p:column>
+
+                            <p:column headerText="COLOR">
+                               <p:outputLabel rendered="#{valor le indicadorController.satisfaccion.malo}" value="TA MALO"/>
+                        <p:outputLabel rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
+                                                   and (valor le indicadorController.satisfaccion.bueno-1))}" 
+                                       value="MAS O MENOS" />
+
+                        <p:outputLabel rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" value="TA BUENO"/>
+
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
             </ui:define>
 
         </ui:composition>

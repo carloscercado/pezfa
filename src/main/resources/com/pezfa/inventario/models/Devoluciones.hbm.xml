@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="com.pezfa.inventario.models.Devoluciones" table="devoluciones">
-  <id name="id" type="int">
-            <column name="id" />
-            <generator class="increment" />
-        </id>
-        <property name="anio" type="int">
-            <column name="anio" />
-        </property>
-         <property name="mes" type="int">
-            <column name="mes" />
-        </property>
-         <property name="devoluciones" type="int">
-            <column name="devoluciones" />
-        </property>
-         <property name="ventas" type="int">
-            <column name="ventas" />
-        </property>
+    <class name="com.pezfa.inventario.models.Devoluciones" table="devoluciones" schema="public" optimistic-lock="version">
+    <id name="id" type="int">
+        <column name="id" />
+        <generator class="increment" />
+    </id>
+    <property name="anio" type="int">
+        <column name="anio" />
+    </property>
+    <property name="mes" type="int">
+        <column name="mes" />
+    </property>
+    <property name="devoluciones" type="int">
+        <column name="devoluciones" />
+    </property>
+    <property name="ventas" type="int">
+        <column name="ventas" />
+    </property>
     </class>
 </hibernate-mapping>
