@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean
 @ViewScoped
@@ -22,7 +23,28 @@ public class CavaController implements Serializable {
     private CavaDB db;
     @ManagedProperty(value = "#{almacenController}")
     private AlmacenController almacenController;
+    private PieChartModel capacidadIndicador;
+    
+    public PieChartModel getCapacidadIndicador() {
+        
+        capacidadIndicador = new PieChartModel();
+        double disponible = this.getCapacidad();
+        double capacidad = this.getCapacidadTotal();
+        capacidadIndicador.set("No Disponible", disponible);
+        capacidadIndicador.set("Disponible", capacidad);
+        capacidadIndicador.setTitle("Capacidad de Almacenes");
+        capacidadIndicador.setLegendPosition("w");
+        capacidadIndicador.setShowDataLabels(true);
+        capacidadIndicador.setSeriesColors("ef6868, 79ef68, 68c8ef, efde68");
+        return capacidadIndicador;
 
+    }
+
+    public void setCapacidadIndicador(PieChartModel capacidadIndicador) {
+        this.capacidadIndicador = capacidadIndicador;
+    }
+    
+    
     public CavaController() {
         db = new CavaDB();
         cava = new Cava();
@@ -69,6 +91,10 @@ public class CavaController implements Serializable {
         return cavas;
     }
 
+    public double getCapacidadTotal()
+    {
+        return this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
+    }
     public void setCavas(List<Cava> cavas) {
         this.cavas = cavas;
     }

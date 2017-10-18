@@ -122,7 +122,7 @@
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{especieController.especie.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Cantidad:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" onkeypress="return numeros(event)" value="#{especieController.especie.cantidad}" required="true" requiredMessage="Ingrese la cantidad" placeholder="Cantidad"/>
+                            <p:inputText disabled="true" autocomplete="off" onkeypress="return numeros(event)" value="#{especieController.especie.cantidad}" required="true" requiredMessage="Ingrese la cantidad" placeholder="Cantidad"/>
                             <p:outputLabel value="M&aacute;ximo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" onkeypress="return numeros(event)" value="#{especieController.especie.maximo}" required="true" requiredMessage="Ingrese el m&aacute;ximo" placeholder="M&aacute;ximo"/>
                             <p:outputLabel value="M&iacute;nimo:"> <span style="color: #D20005">*</span></p:outputLabel>

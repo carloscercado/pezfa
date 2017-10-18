@@ -3,10 +3,6 @@ package com.pezfa.inventario.models;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author Romario
- */
 public class Devoluciones {
 
     private int id;
@@ -32,7 +28,6 @@ public class Devoluciones {
         meses.put(12, "Dic");
     }
 
-    
     public int getId() {
         return id;
     }
@@ -64,7 +59,7 @@ public class Devoluciones {
     public void setDevoluciones(int devoluciones) {
         this.devoluciones = devoluciones;
     }
-
+    
     public int getVentas() {
         return ventas;
     }
@@ -78,5 +73,4 @@ public class Devoluciones {
         return this.meses.get(this.mes).toString();
     }
     
-
 }

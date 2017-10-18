@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean
 @ViewScoped
@@ -27,6 +28,7 @@ public class IndicadorController implements Serializable {
     private CompraEspecieDB db1;
     private VentaEspecieDB db2;
     private CompraDB db3;
+    private Indicador ventasMensual;
 
     public IndicadorController() {
         indicador = new Indicador();
@@ -38,6 +40,17 @@ public class IndicadorController implements Serializable {
         satisfaccion = this.getSatisfaccion();
 
     }
+
+    public Indicador getVentasMensual() {
+        ventasMensual = db.read("from Indicador indi where indi.id=3").get(0);
+        return ventasMensual;
+    }
+
+    public void setVentasMensual(Indicador ventasMensual) {
+        this.ventasMensual = ventasMensual;
+    }
+    
+    
 
     public Indicador getSatisfaccion() {
         satisfaccion = db.read("from Indicador indi where indi.id=2").get(0);

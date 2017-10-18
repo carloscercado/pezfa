@@ -1,5 +1,6 @@
 ﻿insert into indicador
-values (1, 'CAPACIDAD', 80,50,'MENSAJE BUENO','MENSAJE MALO','MENSAJE ACEPTABLE','MEDIR LA CAPACIDAD DE CAVA');
+values (1, 'CAPACIDAD', 80,50,'MENSAJE BUENO','MENSAJE MALO','MENSAJE ACEPTABLE','MEDIR LA CAPACIDAD DE CAVA'),
+	(2, 'SATISFACCION', 90,75, 'MENSAJE BUENO','MENSAJE MALO','MENSAJE ACEPTABLE','MEDIR LA SATISFACCION DEL CLIENTE');
 		
 
 insert into almacen 
@@ -12,13 +13,13 @@ insert into almacen
 
        
 insert into empleado
-	VALUES (1, '15764832', 'MARIA', 'JOSE', 'PEREZ', 'ALVARADO', now(), 'F', 'ADMINISTRACION'),
-		(2, '24657978', 'PEDRO', 'JOSE', 'GARCIA', 'ALVARADO', now(), 'M', 'RRHH'),
-		(3, '19375232', 'ROSA', 'JOSE', 'MARQUEZ', 'ALVARADO', now(), 'F', 'PRODUCCION'),
-		(4, '16425538', 'PABLO', 'JOSE', 'LOPEZ', 'ALVARADO', now(), 'M', 'OPERACION'),
-		(5, '21685725', 'PATRICIA', 'JOSE', 'ROMERO', 'ALVARADO', now(), 'F', 'ADMINISTRACION'),
-		(6, '22785825', 'ARTURO', 'MERLIN', 'CORAZON', 'DE LEON', now(), 'M', 'CHOFER'),
-		(7, '24645225', 'CHARLES', 'WINSTON', 'CHURCHILL', 'LEON', now(), 'M', 'CHOFER');
+	VALUES (1, '15764832', 'MARIA', 'JOSE', 'PEREZ', 'ALVARADO', now(), 'F', 'ADMINISTRACION', 4),
+		(2, '24657978', 'PEDRO', 'JOSE', 'GARCIA', 'ALVARADO', now(), 'M', 'RRHH', 3),
+		(3, '19375232', 'ROSA', 'JOSE', 'MARQUEZ', 'ALVARADO', now(), 'F', 'PRODUCCION', 2),
+		(4, '16425538', 'PABLO', 'JOSE', 'LOPEZ', 'ALVARADO', now(), 'M', 'OPERACION', 4),
+		(5, '21685725', 'PATRICIA', 'JOSE', 'ROMERO', 'ALVARADO', now(), 'F', 'ADMINISTRACION', 4),
+		(6, '22785825', 'ARTURO', 'MERLIN', 'CORAZON', 'DE LEON', now(), 'M', 'CHOFER', 1),
+		(7, '24645225', 'CHARLES', 'WINSTON', 'CHURCHILL', 'LEON', now(), 'M', 'CHOFER', 1);
 		
 
 insert into ESPECIE (id, codigo, tipo, nombre) 

@@ -30,5 +30,6 @@
     <mapping resource="com/pezfa/inventario/models/Compra.hbm.xml"/>
     <mapping resource="com/pezfa/inventario/models/Proveedor.hbm.xml"/>
     <mapping resource="com/pezfa/inventario/models/Unidad.hbm.xml"/>
+    <mapping resource="com/pezfa/inventario/models/Devoluciones.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

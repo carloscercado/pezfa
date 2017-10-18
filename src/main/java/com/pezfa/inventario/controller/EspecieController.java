@@ -42,7 +42,7 @@ public class EspecieController implements Serializable
 
     public List<Especie> getEspecies()
     {
-        especies = db.read("from Especie");
+        especies = db.read("from Especie esp order by esp.nombre");
         return especies;
     }
 
@@ -94,6 +94,7 @@ public class EspecieController implements Serializable
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             RequestContext con = RequestContext.getCurrentInstance();
             con.execute("PF('registrar').hide();");
+            con.execute("PF('registrarp').hide();");
         }else
         {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser guardado", null);

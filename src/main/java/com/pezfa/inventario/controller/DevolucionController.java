@@ -86,6 +86,12 @@ public class DevolucionController implements Serializable {
                 mayor = obj.getVentas();
             }
         }
+        if (ventas.getData().isEmpty())
+        {
+            ventas.set("Enero", 0);
+        }
+        
+        
 
         devolucionesIndicador.addSeries(ventas);
         devolucionesIndicador.addSeries(devolucionesData);

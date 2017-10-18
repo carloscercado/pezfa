@@ -126,9 +126,9 @@
                             <p:inputText autocomplete="off" value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
                             <p:outputLabel value="Tel&eacute;fono:"/> 
                             <p:inputMask  value="#{clienteController.cliente.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
-                            <p:outputLabel for="regex" value="Correo:"/>                    
-                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Ingrese el correo">
-                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            <p:outputLabel for="regex" value="Correo:"/>                   
+                            <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Correo invalido">
+                                <f:validateRegex pattern="(^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)?" />
                             </p:inputText>
 
                         </p:panelGrid>

@@ -17,8 +17,10 @@ import com.pezfa.inventario.models.VentaEspecie;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -113,7 +115,6 @@ public class VentaController implements Serializable {
         modelos[1] = ventasAnualKilos;
         return modelos;
     }
-    
 
     private BarChartModel initBarModel(double[] meses) {
         BarChartModel model = new BarChartModel();
@@ -136,14 +137,6 @@ public class VentaController implements Serializable {
         return model;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
     public double[] getIndicadorVentas() {
         double[] meses = new double[12];
         int anio_actual = new Date().getYear() + 1900;
@@ -153,6 +146,52 @@ public class VentaController implements Serializable {
             meses[i - 1] = valor;
         }
         return meses;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
+    public String getMes(int mes)
+    {
+        Map meses = new HashMap();
+        meses.put(1, "Ene");
+        meses.put(2, "Feb");
+        meses.put(3, "Mar");
+        meses.put(4, "Abr");
+        meses.put(5, "May");
+        meses.put(6, "Jun");
+        meses.put(7, "Jul");
+        meses.put(8, "Ago");
+        meses.put(9, "Sep");
+        meses.put(10,"Oct");
+        meses.put(11,"Nov");
+        meses.put(12,"Dic");
+        return meses.get(mes).toString();
+    }
+
+    public List<Map.Entry<String, Double>> getVentasMes() {
+        double[] meses = this.getIndicadorVentas();
+        Map meses2 = new HashMap();
+        meses2.put(1, meses[0]);
+        meses2.put(2,meses[1]);
+        meses2.put(3, meses[2]);
+        meses2.put(4, meses[3]);
+        meses2.put(5, meses[4]);
+        meses2.put(6, meses[5]);
+        meses2.put(7, meses[6]);
+        meses2.put(8, meses[7]);
+        meses2.put(9, meses[8]);
+        meses2.put(10, meses[9]);
+        meses2.put(11, meses[10]);
+        meses2.put(12, meses[11]);
+        
+        Set<Map.Entry<String, Double>> salidas = meses2.entrySet();
+        return new ArrayList<Map.Entry<String, Double>>(salidas);
     }
 
     public double[] getIndicadorVentasKilos() {
