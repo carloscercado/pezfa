@@ -22,7 +22,9 @@
                 <p:tabView dynamic="true" cache="true" style="height: 100%">
                     <p:tab title="Capacidad">
                         <p:panelGrid>
+                            <a href="#" onclick="PF('capacidad').show()">
                             <p:chart type="pie" model="#{cavaController.capacidadIndicador}" />
+                            </a>
                         </p:panelGrid>
                     </p:tab>
                     <p:tab title="Estudio de Empleados">
@@ -48,82 +50,83 @@
                             <div>
                                 <label class="text-muted">Ventas por año en kilos: </label> 
                                 <div class="hero-widget well well-sm">
+                                    <a href="#" onclick="PF('ventasmensualkilos').show()">
                                     <p:chart type="bar" model="#{ventaController.ventasAnualKilos}" style="height:150px"/>
+                                    </a>
                                 </div>
                             </div>
                         </p:panelGrid>
 
                     </p:tab>
-                    <p:tab title="sdhsjghjg">
+                    <p:tab title="Satisfacci&oacute;n del cliente">
                         <a onclick="PF('devoluciones').show()">
                             <p:chart type="bar" model="#{devolucionController.devolucionesIndicador}"/>
                         </a>         
                     </p:tab>
                 </p:tabView>
                 
-                 <p:dialog  header="ghhg" widgetVar="ventasmensual" responsive="true" 
+                 <p:dialog  header="Ventas mensuales en bolivares" widgetVar="ventasmensual" responsive="true" 
                             resizable="false" draggable="false" modal="true" width="500">
-                     sdfsdfsfsdfsdf
-    
-                                
                      <p:dataTable value="#{ventaController.ventasMes}" var="aa">
                           <p:column headerText="Mes">
                              #{ventaController.getMes(aa.key)}
                          </p:column>
                          <p:column headerText="Monto">
-                             #{aa.value} bsf
+                             #{aa.value } Bs
+                         </p:column>
+                          <p:column headerText="Medida">
+                             #{indicadorController.ventasMensual.malo}
+                             #{indicadorController.ventasMensual.bueno}
+                         </p:column>
+                     </p:dataTable>
+                                
+                 </p:dialog>
+                <p:dialog  header="Ventas mensuales en kilos" widgetVar="ventasmensualkilos" responsive="true" 
+                            resizable="false" draggable="false" modal="true" width="500">
+                    <p:dataTable value="#{ventaController.ventasMesKilo }" var="aa">
+                          <p:column headerText="Mes">
+                             #{ventaController.getMes(aa.key)}
+                         </p:column>
+                         <p:column headerText="Kilos">
+                             #{aa.value} Kg
                          </p:column>
                           <p:column headerText="Medida">
                              #{indicadorController.ventasMensual.bueno}
                              #{indicadorController.ventasMensual.malo}
                          </p:column>
                      </p:dataTable>
-                                
-                 </p:dialog>
+                </p:dialog>
 
-                <p:dialog  header="Informaci&oacute;n de indicador" widgetVar="indicador" responsive="true" 
+                <p:dialog width="600" header="Informaci&oacute;n de indicador" widgetVar="capacidad" responsive="true" 
                            resizable="false" draggable="false" modal="true">
-
-                    <p:panelGrid columns="2">
-
-                        <p:outputLabel value="Nombre del indicador:"> 
-                        </p:outputLabel>
-                        <p:outputLabel value="#{indicadorController.capacidad.nombre}"/>
-
-                        <p:outputLabel value="Descripci&oacute;n:"> 
-                        </p:outputLabel>
-                        <p:outputLabel value="#{indicadorController.capacidad.descripcion}"/>
-
-                        <p:outputLabel value="Bueno:">
-                        </p:outputLabel>
-                        <p:outputLabel value="#{indicadorController.capacidad.bueno}"/>
-
-                        <p:outputLabel value="Malo:">
-                        </p:outputLabel>
-                        <p:outputLabel value="#{indicadorController.capacidad.malo}"/>
-
-                        <p:outputLabel value=" Rango &oacute;ptimo:">
-                        </p:outputLabel>
-                        <p:outputLabel value=" #{indicadorController.capacidad.malo} % - #{indicadorController.capacidad.bueno} %"/>
-
-                        <p:outputLabel value=" Medida:">
-                        </p:outputLabel>
-                        <p:outputLabel value=" #{cavaController.capacidad} % "/>
-                        <p:outputLabel value="Estado:"/>
-                        <p:outputLabel rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}" value="#{indicadorController.capacidad.mensajeMalo}"/>
-                        <p:outputLabel rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
-                                                   and (cavaController.capacidad le indicadorController.capacidad.malo+1))}" 
-                                       value="#{indicadorController.capacidad.mensajeAceptable}" />
-
-                        <p:outputLabel rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" value="#{indicadorController.capacidad.mensajeBueno}"/>
-
-                    </p:panelGrid>
-
+                    <p:dataTable scrollable="true"  widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
+                     
+                        <p:column width="5%" class="column-hidden">
+                            <center>
+                                <span class="fa fa-square" />
+                            </center>
+                        </p:column>
+                        <p:column filterBy="#{cava.nombre}"  headerText="Nombre" filterStyle="display: none">
+                         #{cava.nombre}
+                        </p:column>
+                        <p:column filterBy="#{cava.almacen.nombre}"  headerText="Almac&eacute;n" filterStyle="display: none">
+                           <span class="fa fa-bank"/> #{cava.almacen.nombre},  #{cava.almacen.direccion}
+                        </p:column>
+                        <p:column filterBy="#{cava.capacidad}"  headerText="Capacidad" filterStyle="display: none">
+                            #{cava.capacidad} Kg
+                        </p:column>
+                        <p:column filterBy="#{cava.capacidadDisponible}"  headerText="Capacidad disponible" filterStyle="display: none">
+                            #{cava.capacidadDisponible} Kg
+                        </p:column>
+                        <p:column headerText="Capacidad utilizada">
+                            #{cava.capacidad - cava.capacidadDisponible} Kg
+                        </p:column>
+                    </p:dataTable>
                     <br/>
 
                 </p:dialog>
 
-                <p:dialog modal="true" widgetVar="devoluciones" width="500" resizable="false" header="Insatisfaccion del año #{compraController.fecha.year+1900} ">
+                <p:dialog modal="true" widgetVar="devoluciones"  width="600" resizable="false" header="Insatisfacci&oacute;n del año #{compraController.fecha.year+1900} ">
                     <p:dataTable value="#{devolucionController.devoluciones}" var="devol">
                         <p:column headerText="Mes">
                             #{devol.mesString}
@@ -136,20 +139,20 @@
                         </p:column>
                         <ui:param name="valor" value="#{(100 - devol.devoluciones/devol.ventas*100)}" />
 
-                        <p:column headerText="Satisfaccion">
-                            <h:outputLabel value="#{valor}">
-                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="number"/>
-                            </h:outputLabel> %
-
+                        <p:column headerText="Satisfacci&oacute;n">
+                            #{valor}  
+                        </p:column>
+                        <p:column headerText="Rangos">
+                            #{indicadorController.satisfaccion.bueno}
+                            #{indicadorController.satisfaccion.malo}
                         </p:column>
 
-                        <p:column headerText="COLOR">
-                            <p:outputLabel rendered="#{valor le indicadorController.satisfaccion.malo}" value="TA MALO"/>
-                            <p:outputLabel rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
-                                                       and (valor le indicadorController.satisfaccion.bueno-1))}" 
-                                           value="MAS O MENOS" />
+                        <p:column headerText="Estado" class="text-center">
+                            <p:outputLabel class="fa fa-circle fa-2x" rendered="#{valor le indicadorController.satisfaccion.malo}" style="color: #f63a1e"/>
+                            <p:outputLabel class="fa fa-circle fa-2x" rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
+                                                       and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #f68e1e"/>
 
-                            <p:outputLabel rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" value="TA BUENO"/>
+                            <p:outputLabel class="fa fa-circle fa-2x" rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" style="color: #1ef664"/>
 
                         </p:column>
                     </p:dataTable>

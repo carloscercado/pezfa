@@ -89,8 +89,8 @@ public class VentaController implements Serializable {
     }
 
     public BarChartModel[] inicializarGrafica() {
-        double[] meses = this.getIndicadorVentas();
-        double[] mesesKilos = this.getIndicadorVentasKilos();
+        Double[] meses = this.getIndicadorVentas();
+        Double[] mesesKilos = this.getIndicadorVentasKilos();
 
         BarChartModel[] modelos = new BarChartModel[2];
 
@@ -116,17 +116,17 @@ public class VentaController implements Serializable {
         return modelos;
     }
 
-    private BarChartModel initBarModel(double[] meses) {
+    private BarChartModel initBarModel(Double[] meses) {
         BarChartModel model = new BarChartModel();
 
         ChartSeries res = new ChartSeries();
         res.set("Ene", meses[0]);
         res.set("Feb", meses[1]);
         res.set("Mar", meses[2]);
-        res.set("Abri", meses[3]);
+        res.set("Abr", meses[3]);
         res.set("May", meses[4]);
         res.set("Jun", meses[5]);
-        res.set("jul", meses[6]);
+        res.set("Jul", meses[6]);
         res.set("Ago", meses[7]);
         res.set("Sep", meses[8]);
         res.set("Oct", meses[9]);
@@ -137,8 +137,8 @@ public class VentaController implements Serializable {
         return model;
     }
 
-    public double[] getIndicadorVentas() {
-        double[] meses = new double[12];
+    public Double[] getIndicadorVentas() {
+        Double[] meses = new Double[12];
         int anio_actual = new Date().getYear() + 1900;
         for (int i = 1; i <= 12; i++) {
             List<Venta> res = db.read("from Venta ven where month(ven.fecha)=" + i + " and year(ven.fecha)=" + anio_actual);
@@ -175,7 +175,27 @@ public class VentaController implements Serializable {
     }
 
     public List<Map.Entry<String, Double>> getVentasMes() {
-        double[] meses = this.getIndicadorVentas();
+        Double[] meses = this.getIndicadorVentas();
+        Map meses2 = new HashMap();
+        meses2.put(1, meses[0].doubleValue());
+        meses2.put(2,meses[1].doubleValue());
+        meses2.put(3, meses[2].doubleValue());
+        meses2.put(4, meses[3].doubleValue());
+        meses2.put(5, meses[4].doubleValue());
+        meses2.put(6, meses[5].doubleValue());
+        meses2.put(7, meses[6].doubleValue());
+        meses2.put(8, meses[7].doubleValue());
+        meses2.put(9, meses[8].doubleValue());
+        meses2.put(10, meses[9]);
+        meses2.put(11, meses[10].doubleValue());
+        meses2.put(12, meses[11].doubleValue());
+        
+        Set<Map.Entry<String, Double>> salidas = meses2.entrySet();
+        return new ArrayList<Map.Entry<String, Double>>(salidas);
+    }
+    
+    public List<Map.Entry<String, Double>> getVentasMesKilo() {
+        Double[] meses = this.getIndicadorVentasKilos();
         Map meses2 = new HashMap();
         meses2.put(1, meses[0]);
         meses2.put(2,meses[1]);
@@ -194,8 +214,8 @@ public class VentaController implements Serializable {
         return new ArrayList<Map.Entry<String, Double>>(salidas);
     }
 
-    public double[] getIndicadorVentasKilos() {
-        double[] meses = new double[12];
+    public Double[] getIndicadorVentasKilos() {
+        Double[] meses = new Double[12];
         int anio_actual = new Date().getYear() + 1900;
         for (int i = 1; i <= 12; i++) {
             List<Venta> res = db.read("from Venta ven where month(ven.fecha)=" + i + " and year(ven.fecha)=" + anio_actual);
@@ -205,7 +225,7 @@ public class VentaController implements Serializable {
         return meses;
     }
 
-    public double getMontoMayor(double[] meses) {
+    public double getMontoMayor(Double[] meses) {
         double mayor = 0;
         for (int i = 0; i < 12; i++) {
             if (meses[i] > mayor) {

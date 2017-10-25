@@ -40,9 +40,8 @@
                         <p:column  headerText="Descripcion" filterStyle="display: none">
                             #{indicador.descripcion}
                         </p:column>
-                        <p:column  headerText="Medida" filterStyle="display: none">
-                            #{cavaController.capacidad} %
-                        </p:column>
+                        
+                        
                         <p:column  headerText="Editar" width="10%">
                             <p:commandButton icon="fa fa-edit" title="Modificar" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
                                     <f:setPropertyActionListener target="#{indicadorController.indicador}" value="#{indicador}"/>
@@ -51,7 +50,7 @@
 
                     </p:dataTable>
                 </h:form>
-                <p:dialog closable="false" header="Registrar almac&eacute;n" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
+                <p:dialog closable="false" header="Modificar rango de indicadores" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
                    
                     <h:form>
                         <p:growl id="mensaje"/>  
@@ -78,10 +77,7 @@
                             <p:outputLabel value="Mensaje malo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText  value="#{indicadorController.indicador.mensajeMalo}" autocomplete="off"  required="true" />
                             
-                            <p:outputLabel value="Mensaje bueno:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText  value="#{indicadorController.indicador.mensajeBueno}" autocomplete="off"  required="true" />
-                            
-                       <p:outputLabel value="Mensaje Aceptable:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:outputLabel value="Mensaje Aceptable:"> <span style="color: #D20005">*</span></p:outputLabel>
                        <p:inputText  value="#{indicadorController.indicador.mensajeAceptable}" autocomplete="off"  required="true" />
                         </p:panelGrid>
                         <br/>

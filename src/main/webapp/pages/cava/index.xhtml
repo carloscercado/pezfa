@@ -81,7 +81,7 @@
                                 <f:selectItems value="#{almacenController.almacenes}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}"/>
                             </p:selectOneMenu>
                              <p:outputLabel value="Capacidad:"> <span style="color: #D20005">*</span></p:outputLabel>
-                                <p:inputText autocomplete="off" value="#{cavaController.cava.capacidad}" required="true" requiredMessage="Ingrese la capacidad" placeholder="Capacidad"/>
+                             <p:inputText autocomplete="off" maxlength="10" onkeypress="return numero(event)" value="#{cavaController.cava.capacidad}" required="true" requiredMessage="Ingrese la capacidad" placeholder="Capacidad"/>
                         </p:panelGrid>
                         <br>
                             <center>
@@ -116,9 +116,9 @@
                                     <f:selectItems value="#{almacenController.almacenes}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Capacidad:"> <span style="color: #D20005">*</span></p:outputLabel>
-                                <p:inputText autocomplete="off" value="#{cavaController.cava.capacidad}" required="true" requiredMessage="Ingrese la capacidad" placeholder="Capacidad"/>
+                                <p:inputText autocomplete="off" maxlength="10" onkeypress="return numero(event)" value="#{cavaController.cava.capacidad}" required="true" requiredMessage="Ingrese la capacidad" placeholder="Capacidad"/>
                                 <p:outputLabel  value="Capacidad disponible:"> <span style="color: #D20005">*</span></p:outputLabel>
-                                <p:inputText disabled="true" autocomplete="off" value="#{cavaController.cava.capacidadDisponible}" required="true" requiredMessage="Ingrese la capacidad" placeholder="Capacidad"/>
+                                <p:inputText disabled="true" autocomplete="off" maxlength="10" onkeypress="return numero(event)" value="#{cavaController.cava.capacidadDisponible}" required="true" requiredMessage="Ingrese la capacidad" placeholder="Capacidad"/>
                             </p:panelGrid>
                             <br>
                             <center>

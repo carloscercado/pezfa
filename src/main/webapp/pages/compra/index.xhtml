@@ -62,7 +62,7 @@
                 </h:form>
 
                 <p:dialog header="Detalles del historial" widgetVar="detalles" responsive="true" 
-                          resizable="false" draggable="false" modal="true" width="700">
+                          resizable="false" draggable="false" modal="true"  width="700">
                     <h:form>        
                         <p:panelGrid columns="4">
                             <p:outputLabel value="Orden de compra"/>
@@ -94,13 +94,13 @@
                             </p:column>
 
                             <p:column headerText="Costo" class="text-right">
-                                <h:outputLabel value="#{compraEspecie.costo}">
+                                <h:outputLabel value="#{detallesCompras.costo}"> Bs
                                     <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                                 </h:outputLabel> 
                             </p:column>
 
                             <p:column headerText="Total" class="text-right">
-                                <h:outputLabel value="#{compraEspecie.costo*compraEspecie.cantidad}">
+                                <h:outputLabel value="#{detallesCompras.costo*detallesCompras.cantidad}">
                                     <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                                 </h:outputLabel> 
                             </p:column>

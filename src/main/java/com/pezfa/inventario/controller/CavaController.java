@@ -28,14 +28,16 @@ public class CavaController implements Serializable {
     public PieChartModel getCapacidadIndicador() {
         
         capacidadIndicador = new PieChartModel();
-        double disponible = this.getCapacidad();
-        double capacidad = this.getCapacidadTotal();
-        capacidadIndicador.set("No Disponible", disponible);
-        capacidadIndicador.set("Disponible", capacidad);
+        double capacidad = this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
+
+        double disponible = this.getCavas().stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
+
+        capacidadIndicador.set("Espacio utilizado", disponible);
+        capacidadIndicador.set("Espacio libre", capacidad);
         capacidadIndicador.setTitle("Capacidad de Almacenes");
         capacidadIndicador.setLegendPosition("w");
         capacidadIndicador.setShowDataLabels(true);
-        capacidadIndicador.setSeriesColors("ef6868, 79ef68, 68c8ef, efde68");
+        capacidadIndicador.setSeriesColors("79ef68, ef6868");
         return capacidadIndicador;
 
     }
@@ -53,7 +55,7 @@ public class CavaController implements Serializable {
     public double getCapacidad() {
         double totalCapacidad = this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
         double totalDisponible = this.getCavas().stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
-        return Math.rint ((totalDisponible / totalCapacidad) * 100);
+        return ((totalDisponible / totalCapacidad) * 100);
     }
 
     public AlmacenController getAlmacenController() {

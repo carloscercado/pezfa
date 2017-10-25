@@ -40,11 +40,11 @@
                                     <div class="icon">
                                         <span class="fa fa-file fa-3x" style="color: #045491"/>
 
-                                        <p:inputText  class="pull-right" placeholder="Factura" id="vent" required="true"
+                                        <p:inputMask  class="pull-right" placeholder="Factura" id="vent" required="true"
                                                       requiredMessage="La factura es necesaria" 
-                                                      value="#{ventaController.venta.factura}" immediate="true" autocomplete="off">
+                                                      value="#{ventaController.venta.factura}" mask="a*-999" immediate="true" autocomplete="off">
                                             <p:ajax event="change" listener="#{ventaController.validarFactura()}" update="mensaje vent"/>
-                                        </p:inputText>
+                                        </p:inputMask>
                                     </div>
                                 </center>
                             </div>

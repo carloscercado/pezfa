@@ -45,7 +45,7 @@
                         </p:column> 
 
                         <p:column headerText="Ingreso">
-                            #{venta.ingreso}
+                            #{venta.ingreso} Bs
                         </p:column>
 
                         <p:column headerText="Cantidad" width="20%">
@@ -64,7 +64,7 @@
                 </h:form>
 
                 <p:dialog header="Detalles del historial" widgetVar="detalles" responsive="true" 
-                          resizable="false" draggable="false" modal="true" width="700">
+                          resizable="false" draggable="false" modal="true" width="550">
                     <h:form>        
                         <p:panelGrid columns="4">
                             <p:outputLabel value="Factura"/>
@@ -77,8 +77,6 @@
                             <p:inputText value="#{ventaController.venta.ingreso}" readonly="true">
                                 <f:convertNumber currencySymbol="Bs" locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                             </p:inputText>
-                            <p:outputLabel value="Producto"/>
-                            <p:inputText  value="#{ventaController.producto.nombre}" readonly="true"/>
                             <p:outputLabel value="Cantidad"/>
                             <p:inputText  value="#{ventaController.venta.kiloTotal} Kg" readonly="true" />
                         </p:panelGrid>
@@ -115,7 +113,7 @@
                 </p:dialog>
 
                 <p:dialog widgetVar="devolucion" modal="true" maximizable="false"
-                          header="¿Esta seguro que desea registrar la devolucion de esta venta?">
+                          header="¿Est&aacute; seguro que desea registrar la devoluci&oacute;n de esta venta?">
                     <h:form>
                         <p:growl id="mensaje"/> 
                         <center>

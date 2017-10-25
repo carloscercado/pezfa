@@ -29,6 +29,7 @@ public class IndicadorController implements Serializable {
     private VentaEspecieDB db2;
     private CompraDB db3;
     private Indicador ventasMensual;
+    private Indicador ventasMensualKilos;
 
     public IndicadorController() {
         indicador = new Indicador();
@@ -50,7 +51,14 @@ public class IndicadorController implements Serializable {
         this.ventasMensual = ventasMensual;
     }
     
-    
+     public Indicador getVentasMensualKilos() {
+        ventasMensualKilos = db.read("from Indicador indica where indi.id=4").get(0);
+        return ventasMensualKilos;
+    }
+
+    public void setVentasMensualKilos(Indicador ventasMensualKilos) {
+        this.ventasMensualKilos = ventasMensualKilos;
+    }
 
     public Indicador getSatisfaccion() {
         satisfaccion = db.read("from Indicador indi where indi.id=2").get(0);

@@ -13,8 +13,6 @@
             <ui:define name="content">
                 <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <h3 align="center" style="color: #045491">Administrar almacenes</h3>
-                    <p:commandButton value="Reporte" actionListener="#{almacenController.reporte()}"/>
-
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="almacenes" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="almacen" value="#{almacenController.almacenes}">
                         <f:facet name="header">
                             <div class="row">
@@ -106,10 +104,10 @@
                         <p:panelGrid columns="2">
 
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText value="#{almacenController.almacen.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
+                            <p:inputText value="#{almacenController.almacen.nombre}" maxlength="20" onkeypress="return letras(event)" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
 
                             <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText value="#{almacenController.almacen.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
+                            <p:inputText value="#{almacenController.almacen.direccion}" required="true" maxlength="30" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
 
                             <p:outputLabel value="Tel&eacute;fono:"/> 
                             <p:inputMask value="#{almacenController.almacen.telefono}" mask="(999)999-9999" placeholder="Tel&eacute;fono"/>

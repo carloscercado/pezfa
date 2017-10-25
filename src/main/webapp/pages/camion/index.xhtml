@@ -106,13 +106,13 @@
                         <p:panelGrid columns="2">
 
                             <p:outputLabel value="Marca:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText value="#{camionController.camion.marca}" required="true" requiredMessage="Ingrese la marca" placeholder="Marca"/>
+                            <p:inputText value="#{camionController.camion.marca}" required="true" maxlength="20" onkeypress="return letras(event)" requiredMessage="Ingrese la marca" placeholder="Marca"/>
 
                             <p:outputLabel value="Modelo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText value="#{camionController.camion.modelo}" required="true" requiredMessage="Ingrese el modelo" placeholder="Modelo"/>
+                            <p:inputText value="#{camionController.camion.modelo}" required="true" maxlength="20" requiredMessage="Ingrese el modelo" placeholder="Modelo"/>
 
                             <p:outputLabel value="Placa:">  <span style="color: #D20005">*</span></p:outputLabel> 
-                            <p:inputText value="#{camionController.camion.placa}"  placeholder="Placa"/>
+                            <p:inputText value="#{camionController.camion.placa}" maxlength="20"  placeholder="Placa"/>
 
                         </p:panelGrid>
 

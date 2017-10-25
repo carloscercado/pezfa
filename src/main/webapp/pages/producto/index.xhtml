@@ -47,7 +47,7 @@
                             #{producto.categoria}
                         </p:column>
                         <p:column headerText="Precio">
-                            Bs.F #{producto.precio}
+                            Bs #{producto.precio}
                         </p:column>
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
                             <center>  
@@ -80,9 +80,9 @@
                         <p:messages id="msj" closable="true"/>  
                         <p:panelGrid columns="2">
                             <p:outputLabel value="C&oacute;digo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" maxlength="30" value="#{productoController.producto.codigo}" id="produc" required="true" requiredMessage="Ingrese el c&oacute;digo" placeholder="C&oacute;digo">
+                            <p:inputMask autocomplete="off" mask="a*-999" value="#{productoController.producto.codigo}" id="produc" required="true" requiredMessage="Ingrese el c&oacute;digo" placeholder="C&oacute;digo">
                                 <p:ajax event="change" listener="#{productoController.validarCodigo()}" update="msj produc"/>
-                            </p:inputText>
+                            </p:inputMask>>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{productoController.producto.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Categor&iacute;a:"> <span style="color: #D20005">*</span></p:outputLabel>
@@ -94,7 +94,7 @@
                                 <f:selectItem itemValue="GHI" itemLabel="GHI"/>
                                 </p:selectOneMenu>
                             <p:outputLabel value="Precio:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputNumber value="#{productoController.producto.precio}" symbol=" Bs.F" symbolPosition="suffix" placeholder="Precio" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="." requiredMessage="Ingrese el precio"/>
+                            <p:inputNumber value="#{productoController.producto.precio}" symbol=" Bs" symbolPosition="suffix" placeholder="Precio" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="." requiredMessage="Ingrese el precio"/>
                             </p:panelGrid>
                         <br>
                             <center>
@@ -121,9 +121,10 @@
                             <p:messages id="msj" closable="true"/> 
                             <p:panelGrid columns="2">
                                 <p:outputLabel value="C&oacute;digo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                                <p:inputText autocomplete="off" maxlength="30" value="#{productoController.producto.codigo}" id="produc" required="true" requiredMessage="Ingrese el c&oacute;digo" placeholder="C&oacute;digo">
+                                <p:inputMask autocomplete="off" mask="a*-999" value="#{productoController.producto.codigo}" id="produc" required="true" requiredMessage="Ingrese el c&oacute;digo" placeholder="C&oacute;digo">
                                 <p:ajax event="change" listener="#{productoController.validarCodigo()}" update="msj produc"/>
-                                </p:inputText><p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
+                                </p:inputMask>
+                                <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                                 <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{productoController.producto.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                                 <p:outputLabel value="Cantidad"/>
                                 <p:inputText autocomplete="off" onkeypress="return numeros(event)" value="#{productoController.producto.cantidad}" placeholder="Cantidad"/>

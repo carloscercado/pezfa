@@ -82,7 +82,7 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Usuario:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText value="#{usuarioController.usuario.usuario}" autocomplete="off" required="true" requiredMessage="Registre usuario" placeholder="Usuario"/>
+                            <p:inputText value="#{usuarioController.usuario.usuario}" maxlength="20" autocomplete="off" required="true" requiredMessage="Registre usuario" placeholder="Usuario"/>
 
                             <p:outputLabel value="Contrase&ntilde;a:"><span style="color: #D20005">*</span></p:outputLabel>
                             <p:password validatorMessage="No coinciden las contrase&ntilde;as"  id="pwd1" value="#{usuarioController.usuario.clave}" match="pwd2" label="Password 1" required="true"
@@ -132,7 +132,7 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Usuario:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText value="#{usuarioController.usuario.usuario}" autocomplete="off" required="true" requiredMessage="Registre usuario" placeholder="Usuario"/>
+                            <p:inputText value="#{usuarioController.usuario.usuario}" maxlength="20" autocomplete="off" required="true" requiredMessage="Registre usuario" placeholder="Usuario"/>
 
                             <p:outputLabel value="Contrase&ntilde;a:"><span style="color: #D20005">*</span></p:outputLabel>
                             <p:password redisplay="true" validatorMessage="No coinciden las contrase&ntilde;as"  id="pwd1" value="#{usuarioController.usuario.clave}" match="pwd2" label="Password 1" required="true"

@@ -79,7 +79,7 @@
                                     <f:selectItem itemValue="V" itemLabel="V"/>
                                     <f:selectItem itemValue="E" itemLabel="E"/>
                                 </p:selectOneMenu>
-                                <p:inputText placeholder="RIF" autocomplete="off" onkeypress="return numero(event)" requiredMessage="Registrar el RIF" id="clien" required="true" value="#{clienteController.cliente.rif}">
+                                <p:inputText placeholder="RIF" autocomplete="off" onkeypress="return numero(event)" maxlength="10" requiredMessage="Registrar el RIF" id="clien" required="true" value="#{clienteController.cliente.rif}">
                                     <p:ajax event="change" listener="#{clienteController.validarRif()}" update="msj clien"/>
                                 </p:inputText> 
                             </p:outputLabel>
@@ -116,23 +116,29 @@
                     <h:form>
                         <p:growl id="mensaje"/> 
                         <p:messages id="msj" closable="true"/> 
-                        <p:panelGrid columns="2">
+                        <p:panelGrid columns="2" >
                             <p:outputLabel value="RIF:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText placeholder="RIF" autocomplete="off" requiredMessage="Registrar el RIF" id="clien" required="true" value="#{clienteController.cliente.rif}">
-                                <p:ajax event="change" listener="#{clienteController.validarRif()}" update="msj clien"/>
-                            </p:inputText> <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:outputLabel>
+                                <p:selectOneMenu required="true" requiredMessage="ahahsdahsd" style="float: left" value="#{clienteController.cliente.tipo}">
+                                    <f:selectItem itemValue="J" itemLabel="J"/>
+                                    <f:selectItem itemValue="V" itemLabel="V"/>
+                                    <f:selectItem itemValue="E" itemLabel="E"/>
+                                </p:selectOneMenu>
+                                <p:inputText placeholder="RIF" autocomplete="off" onkeypress="return numero(event)" maxlength="10" requiredMessage="Registrar el RIF" id="clien" required="true" value="#{clienteController.cliente.rif}">
+                                    <p:ajax event="change" listener="#{clienteController.validarRif()}" update="msj clien"/>
+                                </p:inputText> 
+                            </p:outputLabel>
+                            <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{clienteController.cliente.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Direcci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
-                            <p:outputLabel value="Tel&eacute;fono:"/> 
+                            <p:inputText autocomplete="off" maxlength="30" value="#{clienteController.cliente.direccion}" required="true" requiredMessage="Ingrese la direcci&oacute;n" placeholder="Direcci&oacute;n"/>
+                            <p:outputLabel value="Tel&eacute;fono:"/>
                             <p:inputMask  value="#{clienteController.cliente.telefono}" mask="(999)-9999999" placeholder="Tel&eacute;fono"/>
-                            <p:outputLabel for="regex" value="Correo:"/>                   
+                            <p:outputLabel for="regex" value="Correo:"> <span style="color: #D20005">*</span></p:outputLabel>                   
                             <p:inputText id="regex" value="#{clienteController.cliente.correo}" placeholder="ejemplo@gmail.com" validatorMessage="Correo invalido">
                                 <f:validateRegex pattern="(^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)?" />
                             </p:inputText>
-
                         </p:panelGrid>
-
                         <br/>
                         <center>
                             <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(clientes)" actionListener="#{clienteController.update()}"/> 

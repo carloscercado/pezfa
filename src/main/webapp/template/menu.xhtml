@@ -341,19 +341,20 @@
                         </h:form>
                     </p:dialog>
 
-                    <p:dialog header="Registrar precio de una especie" draggable="false" resizable="false" modal="true" 
+                    <p:dialog header="Modificar precio de una especie" draggable="false" resizable="false" modal="true" 
                               widgetVar="precio" responsive="true" width="600">
                         <h:form id="especies">
                             <p:dataTable scrollable="true" 
                                          scrollHeight="200" widgetVar="especies1" emptyMessage="No se encontrar&oacute;n datos" 
                                          reflow="true" var="especie1" value="#{especieController.especies}">
-                                <f:facet name="header">
-                                    <center>
-                                        <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies1').filter();" placeholder="Buscar"/>
-                                    </center>
-                                </f:facet>
-
-                                <p:column class="column-hidden">
+                                 <f:facet name="header">
+                                    <div class="row">
+                                <div class="col-md-6 text-left header-tabla-center">
+                                    <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies1').filter();" placeholder="Buscar"/>
+                                </div>
+                            </div>
+                        </f:facet>
+                               <p:column class="column-hidden">
                                     <center>
                                         <span class="fa fa-cube" />
                                     </center>
@@ -367,13 +368,13 @@
                                     #{especie1.nombre}
                                 </p:column>
 
-                                <p:column headerText="pRECIO" class="text-right">
+                                <p:column headerText="Precio" class="text-right">
                                     #{especie1.precio}
                                 </p:column>
 
                                 <p:column class="column-hidden" headerText="Opciones">
                                     <center>
-                                        <p:commandButton icon="fa fa-money"  title="Registrar precio" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)">
+                                        <p:commandButton icon="fa fa-money" class="btn-warning" title="Modificar precio" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)">
                                             <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie1}"/>
                                         </p:commandButton>
                                     </center> 
@@ -385,7 +386,7 @@
 
 
 
-                    <p:dialog  header="Modificar precio" widgetVar="modificar" width="500"
+                    <p:dialog  header="Modificar precio" widgetVar="modificar" width="350"
                                responsive="true" resizable="false" draggable="false" modal="true">
                         <h:form>
                             <p:growl id="mensaje"/> 
@@ -399,7 +400,7 @@
 
                             <br/>
                             <center>
-                                <p:commandButton value="Modificar" icon="fa fa-pencil" update="mensaje @widgetVar(precio):especies" oncomplete="PF('modificar').hide()" actionListener="#{especieController.update()}"/> 
+                                <p:commandButton value="Modificar" class="btn-warning" icon="fa fa-edit" update="mensaje @widgetVar(precio):especies" oncomplete="PF('modificar').hide()" actionListener="#{especieController.update()}"/> 
                                 <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger"  oncomplete="PF('modificar').hide()"/>
                             </center>
                         </h:form>

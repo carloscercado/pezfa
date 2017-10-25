@@ -79,11 +79,11 @@
                         <p:messages id="msj" closable="true"/> 
                         <p:panelGrid columns="2">
                             <p:outputLabel value="C&oacute;digo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" placeholder="C&oacute;digo" id="espe" requiredMessage="Ingrese el c&oacute;digo" required="true" value="#{especieController.especie.codigo}">
+                            <p:inputMask mask="a*-999" autocomplete="off" placeholder="C&oacute;digo" id="espe" requiredMessage="Ingrese el c&oacute;digo" required="true" value="#{especieController.especie.codigo}">
                             <p:ajax event="change" listener="#{especieController.validarCodigo()}" update="msj espe"/>
-                            </p:inputText>
+                            </p:inputMask>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" placeholder="Nombre" requiredMessage="Ingrese el nombre" required="true"  value="#{especieController.especie.nombre}"/>
+                            <p:inputText autocomplete="off" onkeypress="return letras(event)" maxlength="20" placeholder="Nombre" requiredMessage="Ingrese el nombre" required="true"  value="#{especieController.especie.nombre}"/>
                             <p:outputLabel value="Tipo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu requiredMessage="Ingrese una opci&oacute;n"  required="true"  value="#{especieController.especie.tipo}">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
@@ -116,17 +116,17 @@
                         <p:messages id="msj" closable="true"/> 
                         <p:panelGrid columns="2">
                             <p:outputLabel value="C&oacute;digo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" placeholder="C&oacute;digo" id="espe" requiredMessage="Ingrese el c&oacute;digo" required="true" value="#{especieController.especie.codigo}">
+                            <p:inputMask  mask="a*-999" autocomplete="off" placeholder="C&oacute;digo" id="espe" requiredMessage="Ingrese el c&oacute;digo" required="true" value="#{especieController.especie.codigo}">
                             <p:ajax event="change" listener="#{especieController.validarCodigo()}" update="msj espe"/>
-                            </p:inputText>
+                            </p:inputMask>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{especieController.especie.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
                             <p:outputLabel value="Cantidad:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText disabled="true" autocomplete="off" onkeypress="return numeros(event)" value="#{especieController.especie.cantidad}" required="true" requiredMessage="Ingrese la cantidad" placeholder="Cantidad"/>
                             <p:outputLabel value="M&aacute;ximo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" onkeypress="return numeros(event)" value="#{especieController.especie.maximo}" required="true" requiredMessage="Ingrese el m&aacute;ximo" placeholder="M&aacute;ximo"/>
+                            <p:inputText autocomplete="off" maxlength="10" onkeypress="return numeros(event)" value="#{especieController.especie.maximo}" required="true" requiredMessage="Ingrese el m&aacute;ximo" placeholder="M&aacute;ximo"/>
                             <p:outputLabel value="M&iacute;nimo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" onkeypress="return numeros(event)" value="#{especieController.especie.minimo}" required="true" requiredMessage="Ingrese el m&iacute;nimo" placeholder="M&iacute;nimo"/>
+                            <p:inputText autocomplete="off" maxlength="10" onkeypress="return numeros(event)" value="#{especieController.especie.minimo}" required="true" requiredMessage="Ingrese el m&iacute;nimo" placeholder="M&iacute;nimo"/>
                             <p:outputLabel value="Tipo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu requiredMessage="Ingrese el tipo"  required="true"  value="#{especieController.especie.tipo}">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
