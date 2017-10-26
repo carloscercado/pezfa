@@ -27,7 +27,7 @@
                             </a>
                         </p:panelGrid>
                     </p:tab>
-                    <p:tab title="Estudio de Empleados">
+                    <p:tab title="Educaci&oacute;n de los empleados">
                         <p:panelGrid>
                             <p:chart type="pie" model="#{empleadoController.capacitacionProfesionales}" style="width: 80%" />
                         </p:panelGrid>
@@ -67,7 +67,7 @@
 
                 <p:dialog  header="Ventas mensuales en bolivares" widgetVar="ventasmensual" responsive="true" 
                            resizable="false" draggable="false" modal="true" width="500">
-                    <p:dataTable value="#{ventaController.ventasMes}" var="aa">
+                    <p:dataTable  value="#{ventaController.ventasMes}" var="aa">
                         <p:column headerText="Mes">
                             #{ventaController.getMes(aa.key)}
                         </p:column>
@@ -108,11 +108,12 @@
                     </p:dataTable>
                 </p:dialog>
 
-                <p:dialog width="600" header="Informaci&oacute;n de indicador de capacidad" widgetVar="capacidad" responsive="true" 
-                          resizable="false" draggable="false" modal="true">
-                    <p:dataTable scrollable="true"  widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
+                <p:dialog width="600" header="Informaci&oacute;n del indicador de capacidad de los almacenes " widgetVar="capacidad" responsive="true" 
+                          resizable="false" draggable="false" modal="true" >
+                    <p:dataTable scrollable="true" scrollHeight="150" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
                         <f:facet name="header">
-                            <strong jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
+                            <h3> Capacidad de los almacenes en porcentaje: 
+                           <strong jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
                                     style="color: #f63a1e; font-size: 18px">
                                 #{cavaController.capacidad} %
                             </strong>
@@ -125,6 +126,7 @@
                                     style="color: #1ef664; font-size: 18px">
                                 #{cavaController.capacidad} %
                             </strong>
+                                </h3>
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>
@@ -147,7 +149,7 @@
                             #{cava.capacidad - cava.capacidadDisponible} Kg
                         </p:column>
                         <f:facet name="footer">
-                            <h3>Capacidad total de la empresa: #{cavaController.capacidadTotal} Kg </h3>
+                            <h3>Capacidad total de los almacenes: #{cavaController.capacidadTotal} Kg </h3>
                         </f:facet>
                     </p:dataTable>
                     <br/>
@@ -155,7 +157,7 @@
                 </p:dialog>
 
                 <p:dialog modal="true" widgetVar="devoluciones"  width="600" resizable="false" header="Satisfacci&oacute;n del cliente en el año #{compraController.fecha.year+1900} ">
-                    <p:dataTable value="#{devolucionController.devoluciones}" var="devol">
+                    <p:dataTable value="#{devolucionController.devoluciones}" emptyMessage="No hay ventas agregadas" var="devol">
                         <p:column headerText="Mes">
                             #{devol.mesString}
                         </p:column>

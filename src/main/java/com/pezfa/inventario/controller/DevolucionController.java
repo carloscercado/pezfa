@@ -96,7 +96,7 @@ public class DevolucionController implements Serializable {
         devolucionesIndicador.addSeries(ventas);
         devolucionesIndicador.addSeries(devolucionesData);
 
-        devolucionesIndicador.setTitle("Satisfaccion del cliente");
+        devolucionesIndicador.setTitle("Satisfacción de los clientes");
         devolucionesIndicador.setLegendPosition("ne");
         devolucionesIndicador.setAnimate(true);
         devolucionesIndicador.setMouseoverHighlight(false);

@@ -52,7 +52,7 @@ public class IndicadorController implements Serializable {
     }
     
      public Indicador getVentasMensualKilos() {
-        ventasMensualKilos = db.read("from Indicador indi where indi.id=4").get(0);
+        ventasMensualKilos = db.read("from Indicador indica where indica.id=4").get(0);
         return ventasMensualKilos;
     }
 
