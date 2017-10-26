@@ -177,20 +177,21 @@ public class VentaController implements Serializable {
     public List<Map.Entry<String, Double>> getVentasMes() {
         Double[] meses = this.getIndicadorVentas();
         Map meses2 = new HashMap();
-        meses2.put(1, meses[0].doubleValue());
-        meses2.put(2,meses[1].doubleValue());
-        meses2.put(3, meses[2].doubleValue());
-        meses2.put(4, meses[3].doubleValue());
-        meses2.put(5, meses[4].doubleValue());
-        meses2.put(6, meses[5].doubleValue());
-        meses2.put(7, meses[6].doubleValue());
-        meses2.put(8, meses[7].doubleValue());
-        meses2.put(9, meses[8].doubleValue());
+        meses2.put(1, meses[0]);
+        meses2.put(2,meses[1]);
+        meses2.put(3, meses[2]);
+        meses2.put(4, meses[3]);
+        meses2.put(5, meses[4]);
+        meses2.put(6, meses[5]);
+        meses2.put(7, meses[6]);
+        meses2.put(8, meses[7]);
+        meses2.put(9, meses[8]);
         meses2.put(10, meses[9]);
-        meses2.put(11, meses[10].doubleValue());
-        meses2.put(12, meses[11].doubleValue());
-        
+        meses2.put(11, meses[10]);
+        meses2.put(12, meses[11]);
+       
         Set<Map.Entry<String, Double>> salidas = meses2.entrySet();
+        salidas.stream().mapToDouble(x -> CavaController.redondear(x.getValue(), 2)).sum();
         return new ArrayList<Map.Entry<String, Double>>(salidas);
     }
     

@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <body>
@@ -23,35 +24,41 @@
 
                         </f:facet>
                         <p:column  headerText="Nombre" filterStyle="display: none">
-                         #{indicador.nombre}
+                            #{indicador.nombre}
                         </p:column>
 
-                         <p:column   headerText="Bueno" filterStyle="display: none">
-                         #{indicador.bueno} %
+                        <p:column   headerText="Bueno" filterStyle="display: none">
+                            #{indicador.bueno} 
+                            <span jsf:rendered="#{(indicador.id eq 1) or (indicador.id eq 2) }">%</span>
+                            <span jsf:rendered="#{indicador.id eq 3}">Bs</span>
+                            <span jsf:rendered="#{indicador.id eq 4}" >Kg</span>
                         </p:column>
-                        
-                         <p:column filterBy="#{indicador.malo} "  headerText="Malo" filterStyle="display: none">
-                         #{indicador.malo} %
+
+                        <p:column filterBy="#{indicador.malo} "  headerText="Malo" filterStyle="display: none">
+                            #{indicador.malo} 
+                            <span jsf:rendered="#{!(indicador.id eq 3 or indicador.id eq 4)}" >%</span>
+                            <span jsf:rendered="#{indicador.id eq 3}">Bs</span>
+                            <span jsf:rendered="#{indicador.id eq 4}">Kg</span>
                         </p:column>
-                         
+
                         <p:column  headerText="Aceptable" filterStyle="display: none">
                             #{indicador.malo} % - #{indicador.bueno} %
                         </p:column>
                         <p:column  headerText="Descripcion" filterStyle="display: none">
                             #{indicador.descripcion}
                         </p:column>
-                        
-                        
+
+
                         <p:column  headerText="Editar" width="10%">
                             <p:commandButton icon="fa fa-edit" title="Modificar" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)" class="btn-warning">
-                                    <f:setPropertyActionListener target="#{indicadorController.indicador}" value="#{indicador}"/>
-                                </p:commandButton>
+                                <f:setPropertyActionListener target="#{indicadorController.indicador}" value="#{indicador}"/>
+                            </p:commandButton>
                         </p:column>
 
                     </p:dataTable>
                 </h:form>
                 <p:dialog closable="false" header="Modificar rango de indicadores" widgetVar="modificar" responsive="true" resizable="false" draggable="false" modal="true">
-                   
+
                     <h:form>
                         <p:growl id="mensaje"/>  
                         <p:panelGrid columns="2">
@@ -60,31 +67,31 @@
                                 </span></p:outputLabel>
                             <p:inputText disabled="true" value="#{indicadorController.indicador.nombre}"
                                          autocomplete="off" required="true" />
-                            
+
                             <p:outputLabel value="Descripcion:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputTextarea disabled="true" value="#{indicadorController.indicador.descripcion}" >
                             </p:inputTextarea>  
 
                             <p:outputLabel value="Bueno:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText  value="#{indicadorController.indicador.bueno}" autocomplete="off"  required="true" />
-                            
+
                             <p:outputLabel value="Malo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText  value="#{indicadorController.indicador.malo}" autocomplete="off"  />
-                            
+
                             <p:outputLabel value="Mensaje bueno:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText  value="#{indicadorController.indicador.mensajeBueno}" autocomplete="off"  required="true"  />
-                            
+
                             <p:outputLabel value="Mensaje malo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText  value="#{indicadorController.indicador.mensajeMalo}" autocomplete="off"  required="true" />
-                            
+
                             <p:outputLabel value="Mensaje Aceptable:"> <span style="color: #D20005">*</span></p:outputLabel>
-                       <p:inputText  value="#{indicadorController.indicador.mensajeAceptable}" autocomplete="off"  required="true" />
+                            <p:inputText  value="#{indicadorController.indicador.mensajeAceptable}" autocomplete="off"  required="true" />
                         </p:panelGrid>
                         <br/>
                         <center>
                             <p:commandButton  value="Modificar" icon="fa fa-edit" title="Modificar"
-                                             update="mensaje @widgetVar(indicadores)" class="btn-warning" actionListener="#{indicadorController.update()}"/>
-         
+                                              update="mensaje @widgetVar(indicadores)" class="btn-warning" actionListener="#{indicadorController.update()}"/>
+
                             <p:commandButton  icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('modificar').hide()"/>
                         </center>
                     </h:form>

@@ -38,18 +38,16 @@ public class EmpleadoController implements Serializable {
         capacitacionProfesionales = new PieChartModel();
         List<Empleado> profesionales;
         profesionales = db.read("from Empleado");
-        float universitarios = profesionales.stream().filter(x -> x.getEducacion() == 4).count();
-        float secundaria = profesionales.stream().filter(x -> x.getEducacion() == 3).count();
+        float universitarios = profesionales.stream().filter(x -> x.getEducacion() == 3).count();
         float primaria = profesionales.stream().filter(x -> x.getEducacion() == 2).count();
         float sinEducacion = profesionales.stream().filter(x -> x.getEducacion() == 1).count();
         capacitacionProfesionales.set("Sin estudios", sinEducacion);
-        capacitacionProfesionales.set("Primaria", primaria);
-        capacitacionProfesionales.set("Secundaria", secundaria);
-        capacitacionProfesionales.set("Universitaria", universitarios);
-        capacitacionProfesionales.setTitle("Profesionales");
+        capacitacionProfesionales.set("Educación basica y media", primaria);
+        capacitacionProfesionales.set("Educación universitaria", universitarios);
+        capacitacionProfesionales.setTitle("Educación de los empleados");
         capacitacionProfesionales.setLegendPosition("w");
         capacitacionProfesionales.setShowDataLabels(true);
-        capacitacionProfesionales.setSeriesColors("ef6868, 79ef68, 68c8ef, efde68");
+        capacitacionProfesionales.setSeriesColors("ef6868, efde68, 79ef68");
         return capacitacionProfesionales;
     }
 

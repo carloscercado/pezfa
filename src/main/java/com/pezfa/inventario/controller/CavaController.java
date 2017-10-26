@@ -3,6 +3,8 @@ package com.pezfa.inventario.controller;
 import com.pezfa.inventario.database.CavaDB;
 import com.pezfa.inventario.models.Cava;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -24,9 +26,9 @@ public class CavaController implements Serializable {
     @ManagedProperty(value = "#{almacenController}")
     private AlmacenController almacenController;
     private PieChartModel capacidadIndicador;
-    
+
     public PieChartModel getCapacidadIndicador() {
-        
+
         capacidadIndicador = new PieChartModel();
         double capacidad = this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
 
@@ -45,8 +47,7 @@ public class CavaController implements Serializable {
     public void setCapacidadIndicador(PieChartModel capacidadIndicador) {
         this.capacidadIndicador = capacidadIndicador;
     }
-    
-    
+
     public CavaController() {
         db = new CavaDB();
         cava = new Cava();
@@ -55,7 +56,8 @@ public class CavaController implements Serializable {
     public double getCapacidad() {
         double totalCapacidad = this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
         double totalDisponible = this.getCavas().stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
-        return ((totalDisponible / totalCapacidad) * 100);
+        double resultado = ((totalDisponible / totalCapacidad) * 100);
+        return CavaController.redondear(resultado, 2);
     }
 
     public AlmacenController getAlmacenController() {
@@ -64,6 +66,26 @@ public class CavaController implements Serializable {
 
     public void setAlmacenController(AlmacenController almacenController) {
         this.almacenController = almacenController;
+    }
+
+    public static double redondear(double value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+    
+    public double redondearFlotanteParaElFront(double value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     public List<Cava> getCavasFiltro() {
@@ -93,10 +115,10 @@ public class CavaController implements Serializable {
         return cavas;
     }
 
-    public double getCapacidadTotal()
-    {
+    public double getCapacidadTotal() {
         return this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
     }
+
     public void setCavas(List<Cava> cavas) {
         this.cavas = cavas;
     }

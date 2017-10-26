@@ -14,11 +14,11 @@ insert into almacen
 
        
 insert into empleado
-	VALUES (1, '15764832', 'MARIA', 'JOSE', 'PEREZ', 'ALVARADO', now(), 'F', 'ADMINISTRACION', 4),
+	VALUES (1, '15764832', 'MARIA', 'JOSE', 'PEREZ', 'ALVARADO', now(), 'F', 'ADMINISTRACION', 3),
 		(2, '24657978', 'PEDRO', 'JOSE', 'GARCIA', 'ALVARADO', now(), 'M', 'RRHH', 3),
 		(3, '19375232', 'ROSA', 'JOSE', 'MARQUEZ', 'ALVARADO', now(), 'F', 'PRODUCCION', 2),
-		(4, '16425538', 'PABLO', 'JOSE', 'LOPEZ', 'ALVARADO', now(), 'M', 'OPERACION', 4),
-		(5, '21685725', 'PATRICIA', 'JOSE', 'ROMERO', 'ALVARADO', now(), 'F', 'ADMINISTRACION', 4),
+		(4, '16425538', 'PABLO', 'JOSE', 'LOPEZ', 'ALVARADO', now(), 'M', 'OPERACION', 3),
+		(5, '21685725', 'PATRICIA', 'JOSE', 'ROMERO', 'ALVARADO', now(), 'F', 'ADMINISTRACION', 3),
 		(6, '22785825', 'ARTURO', 'MERLIN', 'CORAZON', 'DE LEON', now(), 'M', 'CHOFER', 1),
 		(7, '24645225', 'CHARLES', 'WINSTON', 'CHURCHILL', 'LEON', now(), 'M', 'CHOFER', 1);
 		
@@ -84,10 +84,10 @@ INSERT INTO COMPRA_ESPECIE
 		(6, 2, 1, 1000, 500, 0),
 		(7, 3, 2, 1000, 500, 0),
 		(8, 3, 3, 1000, 2000, 0),
-		(9, 3, 4, 1000, 500, 1000),
-		(10, 4, 5, 1000, 500, 1000), 
-		(11, 4, 1, 1000, 500, 1000),
-		(12, 4, 2, 1000, 500, 1000),
-		(13, 5, 3, 1000, 2000, 1000),
-		(14, 5, 4, 1000, 500, 1000),
-		(15, 5, 5, 1000, 500, 1000);
+		(9, 3, 4, 1000, 500, 0),
+		(10, 4, 5, 1000, 500, 0), 
+		(11, 4, 1, 1000, 500, 0),
+		(12, 4, 2, 1000, 500, 0),
+		(13, 5, 3, 1000, 2000, 0),
+		(14, 5, 4, 1000, 500, 0),
+		(15, 5, 5, 1000, 500, 0);
