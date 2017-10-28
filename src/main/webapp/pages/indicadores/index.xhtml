@@ -23,35 +23,43 @@
                     <p:tab title="Capacidad">
                         <p:panelGrid>
                             <a href="#" onclick="PF('capacidad').show()">
-                                <p:chart type="pie" model="#{cavaController.capacidadIndicador}" />
+                                <p:tooltip  for="cap" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
+                                <p:chart id="cap" type="pie" model="#{cavaController.capacidadIndicador}" />
                             </a>
                         </p:panelGrid>
                     </p:tab>
                     <p:tab title="Educaci&oacute;n de los empleados">
                         <p:panelGrid>
-                            <p:chart type="pie" model="#{empleadoController.capacitacionProfesionales}" style="width: 80%" />
+                            <div class="hero-widget well well-sm">
+                                <a href="#" onclick="PF('empleadoedu').show()">
+                                    <p:tooltip  for="emp" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
+                                    <p:chart type="pie" id="emp" model="#{empleadoController.capacitacionProfesionales}" style="width: 80%" />
+                                </a>
+                            </div>
                         </p:panelGrid>
                     </p:tab>
-                    <p:tab title="Ventas por año en bolivares">
+                    <p:tab title="Ventas mensuales en bolivares">
                         <p:panelGrid >
                             <div>
                                 <label class="text-muted">Ventas por año en bolivares: </label>
                                 <div class="hero-widget well well-sm">
                                     <a href="#" onclick="PF('ventasmensual').show()">
-                                        <p:chart type="bar" model="#{ventaController.ventasAnual}" style="height:150px"/>
+                                        <p:tooltip  for="ventanio" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
+                                        <p:chart type="bar" id="ventanio" model="#{ventaController.ventasAnual}" style="height:150px"/>
                                     </a>
                                 </div>
                             </div>
                         </p:panelGrid>
                     </p:tab>
 
-                    <p:tab title="Ventas por año en kilos">
+                    <p:tab title="Ventas mensuales en kilos">
                         <p:panelGrid>
                             <div>
                                 <label class="text-muted">Ventas por año en kilos: </label> 
                                 <div class="hero-widget well well-sm">
                                     <a href="#" onclick="PF('ventasmensualkilos').show()">
-                                        <p:chart type="bar" model="#{ventaController.ventasAnualKilos}" style="height:150px"/>
+                                        <p:tooltip  for="ventkilo" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
+                                        <p:chart type="bar" id="ventkilo" model="#{ventaController.ventasAnualKilos}" style="height:150px"/>
                                     </a>
                                 </div>
                             </div>
@@ -60,7 +68,8 @@
                     </p:tab>
                     <p:tab title="Satisfacci&oacute;n del cliente">
                         <a onclick="PF('devoluciones').show()">
-                            <p:chart type="bar" model="#{devolucionController.devolucionesIndicador}"/>
+                            <p:tooltip  for="satis" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
+                            <p:chart type="bar" id="satis" model="#{devolucionController.devolucionesIndicador}"/>
                         </a>         
                     </p:tab>
                 </p:tabView>
@@ -108,25 +117,46 @@
                     </p:dataTable>
                 </p:dialog>
 
-                <p:dialog width="600" header="Informaci&oacute;n del indicador de capacidad de los almacenes " widgetVar="capacidad" responsive="true" 
-                          resizable="false" draggable="false" modal="true" >
+                <p:dialog  header="Informaci&oacute;n sobre la educaci&oacute;n de los empleados" widgetVar="empleadoedu" responsive="true" 
+                           resizable="false" draggable="false" modal="true" width="500">
+                    <p:dataTable value="#{ventaController.ventasMesKilo }" var="aa">
+                        <p:column headerText="Mes">
+                            #{ventaController.getMes(aa.key)}
+                        </p:column>
+                        <p:column headerText="Kilos">
+                            #{aa.value} Kg
+                        </p:column>
+                        <p:column headerText="Medida">
+                            <center>
+                                <span class="fa fa-circle fa-2x" jsf:rendered="#{aa.value le indicadorController.ventasMensualKilos.malo}" style="color: #f63a1e"/>
+                                <span class="fa fa-circle fa-2x" jsf:rendered="#{((!(aa.value le indicadorController.ventasMensualKilos.malo ) or aa.value eq indicadorController.ventasMensualKilos.malo-1) 
+                                                                                 and (aa.value le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #f68e1e"/>
+
+                                <span class="fa fa-circle fa-2x" jsf:rendered="#{!(aa.value le indicadorController.ventasMensualKilos.bueno) or aa.value eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+
+                <p:dialog width="800" header="Informaci&oacute;n del indicador de capacidad de los almacenes" widgetVar="capacidad" responsive="true" 
+                          resizable="false" draggable="false" modal="true" closable="true">
                     <p:dataTable scrollable="true" scrollHeight="150" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
                         <f:facet name="header">
                             <h3> Capacidad de los almacenes en porcentaje: 
-                           <strong jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
-                                    style="color: #f63a1e; font-size: 18px">
-                                #{cavaController.capacidad} %
-                            </strong>
-
-                            <strong style="color: #ff6600; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
-                                                                                            and (cavaController.capacidad le indicadorController.capacidad.bueno-1))}" >
+                                <strong jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
+                                        style="color: #f63a1e; font-size: 18px">
                                     #{cavaController.capacidad} %
-                            </strong>
-                            <strong jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" 
-                                    style="color: #1ef664; font-size: 18px">
-                                #{cavaController.capacidad} %
-                            </strong>
-                                </h3>
+                                </strong>
+
+                                <strong style="color: #ff6600; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
+                                                                                                and (cavaController.capacidad le indicadorController.capacidad.bueno-1))}" >
+                                        #{cavaController.capacidad} %
+                                </strong>
+                                <strong jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" 
+                                        style="color: #1ef664; font-size: 18px">
+                                    #{cavaController.capacidad} %
+                                </strong>
+                            </h3>
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>
