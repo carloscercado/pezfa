@@ -77,20 +77,33 @@
                 <p:dialog  header="Ventas mensuales en bolivares" widgetVar="ventasmensual" responsive="true" 
                            resizable="false" draggable="false" modal="true" width="500">
                     <p:dataTable  value="#{ventaController.ventasMes}" var="aa">
+                        <f:facet name="header">
+                            Bueno: #{indicadorController.ventasMensual.bueno}
+                            Malo: #{indicadorController.ventasMensual.malo}
+                            Total: #{ventaController.totalVentas}
+
+                        </f:facet>
                         <p:column headerText="Mes">
                             #{ventaController.getMes(aa.key)}
                         </p:column>
                         <p:column headerText="Monto">
-                            #{aa.value } Bs
+
+                            #{aa.value} Bsf
+                        </p:column>
+                        <p:column headerText="Porcentje">
+                            <span class="hidden">#{porcentaje = aa.value / ventaController.totalVentas * 100}</span>
+                            #{cavaController.redondearFlotanteParaElFront(porcentaje, 2)} %
                         </p:column>
                         <p:column headerText="Medida">
 
                             <center>
-                                <span class="fa fa-circle fa-2x" jsf:rendered="#{aa.value le indicadorController.ventasMensual.malo}" style="color: #f63a1e"/>
-                                <span class="fa fa-circle fa-2x" jsf:rendered="#{((!(aa.value le indicadorController.ventasMensual.malo ) or aa.value eq indicadorController.ventasMensual.malo-1) 
-                                                                                 and (aa.value le indicadorController.ventasMensual.bueno-1))}" style="color: #f68e1e"/>
-
-                                <span class="fa fa-circle fa-2x" jsf:rendered="#{!(aa.value le indicadorController.ventasMensual.bueno) or aa.value eq indicadorController.ventasMensual.bueno}" style="color: #1ef664"/>
+                                <p:tooltip  for="malo" value="#{indicadorController.ventasMensual.mensajeMalo  }" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcentaje le indicadorController.ventasMensual.malo}" style="color: #f63a1e"/>
+                                <p:tooltip  for="aceptable" value="#{indicadorController.ventasMensual.mensajeAceptable  }" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje le indicadorController.ventasMensual.malo ) or porcentaje eq indicadorController.ventasMensual.malo-1) 
+                                                                                                    and (porcentaje le indicadorController.ventasMensual.bueno-1))}" style="color: #f68e1e"/>
+                                <p:tooltip  for="bueno" value="#{indicadorController.ventasMensual.mensajeBueno  }" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje le indicadorController.ventasMensual.bueno) or porcentaje eq indicadorController.ventasMensual.bueno}" style="color: #1ef664">    </span>
                             </center>
                         </p:column>
                     </p:dataTable>
@@ -99,19 +112,28 @@
                 <p:dialog  header="Ventas mensuales en kilos" widgetVar="ventasmensualkilos" responsive="true" 
                            resizable="false" draggable="false" modal="true" width="500">
                     <p:dataTable value="#{ventaController.ventasMesKilo }" var="aa">
+                        <f:facet name="header">
+                            Bueno: #{indicadorController.ventasMensualKilos.bueno}
+                            Malo: #{indicadorController.ventasMensualKilos.malo}
+                            Total: #{ventaController.totalVentasKilos}
+                        </f:facet>
                         <p:column headerText="Mes">
                             #{ventaController.getMes(aa.key)}
                         </p:column>
                         <p:column headerText="Kilos">
                             #{aa.value} Kg
                         </p:column>
+                        <p:column headerText="Porcentaje">
+                            <span class="hidden">#{porcentaje2 = aa.value / ventaController.totalVentasKilos * 100}</span>
+                            #{cavaController.redondearFlotanteParaElFront(porcentaje2, 2)} %
+                        </p:column>
                         <p:column headerText="Medida">
                             <center>
-                                <span class="fa fa-circle fa-2x" jsf:rendered="#{aa.value le indicadorController.ventasMensualKilos.malo}" style="color: #f63a1e"/>
-                                <span class="fa fa-circle fa-2x" jsf:rendered="#{((!(aa.value le indicadorController.ventasMensualKilos.malo ) or aa.value eq indicadorController.ventasMensualKilos.malo-1) 
-                                                                                 and (aa.value le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #f68e1e"/>
+                                <span class="fa fa-circle fa-2x" jsf:rendered="#{porcentaje2 le indicadorController.ventasMensualKilos.malo}" style="color: #f63a1e"/>
+                                <span class="fa fa-circle fa-2x" jsf:rendered="#{((!(porcentaje2 le indicadorController.ventasMensualKilos.malo ) or porcentaje2 eq indicadorController.ventasMensualKilos.malo-1) 
+                                                                                 and (porcentaje2 le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #f68e1e"/>
 
-                                <span class="fa fa-circle fa-2x" jsf:rendered="#{!(aa.value le indicadorController.ventasMensualKilos.bueno) or aa.value eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
+                                <span class="fa fa-circle fa-2x" jsf:rendered="#{!(porcentaje2 le indicadorController.ventasMensualKilos.bueno) or porcentaje2 eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
                             </center>
                         </p:column>
                     </p:dataTable>

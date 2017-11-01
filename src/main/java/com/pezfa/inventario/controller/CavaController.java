@@ -72,12 +72,16 @@ public class CavaController implements Serializable {
         if (places < 0) {
             throw new IllegalArgumentException();
         }
-
-        BigDecimal bd = new BigDecimal(value);
+        BigDecimal bd;
+        try {
+            bd = new BigDecimal(value);
+        } catch (java.lang.NumberFormatException e) {
+            bd = new BigDecimal(0);
+        }
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-    
+
     public double redondearFlotanteParaElFront(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
