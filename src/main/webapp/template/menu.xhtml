@@ -374,7 +374,7 @@
 
                                 <p:column class="column-hidden" headerText="Opciones">
                                     <center>
-                                        <p:commandButton icon="fa fa-money" class="btn-warning" title="Modificar precio" oncomplete="PF('modificar').show()" update="@widgetVar(modificar)">
+                                        <p:commandButton icon="fa fa-money" class="btn-warning" title="Modificar precio" oncomplete="PF('modificar_precio').show()" update="@widgetVar(modificar)">
                                             <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie1}"/>
                                         </p:commandButton>
                                     </center> 
@@ -386,7 +386,7 @@
 
 
 
-                    <p:dialog  header="Modificar precio" widgetVar="modificar" width="350"
+                    <p:dialog  header="Modificar precio" widgetVar="modificar_precio" width="350"
                                responsive="true" resizable="false" draggable="false" modal="true">
                         <h:form>
                             <p:growl id="mensaje"/> 

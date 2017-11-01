@@ -88,7 +88,7 @@
                             <center>
                                 <span class="fa fa-circle fa-2x" jsf:rendered="#{aa.value le indicadorController.ventasMensual.malo}" style="color: #f63a1e"/>
                                 <span class="fa fa-circle fa-2x" jsf:rendered="#{((!(aa.value le indicadorController.ventasMensual.malo ) or aa.value eq indicadorController.ventasMensual.malo-1) 
-                                                                                 and (aa.value le indicadorController.ventasMensual.bueno-1))}" style="color: #f68e1e"/>
+                                                                                 and (aa.value le indicadorController.ventasMensual.bueno-1))}" style="color: #ff0"/>
 
                                 <span class="fa fa-circle fa-2x" jsf:rendered="#{!(aa.value le indicadorController.ventasMensual.bueno) or aa.value eq indicadorController.ventasMensual.bueno}" style="color: #1ef664"/>
                             </center>
@@ -109,7 +109,7 @@
                             <center>
                                 <span class="fa fa-circle fa-2x" jsf:rendered="#{aa.value le indicadorController.ventasMensualKilos.malo}" style="color: #f63a1e"/>
                                 <span class="fa fa-circle fa-2x" jsf:rendered="#{((!(aa.value le indicadorController.ventasMensualKilos.malo ) or aa.value eq indicadorController.ventasMensualKilos.malo-1) 
-                                                                                 and (aa.value le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #f68e1e"/>
+                                                                                 and (aa.value le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #ff0"/>
 
                                 <span class="fa fa-circle fa-2x" jsf:rendered="#{!(aa.value le indicadorController.ventasMensualKilos.bueno) or aa.value eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
                             </center>
@@ -118,24 +118,15 @@
                 </p:dialog>
 
                 <p:dialog  header="Informaci&oacute;n sobre la educaci&oacute;n de los empleados" widgetVar="empleadoedu" responsive="true" 
-                           resizable="false" draggable="false" modal="true" width="500">
-                    <p:dataTable value="#{ventaController.ventasMesKilo }" var="aa">
-                        <p:column headerText="Mes">
-                            #{ventaController.getMes(aa.key)}
-                        </p:column>
-                        <p:column headerText="Kilos">
-                            #{aa.value} Kg
-                        </p:column>
-                        <p:column headerText="Medida">
-                            <center>
-                                <span class="fa fa-circle fa-2x" jsf:rendered="#{aa.value le indicadorController.ventasMensualKilos.malo}" style="color: #f63a1e"/>
-                                <span class="fa fa-circle fa-2x" jsf:rendered="#{((!(aa.value le indicadorController.ventasMensualKilos.malo ) or aa.value eq indicadorController.ventasMensualKilos.malo-1) 
-                                                                                 and (aa.value le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #f68e1e"/>
+                           resizable="false" draggable="false" modal="true" width="600">
+                    <h:form>
+                        <p:dataTable scrollable="true" scrollHeight="150" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" value="#{empleadoController.empleadores}" var="emple">
+                            <p:column>
+                                #{emple.cedula}
+                            </p:column>
 
-                                <span class="fa fa-circle fa-2x" jsf:rendered="#{!(aa.value le indicadorController.ventasMensualKilos.bueno) or aa.value eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
-                            </center>
-                        </p:column>
-                    </p:dataTable>
+                        </p:dataTable>
+                    </h:form>
                 </p:dialog>
 
                 <p:dialog width="800" header="Informaci&oacute;n del indicador de capacidad de los almacenes" widgetVar="capacidad" responsive="true" 
@@ -148,8 +139,8 @@
                                     #{cavaController.capacidad} %
                                 </strong>
 
-                                <strong style="color: #ff6600; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
-                                                                                                and (cavaController.capacidad le indicadorController.capacidad.bueno-1))}" >
+                                <strong style="color: #ff0; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
+                                                                                             and (cavaController.capacidad le indicadorController.capacidad.bueno-1))}" >
                                         #{cavaController.capacidad} %
                                 </strong>
                                 <strong jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" 
@@ -205,7 +196,7 @@
                         <p:column headerText="Estado" class="text-center">
                             <span class="fa fa-circle fa-2x" jsf:rendered="#{valor le indicadorController.satisfaccion.malo}" style="color: #f63a1e"/>
                             <span class="fa fa-circle fa-2x" jsf:rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
-                                                                             and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #f68e1e"/>
+                                                                             and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #ff0"/>
 
                             <span class="fa fa-circle fa-2x" jsf:rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" style="color: #1ef664"/>
 

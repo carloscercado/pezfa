@@ -159,18 +159,18 @@ public class VentaController implements Serializable {
     public String getMes(int mes)
     {
         Map meses = new HashMap();
-        meses.put(1, "Ene");
-        meses.put(2, "Feb");
-        meses.put(3, "Mar");
-        meses.put(4, "Abr");
-        meses.put(5, "May");
-        meses.put(6, "Jun");
-        meses.put(7, "Jul");
-        meses.put(8, "Ago");
-        meses.put(9, "Sep");
-        meses.put(10,"Oct");
-        meses.put(11,"Nov");
-        meses.put(12,"Dic");
+        meses.put(1, "Enero");
+        meses.put(2, "Febrero");
+        meses.put(3, "Marzo");
+        meses.put(4, "Abril");
+        meses.put(5, "Mayo");
+        meses.put(6, "Junio");
+        meses.put(7, "Julio");
+        meses.put(8, "Agosto");
+        meses.put(9, "Septiembre");
+        meses.put(10,"Octubre");
+        meses.put(11,"Noviembre");
+        meses.put(12,"Diciembre");
         return meses.get(mes).toString();
     }
 
