@@ -28,17 +28,11 @@
                         </p:column>
 
                         <p:column   headerText="Bueno" filterStyle="display: none">
-                            #{indicador.bueno} 
-                            <span jsf:rendered="#{(indicador.id eq 1) or (indicador.id eq 2) }">%</span>
-                            <span jsf:rendered="#{indicador.id eq 3}">Bs</span>
-                            <span jsf:rendered="#{indicador.id eq 4}" >Kg</span>
+                            #{indicador.bueno} %
                         </p:column>
 
                         <p:column filterBy="#{indicador.malo} "  headerText="Malo" filterStyle="display: none">
-                            #{indicador.malo} 
-                            <span jsf:rendered="#{!(indicador.id eq 3 or indicador.id eq 4)}" >%</span>
-                            <span jsf:rendered="#{indicador.id eq 3}">Bs</span>
-                            <span jsf:rendered="#{indicador.id eq 4}">Kg</span>
+                            #{indicador.malo} %
                         </p:column>
 
                         <p:column  headerText="Aceptable" filterStyle="display: none">

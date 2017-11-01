@@ -1,12 +1,10 @@
 package com.pezfa.inventario.controller;
 
 import com.pezfa.inventario.database.AuditoriaDB;
-import com.pezfa.inventario.database.DevolucionDB;
 import com.pezfa.inventario.database.UnidadDB;
 import com.pezfa.inventario.database.UbicacionDB;
 import com.pezfa.inventario.database.VentaDB;
 import com.pezfa.inventario.models.Auditoria;
-import com.pezfa.inventario.models.Devoluciones;
 import com.pezfa.inventario.models.ProductoSalida;
 import com.pezfa.inventario.models.Unidad;
 import com.pezfa.inventario.models.Ubicacion;
@@ -147,6 +145,16 @@ public class VentaController implements Serializable {
         }
         return meses;
     }
+    
+    public Double getValorDelMes(int mes) {
+        Double[] meses = this.getIndicadorVentas();
+        return meses[mes];
+    }
+    
+    public Double getValorDelMesKilo(int mes) {
+        Double[] meses = this.getIndicadorVentasKilos();
+        return meses[mes];
+    }
 
     public Date getFecha() {
         return fecha;
@@ -155,9 +163,8 @@ public class VentaController implements Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
-    public String getMes(int mes)
-    {
+
+    public String getMes(int mes) {
         Map meses = new HashMap();
         meses.put(1, "Enero");
         meses.put(2, "Febrero");
@@ -173,12 +180,35 @@ public class VentaController implements Serializable {
         meses.put(12,"Diciembre");
         return meses.get(mes).toString();
     }
+    
+    public Double getTotalVentas()
+    {
+         Double[] meses = this.getIndicadorVentas();
+         double total = 0.0;
+         for(int i= 0; i<12; i++)
+         {
+             total = total + meses[i]; 
+         }
+         return total;
+    }
+    
+    public Double getTotalVentasKilos()
+    {
+         Double[] meses = this.getIndicadorVentasKilos();
+         double total = 0.0;
+         for(int i= 0; i<12; i++)
+         {
+             total = total + meses[i]; 
+         }
+         return total;
+    }
+    
 
     public List<Map.Entry<String, Double>> getVentasMes() {
         Double[] meses = this.getIndicadorVentas();
         Map meses2 = new HashMap();
         meses2.put(1, meses[0]);
-        meses2.put(2,meses[1]);
+        meses2.put(2, meses[1]);
         meses2.put(3, meses[2]);
         meses2.put(4, meses[3]);
         meses2.put(5, meses[4]);
@@ -189,17 +219,17 @@ public class VentaController implements Serializable {
         meses2.put(10, meses[9]);
         meses2.put(11, meses[10]);
         meses2.put(12, meses[11]);
-       
+
         Set<Map.Entry<String, Double>> salidas = meses2.entrySet();
         salidas.stream().mapToDouble(x -> CavaController.redondear(x.getValue(), 2)).sum();
         return new ArrayList<Map.Entry<String, Double>>(salidas);
     }
-    
+
     public List<Map.Entry<String, Double>> getVentasMesKilo() {
         Double[] meses = this.getIndicadorVentasKilos();
         Map meses2 = new HashMap();
         meses2.put(1, meses[0]);
-        meses2.put(2,meses[1]);
+        meses2.put(2, meses[1]);
         meses2.put(3, meses[2]);
         meses2.put(4, meses[3]);
         meses2.put(5, meses[4]);
@@ -210,7 +240,7 @@ public class VentaController implements Serializable {
         meses2.put(10, meses[9]);
         meses2.put(11, meses[10]);
         meses2.put(12, meses[11]);
-        
+
         Set<Map.Entry<String, Double>> salidas = meses2.entrySet();
         return new ArrayList<Map.Entry<String, Double>>(salidas);
     }

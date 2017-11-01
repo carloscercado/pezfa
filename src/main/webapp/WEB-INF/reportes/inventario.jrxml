@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="template" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="6298f427-f5d0-4230-b83d-a086fd99ea07">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="6"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT  ROW_NUMBER()
         OVER (ORDER BY codigo) as numero, especie.codigo,
 	especie.nombre,
 	especie.cantidad,
-	especie.minimo,
+	especie.precio,
 	especie.tipo
 FROM especie]]>
 	</queryString>
@@ -16,22 +16,33 @@ FROM especie]]>
 	<field name="codigo" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="cantidad" class="java.lang.Double"/>
-	<field name="minimo" class="java.lang.Double"/>
+	<field name="precio" class="java.math.BigDecimal"/>
 	<field name="tipo" class="java.lang.String"/>
 	<title>
-		<band height="92" splitType="Stretch">
+		<band height="135" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="81" width="550" height="1" uuid="671067dc-23de-4bba-9313-804330bdd40a">
+				<reportElement x="1" y="130" width="554" height="1" uuid="671067dc-23de-4bba-9313-804330bdd40a">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="94" y="24" width="371" height="40" uuid="99366464-7a75-46c5-8822-26cfda90dfdf"/>
+				<reportElement x="182" y="22" width="373" height="40" uuid="99366464-7a75-46c5-8822-26cfda90dfdf"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="24" isBold="false" isItalic="false"/>
+					<font fontName="SansSerif" size="20" isBold="false" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Reporte de General de Especies]]></text>
+				<text><![CDATA[REPORTE GENERAL DE ESPECIES]]></text>
 			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="426" y="100" width="129" height="30" uuid="f99bb314-2d28-424b-bab3-10cd75dda20e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="0" width="172" height="117" uuid="b19e44ea-39e6-43d4-aa5f-87afa8b463ac"/>
+				<imageExpression><![CDATA["C:\\Users\\yulitza\\Desktop\\reportes\\logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>
@@ -69,7 +80,7 @@ FROM especie]]>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Mínimo]]></text>
+				<text><![CDATA[Precio]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="294" y="0" width="83" height="29" backcolor="#00CCCC" uuid="d48cd37b-61ee-4c17-b940-feb1dfd81591"/>
@@ -81,7 +92,7 @@ FROM especie]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="24">
+		<band height="35">
 			<textField>
 				<reportElement x="1" y="0" width="65" height="21" uuid="ba5b8a56-c029-464b-931d-b20f5869b65a"/>
 				<textElement textAlignment="Center"/>
@@ -108,10 +119,15 @@ FROM especie]]>
 				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="391" y="0" width="69" height="20" uuid="43437d51-5d5f-4a85-b70d-6491559d2941"/>
+				<reportElement x="391" y="1" width="69" height="20" uuid="e0aaee1f-508e-4cde-bd87-7627e67f8ece"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{minimo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="1" y="26" width="554" height="1" uuid="aed2b4c6-9b9e-4614-9f5b-8072e0bab2dd">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>
@@ -127,7 +143,7 @@ FROM especie]]>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="-1" width="551" height="2" uuid="299fa8e2-1a7d-4bc4-8a65-eb68228cbc38">
+				<reportElement x="1" y="9" width="554" height="1" uuid="299fa8e2-1a7d-4bc4-8a65-eb68228cbc38">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 			</line>

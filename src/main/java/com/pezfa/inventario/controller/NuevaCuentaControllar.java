@@ -15,7 +15,7 @@ import org.primefaces.context.RequestContext;
 
 /**
  *
- * @author Carlos Cercado
+ * @author Romario Guerrero
  * @email cercadocarlos@gmail.com
  */
 @ManagedBean
