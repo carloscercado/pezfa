@@ -223,6 +223,10 @@
                          #{porcenta} %
                         </p:column>
                         <p:column headerText="Estado" width="10%">
+                            <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcenta le indicadorController.capacidad.malo}" style="color: #f63a1e"/>
+                            <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcenta le indicadorController.capacidad.malo ) or porcenta eq indicadorController.capacidad.malo-1) 
+                                                                                                and (valor le indicadorController.capacidad.bueno-1))}" style="color: #ffff66"/>
+                            <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcenta le indicadorController.capacidad.bueno) or porcenta eq indicadorController.capacidad.bueno}" style="color: #1ef664"/>
                         </p:column>
                         <f:facet name="footer">
                             <h3 class="fa fa-bank">Total de disponibilidad de los almacenes: #{cavaController.capacidadTotal} Kg </h3>
