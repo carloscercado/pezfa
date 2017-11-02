@@ -15,6 +15,8 @@
         <h:outputStylesheet name="/css/cssLayout.css"/>
 
         <h:outputScript name="/js/bootstrap.min.js"/>
+        <link rel="shortcut icon" href="/pezfa/javax.faces.resource/images/pestana.png.jsf" />
+
         <script>
             function numero(e)
             {
@@ -91,7 +93,7 @@
                                         <span class="icon-bar"></span>
                                     </button>
                                     <a class="active"  href="/pezfa">
-                                        <p:graphicImage name="/images/pezfa.png" style="margin-top: 5%" width="80 px" />
+                                        <p:graphicImage name="/images/pezfa.png" width="70 px" />
                                     </a>
                                 </div>
 
@@ -223,9 +225,9 @@
                                                         <strong>Control de precio</strong>
                                                     </a>
                                                 </li>
-                                                 <li class="divider"></li>
+                                                <li class="divider"></li>
                                                 <li>
-                                                   <a href="/pezfa/pages/indicador/">
+                                                    <a href="/pezfa/pages/indicador/">
                                                         <span class="fa fa-line-chart"></span>
                                                         <strong>Modificar rango</strong>
                                                     </a>
@@ -347,14 +349,14 @@
                             <p:dataTable scrollable="true" 
                                          scrollHeight="200" widgetVar="especies1" emptyMessage="No se encontrar&oacute;n datos" 
                                          reflow="true" var="especie1" value="#{especieController.especies}">
-                                 <f:facet name="header">
+                                <f:facet name="header">
                                     <div class="row">
-                                <div class="col-md-6 text-left header-tabla-center">
-                                    <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies1').filter();" placeholder="Buscar"/>
-                                </div>
-                            </div>
-                        </f:facet>
-                               <p:column class="column-hidden">
+                                        <div class="col-md-6 text-left header-tabla-center">
+                                            <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies1').filter();" placeholder="Buscar"/>
+                                        </div>
+                                    </div>
+                                </f:facet>
+                                <p:column class="column-hidden">
                                     <center>
                                         <span class="fa fa-cube" />
                                     </center>

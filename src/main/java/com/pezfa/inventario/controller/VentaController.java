@@ -34,7 +34,8 @@ import org.primefaces.model.chart.ChartSeries;
 
 @ManagedBean
 @ViewScoped
-public class VentaController implements Serializable {
+public class VentaController implements Serializable
+{
 
     private Venta venta;
     private VentaDB db;
@@ -57,7 +58,8 @@ public class VentaController implements Serializable {
     private List<Ubicacion> listaInterna = new ArrayList();
 
     //constructor
-    public VentaController() {
+    public VentaController()
+    {
         db = new VentaDB();
         udb = new UbicacionDB();
         tdb = new UnidadDB();
@@ -68,25 +70,30 @@ public class VentaController implements Serializable {
         cant = 1;
     }
 
-    public BarChartModel getVentasAnual() {
+    public BarChartModel getVentasAnual()
+    {
         ventasAnual = this.inicializarGrafica()[0];
         return ventasAnual;
     }
 
-    public void setVentasAnual(BarChartModel ventasAnual) {
+    public void setVentasAnual(BarChartModel ventasAnual)
+    {
         this.ventasAnual = ventasAnual;
     }
 
-    public BarChartModel getVentasAnualKilos() {
+    public BarChartModel getVentasAnualKilos()
+    {
         ventasAnualKilos = this.inicializarGrafica()[1];
         return ventasAnualKilos;
     }
 
-    public void setVentasAnualKilos(BarChartModel ventasAnualKilos) {
+    public void setVentasAnualKilos(BarChartModel ventasAnualKilos)
+    {
         this.ventasAnualKilos = ventasAnualKilos;
     }
 
-    public BarChartModel[] inicializarGrafica() {
+    public BarChartModel[] inicializarGrafica()
+    {
         Double[] meses = this.getIndicadorVentas();
         Double[] mesesKilos = this.getIndicadorVentasKilos();
 
@@ -100,10 +107,10 @@ public class VentaController implements Serializable {
         ventasAnualKilos.setAnimate(true);
         ventasAnualKilos.setNegativeSeriesColors("22c80a");
 
-        Axis xAxis = ventasAnual.getAxis(AxisType.X);
         Axis yAxis = ventasAnual.getAxis(AxisType.Y);
+        yAxis.setTickFormat("%#.2f");
+        yAxis.setLabel("Bolivares");
 
-        Axis xAxis2 = ventasAnualKilos.getAxis(AxisType.X);
         Axis yAxis2 = ventasAnualKilos.getAxis(AxisType.Y);
         yAxis.setMin(0);
         yAxis.setMax(this.getMontoMayor(meses));
@@ -114,7 +121,8 @@ public class VentaController implements Serializable {
         return modelos;
     }
 
-    private BarChartModel initBarModel(Double[] meses) {
+    private BarChartModel initBarModel(Double[] meses)
+    {
         BarChartModel model = new BarChartModel();
 
         ChartSeries res = new ChartSeries();
@@ -135,36 +143,43 @@ public class VentaController implements Serializable {
         return model;
     }
 
-    public Double[] getIndicadorVentas() {
+    public Double[] getIndicadorVentas()
+    {
         Double[] meses = new Double[12];
         int anio_actual = new Date().getYear() + 1900;
-        for (int i = 1; i <= 12; i++) {
+        for (int i = 1; i <= 12; i++)
+        {
             List<Venta> res = db.read("from Venta ven where month(ven.fecha)=" + i + " and year(ven.fecha)=" + anio_actual);
             double valor = res.stream().mapToDouble(x -> x.getIngreso().doubleValue()).sum();
             meses[i - 1] = valor;
         }
         return meses;
     }
-    
-    public Double getValorDelMes(int mes) {
+
+    public Double getValorDelMes(int mes)
+    {
         Double[] meses = this.getIndicadorVentas();
         return meses[mes];
     }
-    
-    public Double getValorDelMesKilo(int mes) {
+
+    public Double getValorDelMesKilo(int mes)
+    {
         Double[] meses = this.getIndicadorVentasKilos();
         return meses[mes];
     }
 
-    public Date getFecha() {
+    public Date getFecha()
+    {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(Date fecha)
+    {
         this.fecha = fecha;
     }
 
-    public String getMes(int mes) {
+    public String getMes(int mes)
+    {
         Map meses = new HashMap();
         meses.put(1, "Enero");
         meses.put(2, "Febrero");
@@ -175,36 +190,62 @@ public class VentaController implements Serializable {
         meses.put(7, "Julio");
         meses.put(8, "Agosto");
         meses.put(9, "Septiembre");
-        meses.put(10,"Octubre");
-        meses.put(11,"Noviembre");
-        meses.put(12,"Diciembre");
+        meses.put(10, "Octubre");
+        meses.put(11, "Noviembre");
+        meses.put(12, "Diciembre");
         return meses.get(mes).toString();
     }
-    
+
     public Double getTotalVentas()
     {
-         Double[] meses = this.getIndicadorVentas();
-         double total = 0.0;
-         for(int i= 0; i<12; i++)
-         {
-             total = total + meses[i]; 
-         }
-         return total;
+        Double[] meses = this.getIndicadorVentas();
+        double total = 0.0;
+        for (int i = 0; i < 12; i++)
+        {
+            total = total + meses[i];
+        }
+        return total;
     }
-    
+
     public Double getTotalVentasKilos()
     {
-         Double[] meses = this.getIndicadorVentasKilos();
-         double total = 0.0;
-         for(int i= 0; i<12; i++)
-         {
-             total = total + meses[i]; 
-         }
-         return total;
+        Double[] meses = this.getIndicadorVentasKilos();
+        double total = 0.0;
+        for (int i = 0; i < 12; i++)
+        {
+            total = total + meses[i];
+        }
+        return total;
+    }
+
+    public double getProcentanjeVentaEntreMeses(int actual, int anterior)
+    {
+        if (anterior < 0)
+            anterior = 0;
+        Double[] meses = this.getIndicadorVentas();
+        double valor = ((meses[actual] / meses[anterior]) - 1) * 100;
+        if (Double.isInfinite(valor) || Double.isNaN(valor))
+        {
+            valor = 0;
+        }
+        return CavaController.redondear(valor, 2);
     }
     
+    public double getProcentanjeVentaEntreMesesKilos(int actual, int anterior)
+    {
+        if (anterior < 0)
+            anterior = 0;
+        Double[] meses = this.getIndicadorVentasKilos();
+        double valor = ((meses[actual] / meses[anterior]) - 1) * 100;
+        if (Double.isInfinite(valor) || Double.isNaN(valor))
+        {
+            valor = 0;
+        }
+        return CavaController.redondear(valor, 2);
+    }
 
-    public List<Map.Entry<String, Double>> getVentasMes() {
+    public List<Map.Entry<String, Double>> getVentasMes()
+    {
         Double[] meses = this.getIndicadorVentas();
         Map meses2 = new HashMap();
         meses2.put(1, meses[0]);
@@ -225,7 +266,8 @@ public class VentaController implements Serializable {
         return new ArrayList<Map.Entry<String, Double>>(salidas);
     }
 
-    public List<Map.Entry<String, Double>> getVentasMesKilo() {
+    public List<Map.Entry<String, Double>> getVentasMesKilo()
+    {
         Double[] meses = this.getIndicadorVentasKilos();
         Map meses2 = new HashMap();
         meses2.put(1, meses[0]);
@@ -245,10 +287,12 @@ public class VentaController implements Serializable {
         return new ArrayList<Map.Entry<String, Double>>(salidas);
     }
 
-    public Double[] getIndicadorVentasKilos() {
+    public Double[] getIndicadorVentasKilos()
+    {
         Double[] meses = new Double[12];
         int anio_actual = new Date().getYear() + 1900;
-        for (int i = 1; i <= 12; i++) {
+        for (int i = 1; i <= 12; i++)
+        {
             List<Venta> res = db.read("from Venta ven where month(ven.fecha)=" + i + " and year(ven.fecha)=" + anio_actual);
             double valor = res.stream().mapToDouble(x -> x.getKiloTotal()).sum();
             meses[i - 1] = valor;
@@ -256,108 +300,134 @@ public class VentaController implements Serializable {
         return meses;
     }
 
-    public double getMontoMayor(Double[] meses) {
+    public double getMontoMayor(Double[] meses)
+    {
         double mayor = 0;
-        for (int i = 0; i < 12; i++) {
-            if (meses[i] > mayor) {
+        for (int i = 0; i < 12; i++)
+        {
+            if (meses[i] > mayor)
+            {
                 mayor = meses[i];
             }
         }
         return mayor;
     }
 
-    public List<Venta> getHistorico() {
+    public List<Venta> getHistorico()
+    {
         historico = db.read("from Venta ven join fetch ven.cliente");
 
         return historico;
     }
 
-    public void setHistorico(List<Venta> historico) {
+    public void setHistorico(List<Venta> historico)
+    {
         this.historico = historico;
     }
 
-    public void onRowSelect(SelectEvent event) {
+    public void onRowSelect(SelectEvent event)
+    {
         RequestContext con = RequestContext.getCurrentInstance();
         con.execute("PF('detalles').show();");
     }
 
-    public List<ProductoSalida> getSalida() {
+    public List<ProductoSalida> getSalida()
+    {
         return salida;
     }
 
-    public void setSalida(List<ProductoSalida> salida) {
+    public void setSalida(List<ProductoSalida> salida)
+    {
         this.salida = salida;
     }
 
-    public double getCant() {
+    public double getCant()
+    {
         return cant;
     }
 
-    public void setCant(double cant) {
+    public void setCant(double cant)
+    {
         this.cant = cant;
     }
 
-    public VentaEspecie getVentaUnidad() {
+    public VentaEspecie getVentaUnidad()
+    {
         return ventaUnidad;
     }
 
-    public void setVentaUnidad(VentaEspecie ventaUnidad) {
+    public void setVentaUnidad(VentaEspecie ventaUnidad)
+    {
         this.ventaUnidad = ventaUnidad;
     }
 
-    public VentaUnidad getVentaTerminado() {
+    public VentaUnidad getVentaTerminado()
+    {
         return ventaTerminado;
     }
 
-    public void setVentaTerminado(VentaUnidad ventaTerminado) {
+    public void setVentaTerminado(VentaUnidad ventaTerminado)
+    {
         this.ventaTerminado = ventaTerminado;
     }
 
-    public VentaDetalle getVentaDetalle() {
+    public VentaDetalle getVentaDetalle()
+    {
         return ventaDetalle;
     }
 
-    public void setVentaDetalle(VentaDetalle ventaDetalle) {
+    public void setVentaDetalle(VentaDetalle ventaDetalle)
+    {
         this.ventaDetalle = ventaDetalle;
     }
 
-    public Set<VentaDetalle> getLista() {
+    public Set<VentaDetalle> getLista()
+    {
         return lista;
     }
 
-    public void setLista(Set<VentaDetalle> lista) {
+    public void setLista(Set<VentaDetalle> lista)
+    {
         this.lista = lista;
     }
 
-    public UsuarioController getUsuarioController() {
+    public UsuarioController getUsuarioController()
+    {
         return usuarioController;
     }
 
-    public void setUsuarioController(UsuarioController usuarioController) {
+    public void setUsuarioController(UsuarioController usuarioController)
+    {
         this.usuarioController = usuarioController;
     }
 
-    public double getTotal() {
+    public double getTotal()
+    {
         return this.lista.stream()
-                .mapToDouble(x -> {
+                .mapToDouble(x ->
+                {
                     return ((VentaEspecie) x).getUbicacion().getPrecio().doubleValue() * x.getCantidad();
                 })
                 .sum();
     }
 
-    public void add() {
+    public void add()
+    {
         VentaEspecie vu;
         VentaUnidad vt;
         RequestContext con = RequestContext.getCurrentInstance();
 
         venta.setUsuario(usuarioController.getSesion());
-        if (this.producto instanceof Ubicacion) {
+        if (this.producto instanceof Ubicacion)
+        {
             long numero = listaInterna.stream().filter(x -> x.getId() == this.producto.getId()).count();
-            if (numero > 0) {
+            if (numero > 0)
+            {
                 con.execute("PF('agregar').hide();");
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este producto ya fue agregado", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
-            } else {
+            } else
+            {
                 listaInterna.add((Ubicacion) this.producto);
                 vu = new VentaEspecie();
                 vu.setUbicacion((Ubicacion) this.producto);
@@ -367,7 +437,8 @@ public class VentaController implements Serializable {
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto agregado exitosamente", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             }
-        } else if (this.producto instanceof Unidad) {
+        } else if (this.producto instanceof Unidad)
+        {
             vt = new VentaUnidad();
             vt.setUnidad((Unidad) this.producto);
             vt.setCantidad(cant);
@@ -378,17 +449,21 @@ public class VentaController implements Serializable {
         con.execute("PF('agregar').hide();");
     }
 
-    public void remove() {
+    public void remove()
+    {
         listaInterna.clear();
         lista.clear();
     }
 
-    public void reset() {
+    public void reset()
+    {
         venta = new Venta();
     }
 
-    public void validarFactura() {
-        if (db.validarFactura(this.venta.getFactura())) {
+    public void validarFactura()
+    {
+        if (db.validarFactura(this.venta.getFactura()))
+        {
             this.venta.setFactura("");
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrada esta venta", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
@@ -396,10 +471,13 @@ public class VentaController implements Serializable {
     }
 
     //logica para registrar un venta
-    public void register() {
-        if (this.lista.size() > 0) {
+    public void register()
+    {
+        if (this.lista.size() > 0)
+        {
             salida = db.create_venta(lista, venta);
-            if (salida != null) {
+            if (salida != null)
+            {
                 Auditoria auditoria = new Auditoria();
                 AuditoriaDB auditoDB = new AuditoriaDB();
                 auditoria.setUsuario(venta.getUsuario());
@@ -416,17 +494,20 @@ public class VentaController implements Serializable {
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
                 RequestContext con = RequestContext.getCurrentInstance();
 
-            } else {
+            } else
+            {
                 FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problemas al registrar venta", null);
                 FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
             }
-        } else {
+        } else
+        {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe agregar minimo un producto a la lista", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
     }
 
-    public void registrarDevolucion() {
+    public void registrarDevolucion()
+    {
         venta.setDevuelta(true);
         db.update(venta);
         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Devolucion registrada exitosamente", null);
@@ -436,26 +517,32 @@ public class VentaController implements Serializable {
         con.update("formulario:tabla");
     }
 
-    public Venta getVenta() {
+    public Venta getVenta()
+    {
         return venta;
     }
 
-    public void setVenta(Venta venta) {
+    public void setVenta(Venta venta)
+    {
         this.venta = venta;
     }
 
-    public List<ProductoSalida> getProductos() {
-        try {
+    public List<ProductoSalida> getProductos()
+    {
+        try
+        {
             productos = new ArrayList<>();
             udb.read("from Ubicacion uni join fetch uni.compraEspecie deta join fetch deta.especie esp where esp.cantidad > 0")
-                    .stream().distinct().forEach(x -> {
+                    .stream().distinct().forEach(x ->
+                    {
                         x.setNombre(x.getCompraEspecie().getEspecie().getNombre());
                         x.setCodigo(x.getCompraEspecie().getEspecie().getCodigo());
                         x.setPrecio(x.getCompraEspecie().getEspecie().getPrecio());
                         productos.add((ProductoSalida) x);
                     });
             tdb.read("from Unidad ter join fetch ter.producto produ where produ.cantidad > 0").stream()
-                    .distinct().forEach(x -> {
+                    .distinct().forEach(x ->
+                    {
                         x.setNombre(x.getProducto().getNombre());
                         x.setCodigo(x.getProducto().getCodigo());
                         x.setPrecio(x.getProducto().getPrecio());
@@ -463,21 +550,25 @@ public class VentaController implements Serializable {
                     });
             return productos;
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println("Lista de productos para ventas, entro en la excepcion: " + e.getMessage());
             return new ArrayList<>();
         }
     }
 
-    public void setProductos(List<ProductoSalida> productos) {
+    public void setProductos(List<ProductoSalida> productos)
+    {
         this.productos = productos;
     }
 
-    public ProductoSalida getProducto() {
+    public ProductoSalida getProducto()
+    {
         return producto;
     }
 
-    public void setProducto(ProductoSalida producto) {
+    public void setProducto(ProductoSalida producto)
+    {
         this.producto = producto;
     }
 
