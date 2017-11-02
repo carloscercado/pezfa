@@ -78,7 +78,7 @@
                            resizable="false" draggable="false" modal="true" width="700">
                     <f:facet name="header">
                         <p:graphicImage name="/images/ventas.png" width="40 px" />
-                        Informacion de crecimiento mensual de ventas
+                        Información de crecimiento mensual de ventas
                     </f:facet>
                     <p:dataTable scrollable="true" scrollHeight="300" value="#{ventaController.ventasMes}" var="aa">
                         
@@ -122,7 +122,7 @@
                            resizable="false" draggable="false" modal="true" width="700">
                      <f:facet name="header">
                         <p:graphicImage name="/images/ventas.png" width="40 px" />
-                        Informacion de crecimiento mensual de ventas por Kilos
+                        Información de crecimiento mensual de ventas por Kilos
                     </f:facet>
                     <p:dataTable scrollable="true" scrollHeight="300" value="#{ventaController.ventasMesKilo }" var="aa">
                         <p:column headerText="Mes">
@@ -176,11 +176,11 @@
                 </p:dialog>
 
                 <p:dialog width="800" header="Disponibilidad del especio f&iacute;sico de los almacenes" widgetVar="capacidad" responsive="true" 
-                          resizable="false" draggable="false" modal="true" closable="true">
-                    <p:dataTable scrollable="true" scrollHeight="150" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
-                        <f:facet name="header">
-                            <h3> Disponibilidad de los almacenes en porcentaje: 
-                                <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
+                          resizable="false" height="" draggable="false" modal="true" closable="true">
+                   <f:facet name="header">
+                        <p:graphicImage name="/images/almacen.png" width="40 px" />
+                        Disponibilidad del espacio físico de los almacenes
+                        <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
                                 <strong jsf:id="malo" jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
                                         style="color: #f63a1e; font-size: 18px">
                                     #{cavaController.capacidad} %
@@ -195,8 +195,8 @@
                                         style="color: #1ef664; font-size: 18px">
                                     #{cavaController.capacidad} %
                                 </strong>
-                            </h3>
-                        </f:facet>
+                    </f:facet>
+                         <p:dataTable scrollable="true" scrollHeight="300" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
                         <p:column width="5%" class="column-hidden">
                             <center>
                                 <span class="fa fa-square" />
@@ -223,14 +223,6 @@
                          #{porcenta} %
                         </p:column>
                         <p:column headerText="Estado" width="10%">
-                             <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
-                            <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{valor le indicadorController.satisfaccion.malo}" style="color: #f63a1e"/>
-                            <p:tooltip  for="aceptable" value="#{indicadorController.satisfaccion.mensajeAceptable}" position="top" />
-                            <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
-                                                                             and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #ffff66"/>
-                            <p:tooltip  for="bueno" value="#{indicadorController.satisfaccion.mensajeBueno}" position="top" />
-                            <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" style="color: #1ef664"/>
-
                         </p:column>
                         <f:facet name="footer">
                             <h3 class="fa fa-bank">Total de disponibilidad de los almacenes: #{cavaController.capacidadTotal} Kg </h3>
