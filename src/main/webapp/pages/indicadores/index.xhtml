@@ -20,22 +20,12 @@
                 </a>
 
                 <p:tabView dynamic="true" cache="true" style="height: 100%">
-                    <p:tab title="Capacidad">
+                    <p:tab title="Disponiblidad fisico de almacen">
                         <p:panelGrid>
                             <a href="#" onclick="PF('capacidad').show()">
                                 <p:tooltip  for="cap" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
                                 <p:chart id="cap" type="pie" model="#{cavaController.capacidadIndicador}" />
                             </a>
-                        </p:panelGrid>
-                    </p:tab>
-                    <p:tab title="Educaci&oacute;n de los empleados">
-                        <p:panelGrid>
-                            <div class="hero-widget well well-sm">
-                                <a href="#" onclick="PF('empleadoedu').show()">
-                                    <p:tooltip  for="emp" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
-                                    <p:chart type="pie" id="emp" model="#{empleadoController.capacitacionProfesionales}" style="width: 80%" />
-                                </a>
-                            </div>
                         </p:panelGrid>
                     </p:tab>
                     <p:tab title="Ventas mensuales en bolivares">
@@ -72,6 +62,16 @@
                             <p:chart type="bar" id="satis" model="#{devolucionController.devolucionesIndicador}"/>
                         </a>         
                     </p:tab>
+                    <p:tab title="Educaci&oacute;n de los empleados">
+                        <p:panelGrid>
+                            <div class="hero-widget well well-sm">
+                                <a href="#" onclick="PF('empleadoedu').show()">
+                                    <p:tooltip  for="emp" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
+                                    <p:chart type="pie" id="emp" model="#{empleadoController.capacitacionProfesionales}" />
+                                </a>
+                            </div>
+                        </p:panelGrid>
+                    </p:tab>
                 </p:tabView>
 
                 <p:dialog  widgetVar="ventasmensual" responsive="true" 
@@ -80,7 +80,8 @@
                         <p:graphicImage name="/images/ventas.png" width="40 px" />
                         Información de crecimiento mensual de ventas
                     </f:facet>
-                    <p:dataTable scrollable="true" scrollHeight="300" value="#{ventaController.ventasMes}" var="aa">
+                    <p:tooltip  for="colores" value="coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
+                    <p:dataTable scrollable="true" id="colores" scrollHeight="300" value="#{ventaController.ventasMes}" var="aa">
                         
                         <p:column headerText="Mes">
                             <span style="font-weight: bold"> #{ventaController.getMes(aa.key)}</span>
@@ -100,8 +101,8 @@
                                 <p:tooltip  for="malo" value="#{indicadorController.ventasMensual.mensajeMalo  }" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcentaje le indicadorController.ventasMensual.malo}" style="color: #f63a1e"/>
                                 <p:tooltip  for="aceptable" value="#{indicadorController.ventasMensual.mensajeAceptable  }" position="top" />
-                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje le indicadorController.ventasMensual.malo ) or porcentaje eq indicadorController.ventasMensual.malo-1) 
-                                                                                                    and (porcentaje le indicadorController.ventasMensual.bueno-1))}" style="color: #ffff66"/>
+                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje le indicadorController.ventasMensual.malo ) or porcentaje eq indicadorController.ventasMensual.malo+1) 
+                                                                                                    and (porcentaje le indicadorController.ventasMensual.bueno-1))}" style="color: #ffff33"/>
                                 <p:tooltip  for="bueno" value="#{indicadorController.ventasMensual.mensajeBueno  }" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje le indicadorController.ventasMensual.bueno) or porcentaje eq indicadorController.ventasMensual.bueno}" style="color: #1ef664"/>
                             </center>
@@ -124,7 +125,8 @@
                         <p:graphicImage name="/images/ventas.png" width="40 px" />
                         Información de crecimiento mensual de ventas por Kilos
                     </f:facet>
-                    <p:dataTable scrollable="true" scrollHeight="300" value="#{ventaController.ventasMesKilo }" var="aa">
+                    <p:tooltip  for="colors" value="coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
+                    <p:dataTable scrollable="true" id="colors" scrollHeight="300" value="#{ventaController.ventasMesKilo }" var="aa">
                         <p:column headerText="Mes">
                             <span style="font-weight: bold">#{ventaController.getMes(aa.key)}</span>
                         </p:column>
@@ -140,8 +142,8 @@
                                 <p:tooltip  for="malo" value="#{indicadorController.ventasMensualKilos.mensajeMalo  }" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcentaje2 le indicadorController.ventasMensualKilos.malo}" style="color: #f63a1e"/>
                                 <p:tooltip  for="aceptable" value="#{indicadorController.ventasMensualKilos.mensajeAceptable  }" position="top" />
-                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje2 le indicadorController.ventasMensualKilos.malo ) or porcentaje2 eq indicadorController.ventasMensualKilos.malo-1) 
-                                                                                                    and (porcentaje2 le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #ffff66"/>
+                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje2 le indicadorController.ventasMensualKilos.malo ) or porcentaje2 eq indicadorController.ventasMensualKilos.malo+1) 
+                                                                                                    and (porcentaje2 le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #ffff33"/>
                                 <p:tooltip  for="bueno" value="#{indicadorController.ventasMensualKilos.mensajeBueno  }" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje2 le indicadorController.ventasMensualKilos.bueno) or porcentaje2 eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
                             </center>
@@ -159,20 +161,36 @@
                 </p:dialog>
 
                 <p:dialog  header="Informaci&oacute;n sobre la educaci&oacute;n de los empleados" widgetVar="empleadoedu" responsive="true" 
-                           resizable="false" draggable="false" modal="true" width="600">
-                    <h:form>
-                        <p:dataTable scrollable="true" scrollHeight="150" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" value="#{empleadoController.empleadores}" var="emple">
+                           resizable="false" draggable="false" modal="true" width="700">
+                         <f:facet name="header">
+                            <p:graphicImage name="/images/educacion.png" width="40 px" />
+                            Información sobre la educación de los empleados
+                        </f:facet>
+                        <p:tooltip  for="color" value="coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
+                        <p:dataTable  scrollable="true" scrollHeight="300" id="color" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" value="#{empleadoController.empleadores}" var="emple">
                             <p:column headerText="C&eacute;dula">
                                 #{emple.cedula}
                             </p:column>
-                            <p:column headerText="Nombre y apellido">
+                            <p:column headerText="Nombre y apellido" >
                                 #{emple.primerApellido} #{emple.primerNombre}
                             </p:column>
                             <p:column headerText="Cargo">
                                 #{emple.cargo}
                             </p:column>
+                            <p:column headerText="Porcentaje">
+                            </p:column>
+                            <p:column headerText="Medida">
+                            </p:column> 
                         </p:dataTable>
-                    </h:form>
+                    <f:facet name="footer">
+
+                            <h3 class="pull-right"> 
+                                Total:
+                                <h:outputLabel value="#{ventaController.totalVentasKilos}">
+                                    <f:convertNumber currencySymbol="Kg " locale="es" type="currency"/>
+                                </h:outputLabel> 
+                            </h3>
+                    </f:facet>
                 </p:dialog>
 
                 <p:dialog width="800" header="Disponibilidad del especio f&iacute;sico de los almacenes" widgetVar="capacidad" responsive="true" 
@@ -186,7 +204,7 @@
                                     #{cavaController.capacidad} %
                                 </strong>
                                 <p:tooltip  for="estable" value="#{indicadorController.capacidad.mensajeAceptable}" position="top" />
-                                <strong jsf:id="estable" style="color: #ffff66; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
+                                <strong jsf:id="estable" style="color: #ffff33; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
                                                                                                                  and (cavaController.capacidad le indicadorController.capacidad.bueno-1))}" >
                                         #{cavaController.capacidad} %
                                 </strong>
@@ -196,7 +214,8 @@
                                     #{cavaController.capacidad} %
                                 </strong>
                     </f:facet>
-                         <p:dataTable scrollable="true" scrollHeight="300" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
+                        <p:tooltip  for="info" value="coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
+                        <p:dataTable scrollable="true" id="info" scrollHeight="300" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
                         <p:column width="5%" class="column-hidden">
                             <center>
                                 <span class="fa fa-square" />
@@ -223,21 +242,32 @@
                          #{porcenta} %
                         </p:column>
                         <p:column headerText="Estado" width="10%">
-                            <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcenta le indicadorController.capacidad.malo}" style="color: #f63a1e"/>
-                            <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcenta le indicadorController.capacidad.malo ) or porcenta eq indicadorController.capacidad.malo-1) 
-                                                                                                and (valor le indicadorController.capacidad.bueno-1))}" style="color: #ffff66"/>
-                            <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcenta le indicadorController.capacidad.bueno) or porcenta eq indicadorController.capacidad.bueno}" style="color: #1ef664"/>
+                            <p:tooltip  for="malo" value="#{indicadorController.cavas.mensajeMalo}" position="top" />
+                            <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcenta le indicadorController.cavas.malo}" style="color: #f63a1e"/>
+                            <p:tooltip  for="aceptable" value="#{indicadorController.cavas.mensajeAceptable}" position="top" />
+                            <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcenta le indicadorController.cavas.malo ) or porcenta eq indicadorController.cavas.malo+1) 
+                                                                                                and (valor le indicadorController.cavas.bueno-1))}" style="color: #ffff33"/>
+                            <p:tooltip  for="bueno" value="#{indicadorController.cavas.mensajeBueno}" position="top" />
+                            <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcenta le indicadorController.cavas.bueno) or porcenta eq indicadorController.cavas.bueno}" style="color: #1ef664"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <h3 class="fa fa-bank">Total de disponibilidad de los almacenes: #{cavaController.capacidadTotal} Kg </h3>
-                        </f:facet>
                     </p:dataTable>
-                    <br/>
+                    <f:facet name="footer">
 
+                            <h3 class="pull-right"> 
+                                Total de espacio físico: Kg 
+                                <h:outputLabel value="#{cavaController.capacidadTotal}"/>
+                                
+                            </h3>
+                        </f:facet>
                 </p:dialog>
 
                 <p:dialog modal="true" widgetVar="devoluciones"  width="600" resizable="false" header="Satisfacci&oacute;n del cliente en el año #{compraController.fecha.year+1900} ">
-                    <p:dataTable value="#{devolucionController.devoluciones}" emptyMessage="No hay ventas agregadas" var="devol">
+                   <f:facet name="header">
+                        <p:graphicImage name="/images/satisfaccion.png" width="40 px" />
+                        Información sobre la satisfacción de los clientes
+                   </f:facet>
+                    <p:tooltip  for="col" value="coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
+                    <p:dataTable id="col" value="#{devolucionController.devoluciones}" emptyMessage="No hay ventas agregadas" var="devol">
                         <p:column headerText="Mes">
                             #{devol.mesString}
                         </p:column>
@@ -256,8 +286,8 @@
                             <p:tooltip  for="malo" value="#{indicadorController.satisfaccion.mensajeMalo}" position="top" />
                             <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{valor le indicadorController.satisfaccion.malo}" style="color: #f63a1e"/>
                             <p:tooltip  for="aceptable" value="#{indicadorController.satisfaccion.mensajeAceptable}" position="top" />
-                            <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
-                                                                                                and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #ffff66"/>
+                            <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo+1) 
+                                                                                                and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #ffff33"/>
 
                             <p:tooltip  for="bueno" value="#{indicadorController.satisfaccion.mensajeBueno}" position="top" />
                             <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" style="color: #1ef664"/>

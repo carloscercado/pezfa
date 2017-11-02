@@ -1,4 +1,11 @@
-﻿create table if not exists devoluciones
+﻿create table if not exists satisfaccion
+(
+  id serial primary key, 
+  numero_empleado int not null,
+  satisfaccion int not null
+);
+
+create table if not exists devoluciones
 (
    id serial primary key,
    anio int not null,

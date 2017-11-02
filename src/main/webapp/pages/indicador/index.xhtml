@@ -27,18 +27,18 @@
                             #{indicador.nombre}
                         </p:column>
 
-                        <p:column   headerText="Bueno" filterStyle="display: none">
+                        <p:column   headerText="&Oacute;ptimo" filterStyle="display: none">
                             #{indicador.bueno} %
                         </p:column>
 
-                        <p:column filterBy="#{indicador.malo} "  headerText="Malo" filterStyle="display: none">
+                        <p:column filterBy="#{indicador.malo} "  headerText="Critico" filterStyle="display: none">
                             #{indicador.malo} %
                         </p:column>
 
                         <p:column  headerText="Aceptable" filterStyle="display: none">
                             #{indicador.malo} % - #{indicador.bueno} %
                         </p:column>
-                        <p:column  headerText="Descripcion" filterStyle="display: none">
+                        <p:column  headerText="Descripci&oacute;n" filterStyle="display: none">
                             #{indicador.descripcion}
                         </p:column>
 
@@ -62,20 +62,20 @@
                             <p:inputText disabled="true" value="#{indicadorController.indicador.nombre}"
                                          autocomplete="off" required="true" />
 
-                            <p:outputLabel value="Descripcion:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:outputLabel value="Descripci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputTextarea disabled="true" value="#{indicadorController.indicador.descripcion}" >
                             </p:inputTextarea>  
 
-                            <p:outputLabel value="Bueno:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:outputLabel value="&Oacute;ptimo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText  value="#{indicadorController.indicador.bueno}" autocomplete="off"  required="true" />
 
-                            <p:outputLabel value="Malo:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:outputLabel value="Critico:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText  value="#{indicadorController.indicador.malo}" autocomplete="off"  />
 
-                            <p:outputLabel value="Mensaje bueno:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:outputLabel value="Mensaje &Oacute;ptimo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText  value="#{indicadorController.indicador.mensajeBueno}" autocomplete="off"  required="true"  />
 
-                            <p:outputLabel value="Mensaje malo:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:outputLabel value="Mensaje Critico:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText  value="#{indicadorController.indicador.mensajeMalo}" autocomplete="off"  required="true" />
 
                             <p:outputLabel value="Mensaje Aceptable:"> <span style="color: #D20005">*</span></p:outputLabel>
