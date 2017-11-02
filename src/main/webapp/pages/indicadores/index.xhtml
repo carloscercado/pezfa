@@ -74,23 +74,25 @@
                     </p:tab>
                 </p:tabView>
 
-                <p:dialog  header="Ventas mensuales en bolivares" widgetVar="ventasmensual" responsive="true" 
+                <p:dialog  widgetVar="ventasmensual" responsive="true" 
                            resizable="false" draggable="false" modal="true" width="700">
-                    <p:dataTable scrollable="true" scrollHeight="150" value="#{ventaController.ventasMes}" var="aa">
-                        <f:facet name="header">
-                             Cantidad óptima: #{indicadorController.ventasMensual.bueno}
-                                <br/>
-                             Cantidad Critica: #{indicadorController.ventasMensual.malo}
-                         </f:facet>
+                    <f:facet name="header">
+                        <p:graphicImage name="/images/ventas.png" width="40 px" />
+                        Informacion de crecimiento mensual de ventas
+                    </f:facet>
+                    <p:dataTable scrollable="true" scrollHeight="300" value="#{ventaController.ventasMes}" var="aa">
+                        
                         <p:column headerText="Mes">
-                            #{ventaController.getMes(aa.key)}
+                            <span style="font-weight: bold"> #{ventaController.getMes(aa.key)}</span>
                         </p:column>
                         <p:column headerText="Monto">
-                            #{aa.value} Bs
+                            <h:outputLabel value="#{aa.value}">
+                                <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                            </h:outputLabel> 
                         </p:column>
-                        <p:column headerText="Porcentaje">
-                            <span class="hidden">#{porcentaje = aa.value / ventaController.totalVentas * 100}</span>
-                            #{cavaController.redondearFlotanteParaElFront(porcentaje, 2)} %
+                        <p:column headerText="Crecimiento">
+                            <span class="hidden">#{porcentaje = ventaController.getProcentanjeVentaEntreMeses(aa.key-1, aa.key-2)}</span>
+                            <span style="font-weight: bold">#{porcentaje} %</span>
                         </p:column>
                         <p:column headerText="Medida">
 
@@ -105,42 +107,53 @@
                             </center>
                         </p:column>
                         <f:facet name="footer">
-                            <h4 class="fa fa-money">Total de las ventas en bolivares: #{ventaController.totalVentas} Bs </h4>
+
+                            <h3 class="pull-right"> 
+                                Total:
+                                <h:outputLabel value="#{ventaController.totalVentas}">
+                                    <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                </h:outputLabel> 
+                            </h3>
                         </f:facet>
                     </p:dataTable>
 
                 </p:dialog>
-                <p:dialog  header="Ventas mensuales en kilos" widgetVar="ventasmensualkilos" responsive="true" 
+                <p:dialog  widgetVar="ventasmensualkilos" responsive="true" 
                            resizable="false" draggable="false" modal="true" width="700">
-                    <p:dataTable scrollable="true" scrollHeight="150" value="#{ventaController.ventasMesKilo }" var="aa">
-                        <f:facet name="header" >
-                           Capacidad óptima: #{indicadorController.ventasMensualKilos.bueno}
-                           <br/>
-                           Capacidad critica: #{indicadorController.ventasMensualKilos.malo}
-                        </f:facet>
+                     <f:facet name="header">
+                        <p:graphicImage name="/images/ventas.png" width="40 px" />
+                        Informacion de crecimiento mensual de ventas por Kilos
+                    </f:facet>
+                    <p:dataTable scrollable="true" scrollHeight="300" value="#{ventaController.ventasMesKilo }" var="aa">
                         <p:column headerText="Mes">
-                            #{ventaController.getMes(aa.key)}
+                            <span style="font-weight: bold">#{ventaController.getMes(aa.key)}</span>
                         </p:column>
                         <p:column headerText="Kilos">
-                            #{aa.value} Kg
+                            <span style="font-weight: bold">#{aa.value} Kg</span>
                         </p:column>
                         <p:column headerText="Porcentaje">
-                            <span class="hidden">#{porcentaje2 = aa.value / ventaController.totalVentasKilos * 100}</span>
-                            #{cavaController.redondearFlotanteParaElFront(porcentaje2, 2)} %
+                            <span class="hidden">#{porcentaje2 = ventaController.getProcentanjeVentaEntreMesesKilos(aa.key-1, aa.key-2)}</span>
+                            <span style="font-weight: bold">#{cavaController.redondearFlotanteParaElFront(porcentaje2, 2)} %</span>
                         </p:column>
                         <p:column headerText="Medida">
                             <center>
                                 <p:tooltip  for="malo" value="#{indicadorController.ventasMensualKilos.mensajeMalo  }" position="top" />
-                                 <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcentaje2 le indicadorController.ventasMensualKilos.malo}" style="color: #f63a1e"/>
+                                <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcentaje2 le indicadorController.ventasMensualKilos.malo}" style="color: #f63a1e"/>
                                 <p:tooltip  for="aceptable" value="#{indicadorController.ventasMensualKilos.mensajeAceptable  }" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje2 le indicadorController.ventasMensualKilos.malo ) or porcentaje2 eq indicadorController.ventasMensualKilos.malo-1) 
-                                                                                 and (porcentaje2 le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #ffff66"/>
-                               <p:tooltip  for="bueno" value="#{indicadorController.ventasMensualKilos.mensajeBueno  }" position="top" />
-                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje2 le indicadorController.ventasMensualKilos.bueno) or porcentaje2 eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
+                                                                                                    and (porcentaje2 le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #ffff66"/>
+                                <p:tooltip  for="bueno" value="#{indicadorController.ventasMensualKilos.mensajeBueno  }" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje2 le indicadorController.ventasMensualKilos.bueno) or porcentaje2 eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
                             </center>
                         </p:column>
-                        <f:facet name="footer">
-                            <h4 class="fa fa-balance-scale">Total de las ventas en kilos: #{ventaController.totalVentasKilos} Kg </h4>
+                         <f:facet name="footer">
+
+                            <h3 class="pull-right"> 
+                                Total:
+                                <h:outputLabel value="#{ventaController.totalVentasKilos}">
+                                    <f:convertNumber currencySymbol="Kg " locale="es" type="currency"/>
+                                </h:outputLabel> 
+                            </h3>
                         </f:facet>
                     </p:dataTable>
                 </p:dialog>
@@ -168,17 +181,17 @@
                         <f:facet name="header">
                             <h3> Disponibilidad de los almacenes en porcentaje: 
                                 <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
-                                 <strong jsf:id="malo" jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
+                                <strong jsf:id="malo" jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
                                         style="color: #f63a1e; font-size: 18px">
                                     #{cavaController.capacidad} %
                                 </strong>
                                 <p:tooltip  for="estable" value="#{indicadorController.capacidad.mensajeAceptable}" position="top" />
                                 <strong jsf:id="estable" style="color: #ffff66; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
-                                                                                             and (cavaController.capacidad le indicadorController.capacidad.bueno-1))}" >
+                                                                                                                 and (cavaController.capacidad le indicadorController.capacidad.bueno-1))}" >
                                         #{cavaController.capacidad} %
                                 </strong>
                                 <p:tooltip  for="bueno" value="#{indicadorController.capacidad.mensajeBueno}" position="top" />
-                                 <strong jsf:id="bueno" jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" 
+                                <strong jsf:id="bueno" jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" 
                                         style="color: #1ef664; font-size: 18px">
                                     #{cavaController.capacidad} %
                                 </strong>
@@ -233,7 +246,7 @@
                             <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{valor le indicadorController.satisfaccion.malo}" style="color: #f63a1e"/>
                             <p:tooltip  for="aceptable" value="#{indicadorController.satisfaccion.mensajeAceptable}" position="top" />
                             <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
-                                                                             and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #ffff66"/>
+                                                                                                and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #ffff66"/>
 
                             <p:tooltip  for="bueno" value="#{indicadorController.satisfaccion.mensajeBueno}" position="top" />
                             <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" style="color: #1ef664"/>
