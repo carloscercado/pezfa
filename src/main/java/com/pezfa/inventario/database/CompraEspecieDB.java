@@ -19,7 +19,7 @@ public class CompraEspecieDB implements Crud<CompraEspecie>
         {
             sesion = HibernateUtil.getSesion().openSession(); //Hibernanteutil clase pertenenciente a la base de datos... abrir y obtener conexion en la base de datos
             sesion.beginTransaction(); //iniciar la transaccion... transaccion: son las operaciones crud
-            compra.setEstado("Comprado");
+            compra.setEstado("COMPRADO");
             compra.setGasto(BigDecimal.ZERO);
             sesion.save(compra);
             for (CompraEspecie obj : objs)

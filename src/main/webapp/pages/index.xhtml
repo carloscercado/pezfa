@@ -15,7 +15,7 @@
             <ui:define name="content">
                 <br/>
                 <h3 align="center" style="color: #045491">Sistema de información para la gestión de inventario de especies marinas</h3>
-                             
+
                 <h:form>
                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" 
                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true"
@@ -24,9 +24,12 @@
                                                   ((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo) and (especie.cantidad le especie.minimo+5)) ? 'estilo3':
                                                   !(especie.cantidad le especie.minimo+5) ? 'estilo2': null}">
                         <f:facet name="header">
-                            <center>
-                                <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar"/>
-                            </center>
+                            <div class="row">
+                                <div class="col-md-9"></div>
+                                <div class="col-md-3">
+                                    <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar"/>
+                                </div>
+                            </div>
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>
@@ -59,7 +62,7 @@
                         <p:column headerText="M&iacute;nimo" class="text-right" width="12%">
                             #{especie.minimo} Kg
                         </p:column>
-                        
+
                     </p:dataTable>
                 </h:form>
 

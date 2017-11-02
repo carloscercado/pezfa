@@ -12,17 +12,19 @@
         <ui:composition template="./../../template/menu.xhtml">
 
             <ui:define name="content">
-               
-                 <h:form>
-                     <h3 align="center" style="color: #045491">Inventario de especies</h3>
-                    
-                     <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" 
-                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true"
-                                  var="especie" value="#{especieController.especies}">
-                       
+
+                <h:form>
+                    <h3 align="center" style="color: #045491">Inventario de especies</h3>
+
+                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" 
+                                 emptyMessage="No se encontrar&oacute;n datos" reflow="true"
+                                 var="especie" value="#{especieController.especies}">
+
                         <f:facet name="header">
-                          <div class="row">
-                                <div class="col-md-6 text-left header-tabla-center">
+                            <div class="row">
+                                <div class="col-md-9">
+                                </div>
+                                <div class="col-md-3 header-tabla-center">
                                     <p:inputText id="globalFilter" onkeyup="PF('clientes').filter()" placeholder="Buscar"/>
                                 </div>
                             </div>
@@ -32,40 +34,40 @@
                                 <span class="fa fa-cube" />
                             </center>
                         </p:column>
-                         
-                         <p:column headerText="C&oacute;digo" filterBy="#{especie.codigo}" filterStyle="display: none" width="10%">
+
+                        <p:column headerText="C&oacute;digo" filterBy="#{especie.codigo}" filterStyle="display: none" width="10%">
                             #{especie.codigo}
                         </p:column>
-                         
-                         <p:column filterBy="#{especie.tipo}" width="20%">
-                             <f:facet name="filter">
-                                 <p:selectOneMenu  onchange="PF('especies').filter()">
-                                     <f:selectItem itemLabel="Tipo" itemValue="#{null}" noSelectionOption="true" />
-                                     <f:selectItems value="#{especieController.tipos}" var="tipo" itemValue="#{tipo}"  />
+
+                        <p:column filterBy="#{especie.tipo}" width="20%">
+                            <f:facet name="filter">
+                                <p:selectOneMenu  onchange="PF('especies').filter()">
+                                    <f:selectItem itemLabel="Tipo" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{especieController.tipos}" var="tipo" itemValue="#{tipo}"  />
                                 </p:selectOneMenu>
-                             </f:facet>
+                            </f:facet>
                             #{especie.tipo}
                         </p:column>
-                      
-                         <p:column headerText="Nombre" filterBy="#{especie.nombre}" filterStyle="display: none">
+
+                        <p:column headerText="Nombre" filterBy="#{especie.nombre}" filterStyle="display: none">
                             #{especie.nombre}
                         </p:column>
-                         
-                         <p:column headerText="Kilos" class="text-right" width="12%">
+
+                        <p:column headerText="Kilos" class="text-right" width="12%">
                             #{especie.cantidad} Kg
                         </p:column>
-                         
-                         <p:column headerText="M&iacute;nimo" class="text-right" width="12%">
+
+                        <p:column headerText="M&iacute;nimo" class="text-right" width="12%">
                             #{especie.minimo} Kg
                         </p:column>
-                         
-                         <p:column headerText="Estado" class="text-center" width="12%">
-                             <span  class="fa fa-circle fa-2x" jsf:rendered="#{especie.cantidad le especie.minimo}" style="color: #f63a1e"/>
-                             <span  class="fa fa-circle fa-2x" jsf:rendered="#{((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo+1) and (especie.cantidad le especie.minimo+100))}" style="color: #f68e1e"/>
-                             <span  class="fa fa-circle fa-2x" jsf:rendered="#{!(especie.cantidad le especie.minimo+100)}" style="color: #1ef664"/>
-                         </p:column>  
-                         
-                          <p:column width="10%" class="column-hidden" headerText="Detalles">
+
+                        <p:column headerText="Estado" class="text-center" width="12%">
+                            <span  class="fa fa-circle fa-2x" jsf:rendered="#{especie.cantidad le especie.minimo}" style="color: #f63a1e"/>
+                            <span  class="fa fa-circle fa-2x" jsf:rendered="#{((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo+1) and (especie.cantidad le especie.minimo+100))}" style="color: #f68e1e"/>
+                            <span  class="fa fa-circle fa-2x" jsf:rendered="#{!(especie.cantidad le especie.minimo+100)}" style="color: #1ef664"/>
+                        </p:column>  
+
+                        <p:column width="10%" class="column-hidden" headerText="Detalles">
                             <center>  
                                 <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)" class="btn-secundary"> 
                                     <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie}"/>
@@ -74,57 +76,61 @@
                         </p:column>
 
                     </p:dataTable>         
-                   
+
                 </h:form>
-               
+
                 <p:dialog closable="true" header="Detalles de la especie" widgetVar="verDetalle" 
                           responsive="true" resizable="false" draggable="false" modal="true" width="600">
                     <h:form>
-                        <p:panelGrid columns="6">
+                        <span class="fa fa-info-circle fa-2x"/>
+                       aqui va una informacion introductorio que explique lo que sale abajo
+                        
+                            <br/>
+                            <p:dataTable  
+                                widgetVar="ubicaciones" var="ubicacion" value="#{unidadController.unidades}"
+                                emptyMessage="No se encontrar&oacute;n datos" reflow="true" scrollable="true" scrollHeight="250">
+                                <f:facet name="header">
+                                    <p:panelGrid columns="6">
 
-                            <p:outputLabel value="C&oacute;digo"/>
-                            <p:outputLabel value="Nombre"/>
-                            <p:outputLabel value="Cantidad"/>
-                            <p:outputLabel value="Precio"/>
-                            <p:outputLabel value="M&aacute;ximo"/>
-                            <p:outputLabel value="M&iacute;nimo"/>
-                            <p:outputLabel value="#{especieController.especie.codigo}"/>
-                            <p:outputLabel value="#{especieController.especie.nombre}"/>
-                            <p:outputLabel value="#{especieController.especie.cantidad}"> Kg</p:outputLabel>
-                            <p:outputLabel value="#{especieController.especie.precio}"> Bs </p:outputLabel>
-                            <p:outputLabel value="#{especieController.especie.maximo}">Kg</p:outputLabel>
-                            <p:outputLabel value="#{especieController.especie.minimo}">Kg</p:outputLabel>
-                        </p:panelGrid>
-                    <br/>
-                         <p:dataTable  
-                             widgetVar="ubicaciones" var="ubicacion" value="#{unidadController.unidades}"
-                                 emptyMessage="No se encontrar&oacute;n datos" reflow="true" scrollable="true" scrollHeight="250">
-                        
-                        <p:column headerText="Cava">
-                            #{ubicacion.cava.nombre}
-                        </p:column>
+                                        <p:outputLabel value="C&oacute;digo"/>
+                                        <p:outputLabel value="Nombre"/>
+                                        <p:outputLabel value="Cantidad"/>
+                                        <p:outputLabel value="Precio"/>
+                                        <p:outputLabel value="M&aacute;ximo"/>
+                                        <p:outputLabel value="M&iacute;nimo"/>
+                                        <p:outputLabel value="#{especieController.especie.codigo}"/>
+                                        <p:outputLabel value="#{especieController.especie.nombre}"/>
+                                        <p:outputLabel value="#{especieController.especie.cantidad}"> Kg</p:outputLabel>
+                                        <p:outputLabel value="#{especieController.especie.precio}"> Bs </p:outputLabel>
+                                        <p:outputLabel value="#{especieController.especie.maximo}">Kg</p:outputLabel>
+                                        <p:outputLabel value="#{especieController.especie.minimo}">Kg</p:outputLabel>
+                                    </p:panelGrid>
+                                </f:facet>
+                                <p:column headerText="Cava">
+                                    #{ubicacion.cava.nombre}
+                                </p:column>
 
-                        <p:column headerText="Orden">
-                            #{ubicacion.compraEspecie.compra.orden}
-                        </p:column>
-                        
-                        <p:column headerText="Cantidad" class="text-right">
-                            #{ubicacion.compraEspecie.cantidad} Kg
-                        </p:column>
-                             
-                        <p:column headerText="Proveedor" width="30%">
-                            #{ubicacion.compraEspecie.compra.proveedor.nombre}
-                        </p:column> 
-                        
-                             
-                        <p:column headerText="Fecha">
-                            #{ubicacion.compraEspecie.compra.fecha}
-                        </p:column>
-                        
-                    </p:dataTable>
-                </h:form>
+                                <p:column headerText="Orden">
+                                    #{ubicacion.compraEspecie.compra.orden}
+                                </p:column>
+
+                                <p:column headerText="Cantidad" class="text-right">
+                                    #{ubicacion.compraEspecie.cantidad} Kg
+                                </p:column>
+
+                                <p:column headerText="Proveedor" width="30%">
+                                    #{ubicacion.compraEspecie.compra.proveedor.nombre}
+                                </p:column> 
+
+
+                                <p:column headerText="Fecha">
+                                    #{ubicacion.compraEspecie.compra.fecha}
+                                </p:column>
+
+                            </p:dataTable>
+                    </h:form>
                 </p:dialog>
-                
+
             </ui:define>
 
         </ui:composition>
