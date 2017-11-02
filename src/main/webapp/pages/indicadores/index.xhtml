@@ -162,7 +162,7 @@
                     </h:form>
                 </p:dialog>
 
-                <p:dialog width="800" header="Informaci&oacute;n del indicador de disponibilidad de los almacenes" widgetVar="capacidad" responsive="true" 
+                <p:dialog width="800" header="Disponibilidad del especio f&iacute;sico de los almacenes" widgetVar="capacidad" responsive="true" 
                           resizable="false" draggable="false" modal="true" closable="true">
                     <p:dataTable scrollable="true" scrollHeight="150" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
                         <f:facet name="header">
@@ -189,20 +189,35 @@
                                 <span class="fa fa-square" />
                             </center>
                         </p:column>
-                        <p:column filterBy="#{cava.nombre}"  headerText="Nombre" filterStyle="display: none">
+                        <p:column filterBy="#{cava.nombre}" width="10%" headerText="Nombre" filterStyle="display: none">
                             #{cava.nombre}
                         </p:column>
-                        <p:column filterBy="#{cava.almacen.nombre}"  headerText="Almac&eacute;n" filterStyle="display: none">
+                        <p:column filterBy="#{cava.almacen.nombre}" width="15%" headerText="Almac&eacute;n" filterStyle="display: none">
                             <span class="fa fa-bank"/> #{cava.almacen.nombre},  #{cava.almacen.direccion}
                         </p:column>
-                        <p:column filterBy="#{cava.capacidad}"  headerText="Capacidad" filterStyle="display: none">
+                        <p:column filterBy="#{cava.capacidad}" width="15%" headerText="Capacidad" filterStyle="display: none">
                             #{cava.capacidad} Kg
                         </p:column>
                         <p:column filterBy="#{cava.capacidadDisponible}"  headerText="Capacidad disponible" filterStyle="display: none">
                             #{cava.capacidadDisponible} Kg
                         </p:column>
+                        <ui:param name="valor" value="#{cava.capacidad - cava.capacidadDisponible}" />
                         <p:column headerText="Capacidad utilizada">
-                            #{cava.capacidad - cava.capacidadDisponible} Kg
+                            #{valor} Kg
+                        </p:column>
+                         <ui:param name="porcenta" value="#{(valor/cava.capacidad)*100}" />
+                        <p:column headerText="Porcentaje" width="15%">
+                         #{porcenta} %
+                        </p:column>
+                        <p:column headerText="Estado" width="10%">
+                             <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
+                            <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{valor le indicadorController.satisfaccion.malo}" style="color: #f63a1e"/>
+                            <p:tooltip  for="aceptable" value="#{indicadorController.satisfaccion.mensajeAceptable}" position="top" />
+                            <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
+                                                                             and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #ffff66"/>
+                            <p:tooltip  for="bueno" value="#{indicadorController.satisfaccion.mensajeBueno}" position="top" />
+                            <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" style="color: #1ef664"/>
+
                         </p:column>
                         <f:facet name="footer">
                             <h3 class="fa fa-bank">Total de disponibilidad de los almacenes: #{cavaController.capacidadTotal} Kg </h3>
