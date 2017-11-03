@@ -116,6 +116,7 @@ public class VentaController implements Serializable
         yAxis.setMax(this.getMontoMayor(meses));
         yAxis2.setMin(0);
         yAxis2.setMax(this.getMontoMayor(mesesKilos));
+        yAxis2.setLabel("Kilos");
         modelos[0] = ventasAnual;
         modelos[1] = ventasAnualKilos;
         return modelos;

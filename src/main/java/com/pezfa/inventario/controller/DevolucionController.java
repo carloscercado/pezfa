@@ -100,9 +100,12 @@ public class DevolucionController implements Serializable {
         devolucionesIndicador.setLegendPosition("ne");
         devolucionesIndicador.setAnimate(true);
         devolucionesIndicador.setMouseoverHighlight(false);
+        devolucionesIndicador.getAxes().put(AxisType.X, new CategoryAxis("Meses"));
         Axis yAxis = devolucionesIndicador.getAxis(AxisType.Y);
+        yAxis.setLabel("Rango de Satisfacción");
         yAxis.setMin(0);
         yAxis.setMax(mayor+10);
+        
 
         return devolucionesIndicador;
     }
