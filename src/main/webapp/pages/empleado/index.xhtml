@@ -12,9 +12,9 @@
 
             <ui:define name="content">
                 <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
-                   <h3 align="center" style="color: #045491">Administrar empleados</h3>
-                    
-                   <p:dataTable scrollable="true" scrollHeight="350" widgetVar="empleadores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="empleado" value="#{empleadoController.empleadores}">
+                    <h3 align="center" style="color: #045491">Administrar empleados</h3>
+
+                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="empleadores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="empleado" value="#{empleadoController.empleadores}">
                         <f:facet name="header">
                             <div class="row">
                                 <div  class="col-md-6 text-left header-tabla-hidden">
@@ -31,22 +31,22 @@
                                 <span class="fa fa-user" />
                             </center>
                         </p:column>
-                       <p:column headerText="C&eacute;dula" filterBy="#{empleado.cedula}" filterStyle="display: none">
-                           <span class="fa fa-credit-card"/> #{empleado.cedula} 
+                        <p:column headerText="C&eacute;dula" filterBy="#{empleado.cedula}" filterStyle="display: none">
+                            <span class="fa fa-credit-card"/> #{empleado.cedula} 
                         </p:column>
 
-                       <p:column  headerText="Nombres" filterBy="#{empleado.primerNombre}" filterStyle="display: none">
+                        <p:column  headerText="Nombres" filterBy="#{empleado.primerNombre}" filterStyle="display: none">
                             #{empleado.primerNombre}
                         </p:column>
 
-                       <p:column  headerText="Apellidos" filterBy="#{empleado.primerApellido}" filterStyle="display: none">
+                        <p:column  headerText="Apellidos" filterBy="#{empleado.primerApellido}" filterStyle="display: none">
                             #{empleado.primerApellido} 
                         </p:column>
 
-                       <p:column headerText="Cargo">
+                        <p:column headerText="Cargo">
                             #{empleado.cargo} 
                         </p:column>
-                       
+
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
                             <center>  
                                 <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger"> 
@@ -59,7 +59,7 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                
+
                 <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <center>
                         <p:graphicImage name="/images/401.png" height="400"/>
@@ -67,7 +67,7 @@
                         <p:commandButton onclick="location.href = '/pezfa'" icon="fa fa-home" value="Volver al inicio"/>
                     </center>
                 </h:form>
-                
+
                 <p:dialog closable="false" header="Registrar empleado" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
                     <f:facet name="onHide">
                         <p:ajax update="@widgetVar(empleadores)" listener="#{empleadoController.reset()}"/>
@@ -92,13 +92,13 @@
                                 <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{empleadoController.empleado.primerNombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Primer nombre"/>
                                 <p:inputText autocomplete="off" value="#{empleadoController.empleado.segundoNombre}" maxlength="20" onkeypress="return letras(event)" placeholder="Segundo nombre"/>
                             </p:tab>
-                            
+
                             <p:outputLabel value="Apellidos:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:tab>
                                 <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{empleadoController.empleado.primerApellido}" required="true" requiredMessage="Ingrese el apellido" placeholder="Primer apellido"/>
                                 <p:inputText autocomplete="off" value="#{empleadoController.empleado.segundoApellido}" maxlength="20" onkeypress="return letras(event)" placeholder="Segundo apellido" />
                             </p:tab>
-                            
+
                             <p:outputLabel value="Nacimiento:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:calendar effect="fold" value="#{empleadoController.empleado.nacimiento}" required="true" maxdate="#{empleadoController.fecha}" requiredMessage="Ingrese la fecha de nacimiento" locale="es" navigator="true" placeholder="Nacimiento"/>
 
@@ -117,8 +117,8 @@
                                 <f:selectItem itemValue="Producci&oacute;n" itemLabel="Producci&oacute;n"/>
                                 <f:selectItem itemValue="Operaci&oacute;n" itemLabel="Operaci&oacute;n"/>
                                 <f:selectItem itemValue="Chofer" itemLabel="Chofer"/>
-                                </p:selectOneMenu>
-                            
+                            </p:selectOneMenu>
+
                             <p:outputLabel value="Estudios:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.educacion}" required="true" requiredMessage="Ingrese el estudio">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
@@ -126,7 +126,7 @@
                                 <f:selectItem itemValue="3" itemLabel="Secundaria"/>
                                 <f:selectItem itemValue="2" itemLabel="Primaria"/>
                                 <f:selectItem itemValue="1" itemLabel="Sin estudios"/>
-                                </p:selectOneMenu>
+                            </p:selectOneMenu>
 
                         </p:panelGrid>
                         <br/>
@@ -155,20 +155,20 @@
 
                             <p:outputLabel value="C&eacute;dula:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText value="#{empleadoController.empleado.cedula}" required="true" id="emple" requiredMessage="Ingrese la c&eacute;dula" placeholder="C&eacute;dula">
-                            <p:ajax event="change" listener="#{empleadoController.validarCedula()}" update="msj emple"/>
+                                <p:ajax event="change" listener="#{empleadoController.validarCedula()}" update="msj emple"/>
                             </p:inputText>
                             <p:outputLabel value="Nombres:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:tab>
                                 <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{empleadoController.empleado.primerNombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Primer nombre"/>
                                 <p:inputText autocomplete="off" value="#{empleadoController.empleado.segundoNombre}" maxlength="20" onkeypress="return letras(event)" placeholder="Segundo nombre"/>
                             </p:tab>
-                            
+
                             <p:outputLabel value="Apellidos:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:tab>
                                 <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{empleadoController.empleado.primerApellido}" required="true" requiredMessage="Ingrese el apellido" placeholder="Primer apellido"/>
                                 <p:inputText autocomplete="off" value="#{empleadoController.empleado.segundoApellido}" maxlength="20" onkeypress="return letras(event)" placeholder="Segundo apellido" />
                             </p:tab>
-                            
+
                             <p:outputLabel value="Nacimiento:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:calendar effect="fold" value="#{empleadoController.empleado.nacimiento}" required="true" requiredMessage="Ingrese la fecha de nacimiento" locale="es" navigator="true" placeholder="Nacimiento"/>
 
@@ -178,6 +178,8 @@
                                 <f:selectItem itemValue="M" itemLabel="Masculino"/>
                                 <f:selectItem itemValue="F" itemLabel="Femenino"/>
                             </p:selectOneMenu>
+                            <p:outputLabel value="Cargo:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:selectBooleanButton  onLabel="Si" offLabel="No" value="#{empleadoController.empleado.satisfecho}"/>
 
                             <p:outputLabel value="Cargo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.cargo}" required="true" requiredMessage="Ingrese el cargo">
@@ -196,17 +198,17 @@
                                 <f:selectItem itemValue="3" itemLabel="Secundaria"/>
                                 <f:selectItem itemValue="2" itemLabel="Primaria"/>
                                 <f:selectItem itemValue="1" itemLabel="Sin estudios"/>
-                                </p:selectOneMenu>
+                            </p:selectOneMenu>
                         </p:panelGrid>
 
                         <br/>
-                            <center>
-                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(empleadores)" actionListener="#{empleadoController.update()}"/> 
-                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{empleadoController.reset()}" oncomplete="PF('modificar').hide()"/>
-                            </center>
+                        <center>
+                            <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(empleadores)" actionListener="#{empleadoController.update()}"/> 
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{empleadoController.reset()}" oncomplete="PF('modificar').hide()"/>
+                        </center>
                     </h:form>
                 </p:dialog> 
-                
+
             </ui:define>
 
         </ui:composition>

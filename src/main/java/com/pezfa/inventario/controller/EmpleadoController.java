@@ -62,7 +62,7 @@ public class EmpleadoController implements Serializable {
         SatisfaccionEmpleado.setTitle("Satisfaccion de los empleados");
         SatisfaccionEmpleado.setLegendPosition("w");
         SatisfaccionEmpleado.setShowDataLabels(true);
-        SatisfaccionEmpleado.setSeriesColors("ef6868, efde68");
+        SatisfaccionEmpleado.setSeriesColors("79ef68, ef6868");
         return SatisfaccionEmpleado;
     }
 
