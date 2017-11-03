@@ -1,11 +1,4 @@
-﻿create table if not exists satisfaccion
-(
-  id serial primary key, 
-  numero_empleado int not null,
-  satisfaccion int not null
-);
-
-create table if not exists devoluciones
+﻿create table if not exists devoluciones
 (
    id serial primary key,
    anio int not null,
@@ -81,7 +74,8 @@ create table if not exists empleado
     nacimiento date not null,
     sexo varchar(1) not null,
     cargo varchar(20) not null,
-    educacion int default(0) not null 
+    educacion int default(0) not null ,
+    satisfecho boolean default false
 );
 
 create table if not exists almacen

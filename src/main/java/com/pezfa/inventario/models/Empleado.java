@@ -19,22 +19,41 @@ public class Empleado  implements java.io.Serializable {
      private Date nacimiento;
      private String sexo;
      private String cargo;
+     private boolean satisfecho;
      private Set usuarios = new HashSet(0);
 
     public Empleado() {
     }
 
-	
-    public Empleado(String cedula, int educacion, String primerNombre, String primerApellido, Date nacimiento, String sexo, String cargo) {
-        this.cedula = cedula;
+    public Empleado(int id, int educacion, String cedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, Date nacimiento, String sexo, String cargo, boolean satisfecho)
+    {
+        this.id = id;
         this.educacion = educacion;
+        this.cedula = cedula;
         this.primerNombre = primerNombre;
+        this.segundoNombre = segundoNombre;
         this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
         this.nacimiento = nacimiento;
         this.sexo = sexo;
         this.cargo = cargo;
+        this.satisfecho = satisfecho;
+    }
+
+	
+   
+
+    public boolean isSatisfecho()
+    {
+        return satisfecho;
+    }
+
+    public void setSatisfecho(boolean satisfecho)
+    {
+        this.satisfecho = satisfecho;
     }
    
+    
     public int getId() {
         return this.id;
     }

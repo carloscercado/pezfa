@@ -17,6 +17,7 @@ import org.primefaces.model.chart.PieChartModel;
 public class EmpleadoController implements Serializable {
 
     private PieChartModel capacitacionProfesionales;
+    private PieChartModel SatisfaccionEmpleado;
     private Empleado empleado = null;
     private List<Empleado> empleadores = null;
     private List<Empleado> choferes = null;
@@ -51,7 +52,26 @@ public class EmpleadoController implements Serializable {
         return capacitacionProfesionales;
     }
 
+    public PieChartModel getSatisfaccionEmpleado()
+    {
+        SatisfaccionEmpleado = new PieChartModel();
+        List<Empleado> todos = db.read("from Empleado");
+        float satisfechos = todos.stream().filter(x -> x.isSatisfecho()).count();
+        SatisfaccionEmpleado.set("Satisfechos", satisfechos);
+        SatisfaccionEmpleado.set("Insastisfechos", todos.size());
+        SatisfaccionEmpleado.setTitle("Satisfaccion de los empleados");
+        SatisfaccionEmpleado.setLegendPosition("w");
+        SatisfaccionEmpleado.setShowDataLabels(true);
+        SatisfaccionEmpleado.setSeriesColors("ef6868, efde68");
+        return SatisfaccionEmpleado;
+    }
 
+    public void setSatisfaccionEmpleado(PieChartModel SatisfaccionEmpleado)
+    {
+        this.SatisfaccionEmpleado = SatisfaccionEmpleado;
+    }
+    
+    
     public List<Empleado> getChoferes() {
         choferes = db.read("from Empleado emp where emp.cargo='CHOFER'");
         return choferes;

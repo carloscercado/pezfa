@@ -45,11 +45,7 @@
         <servlet-name>reporte</servlet-name>
         <url-pattern>/reporte</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
+    
     <welcome-file-list>
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>

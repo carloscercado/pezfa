@@ -35,6 +35,9 @@
         <property name="educacion" type="int">
             <column name="educacion" not-null="true" default="0"/>
         </property>
+        <property name="satisfecho" type="boolean">
+            <column name="satisfecho"/>
+        </property>
         <set name="usuarios" table="usuario" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="empleado" not-null="true" />
