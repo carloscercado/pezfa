@@ -16,7 +16,7 @@
                 <h:form id="formulario">
                     <h3 align="center" style="color: #045491">Historial de ventas</h3>
                     <p:tooltip  for="tabla" value="Seleccione un registro para ver el detalle" position="top" />
-                    <p:dataTable id="tabla" selectionMode="single" selection="#{ventaController.venta}" rowKey="#{venta.id}"
+                    <p:dataTable scrollable="true" scrollHeight="300" id="tabla" selectionMode="single" selection="#{ventaController.venta}" rowKey="#{venta.id}"
                                  widgetVar="historico" var="venta" value="#{ventaController.historico}"
                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true">
                         <f:facet name="header">
@@ -36,11 +36,11 @@
                             <span class="fa fa-file"/> #{venta.factura}
                         </p:column>
 
-                        <p:column headerText="Fecha">
+                        <p:column headerText="Fecha" filterBy="#{venta.fecha}" filterStyle="display: none">
                             #{venta.fecha}
                         </p:column>
 
-                        <p:column headerText="Cliente">
+                        <p:column headerText="Cliente" filterBy="#{venta.cliente.nombre}" filterStyle="display: none">
                             #{venta.cliente.nombre} #{venta.cliente.rif}
                         </p:column> 
 

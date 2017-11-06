@@ -13,7 +13,7 @@
                 <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <h3 align="center" style="color: #045491">Administrar auditoria</h3>
                     
-                    <p:dataTable widgetVar="auditorias" emptyMessage="No se encontrar&oacute;n datos" reflow="true"
+                    <p:dataTable scrollable="true" scrollHeight="300" widgetVar="auditorias" emptyMessage="No se encontrar&oacute;n datos" reflow="true"
                                  var="auditoria" value="#{auditoriaController.auditorias}">
                         <f:facet name="header">
                             <div class="row">

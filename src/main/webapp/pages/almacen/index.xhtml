@@ -13,7 +13,7 @@
             <ui:define name="content">
                 <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <h3 align="center" style="color: #045491">Administrar almacenes</h3>
-                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="almacenes" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="almacen" value="#{almacenController.almacenes}">
+                    <p:dataTable scrollable="true" scrollHeight="300" widgetVar="almacenes" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="almacen" value="#{almacenController.almacenes}">
                         <f:facet name="header">
                             <div class="row">
                                 <div  class="col-md-6 text-left header-tabla-hidden">

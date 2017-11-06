@@ -7,6 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf">
 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <body>
 
         <ui:composition template="./../../template/menu.xhtml">
@@ -16,7 +17,7 @@
                 <h:form>
                     <h3 align="center" style="color: #045491">Inventario de especies</h3>
 
-                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" 
+                    <p:dataTable scrollable="true" scrollHeight="300" widgetVar="especies" 
                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true"
                                  var="especie" value="#{especieController.especies}">
 
@@ -80,15 +81,14 @@
                 </h:form>
 
                 <p:dialog closable="true" header="Detalles de la especie" widgetVar="verDetalle" 
-                          responsive="true" resizable="false" draggable="false" modal="true" width="600">
+                          responsive="true" resizable="false" draggable="false" modal="true" width="700">
                     <h:form>
                         <span class="fa fa-info-circle fa-2x"/>
-                       aqui va una informacion introductorio que explique lo que sale abajo
-                        
+                       Información detallada de la compra de una especie con su respectiva ubicación en las cavas para el control y manejo de su inventario
                             <br/>
                             <p:dataTable  
                                 widgetVar="ubicaciones" var="ubicacion" value="#{unidadController.unidades}"
-                                emptyMessage="No se encontrar&oacute;n datos" reflow="true" scrollable="true" scrollHeight="250">
+                                emptyMessage="No se encontrar&oacute;n datos" reflow="true" scrollable="true" scrollHeight="300">
                                 <f:facet name="header">
                                     <p:panelGrid columns="6">
 

@@ -316,7 +316,6 @@ public class VentaController implements Serializable
     public List<Venta> getHistorico()
     {
         historico = db.read("from Venta ven join fetch ven.cliente");
-
         return historico;
     }
 

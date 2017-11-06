@@ -14,7 +14,7 @@
                 <h:form >
                     <h3 align="center" style="color: #045491">Administrar especies</h3>
                     
-                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="especie" value="#{especieController.especies}">
+                    <p:dataTable scrollable="true" scrollHeight="300" widgetVar="especies" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="especie" value="#{especieController.especies}">
                         <f:facet name="header">
                             <div class="col-md-6 text-left header-tabla-hidden">
                                 <p:commandButton style="alignment-adjust: central" value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
@@ -95,7 +95,7 @@
                         <br/>
                         <center>
                             <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{especieController.register()}"/> 
-                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
+                           <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
                         </center>
                     </h:form>
                 </p:dialog>

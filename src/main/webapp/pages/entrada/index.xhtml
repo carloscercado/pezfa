@@ -53,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <p:dataTable emptyMessage="No existen compras por procesar" var="compra" widgetVar="compras" 
+                    <p:dataTable scrollHeight="300" scrollable="true" emptyMessage="No existen compras por procesar" var="compra" widgetVar="compras" 
                                  value="#{compraController.compras}" reflow="true">
                         <f:facet name="header">
                             <div class="row">
@@ -84,7 +84,7 @@
 
                         <p:column headerText="Detalles" width="10%">
                             <center>
-                                <p:commandButton icon="fa fa-search" update="@widgetVar(agregar)"  oncomplete="PF('agregar').show()" >
+                                <p:commandButton title="Detalles de compra" icon="fa fa-search" update="@widgetVar(agregar)"  oncomplete="PF('agregar').show()" >
                                     <f:setPropertyActionListener target="#{compraController.compra}" value="#{compra}"/>
                                 </p:commandButton>
                             </center>
@@ -140,7 +140,7 @@
 
                             <p:column headerText="Ubicar" width="10%">
                                 <center>
-                                    <p:commandButton icon="fa fa-gear" update="@widgetVar(registrar)" oncomplete="PF('registrar').show()">
+                                    <p:commandButton icon="fa fa-gear" title="Ubicar especie" update="@widgetVar(registrar)" oncomplete="PF('registrar').show()">
                                         <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie}" value="#{compraEspecie}"/>
                                     </p:commandButton>
                                 </center>
@@ -164,15 +164,16 @@
                 </p:dialog>
 
                 <p:dialog header="Registrar mercancia en almacenes" widgetVar="registrar" responsive="true" resizable="false" 
-                          draggable="false" modal="true" width="600" >
+                          draggable="false" modal="true" width="700" height="500" >
 
                     <h:form>
-
-                        <div class="row" style=" width: 100%">
-
-                            <div class="col-sm-12">
+                         <span class="fa fa-info-circle fa-x"/>
+                                    Por favor elija el almacén con su respectiva cava donde será ubicada la especie<br/>
+                                              
+                        <div class="row"  style=" width: 80%">
+                         <div class="col-sm-12">
                                 <div class="hero-widget well well-sm">
-                                    <h3>
+                                       <h3>
                                         <div class="icon">
                                             Unidad: #{compraEspecieController.compraEspecie.especie.nombre}
                                             <br/><br/>
@@ -239,7 +240,7 @@
                                 <div class="hero-widget well well-sm">
                                     <center> 
                                         <div class="icon">
-                                            <span class="fa fa-balance-scale fa-3x" style="color: #045491"/>
+                                            <span class="fa fa-balance-scale fa-3x" style="color: #045491"/> <br/>
                                             <p:inputNumber size="10" value="#{unidadController.unidad.peso}" symbol=" Kg" symbolPosition="suffix"
                                                            placeholder="Peso" maxValue="#{compraEspecieController.compraEspecie.cantidad}" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="."
                                                            requiredMessage="Ingrese el peso"/>

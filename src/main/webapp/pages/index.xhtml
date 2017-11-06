@@ -17,17 +17,17 @@
                 <h3 align="center" style="color: #045491">Sistema de información para la gestión de inventario de especies marinas</h3>
 
                 <h:form>
-                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="especies" 
+                    <p:dataTable scrollable="true" scrollHeight="300" widgetVar="especies" 
                                  emptyMessage="No se encontrar&oacute;n datos" reflow="true"
-                                 var="especie" value="#{especieController.especies}"
-                                 rowStyleClass="#{especie.cantidad le especie.minimo ? 'estilo1':
-                                                  ((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo) and (especie.cantidad le especie.minimo+5)) ? 'estilo3':
-                                                  !(especie.cantidad le especie.minimo+5) ? 'estilo2': null}">
+                                 var="especie" value="#{especieController.especies}">
+
                         <f:facet name="header">
                             <div class="row">
-                                <div class="col-md-9"></div>
-                                <div class="col-md-3">
-                                    <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar"/>
+                                <div  class="col-md-6 text-left header-tabla-hidden">
+                                    <p:graphicImage name="/images/ventas.png" width="40 px"/>Inventario de especies marinas
+                                </div>
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('clientes').filter()" placeholder="Buscar"/>
                                 </div>
                             </div>
                         </f:facet>
@@ -63,52 +63,23 @@
                             #{especie.minimo} Kg
                         </p:column>
 
+                        <p:column headerText="Estado" class="text-center" width="12%">
+                            <span  class="fa fa-circle fa-2x" jsf:rendered="#{especie.cantidad le especie.minimo}" style="color: #f63a1e"/>
+                            <span  class="fa fa-circle fa-2x" jsf:rendered="#{((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo+1) and (especie.cantidad le especie.minimo+100))}" style="color: #f68e1e"/>
+                            <span  class="fa fa-circle fa-2x" jsf:rendered="#{!(especie.cantidad le especie.minimo+100)}" style="color: #1ef664"/>
+                        </p:column>  
+
+                        <p:column width="10%" class="column-hidden" headerText="Detalles">
+                            <center>  
+                                <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)" class="btn-secundary"> 
+                                    <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie}"/>
+                                </p:commandButton>
+                            </center> 
+                        </p:column>
+
                     </p:dataTable>
                 </h:form>
-
-                <p:dialog  header="Informaci&oacute;n de indicador" widgetVar="indicador" responsive="true" 
-                           resizable="false" draggable="false" modal="true">
-
-                    <p:panelGrid columns="2">
-
-                        <p:outputLabel value="Nombre del indicador:"> 
-                        </p:outputLabel>
-                        <p:outputLabel value="#{indicadorController.capacidad.nombre}"/>
-
-                        <p:outputLabel value="Descripci&oacute;n:"> 
-                        </p:outputLabel>
-                        <p:outputLabel value="#{indicadorController.capacidad.descripcion}"/>
-
-                        <p:outputLabel value="Bueno:">
-                        </p:outputLabel>
-                        <p:outputLabel value="#{indicadorController.capacidad.bueno}"/>
-
-                        <p:outputLabel value="Malo:">
-                        </p:outputLabel>
-                        <p:outputLabel value="#{indicadorController.capacidad.malo}"/>
-
-                        <p:outputLabel value=" Rango &oacute;ptimo:">
-                        </p:outputLabel>
-                        <p:outputLabel value=" #{indicadorController.capacidad.malo} % - #{indicadorController.capacidad.bueno} %"/>
-
-                        <p:outputLabel value=" Medida:">
-                        </p:outputLabel>
-                        <p:outputLabel value=" #{cavaController.capacidad} % "/>
-                        <p:outputLabel value="Estado:"/>
-                        <p:outputLabel rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}" value="#{indicadorController.capacidad.mensajeMalo}"/>
-                        <p:outputLabel rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
-                                                   and (cavaController.capacidad le indicadorController.capacidad.malo+1))}" 
-                                       value="#{indicadorController.capacidad.mensajeAceptable}" />
-
-                        <p:outputLabel rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" value="#{indicadorController.capacidad.mensajeBueno}"/>
-
-                    </p:panelGrid>
-
-                    <br/>
-
-                </p:dialog>
-
-            </ui:define>
+              </ui:define>
 
         </ui:composition>
 

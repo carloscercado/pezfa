@@ -14,7 +14,7 @@
                 <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <h3 align="center" style="color: #045491">Administrar Camiones</h3>
                     
-                    <p:dataTable scrollable="true" scrollHeight="350" widgetVar="camion" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="camion" value="#{camionController.camiones}">
+                    <p:dataTable scrollable="true" scrollHeight="300" widgetVar="camion" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="camion" value="#{camionController.camiones}">
                         <f:facet name="header">
                               <div class="row">
                                 <div  class="col-md-6 text-left header-tabla-hidden">

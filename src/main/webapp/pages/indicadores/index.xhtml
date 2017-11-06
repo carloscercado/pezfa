@@ -12,7 +12,7 @@
         <ui:composition template="./../../template/menu.xhtml">
             <ui:define name="content">
 
-                <h3 align="center" style="color: #045491">Indicadores de gesti&oacute;n</h3>
+                <h3 align="center" style="color: #045491">Indicadores de gestión</h3>
 
                 <a href="/pezfa/pages/indicador/">
                     <span class="fa fa-line-chart"></span>
@@ -26,24 +26,6 @@
                                 <p:tooltip  for="cap" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
                                 <p:chart id="cap" type="pie" model="#{cavaController.capacidadIndicador}" />
                             </a>
-                        </p:panelGrid>
-                    </p:tab>
-                    <p:tab title="Satisfaccion de los empleados">
-                        <p:panelGrid>
-                            <a href="#" onclick="PF('emplesas').show()">
-                                <p:tooltip  for="cap2" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
-                                <p:chart id="cap2" type="pie" model="#{empleadoController.satisfaccionEmpleado}" />
-                            </a>
-                        </p:panelGrid>
-                    </p:tab>
-                    <p:tab title="Educaci&oacute;n de los empleados">
-                        <p:panelGrid>
-                            <div class="hero-widget well well-sm">
-                                <a href="#" onclick="PF('empleadoedu').show()">
-                                    <p:tooltip  for="emp" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
-                                    <p:chart type="pie" id="emp" model="#{empleadoController.capacitacionProfesionales}" style="width: 80%" />
-                                </a>
-                            </div>
                         </p:panelGrid>
                     </p:tab>
                     <p:tab title="Ventas mensuales en bolivares">
@@ -80,6 +62,24 @@
                             <p:chart type="bar" id="satis" model="#{devolucionController.devolucionesIndicador}"/>
                         </a>         
                     </p:tab>
+                    <p:tab title="Satisfacci&oacute;n de los empleados">
+                        <p:panelGrid>
+                            <a href="#" onclick="PF('emplesas').show()">
+                                <p:tooltip  for="cap2" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
+                                <p:chart id="cap2" type="pie" model="#{empleadoController.satisfaccionEmpleado}" />
+                            </a>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab title="Educaci&oacute;n de los empleados">
+                        <p:panelGrid>
+                            <div class="hero-widget well well-sm">
+                                <a href="#" onclick="PF('empleadoedu').show()">
+                                    <p:tooltip  for="emp" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
+                                    <p:chart type="pie" id="emp" model="#{empleadoController.capacitacionProfesionales}" style="width: 80%" />
+                                </a>
+                            </div>
+                        </p:panelGrid>
+                    </p:tab>
                 </p:tabView>
 
                 <p:dialog width="800" header="Disponibilidad del especio f&iacute;sico de los almacenes" widgetVar="capacidad" responsive="true" 
@@ -106,7 +106,7 @@
                     <p:tooltip  for="info" value="coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
                     <p:dataTable scrollable="true" id="info" scrollHeight="300" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
                         <p:column width="5%" class="column-hidden">
-                            <center>
+                            <center >
                                 <span class="fa fa-square" />
                             </center>
                         </p:column>
@@ -176,7 +176,7 @@
                                 <p:tooltip  for="malo" value="#{indicadorController.ventasMensual.mensajeMalo  }" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcentaje le indicadorController.ventasMensual.malo}" style="color: #f63a1e"/>
                                 <p:tooltip  for="aceptable" value="#{indicadorController.ventasMensual.mensajeAceptable  }" position="top" />
-                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje le indicadorController.ventasMensual.malo ) or porcentaje eq indicadorController.ventasMensual.malo-1) 
+                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje le indicadorController.ventasMensual.malo ) or porcentaje eq indicadorController.ventasMensual.malo+1) 
                                                                                                     and (porcentaje le indicadorController.ventasMensual.bueno-1))}" style="color: #ffff66"/>
                                 <p:tooltip  for="bueno" value="#{indicadorController.ventasMensual.mensajeBueno  }" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje le indicadorController.ventasMensual.bueno) or porcentaje eq indicadorController.ventasMensual.bueno}" style="color: #1ef664"/>
@@ -216,7 +216,7 @@
                                 <p:tooltip  for="malo" value="#{indicadorController.ventasMensualKilos.mensajeMalo  }" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcentaje2 le indicadorController.ventasMensualKilos.malo}" style="color: #f63a1e"/>
                                 <p:tooltip  for="aceptable" value="#{indicadorController.ventasMensualKilos.mensajeAceptable  }" position="top" />
-                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje2 le indicadorController.ventasMensualKilos.malo ) or porcentaje2 eq indicadorController.ventasMensualKilos.malo-1) 
+                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje2 le indicadorController.ventasMensualKilos.malo ) or porcentaje2 eq indicadorController.ventasMensualKilos.malo+1) 
                                                                                                     and (porcentaje2 le indicadorController.ventasMensualKilos.bueno-1))}" style="color: #ffff66"/>
                                 <p:tooltip  for="bueno" value="#{indicadorController.ventasMensualKilos.mensajeBueno  }" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje2 le indicadorController.ventasMensualKilos.bueno) or porcentaje2 eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
@@ -234,12 +234,10 @@
                     </p:dataTable>
                 </p:dialog>
 
-
-
                 <p:dialog  header="Informaci&oacute;n sobre la educaci&oacute;n de los empleados" widgetVar="empleadoedu" responsive="true" 
                            resizable="false" draggable="false" modal="true" width="600">
                     <h:form>
-                        <p:dataTable scrollable="true" scrollHeight="150" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" value="#{empleadoController.empleadores}" var="emple">
+                        <p:dataTable scrollable="true" scrollHeight="300" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" value="#{empleadoController.empleadores}" var="emple">
                             <p:column headerText="C&eacute;dula">
                                 #{emple.cedula}
                             </p:column>
@@ -253,10 +251,10 @@
                     </h:form>
                 </p:dialog>
 
-                <p:dialog width="800" header="Satisfaccion de empleados" widgetVar="emplesas" responsive="true" 
+                <p:dialog width="800" header="Satisfacci&oacute;n de empleados" widgetVar="emplesas" responsive="true" 
                           resizable="false" height="" draggable="false" modal="true" closable="true">
                     <h:form>
-                        <p:dataTable scrollable="true" scrollHeight="350" widgetVar="empleadores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="empleado" value="#{empleadoController.empleadores}">
+                        <p:dataTable scrollable="true" scrollHeight="300" widgetVar="empleadores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="empleado" value="#{empleadoController.empleadores}">
                             <f:facet name="header">
                                 <div class="row">
                                     <div  class="col-md-6 text-left header-tabla-hidden">
@@ -275,23 +273,19 @@
                             <p:column headerText="C&eacute;dula" filterBy="#{empleado.cedula}" filterStyle="display: none">
                                 <span class="fa fa-credit-card"/> #{empleado.cedula} 
                             </p:column>
-
-                            <p:column  headerText="Nombres" filterBy="#{empleado.primerNombre}" filterStyle="display: none">
+                             <p:column  headerText="Nombres" filterBy="#{empleado.primerNombre}" filterStyle="display: none">
                                 #{empleado.primerNombre}
                             </p:column>
-
                             <p:column  headerText="Apellidos" filterBy="#{empleado.primerApellido}" filterStyle="display: none">
                                 #{empleado.primerApellido} 
                             </p:column>
-
                             <p:column headerText="Cargo">
                                 #{empleado.cargo} 
                             </p:column>
-
                             <p:column headerText="Satisfecho" width="10%">
                                 <center>
-                                    <span jsf:rendered="#{empleado.satisfecho}" class="fa fa-check fa-2x"/>
-                                    <span jsf:rendered="#{!empleado.satisfecho}" class="fa fa-times fa-2x"/>
+                                    <span style="color: #1ef664" jsf:rendered="#{empleado.satisfecho}" class="fa fa-check fa-2x" />
+                                    <span style="color: #f63a1e" jsf:rendered="#{!empleado.satisfecho}" class="fa fa-times fa-2x"/>
                                 </center>
                             </p:column>
 
@@ -301,7 +295,7 @@
                 </p:dialog>
 
                 <p:dialog modal="true" widgetVar="devoluciones"  width="600" resizable="false" header="Satisfacci&oacute;n del cliente en el año #{compraController.fecha.year+1900} ">
-                    <p:dataTable value="#{devolucionController.devoluciones}" emptyMessage="No hay ventas agregadas" var="devol">
+                    <p:dataTable scrollable="true" scrollHeight="300" value="#{devolucionController.devoluciones}" emptyMessage="No hay ventas agregadas" var="devol">
                         <p:column headerText="Mes">
                             #{devol.mesString}
                         </p:column>

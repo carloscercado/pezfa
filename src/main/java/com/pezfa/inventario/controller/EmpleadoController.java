@@ -59,7 +59,7 @@ public class EmpleadoController implements Serializable {
         float satisfechos = todos.stream().filter(x -> x.isSatisfecho()).count();
         SatisfaccionEmpleado.set("Satisfechos", satisfechos);
         SatisfaccionEmpleado.set("Insastisfechos", todos.size());
-        SatisfaccionEmpleado.setTitle("Satisfaccion de los empleados");
+        SatisfaccionEmpleado.setTitle("Satisfacción de los empleados");
         SatisfaccionEmpleado.setLegendPosition("w");
         SatisfaccionEmpleado.setShowDataLabels(true);
         SatisfaccionEmpleado.setSeriesColors("79ef68, ef6868");

@@ -61,10 +61,8 @@
                             </div>
                         </div>
                     </div>
-
-
                     <br/>
-                    <p:dataTable  scrollHeight="250" id="tabla" widgetVar="detalles" 
+                    <p:dataTable scrollable="true" scrollHeight="300" id="tabla" widgetVar="detalles" 
                                   var="detalle" value="#{ventaController.lista}"
                                   emptyMessage="No hay productos agregados." reflow="true">
                         <f:facet name="header">
@@ -193,6 +191,9 @@
                             <p:column headerText="Producto" filterBy="#{producto.nombre}" filterStyle="display: none">
                                 #{producto.nombre}
                             </p:column>
+                            <p:column headerText="Precio">
+                                #{producto.precio}
+                            </p:column>
                             <p:column headerText="Cantidad" class="text-right" width="15%">
                                 <div jsf:rendered="#{producto.getClass().name.endsWith('Ubicacion')}">
                                     <h:outputLabel value="#{producto.compraEspecie.especie.cantidad}">
@@ -250,7 +251,7 @@
                             </div>
                             <div jsf:rendered="#{ventaController.producto.getClass().name.endsWith('Unidad')}">
                                 <span class="fa fa-info-circle fa-2x"/>
-                                Por favor ingrese la cantidad de de #{ventaController.producto.producto.nombre} a vender<br/>
+                                Por favor ingrese la cantidad de #{ventaController.producto.producto.nombre} a vender<br/>
                                 <center>
                                     Cantidad disponible: #{ventaController.producto.producto.cantidad} ubicaciones
                                     <br/><br/>

@@ -14,7 +14,7 @@
                 <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <h3 align="center" style="color: #045491">Administrar proveedores</h3>
                    
-                    <p:dataTable scrollable="true" id="tabla" scrollHeight="350" widgetVar="proveedores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="proveedor" value="#{proveedorController.provedores}">
+                    <p:dataTable scrollable="true" id="tabla" scrollHeight="300" widgetVar="proveedores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="proveedor" value="#{proveedorController.provedores}">
                         <f:facet name="header">
                             <div class="row">
                                 <div  class="col-md-6 text-left header-tabla-hidden">
