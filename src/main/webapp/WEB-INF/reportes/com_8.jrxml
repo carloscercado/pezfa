@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select compra.orden, proveedor.rif, proveedor.nombre, compra.fecha, compra.estado, compra.gasto, compra.kilo_total, compra.chofer, empleado.primer_nombre, empleado.primer_apellido
-from compra, proveedor, empleado, usuario where usuario.id=empleado.id and usuario.id=1 and compra.proveedor=proveedor.id order by fecha]]>
+from compra, proveedor, empleado, usuario where extract (month from fecha)='08' and usuario.id=empleado.id and usuario.id=1 and compra.proveedor=proveedor.id order by fecha]]>
 	</queryString>
 	<field name="orden" class="java.lang.String"/>
 	<field name="rif" class="java.lang.String"/>
@@ -30,7 +30,7 @@ from compra, proveedor, empleado, usuario where usuario.id=empleado.id and usuar
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="20" isBold="false" isItalic="false" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[REPORTE GENERAL DE COMPRAS]]></text>
+				<text><![CDATA[REPORTE MENSUAL DE COMPRAS]]></text>
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="426" y="105" width="129" height="30" uuid="f99bb314-2d28-424b-bab3-10cd75dda20e"/>
@@ -43,6 +43,13 @@ from compra, proveedor, empleado, usuario where usuario.id=empleado.id and usuar
 				<reportElement x="1" y="1" width="168" height="134" uuid="31308cf4-76da-4866-a327-ab017ceed25b"/>
 				<imageExpression><![CDATA["C:\\Users\\Romario\\Documents\\Programming\\Sistema\\En desarrollo\\pezfa\\src\\main\\webapp\\WEB-INF\\reportes\\logo.jpg"]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement x="434" y="91" width="120" height="20" uuid="27188474-135b-485f-8862-c6eef1f51134"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Mes: Agosto]]></text>
+			</staticText>
 		</band>
 	</title>
 	<columnHeader>

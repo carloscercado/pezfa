@@ -103,6 +103,7 @@ public class DevolucionController implements Serializable {
         Axis yAxis = devolucionesIndicador.getAxis(AxisType.Y);
         yAxis.setMin(0);
         yAxis.setMax(mayor+10);
+        yAxis.setLabel("Rango de satisfacción");
 
         return devolucionesIndicador;
     }

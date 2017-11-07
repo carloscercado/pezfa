@@ -91,7 +91,32 @@ public class reporte extends HttpServlet {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
                 exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
                 exporter.exportReport();
+            
+            }  else if (nombre.equals("ven_1")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/ven_1.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+                
+            } else if (nombre.equals("ven_2")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/ven_2.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
             }
+            
         } catch (Exception e) {
             System.out.println(e);
         }
