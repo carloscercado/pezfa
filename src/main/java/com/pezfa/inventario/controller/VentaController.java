@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -66,8 +67,16 @@ public class VentaController implements Serializable
         ventaDetalle = new VentaDetalle();
         lista = new HashSet<>();
         venta = new Venta();
+
+        venta.setFactura(this.getCodigoFactura());
         venta.setFecha(new Date());
         cant = 1;
+    }
+
+    public String getCodigoFactura()
+    {
+        //El 8 es el tamaño de el codigo, maximo 32
+        return (String) UUID.randomUUID().toString().subSequence(0, 16);
     }
 
     public BarChartModel getVentasAnual()
@@ -221,7 +230,9 @@ public class VentaController implements Serializable
     public double getProcentanjeVentaEntreMeses(int actual, int anterior)
     {
         if (anterior < 0)
+        {
             anterior = 0;
+        }
         Double[] meses = this.getIndicadorVentas();
         double valor = ((meses[actual] / meses[anterior]) - 1) * 100;
         if (Double.isInfinite(valor) || Double.isNaN(valor))
@@ -230,11 +241,13 @@ public class VentaController implements Serializable
         }
         return CavaController.redondear(valor, 2);
     }
-    
+
     public double getProcentanjeVentaEntreMesesKilos(int actual, int anterior)
     {
         if (anterior < 0)
+        {
             anterior = 0;
+        }
         Double[] meses = this.getIndicadorVentasKilos();
         double valor = ((meses[actual] / meses[anterior]) - 1) * 100;
         if (Double.isInfinite(valor) || Double.isNaN(valor))
