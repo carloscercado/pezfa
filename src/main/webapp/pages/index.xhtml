@@ -79,7 +79,59 @@
 
                     </p:dataTable>
                 </h:form>
-              </ui:define>
+
+
+                <p:dialog closable="true" header="Detalles de la especie" widgetVar="verDetalle" 
+                          responsive="true" resizable="false" draggable="false" modal="true" width="700">
+                    <h:form>
+                        <span class="fa fa-info-circle fa-2x"/>
+                        Información detallada de la compra de una especie con su respectiva ubicación en las cavas para el control y manejo de su inventario
+                        <br/>
+                        <p:dataTable  
+                            widgetVar="ubicaciones" var="ubicacion" value="#{unidadController.unidades}"
+                            emptyMessage="No se encontrar&oacute;n datos" reflow="true" scrollable="true" scrollHeight="300">
+                            <f:facet name="header">
+                                <p:panelGrid columns="6">
+
+                                    <p:outputLabel value="C&oacute;digo"/>
+                                    <p:outputLabel value="Nombre"/>
+                                    <p:outputLabel value="Cantidad"/>
+                                    <p:outputLabel value="Precio"/>
+                                    <p:outputLabel value="M&aacute;ximo"/>
+                                    <p:outputLabel value="M&iacute;nimo"/>
+                                    <p:outputLabel value="#{especieController.especie.codigo}"/>
+                                    <p:outputLabel value="#{especieController.especie.nombre}"/>
+                                    <p:outputLabel value="#{especieController.especie.cantidad}"> Kg</p:outputLabel>
+                                    <p:outputLabel value="#{especieController.especie.precio}"> Bs </p:outputLabel>
+                                    <p:outputLabel value="#{especieController.especie.maximo}">Kg</p:outputLabel>
+                                    <p:outputLabel value="#{especieController.especie.minimo}">Kg</p:outputLabel>
+                                </p:panelGrid>
+                            </f:facet>
+                            <p:column headerText="Cava">
+                                #{ubicacion.cava.nombre}
+                            </p:column>
+
+                            <p:column headerText="Orden">
+                                #{ubicacion.compraEspecie.compra.orden}
+                            </p:column>
+
+                            <p:column headerText="Cantidad" class="text-right">
+                                #{ubicacion.compraEspecie.cantidad} Kg
+                            </p:column>
+
+                            <p:column headerText="Proveedor" width="30%">
+                                #{ubicacion.compraEspecie.compra.proveedor.nombre}
+                            </p:column> 
+
+
+                            <p:column headerText="Fecha">
+                                #{ubicacion.compraEspecie.compra.fecha}
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
 
         </ui:composition>
 

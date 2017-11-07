@@ -192,7 +192,7 @@
                                 #{producto.nombre}
                             </p:column>
                             <p:column headerText="Precio">
-                                #{producto.precio}
+                                #{producto.compraEspecie.especie.precio}
                             </p:column>
                             <p:column headerText="Cantidad" class="text-right" width="15%">
                                 <div jsf:rendered="#{producto.getClass().name.endsWith('Ubicacion')}">
@@ -214,10 +214,10 @@
                             </p:column>
                             <p:column headerText="Agregar" width="10%">
                                 <center>
-                                    <p:commandButton rendered="#{!producto.compraEspecie.especie.precio eq 0}" icon="fa fa-plus" title="Agregar" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
+                                    <p:commandButton rendered="#{!(producto.compraEspecie.especie.precio le 1)}" icon="fa fa-plus" title="Agregar" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
                                         <f:setPropertyActionListener target="#{ventaController.producto}" value="#{producto}"/>
                                     </p:commandButton>
-                                    <span jsf:rendered="#{producto.compraEspecie.especie.precio eq 0}">Modificar el precio de la especie</span>
+                                    <span jsf:rendered="#{(producto.compraEspecie.especie.precio le 1)}">Sin Valor</span>
                                 </center>
                             </p:column>
                         </p:dataTable>
