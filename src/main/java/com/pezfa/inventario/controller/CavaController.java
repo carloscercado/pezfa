@@ -36,7 +36,7 @@ public class CavaController implements Serializable {
 
         capacidadIndicador.set("Espacio utilizado", disponible);
         capacidadIndicador.set("Espacio libre", capacidad);
-        capacidadIndicador.setTitle("Capacidad de Almacenes");
+        capacidadIndicador.setTitle("Disponibilidad de Almacenes");
         capacidadIndicador.setLegendPosition("w");
         capacidadIndicador.setShowDataLabels(true);
         capacidadIndicador.setSeriesColors("79ef68, ef6868");

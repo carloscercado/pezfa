@@ -7,8 +7,11 @@ import com.pezfa.inventario.models.Empleado;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -27,8 +30,15 @@ public class CompraController implements Serializable
     {
         compra = new Compra();
         compra.setCamion(new Camion());
+        compra.setOrden(this.getCodigoOrdenCompra());
         compra.setChofer(new Empleado());
         db = new CompraDB();
+    }
+    
+     public String getCodigoOrdenCompra()
+    {
+        //El 8 es el tamaño de el codigo, maximo 32
+        return (String) UUID.randomUUID().toString().subSequence(0, 6);
     }
 
     public List<Compra> getHistorico()
@@ -36,6 +46,15 @@ public class CompraController implements Serializable
         historico = db.read("from Compra comprita join fetch comprita.proveedor "
                 + "join fetch comprita.chofer join fetch comprita.camion order by comprita.fecha");
         return historico;
+    }
+     public void validarOrden()
+    {
+        if (db.validarOrden(this.compra.getOrden()))
+        {
+            this.compra.setOrden("");
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya esta registrada esta compra", null);
+            FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+        }
     }
 
     public Date getFecha()
