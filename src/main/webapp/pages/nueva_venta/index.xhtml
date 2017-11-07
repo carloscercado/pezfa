@@ -214,10 +214,10 @@
                             </p:column>
                             <p:column headerText="Agregar" width="10%">
                                 <center>
-                                    <p:commandButton icon="fa fa-plus" title="Agregar" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
+                                    <p:commandButton rendered="#{!producto.compraEspecie.especie.precio eq 0}" icon="fa fa-plus" title="Agregar" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
                                         <f:setPropertyActionListener target="#{ventaController.producto}" value="#{producto}"/>
                                     </p:commandButton>
-
+                                    <span jsf:rendered="#{producto.compraEspecie.especie.precio eq 0}">Modificar el precio de la especie</span>
                                 </center>
                             </p:column>
                         </p:dataTable>
