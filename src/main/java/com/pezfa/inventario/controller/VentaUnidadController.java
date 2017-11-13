@@ -41,6 +41,11 @@ public class VentaUnidadController implements Serializable
         ventauni = db.read("from VentaUnidad");
         return ventauni;
     }
+    
+    public List<VentaEspecie> getDetalleVenta(int id)
+    {
+        return db.read("from VentaEspecie ven join fetch ven.venta venta join fetch ven.ubicacion ubi join fetch ubi.compraEspecie comp join fetch comp.especie");
+    }
 
     public void setVentauni(List<VentaEspecie> ventauni)
     {
