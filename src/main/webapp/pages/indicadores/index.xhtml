@@ -206,6 +206,9 @@
                 </p:dialog>
 
                 <p:dialog header="Detalle" widgetVar="detalleVenta" modal="true" width="600">
+                   <f:facet name="header">
+                       Detalle de la venta
+                    </f:facet>
                     <h:form>
                         <p:dataTable scrollable="true" emptyMessage="No se encontrar&oacute;n datos" scrollHeight="300" value="#{ventaController.getHistoricoMes(ventaController.mes)}" var="venta">
                             <p:column headerText="Factura">
@@ -228,7 +231,10 @@
                     </h:form>
                 </p:dialog>
                 <p:dialog header="Detalle" widgetVar="detalleEspecie" modal="true" width="600">
-                  <p:dataTable scrollable="true" emptyMessage="No se encontrar&oacute;n datos" scrollHeight="300" value="#{ventaUnidadController.getDetalleVenta(venta.id)}" var="detalle">
+                  <f:facet name="header">
+                       Detalle de la especie
+                    </f:facet>
+                    <p:dataTable scrollable="true" emptyMessage="No se encontrar&oacute;n datos" scrollHeight="300" value="#{ventaUnidadController.getDetalleVenta(venta.id)}" var="detalle">
                       <p:column headerText="Especie">
                         #{detalle.ubicacion.compraEspecie.especie.nombre}
                       </p:column> 
@@ -381,15 +387,21 @@
 
                             </p:column>
                             <p:column headerText="detalles">
-                                <p:commandButton icon="fa fa-list" update="@widgetVar(detalleDevolucion)" oncomplete="PF('detalleDevolucion').show()">
-                                    <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{devol.mes}"/>
-                                </p:commandButton>
+                                <center>
+                                    <p:commandButton rendered="#{!(devol.devoluciones eq 0)}" icon="fa fa-list" update="@widgetVar(detalleDevolucion)" oncomplete="PF('detalleDevolucion').show()"> 
+                                     <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{devol.mes}"/>
+                                    </p:commandButton>
+                                    <span jsf:rendered="#{(devol.devoluciones eq 0)}">No hay devolución</span>
+                                </center>
                             </p:column>
                         </p:dataTable>
                     </h:form>
                 </p:dialog>
                 
                 <p:dialog widgetVar="detalleDevolucion" modal="true" width="600" maximizable="false">
+                    <f:facet name="header">
+                       Detalle de la venta
+                    </f:facet>
                     <h:form>
                         <p:dataTable scrollable="true" scrollHeight="300" emptyMessage="No se encontrar&oacute;n datos" value="#{ventaController.getHistoricoDevueltas(ventaController.mes, ventaController.fecha.year + 1900)}" var="venta">
                            <p:column headerText="Cliente">
@@ -399,10 +411,36 @@
                                 #{venta.fecha}
                             </p:column>
                             <p:column headerText="Kilos">
-                                #{venta.kiloTotal}
+                                #{venta.kiloTotal} Kg
                             </p:column>
-                        </p:dataTable>
+                          <p:column headerText="detalles">
+                             <center> 
+                                <p:commandButton icon="fa fa-list" update="@widgetVar(detalleEspecie)" oncomplete="PF('detalleEspecie').show()">
+                                    <f:setPropertyActionListener target="#{ventaUnidadController.ventaUnidad}"  value="#{venta}"/>
+                                </p:commandButton>
+                            </center>
+                             </p:column>
+                       </p:dataTable>
                     </h:form>
+                </p:dialog>
+                <p:dialog widgetVar="detalleEspecie" modal="true" width="600">
+                  <f:facet name="header">
+                       Detalle de la especie devuelta
+                    </f:facet>
+                    <p:dataTable scrollable="true" emptyMessage="No se encontrar&oacute;n datos" scrollHeight="300" value="#{ventaUnidadController.getDetalleVenta(venta.id)}" var="detalle">
+                      <p:column headerText="Especie">
+                        #{detalle.ubicacion.compraEspecie.especie.nombre}
+                      </p:column> 
+                      <p:column headerText="Precio">
+                      #{detalle.ubicacion.compraEspecie.especie.precio} Bs
+                      </p:column>
+                      <p:column headerText="cantidad">
+                        #{detalle.cantidad} Kg
+                      </p:column>
+                      <p:column headerText="Total">
+                        #{detalle.cantidad * detalle.ubicacion.compraEspecie.especie.precio} Bs
+                    </p:column>
+                    </p:dataTable>
                 </p:dialog>
             </ui:define>
 
