@@ -34,6 +34,13 @@ public class EmpleadoController implements Serializable {
         this.capacitacionProfesionales = capacitacionProfesionales;
     }
 
+    
+    public double getPorcentaje()
+    {
+        double total = (double) this.empleadores.size();
+        double satisfecho = (double) this.empleadores.stream().filter(x -> x.isSatisfecho()).count();
+        return (satisfecho / total) * 100;
+    }
  
     public PieChartModel getCapacitacionProfesionales() {
         capacitacionProfesionales = new PieChartModel();

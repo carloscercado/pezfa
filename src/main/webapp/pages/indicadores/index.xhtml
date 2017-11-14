@@ -156,50 +156,107 @@
                         <p:graphicImage name="/images/ventas.png" width="40 px" />
                         Información de crecimiento mensual de ventas
                     </f:facet>
-                    <p:dataTable scrollable="true" scrollHeight="300" value="#{ventaController.ventasMes}" var="aa">
+                    <h:form>
+                        <p:dataTable scrollable="true" scrollHeight="300" value="#{ventaController.ventasMes}" var="aa">
 
-                        <p:column headerText="Mes">
-                            <span style="font-weight: bold"> #{ventaController.getMes(aa.key)}</span>
-                        </p:column>
-                        <p:column headerText="Monto">
-                            <h:outputLabel value="#{aa.value}">
-                                <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
-                            </h:outputLabel> 
-                        </p:column>
-                        <p:column headerText="Crecimiento">
-                            <span class="hidden">#{porcentaje = ventaController.getProcentanjeVentaEntreMeses(aa.key-1, aa.key-2)}</span>
-                            <span style="font-weight: bold">#{porcentaje} %</span>
-                        </p:column>
-                        <p:column headerText="Medida">
-
-                            <center>
-                                <p:tooltip  for="malo" value="#{indicadorController.ventasMensual.mensajeMalo  }" position="top" />
-                                <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcentaje le indicadorController.ventasMensual.malo}" style="color: #f63a1e"/>
-                                <p:tooltip  for="aceptable" value="#{indicadorController.ventasMensual.mensajeAceptable  }" position="top" />
-                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje le indicadorController.ventasMensual.malo ) or porcentaje eq indicadorController.ventasMensual.malo+1) 
-                                                                                                    and (porcentaje le indicadorController.ventasMensual.bueno-1))}" style="color: #ffff66"/>
-                                <p:tooltip  for="bueno" value="#{indicadorController.ventasMensual.mensajeBueno  }" position="top" />
-                                <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje le indicadorController.ventasMensual.bueno) or porcentaje eq indicadorController.ventasMensual.bueno}" style="color: #1ef664"/>
-                            </center>
-                        </p:column>
-                        <f:facet name="footer">
-
-                            <h3 class="pull-right"> 
-                                Total:
-                                <h:outputLabel value="#{ventaController.totalVentas}">
+                            <p:column headerText="Mes">
+                                <span style="font-weight: bold"> #{ventaController.getMes(aa.key)}</span>
+                            </p:column>
+                            <p:column headerText="Monto">
+                                <h:outputLabel value="#{aa.value}">
                                     <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                                 </h:outputLabel> 
-                            </h3>
-                        </f:facet>
-                    </p:dataTable>
+                            </p:column>
+                            <p:column headerText="Crecimiento">
+                                <span class="hidden">#{porcentaje = ventaController.getProcentanjeVentaEntreMeses(aa.key-1, aa.key-2)}</span>
+                                <span style="font-weight: bold">#{porcentaje} %</span>
+                            </p:column>
+                            <p:column headerText="Medida">
+
+                                <center>
+                                    <p:tooltip  for="malo" value="#{indicadorController.ventasMensual.mensajeMalo  }" position="top" />
+                                    <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcentaje le indicadorController.ventasMensual.malo}" style="color: #f63a1e"/>
+                                    <p:tooltip  for="aceptable" value="#{indicadorController.ventasMensual.mensajeAceptable  }" position="top" />
+                                    <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcentaje le indicadorController.ventasMensual.malo ) or porcentaje eq indicadorController.ventasMensual.malo+1) 
+                                                                                                        and (porcentaje le indicadorController.ventasMensual.bueno-1))}" style="color: #ffff66"/>
+                                    <p:tooltip  for="bueno" value="#{indicadorController.ventasMensual.mensajeBueno  }" position="top" />
+                                    <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje le indicadorController.ventasMensual.bueno) or porcentaje eq indicadorController.ventasMensual.bueno}" style="color: #1ef664"/>
+                                </center>
+                            </p:column>
+                           
+                            <p:column headerText="detalles">
+                             <center> 
+                                <p:commandButton icon="fa fa-list" update="@widgetVar(detalleVenta)" oncomplete="PF('detalleVenta').show()">
+                                    <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{aa.key}"/>
+                                </p:commandButton>
+                            </center>
+                            </p:column>
+                            <f:facet name="footer">
+
+                                <h3 class="pull-right"> 
+                                    Total:
+                                    <h:outputLabel value="#{ventaController.totalVentas}">
+                                        <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
+                                    </h:outputLabel> 
+                                </h3>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
 
                 </p:dialog>
+
+                <p:dialog header="Detalle" widgetVar="detalleVenta" modal="true" width="600">
+                   <f:facet name="header">
+                       Detalle de la venta
+                    </f:facet>
+                    <h:form>
+                        <p:dataTable scrollable="true" emptyMessage="No se encontrar&oacute;n datos" scrollHeight="300" value="#{ventaController.getHistoricoMes(ventaController.mes)}" var="venta">
+                            <p:column headerText="Factura">
+                                #{venta.factura}
+                            </p:column>
+                            <p:column headerText="Fecha">
+                                #{venta.fecha}
+                            </p:column>
+                            <p:column headerText="Total">
+                                #{venta.ingreso}
+                            </p:column>
+                             <p:column headerText="detalles">
+                             <center> 
+                                <p:commandButton icon="fa fa-list" update="@widgetVar(detalleEspecie)" oncomplete="PF('detalleEspecie').show()">
+                                    <f:setPropertyActionListener target="#{ventaUnidadController.ventaUnidad}"  value="#{venta}"/>
+                                </p:commandButton>
+                            </center>
+                             </p:column>
+                       </p:dataTable>
+                    </h:form>
+                </p:dialog>
+                <p:dialog header="Detalle" widgetVar="detalleEspecie" modal="true" width="600">
+                  <f:facet name="header">
+                       Detalle de la especie
+                    </f:facet>
+                    <p:dataTable scrollable="true" emptyMessage="No se encontrar&oacute;n datos" scrollHeight="300" value="#{ventaUnidadController.getDetalleVenta(venta.id)}" var="detalle">
+                      <p:column headerText="Especie">
+                        #{detalle.ubicacion.compraEspecie.especie.nombre}
+                      </p:column> 
+                      <p:column headerText="Precio">
+                      #{detalle.ubicacion.compraEspecie.especie.precio} Bs
+                      </p:column>
+                      <p:column headerText="cantidad">
+                        #{detalle.cantidad} Kg
+                      </p:column>
+                      <p:column headerText="Total">
+                        #{detalle.cantidad * detalle.ubicacion.compraEspecie.especie.precio} Bs
+                    </p:column>
+                    </p:dataTable>
+                </p:dialog>
+
                 <p:dialog  widgetVar="ventasmensualkilos" responsive="true" 
                            resizable="false" draggable="false" modal="true" width="700">
                     <f:facet name="header">
                         <p:graphicImage name="/images/ventas.png" width="40 px" />
                         Información de crecimiento mensual de ventas por Kilos
                     </f:facet>
+                    <h:form>
                     <p:dataTable scrollable="true" scrollHeight="300" value="#{ventaController.ventasMesKilo }" var="aa">
                         <p:column headerText="Mes">
                             <span style="font-weight: bold">#{ventaController.getMes(aa.key)}</span>
@@ -222,6 +279,13 @@
                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje2 le indicadorController.ventasMensualKilos.bueno) or porcentaje2 eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
                             </center>
                         </p:column>
+                        <p:column headerText="detalles">
+                            <center>
+                            <p:commandButton icon="fa fa-list" update="@widgetVar(detalleVenta)" oncomplete="PF('detalleVenta').show()">
+                                <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{aa.key}"/>
+                            </p:commandButton>
+                            </center>
+                        </p:column>
                         <f:facet name="footer">
 
                             <h3 class="pull-right"> 
@@ -232,6 +296,7 @@
                             </h3>
                         </f:facet>
                     </p:dataTable>
+                   </h:form>
                 </p:dialog>
 
                 <p:dialog  header="Informaci&oacute;n sobre la educaci&oacute;n de los empleados" widgetVar="empleadoedu" responsive="true" 
@@ -251,20 +316,15 @@
                     </h:form>
                 </p:dialog>
 
-                <p:dialog width="800" header="Satisfacci&oacute;n de empleados" widgetVar="emplesas" responsive="true" 
+                <p:dialog width="800" widgetVar="emplesas" responsive="true" 
                           resizable="false" height="" draggable="false" modal="true" closable="true">
+                     <f:facet name="header">
+                        <p:graphicImage name="/images/emleado.png" width="40 px" />
+                        Satisfacción de los empleados #{empleadoController.porcentaje}%
+                       </f:facet>
                     <h:form>
                         <p:dataTable scrollable="true" scrollHeight="300" widgetVar="empleadores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="empleado" value="#{empleadoController.empleadores}">
-                            <f:facet name="header">
-                                <div class="row">
-                                    <div  class="col-md-6 text-left header-tabla-hidden">
-                                    </div>
-
-                                    <div class="col-md-6 text-right header-tabla-center">
-                                        <p:inputText id="globalFilter" onkeyup="PF('empleadores').filter()" placeholder="Buscar"/>
-                                    </div>
-                                </div>
-                            </f:facet>
+                           
                             <p:column width="5%" class="column-hidden">
                                 <center>
                                     <span class="fa fa-user" />
@@ -273,7 +333,7 @@
                             <p:column headerText="C&eacute;dula" filterBy="#{empleado.cedula}" filterStyle="display: none">
                                 <span class="fa fa-credit-card"/> #{empleado.cedula} 
                             </p:column>
-                             <p:column  headerText="Nombres" filterBy="#{empleado.primerNombre}" filterStyle="display: none">
+                            <p:column  headerText="Nombres" filterBy="#{empleado.primerNombre}" filterStyle="display: none">
                                 #{empleado.primerNombre}
                             </p:column>
                             <p:column  headerText="Apellidos" filterBy="#{empleado.primerApellido}" filterStyle="display: none">
@@ -294,33 +354,92 @@
                     </h:form>
                 </p:dialog>
 
-                <p:dialog modal="true" widgetVar="devoluciones"  width="600" resizable="false" header="Satisfacci&oacute;n del cliente en el año #{compraController.fecha.year+1900} ">
-                    <p:dataTable scrollable="true" scrollHeight="300" value="#{devolucionController.devoluciones}" emptyMessage="No hay ventas agregadas" var="devol">
-                        <p:column headerText="Mes">
-                            #{devol.mesString}
-                        </p:column>
-                        <p:column headerText="Ventas">
-                            #{devol.ventas}
-                        </p:column>
-                        <p:column headerText="Devoluciones">
-                            #{devol.devoluciones}
-                        </p:column>
-                        <ui:param name="valor" value="#{(100 - devol.devoluciones/devol.ventas*100)}" />
+                <p:dialog modal="true" widgetVar="devoluciones"  width="600" resizable="false">
+                    <f:facet name="header">
+                        <p:graphicImage name="/images/cliente.png" width="40 px" />
+                       Satisfacción del cliente en el año #{compraController.fecha.year+1900} 
+                        </f:facet>
+                    <h:form>
+                        <p:dataTable scrollable="true" scrollHeight="300" value="#{devolucionController.devoluciones}" emptyMessage="No hay ventas agregadas" var="devol">
+                            <p:column headerText="Mes">
+                                #{devol.mesString}
+                            </p:column>
+                            <p:column headerText="Ventas">
+                                #{devol.ventas}
+                            </p:column>
+                            <p:column headerText="Devoluciones">
+                                #{devol.devoluciones}
+                            </p:column>
+                            <ui:param name="valor" value="#{(100 - devol.devoluciones/devol.ventas*100)}" />
 
-                        <p:column headerText="Satisfacci&oacute;n">
-                            #{cavaController.redondearFlotanteParaElFront(valor, 2)} %
-                        </p:column>
-                        <p:column headerText="Estado" class="text-center">
-                            <p:tooltip  for="malo" value="#{indicadorController.satisfaccion.mensajeMalo}" position="top" />
-                            <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{valor le indicadorController.satisfaccion.malo}" style="color: #f63a1e"/>
-                            <p:tooltip  for="aceptable" value="#{indicadorController.satisfaccion.mensajeAceptable}" position="top" />
-                            <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
-                                                                                                and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #ffff66"/>
+                            <p:column headerText="Satisfacci&oacute;n">
+                                #{cavaController.redondearFlotanteParaElFront(valor, 2)} %
+                            </p:column>
+                            <p:column headerText="Estado" class="text-center">
+                                <p:tooltip  for="malo" value="#{indicadorController.satisfaccion.mensajeMalo}" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{valor le indicadorController.satisfaccion.malo}" style="color: #f63a1e"/>
+                                <p:tooltip  for="aceptable" value="#{indicadorController.satisfaccion.mensajeAceptable}" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
+                                                                                                    and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #ffff66"/>
 
-                            <p:tooltip  for="bueno" value="#{indicadorController.satisfaccion.mensajeBueno}" position="top" />
-                            <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" style="color: #1ef664"/>
+                                <p:tooltip  for="bueno" value="#{indicadorController.satisfaccion.mensajeBueno}" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" style="color: #1ef664"/>
 
-                        </p:column>
+                            </p:column>
+                            <p:column headerText="detalles">
+                                <center>
+                                    <p:commandButton rendered="#{!(devol.devoluciones eq 0)}" icon="fa fa-list" update="@widgetVar(detalleDevolucion)" oncomplete="PF('detalleDevolucion').show()"> 
+                                     <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{devol.mes}"/>
+                                    </p:commandButton>
+                                    <span jsf:rendered="#{(devol.devoluciones eq 0)}">No hay devolución</span>
+                                </center>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:dialog>
+                
+                <p:dialog widgetVar="detalleDevolucion" modal="true" width="600" maximizable="false">
+                    <f:facet name="header">
+                       Detalle de la venta
+                    </f:facet>
+                    <h:form>
+                        <p:dataTable scrollable="true" scrollHeight="300" emptyMessage="No se encontrar&oacute;n datos" value="#{ventaController.getHistoricoDevueltas(ventaController.mes, ventaController.fecha.year + 1900)}" var="venta">
+                           <p:column headerText="Cliente">
+                                #{venta.cliente.nombre}
+                            </p:column>
+                            <p:column headerText="Fecha">
+                                #{venta.fecha}
+                            </p:column>
+                            <p:column headerText="Kilos">
+                                #{venta.kiloTotal} Kg
+                            </p:column>
+                          <p:column headerText="detalles">
+                             <center> 
+                                <p:commandButton icon="fa fa-list" update="@widgetVar(detalleEspecie)" oncomplete="PF('detalleEspecie').show()">
+                                    <f:setPropertyActionListener target="#{ventaUnidadController.ventaUnidad}"  value="#{venta}"/>
+                                </p:commandButton>
+                            </center>
+                             </p:column>
+                       </p:dataTable>
+                    </h:form>
+                </p:dialog>
+                <p:dialog widgetVar="detalleEspecie" modal="true" width="600">
+                  <f:facet name="header">
+                       Detalle de la especie devuelta
+                    </f:facet>
+                    <p:dataTable scrollable="true" emptyMessage="No se encontrar&oacute;n datos" scrollHeight="300" value="#{ventaUnidadController.getDetalleVenta(venta.id)}" var="detalle">
+                      <p:column headerText="Especie">
+                        #{detalle.ubicacion.compraEspecie.especie.nombre}
+                      </p:column> 
+                      <p:column headerText="Precio">
+                      #{detalle.ubicacion.compraEspecie.especie.precio} Bs
+                      </p:column>
+                      <p:column headerText="cantidad">
+                        #{detalle.cantidad} Kg
+                      </p:column>
+                      <p:column headerText="Total">
+                        #{detalle.cantidad * detalle.ubicacion.compraEspecie.especie.precio} Bs
+                    </p:column>
                     </p:dataTable>
                 </p:dialog>
             </ui:define>

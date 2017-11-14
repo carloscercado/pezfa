@@ -57,6 +57,7 @@ public class VentaController implements Serializable
     private BarChartModel ventasAnualKilos;
     private Date fecha = new Date();
     private List<Ubicacion> listaInterna = new ArrayList();
+    private int mes;
 
     //constructor
     public VentaController()
@@ -71,6 +72,14 @@ public class VentaController implements Serializable
         venta.setFactura(this.getCodigoFactura());
         venta.setFecha(new Date());
         cant = 1;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
     }
 
     public String getCodigoFactura()
@@ -329,8 +338,19 @@ public class VentaController implements Serializable
 
     public List<Venta> getHistorico()
     {
-        historico = db.read("from Venta ven join fetch ven.cliente");
+        historico = db.read("from Venta ven join fetch ven.cliente order by ven.fecha");
         return historico;
+    }
+    
+    public List<Venta> getHistoricoMes(int mes)
+    {
+        int anio = new Date().getYear() + 1900;
+        return db.read("from Venta ven join fetch ven.cliente where date_part('month', ven.fecha)="+mes+" and date_part('year', ven.fecha)="+anio+" order by ven.fecha");
+    }
+    
+     public List<Venta> getHistoricoDevueltas(int mes, int anio)
+    {
+        return db.read("from Venta ven join fetch ven.cliente where date_part('month', ven.fecha)="+mes+" and date_part('year', ven.fecha)="+anio+" and ven.devuelta = true order by ven.fecha");
     }
 
     public void setHistorico(List<Venta> historico)
