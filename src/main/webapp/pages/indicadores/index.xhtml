@@ -103,6 +103,7 @@
                             #{cavaController.capacidad} %
                         </strong>
                     </f:facet>
+                    <h:form>
                     <p:tooltip  for="info" value="coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
                     <p:dataTable scrollable="true" id="info" scrollHeight="300" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" value="#{cavaController.cavas}">
                         <p:column width="5%" class="column-hidden">
@@ -139,7 +140,15 @@
                             <p:tooltip  for="bueno" value="#{indicadorController.capacidad.mensajeBueno}" position="top" />
                             <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcenta le indicadorController.capacidad.bueno) or porcenta eq indicadorController.capacidad.bueno}" style="color: #1ef664"/>
                         </p:column>
+                        <p:column width="10%" class="column-hidden" headerText="Detalles">
+                            <center>  
+                                <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)" class="btn-secundary"> 
+                                    <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie}"/>
+                                </p:commandButton>
+                            </center> 
+                        </p:column>
                     </p:dataTable>
+                    </h:form>
                     <f:facet name="footer">
 
                         <h3 class="pull-right"> 
@@ -148,6 +157,35 @@
 
                         </h3>
                     </f:facet>
+                </p:dialog>
+                
+                <p:dialog closable="true" header="Detalles de la especie" widgetVar="verDetalle" 
+                          responsive="true" resizable="false" draggable="false" modal="true" width="700">
+                    <h:form>
+                        <span class="fa fa-info-circle fa-2x"/>
+                       Información detallada de una especie en su respectiva cava
+                            <br/>
+                            <p:dataTable  
+                                widgetVar="ubicaciones" var="ubicacion" value="#{unidadController.unidades}"
+                                emptyMessage="No se encontrar&oacute;n datos" reflow="true" scrollable="true" scrollHeight="300">
+                                <f:facet name="header">
+                                    <p:panelGrid columns="6">
+                                        <p:outputLabel value="C&oacute;digo"/>
+                                        <p:outputLabel value="Nombre"/>
+                                        <p:outputLabel value="Cantidad"/>
+                                        <p:outputLabel value="Precio"/>
+                                        <p:outputLabel value="M&aacute;ximo"/>
+                                        <p:outputLabel value="M&iacute;nimo"/>
+                                        <p:outputLabel value="#{especieController.especie.codigo}"/>
+                                        <p:outputLabel value="#{especieController.especie.nombre}"/>
+                                        <p:outputLabel value="#{especieController.especie.cantidad}"> Kg</p:outputLabel>
+                                        <p:outputLabel value="#{especieController.especie.precio}"> Bs </p:outputLabel>
+                                        <p:outputLabel value="#{especieController.especie.maximo}">Kg</p:outputLabel>
+                                        <p:outputLabel value="#{especieController.especie.minimo}">Kg</p:outputLabel>
+                                    </p:panelGrid>
+                                </f:facet>
+                                </p:dataTable>
+                    </h:form>
                 </p:dialog>
 
                 <p:dialog  widgetVar="ventasmensual" responsive="true" 
@@ -425,7 +463,7 @@
                 </p:dialog>
                 <p:dialog widgetVar="detalleEspecie" modal="true" width="600">
                   <f:facet name="header">
-                       Detalle de la especie devuelta
+                       Detalle de la especie
                     </f:facet>
                     <p:dataTable scrollable="true" emptyMessage="No se encontrar&oacute;n datos" scrollHeight="300" value="#{ventaUnidadController.getDetalleVenta(venta.id)}" var="detalle">
                       <p:column headerText="Especie">
