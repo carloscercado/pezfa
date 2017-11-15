@@ -1,4 +1,3 @@
- 
 package com.pezfa.inventario.reporte;
 
 import java.io.File;
@@ -18,7 +17,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 
-
 /**
  *
  * @author Romario
@@ -28,7 +26,7 @@ public class reporte extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         try {
+        try {
             String nombre = request.getParameter("nombre");
             ServletOutputStream out = response.getOutputStream();
             JasperReport jp;
@@ -55,7 +53,7 @@ public class reporte extends HttpServlet {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
                 exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
                 exporter.exportReport();
-                
+
             } else if (nombre.equals("venta")) {
                 response.setContentType("application/pdf");
                 File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/venta.jasper"));
@@ -67,7 +65,7 @@ public class reporte extends HttpServlet {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
                 exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
                 exporter.exportReport();
-            
+
             } else if (nombre.equals("proveedor")) {
                 response.setContentType("application/pdf");
                 File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/proveedor.jasper"));
@@ -79,7 +77,7 @@ public class reporte extends HttpServlet {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
                 exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
                 exporter.exportReport();
-           
+
             } else if (nombre.equals("cliente")) {
                 response.setContentType("application/pdf");
                 File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/cliente.jasper"));
@@ -91,12 +89,22 @@ public class reporte extends HttpServlet {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
                 exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
                 exporter.exportReport();
-            
-            }  /*En algún momento se usará--
-            
-                else if (nombre.equals("ven_1")) {
+
+            } else if (nombre.equals("com_1")) {
                 response.setContentType("application/pdf");
-                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/ven_1.jasper"));
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_1.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+
+            } else if (nombre.equals("com_2")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_2.jasper"));
                 jp = (JasperReport) JRLoader.loadObject(re);
                 Connection con = Conexion.getConection();
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
@@ -106,9 +114,9 @@ public class reporte extends HttpServlet {
                 exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
                 exporter.exportReport();
                 
-            } else if (nombre.equals("ven_2")) {
+            } else if (nombre.equals("com_3")) {
                 response.setContentType("application/pdf");
-                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/ven_2.jasper"));
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_3.jasper"));
                 jp = (JasperReport) JRLoader.loadObject(re);
                 Connection con = Conexion.getConection();
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
@@ -117,14 +125,123 @@ public class reporte extends HttpServlet {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
                 exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
                 exporter.exportReport();
-            } --*/
-            
+                
+            } else if (nombre.equals("com_4")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_4.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+                
+            } else if (nombre.equals("com_5")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_5.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+                
+            } else if (nombre.equals("com_6")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_6.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+                
+            } else if (nombre.equals("com_7")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_7.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+                
+            } else if (nombre.equals("com_8")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_8.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+                
+            } else if (nombre.equals("com_9")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_9.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+                
+            } else if (nombre.equals("com_10")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_10.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+                
+            } else if (nombre.equals("com_11")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_11.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+                
+            } else if (nombre.equals("com_12")) {
+                response.setContentType("application/pdf");
+                File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/com_12.jasper"));
+                jp = (JasperReport) JRLoader.loadObject(re);
+                Connection con = Conexion.getConection();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jp, null, con);
+                JRExporter exporter = new JRPdfExporter();
+
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+                exporter.exportReport();
+             
+            } 
+           
+
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
