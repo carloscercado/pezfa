@@ -284,7 +284,7 @@
                                                 <li>
                                                     <a href="#" onclick="PF('reporte1').show()">
                                                         <span class="fa fa-file-pdf-o"></span>
-                                                        <strong>Reportes por fecha</strong>
+                                                        <strong>Reportes mensuales</strong>
                                                     </a>
                                                 </li>
 
@@ -417,15 +417,110 @@
                     </p:dialog> 
 
                     <p:dialog header="Elegir fecha del reporte" draggable="false" resizable="false" modal="true" 
-                              widgetVar="reporte1" responsive="true" width="500">
+                              widgetVar="reporte1" responsive="true" width="700">
                         <h:form>
                             <div class="text-muted" style="font-weight: bold">
                                 <span class="fa fa-info-circle fa-2x"/>
-                                Seleccione un día, mes y/o año para ver el reporte.
+                                Seleccione un mes de venta o compra para ver el reporte.
                             </div>
-                            <p:panelGrid columns="2">
-                                <h:outputLabel for="event" value="Seleccionar: "/>
-                                <p:calendar pattern="dd/MM/yyyy" id="event" />
+
+                            <p:row>
+                                <h:outputLabel value="Seleccionar reportes de compra: "/>
+                            </p:row>
+                            <br/>
+                            
+                            <p:panelGrid columns="6"> 
+                                <p:column colspan="2">
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_1">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Enero</strong>
+                                    </a>
+                                </p:column>
+
+
+                               <p:column colspan="2"> 
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_2">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Febrero</strong>
+                                    </a>
+                                </p:column>
+                                
+                                 <p:column colspan="2">
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_3">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Marzo</strong>
+                                    </a>
+                                </p:column>
+
+
+                                <p:column colspan="2"> 
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_4">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Abril</strong>
+                                    </a>
+                                </p:column>
+                                
+                                 <p:column colspan="2">
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_5">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Mayo</strong>
+                                    </a>
+                                </p:column>
+
+
+                               <p:column colspan="2"> 
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_6">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Junio</strong>
+                                    </a>
+                                </p:column>
+                                
+                                <p:column colspan="2">
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_7">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Julio</strong>
+                                    </a>
+                                </p:column>
+
+
+                               <p:column colspan="2"> 
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_8">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Agosto</strong>
+                                    </a>
+                                </p:column>
+                                
+                                <p:column colspan="2">
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_9">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Septiembre</strong>
+                                    </a>
+                                </p:column>
+
+
+                                <p:column colspan="2"> 
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_10">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Octubre</strong>
+                                    </a>
+                                </p:column>
+                                
+                                 <p:column colspan="2">
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_11">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Noviembre</strong>
+                                    </a>
+                                </p:column>
+
+
+                                <p:column colspan="2">
+                                    <a target="_blank" href="/pezfa/reporte?nombre=com_12">
+                                        <span class="fa fa-file-pdf-o"></span>
+                                        <strong>Diciembre</strong>
+                                    </a>
+                                </p:column>
+
+
                             </p:panelGrid>
                         </h:form>
                     </p:dialog>
