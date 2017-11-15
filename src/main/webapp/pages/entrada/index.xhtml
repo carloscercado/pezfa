@@ -181,9 +181,12 @@
                                             <p:outputLabel value="#{compraEspecieController.compraEspecie.costo}">
                                                 <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
                                             </p:outputLabel>
-                                            <br/><br/>
+                                            <br/>
+                                            <span class="hidden">
+                                                #{cantidad_disponible = compraEspecieController.compraEspecie.cantidad - compraEspecieController.compraEspecie.ubicados}
+                                            </span>
                                             Cantidad:
-                                            <p:outputLabel  value="#{compraEspecieController.compraEspecie.cantidad}">
+                                            <p:outputLabel  value="#{cantidad_disponible}">
                                                 <f:convertNumber locale="es" minFractionDigits="2" maxFractionDigits="2" />
                                             </p:outputLabel> Kg
                                              <br/><br/>
@@ -242,7 +245,7 @@
                                         <div class="icon">
                                             <span class="fa fa-balance-scale fa-3x" style="color: #045491"/> <br/>
                                             <p:inputNumber size="10" value="#{unidadController.unidad.peso}" symbol=" Kg" symbolPosition="suffix"
-                                                           placeholder="Peso" maxValue="#{compraEspecieController.compraEspecie.cantidad}" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="."
+                                                           placeholder="Peso" maxValue="#{cantidad_disponible}" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="."
                                                            requiredMessage="Ingrese el peso"/>
 
                                         </div>
