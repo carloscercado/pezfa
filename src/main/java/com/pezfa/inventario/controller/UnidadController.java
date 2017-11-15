@@ -1,12 +1,11 @@
 package com.pezfa.inventario.controller;
 
-import com.pezfa.inventario.database.AuditoriaDB;
 import com.pezfa.inventario.database.UbicacionDB;
-import com.pezfa.inventario.models.Auditoria;
 import com.pezfa.inventario.models.Ubicacion;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -37,6 +36,27 @@ public class UnidadController implements Serializable {
     public EspecieController getEspecieController() {
         return especieController;
     }
+
+    public Set<Ubicacion> getEspecies(int id) {
+        List<Ubicacion> lista;
+        lista = db.read("from Ubicacion ubi join fetch ubi.compraEspecie cp join fetch cp.especie esp where ubi.cava="+id);
+        Set<Ubicacion> resultado = new HashSet<>();
+        for(Ubicacion obj: lista)
+        {
+            resultado.add(obj);
+        }
+        
+        return resultado;
+        
+    }
+    
+    public List<Ubicacion> getEspeciesDetalles(int id) {
+        return db.read("from Ubicacion ubi join fetch ubi.compraEspecie cp join fetch cp.especie esp join fetch cp.compra where ubi.cava="+id);
+
+    }
+
+
+   
 
     public void setEspecieController(EspecieController especieController) {
         this.especieController = especieController;

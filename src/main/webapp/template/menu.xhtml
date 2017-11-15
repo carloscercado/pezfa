@@ -244,7 +244,7 @@
                                                 <li>
                                                     <a target="_blank" href="/pezfa/reporte?nombre=compra">
                                                         <span class="fa fa-file-pdf-o"></span>
-                                                        <strong>Reporte de Compras</strong>
+                                                        <strong>Reporte de compras</strong>
                                                     </a>
                                                 </li>
 
@@ -252,7 +252,7 @@
                                                 <li>
                                                     <a target="_blank" href="/pezfa/reporte?nombre=venta">
                                                         <span class="fa fa-file-pdf-o"></span>
-                                                        <strong>Reporte de Ventas</strong>
+                                                        <strong>Reporte de ventas</strong>
                                                     </a>
                                                 </li>
 
@@ -268,7 +268,7 @@
                                                 <li>
                                                     <a target="_blank" href="/pezfa/reporte?nombre=cliente">
                                                         <span class="fa fa-file-pdf-o"></span>
-                                                        <strong>Reporte de Clientes</strong>
+                                                        <strong>Reporte de clientes</strong>
                                                     </a>
                                                 </li>
 
@@ -276,7 +276,15 @@
                                                 <li>
                                                     <a target="_blank" href="/pezfa/reporte?nombre=inventario">
                                                         <span class="fa fa-file-pdf-o"></span>
-                                                        <strong>Reporte General de Especies</strong>
+                                                        <strong>Reporte general de especies</strong>
+                                                    </a>
+                                                </li>
+
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <a href="#" onclick="PF('reporte1').show()">
+                                                        <span class="fa fa-file-pdf-o"></span>
+                                                        <strong>Reportes por fecha</strong>
                                                     </a>
                                                 </li>
 
@@ -407,6 +415,22 @@
                             </center>
                         </h:form>
                     </p:dialog> 
+
+                    <p:dialog header="Elegir fecha del reporte" draggable="false" resizable="false" modal="true" 
+                              widgetVar="reporte1" responsive="true" width="500">
+                        <h:form>
+                            <div class="text-muted" style="font-weight: bold">
+                                <span class="fa fa-info-circle fa-2x"/>
+                                Seleccione un día, mes y/o año para ver el reporte.
+                            </div>
+                            <p:panelGrid columns="2">
+                                <h:outputLabel for="event" value="Seleccionar: "/>
+                                <p:calendar pattern="dd/MM/yyyy" id="event" />
+                            </p:panelGrid>
+                        </h:form>
+                    </p:dialog>
+
+
                 </ui:insert>
             </div>
 

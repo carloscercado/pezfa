@@ -206,6 +206,7 @@ create table if not exists venta_especie
 (
     id serial primary key,
     cantidad float not null,
+    precio numeric(10,2) default 0,
     ubicacion int not null references ubicacion(id),
     venta int not null references venta (id)
 );

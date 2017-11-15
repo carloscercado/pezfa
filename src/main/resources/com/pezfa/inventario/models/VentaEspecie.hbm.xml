@@ -14,6 +14,9 @@
         <many-to-one name="venta" class="com.pezfa.inventario.models.Venta" fetch="select">
             <column name="venta" not-null="true" />
         </many-to-one>
+        <property name="precio" type="big_decimal">
+            <column name="precio" precision="10" default="0" />
+        </property>
         <property name="cantidad" type="double">
             <column name="cantidad" precision="17" scale="17" not-null="true" />
         </property>

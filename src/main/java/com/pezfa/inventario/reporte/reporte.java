@@ -1,4 +1,4 @@
-
+ 
 package com.pezfa.inventario.reporte;
 
 import java.io.File;
@@ -92,7 +92,9 @@ public class reporte extends HttpServlet {
                 exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
                 exporter.exportReport();
             
-            }  else if (nombre.equals("ven_1")) {
+            }  /*En algún momento se usará--
+            
+                else if (nombre.equals("ven_1")) {
                 response.setContentType("application/pdf");
                 File re = new File(this.getServletContext().getRealPath("WEB-INF/reportes/ven_1.jasper"));
                 jp = (JasperReport) JRLoader.loadObject(re);
@@ -115,7 +117,7 @@ public class reporte extends HttpServlet {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
                 exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
                 exporter.exportReport();
-            }
+            } --*/
             
         } catch (Exception e) {
             System.out.println(e);

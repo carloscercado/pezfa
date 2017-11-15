@@ -15,7 +15,7 @@ public class Conexion {
             Class.forName("org.postgresql.Driver");
             c = DriverManager
                     .getConnection("jdbc:postgresql://localhost:5432/pezfa",
-                            "postgres", "12345678");
+                            "postgres", "admin");
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

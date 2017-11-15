@@ -34,6 +34,9 @@ update especie set cantidad=cantidad-objeto.cantidad where id=objeto.especie;
 update cava set capacidad_disponible = (capacidad_disponible + new.cantidad) where id = objeto.cava;
 update venta set ingreso = ingreso+(objeto.valor*objeto.cantidad) where id = new.venta;
 update venta set kilo_total = (kilo_total+objeto.cantidad) where id = new.venta;
+update ubicacion set peso = peso - new.cantidad where id = new.ubicacion;
+update ubicacion set estado = false where id = new.ubicacion and new.cantidad>=peso;
+
 
 end loop;
 return null;
@@ -55,6 +58,7 @@ update producto set cantidad=cantidad-1 where id=objeto.unidad;
 update venta set ingreso = ingreso + objeto.precio where id = new.venta;
 update unidad set estado = false where id = objeto.unidad;
 end loop;
+
 return null;
 end;
 $BODY$

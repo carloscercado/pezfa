@@ -20,6 +20,7 @@
         <property name="costo" type="big_decimal">
             <column name="costo" precision="10" />
         </property>
+       
         <property name="ubicados" type="java.lang.Double">
             <column name="ubicados" default="0" precision="17" scale="17" />
         </property>

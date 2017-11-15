@@ -1,10 +1,13 @@
 package com.pezfa.inventario.models;
 
+import java.math.BigDecimal;
+
 public class VentaEspecie extends VentaDetalle  implements java.io.Serializable {
 
 
      private int id;
      private Ubicacion ubicacion;
+     private BigDecimal precio;
 
     public VentaEspecie() {
     }
@@ -16,6 +19,15 @@ public class VentaEspecie extends VentaDetalle  implements java.io.Serializable 
     public void setId(int id) {
         this.id = id;
     }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+    
     public Ubicacion getUbicacion() {
         return this.ubicacion;
     }
