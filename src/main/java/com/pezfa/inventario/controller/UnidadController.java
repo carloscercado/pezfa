@@ -50,12 +50,16 @@ public class UnidadController implements Serializable {
         
     }
     
-    public List<Ubicacion> getEspeciesDetalles(int id) {
-        return db.read("from Ubicacion ubi join fetch ubi.compraEspecie cp join fetch cp.especie esp join fetch cp.compra where ubi.cava="+id);
+    public List<Ubicacion> getEspeciesDetalles(int id, int especie) {
+        return db.read("from Ubicacion ubi join fetch ubi.compraEspecie cp join fetch cp.especie esp join fetch cp.compra where ubi.peso != 0 and esp.id="+especie+" and ubi.cava="+id);
 
     }
+    
+    public double getCantidadCava(int id, int especie) {
+        List<Ubicacion> lista = db.read("from Ubicacion ubi join fetch ubi.compraEspecie cp join fetch cp.especie esp join fetch cp.compra where ubi.peso != 0 and esp.id="+especie+" and ubi.cava="+id);
+        return lista.stream().mapToDouble(x -> x.getPeso()).sum();
 
-
+    }
    
 
     public void setEspecieController(EspecieController especieController) {

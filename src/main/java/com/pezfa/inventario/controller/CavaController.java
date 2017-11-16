@@ -67,6 +67,18 @@ public class CavaController implements Serializable {
     public void setAlmacenController(AlmacenController almacenController) {
         this.almacenController = almacenController;
     }
+    
+    public double getCapacidadDisponibleAlmacen(int id)
+    {
+        List<Cava> cavas = db.read("from Cava cav where cav.id ="+id);
+        return cavas.stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
+    }
+    
+    public double getCapacidadAlmacen(int id)
+    {
+        List<Cava> cavas = db.read("from Cava cav where cav.id ="+id);
+        return cavas.stream().mapToDouble(x -> x.getCapacidad()).sum();
+    }
 
     public static double redondear(double value, int places) {
         if (places < 0) {
