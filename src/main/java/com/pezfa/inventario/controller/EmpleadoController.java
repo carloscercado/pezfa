@@ -33,8 +33,6 @@ public class EmpleadoController implements Serializable {
     public void setCapacitacionProfesionales(PieChartModel capacitacionProfesionales) {
         this.capacitacionProfesionales = capacitacionProfesionales;
     }
-
-    
     public double getPorcentaje()
     {
         double total = (double) this.empleadores.size();

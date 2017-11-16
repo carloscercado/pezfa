@@ -88,22 +88,7 @@
                           resizable="false" height="" draggable="false" modal="true" closable="true">
                     <f:facet name="header">
                         <p:graphicImage name="/images/almacen.png" width="40 px" />
-                        Disponibilidad del espacio físico de los almacenes
-                        <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
-                        <strong jsf:id="malo" jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
-                                style="color: #f63a1e; font-size: 18px">
-                            #{cavaController.capacidad} %
-                        </strong>
-                        <p:tooltip  for="estable" value="#{indicadorController.capacidad.mensajeAceptable}" position="top" />
-                        <strong jsf:id="estable" style="color: #ffff33; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
-                                                                                                         and (cavaController.capacidad le indicadorController.capacidad.bueno-1))}" >
-                                #{cavaController.capacidad} %
-                        </strong>
-                        <p:tooltip  for="bueno" value="#{indicadorController.capacidad.mensajeBueno}" position="top" />
-                        <strong jsf:id="bueno" jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" 
-                                style="color: #1ef664; font-size: 18px">
-                            #{cavaController.capacidad} %
-                        </strong>
+                        Disponibilidad del espacio físico de cada cava
                     </f:facet>
                     <h:form>
                         <p:tooltip  for="info" value="coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
@@ -125,12 +110,12 @@
                             <p:column filterBy="#{cava.capacidadDisponible}"  headerText="Capacidad disponible" filterStyle="display: none">
                                 #{cava.capacidadDisponible} Kg
                             </p:column>
-                            
                             <ui:param name="porcenta" value="#{(cava.capacidadDisponible/cava.capacidad)*100}" />
                             <p:column headerText="Porcentaje" >
                                 #{porcenta} %
                             </p:column>
                             <p:column headerText="Estado">
+                                <center>
                                 <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcenta le indicadorController.capacidad.malo}" style="color: #f63a1e"/>
                                 <p:tooltip  for="aceptable" value="#{indicadorController.capacidad.mensajeAceptable}" position="top" />
@@ -138,34 +123,50 @@
                                                                                                     and (porcenta le indicadorController.capacidad.bueno-1))}" style="color: #ffff33"/>
                                 <p:tooltip  for="bueno" value="#{indicadorController.capacidad.mensajeBueno}" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcenta le indicadorController.capacidad.bueno) or porcenta eq indicadorController.capacidad.bueno}" style="color: #1ef664"/>
+                                </center>
                             </p:column>
                             <p:column width="10%" class="column-hidden" headerText="Detalles">
                                 <center>  
                                     <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)" class="btn-secundary"> 
                                         <f:setPropertyActionListener target="#{cavaController.cava}" value="#{cava}"/>
                                     </p:commandButton>
-                                </center> 
+                                </center>
                             </p:column>
                         </p:dataTable>
                     </h:form>
-                    <f:facet name="footer">
-
-                        <h3 class="pull-right"> 
-                            Total de espacio físico: Kg 
-                            <h:outputLabel value="#{cavaController.capacidadTotal}"/>
-
-                        </h3>
-                    </f:facet>
                 </p:dialog>
                 
                 <p:dialog widgetVar="detalleAlmacen" modal="true" closable="true" 
                     responsive="true" resizable="false" draggable="false" width="700">
                     <f:facet name="header">
-                        Detalles por almacenes
+                        <p:graphicImage name="/images/almacen.png" width="40 px" />
+                        Disponibilidad del espacio físico de los almacenes
+                        <p:tooltip  for="critico" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
+                        <strong jsf:id="critico" jsf:rendered="#{cavaController.capacidad le indicadorController.capacidad.malo}"
+                                style="color: #f63a1e; font-size: 18px">
+                            #{cavaController.capacidad} %
+                        </strong>
+                        <p:tooltip  for="tolerable" value="#{indicadorController.capacidad.mensajeAceptable}" position="top" />
+                        <strong jsf:id="tolerable" style="color: #ffff33; font-size: 18px" jsf:rendered="#{((!(cavaController.capacidad le indicadorController.capacidad.malo ) or cavaController.capacidad eq indicadorController.capacidad.malo+1 ) 
+                                                                                                         and (cavaController.capacidad le indicadorController.capacidad.bueno-1))}" >
+                                #{cavaController.capacidad} %
+                        </strong>
+                        <p:tooltip  for="optimo" value="#{indicadorController.capacidad.mensajeBueno}" position="top" />
+                        <strong jsf:id="optimo" jsf:rendered="#{!(cavaController.capacidad le indicadorController.capacidad.bueno)}" 
+                                style="color: #1ef664; font-size: 18px">
+                            #{cavaController.capacidad} %
+                        </strong>
                     </f:facet>
                     <h:form>
-                        <p:dataTable value="#{almacenController.almacenes}" var="almacen">
-                            <p:column headerText="Almacen">
+                        
+                        <p:dataTable value="#{almacenController.almacenes}" var="almacen"
+                      scrollHeight="300" scrollable="true" emptyMessage="No se encontrar&oacute;n datos" reflow="true">
+                            <p:column width="5%" class="column-hidden">
+                            <center>
+                                <span class="fa fa-bank" />
+                            </center>
+                            </p:column>
+                            <p:column headerText="Almac&eacute;n">
                                 #{almacen.nombre}
                             </p:column>
                             <ui:param name="capacidad" value="#{cavaController.getCapacidadAlmacen(almacen.id)}" />
@@ -177,12 +178,12 @@
                             <p:column headerText="Capacidad disponible">
                                 #{capacidad_disponible} Kg
                             </p:column>
-                            
                             <ui:param name="porcenta" value="#{capacidad_disponible/capacidad * 100}" />
                             <p:column headerText="Porcentaje" >
                                 #{porcenta} %
                             </p:column>
                             <p:column headerText="Estado">
+                                <center>
                                 <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcenta le indicadorController.capacidad.malo}" style="color: #f63a1e"/>
                                 <p:tooltip  for="aceptable" value="#{indicadorController.capacidad.mensajeAceptable}" position="top" />
@@ -190,6 +191,7 @@
                                                                                                     and (porcenta le indicadorController.capacidad.bueno-1))}" style="color: #ffff33"/>
                                 <p:tooltip  for="bueno" value="#{indicadorController.capacidad.mensajeBueno}" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcenta le indicadorController.capacidad.bueno) or porcenta eq indicadorController.capacidad.bueno}" style="color: #1ef664"/>
+                            </center>
                             </p:column>
                             <p:column width="10%" class="column-hidden" headerText="Detalles">
                                 <center>  
@@ -199,6 +201,13 @@
                                     </p:commandButton>
                                 </center> 
                             </p:column>
+                            <ui:param name="total" value="#{capacidad/cavaController.capacidadTotal}" />
+                            <f:facet name="footer">
+                            <h3 class="pull-right"> 
+                                Total de espacio físico disponible: Kg 
+                                <h:outputLabel value="#{cavaController.espacioFisico}"/>
+                            </h3>
+                            </f:facet>
                         </p:dataTable>
                     </h:form>
                 </p:dialog>

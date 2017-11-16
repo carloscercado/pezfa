@@ -130,6 +130,9 @@ public class CavaController implements Serializable {
         cavas = db.read("from Cava cavita join fetch cavita.almacen");
         return cavas;
     }
+    public double getEspacioFisico(){
+        return this.getCavas().stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
+    }
 
     public double getCapacidadTotal() {
         return this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
