@@ -195,15 +195,18 @@
                     </h:form>
                 </p:dialog>
 
-                <p:dialog closable="true" header="Detalles de la especie " widgetVar="verDetalleEspecie" 
+                <p:dialog closable="true" header="Detalles de la especie" widgetVar="verDetalleEspecie" 
                           responsive="true" resizable="false" draggable="false" modal="true" width="600">
                     <h:form>
                         <span class="fa fa-info-circle fa-2x"/>
-                        Información detallada de la especie #{especie.compraEspecie.especie.nombre}
+                        Información detallada de la especie
                         <br/>
                         <p:dataTable  
                             widgetVar="ubicaciones" var="especie" value="#{unidadController.getEspeciesDetalles(cavaController.cava.id)}"
                             emptyMessage="No se encontrar&oacute;n datos" reflow="true" scrollable="true" scrollHeight="300">
+                            <p:column headerText="C&oacute;digo">
+                                #{especie.compraEspecie.especie.nombre}
+                            </p:column>
                             <p:column headerText="C&oacute;digo">
                                 #{especie.compraEspecie.especie.codigo}
                             </p:column>
