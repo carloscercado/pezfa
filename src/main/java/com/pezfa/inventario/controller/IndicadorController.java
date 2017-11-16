@@ -23,6 +23,8 @@ public class IndicadorController implements Serializable {
     private Indicador indicador = null;
     private Indicador capacidad = null;
     private Indicador satisfaccion = null;
+    private Indicador cava = null;
+    private Indicador empleado = null;
     private List<Indicador> indicadores = null;
     private IndicadorDB db;
     private CompraEspecieDB db1;
@@ -39,7 +41,18 @@ public class IndicadorController implements Serializable {
         db3 = new CompraDB();
         capacidad = this.getCapacidad();
         satisfaccion = this.getSatisfaccion();
+        empleado = this.getEmpleado();
+        cava = this.getCava();
 
+    }
+
+    public Indicador getCava() {
+        cava = db.read("from Indicador indi where indi.id=6").get(0);
+        return cava;
+    }
+
+    public void setCava(Indicador cava) {
+        this.cava = cava;
     }
 
     public Indicador getVentasMensual() {
@@ -67,6 +80,15 @@ public class IndicadorController implements Serializable {
 
     public void setSatisfaccion(Indicador satisfaccion) {
         this.satisfaccion = satisfaccion;
+    }
+
+    public Indicador getEmpleado() {
+        empleado = db.read("from Indicador indi where indi.id=5").get(0);
+        return empleado;
+    }
+
+    public void setEmpleado(Indicador empleado) {
+        this.empleado = empleado;
     }
 
     

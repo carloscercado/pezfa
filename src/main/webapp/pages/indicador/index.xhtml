@@ -27,17 +27,20 @@
                             #{indicador.nombre}
                         </p:column>
 
-                        <p:column   headerText="Bueno" filterStyle="display: none">
-                            #{indicador.bueno} %
-                        </p:column>
-
                         <p:column filterBy="#{indicador.malo} "  headerText="Malo" filterStyle="display: none">
-                            #{indicador.malo} %
+                          Menor #{indicador.malo} %
                         </p:column>
-
-                        <p:column  headerText="Aceptable" filterStyle="display: none">
-                            #{indicador.malo} % - #{indicador.bueno} %
+                        
+                         <ui:param name="malo" value="#{indicador.malo + 1}"/>
+                         <ui:param name="bueno" value="#{indicador.bueno - 1}"/>
+                         <p:column  headerText="Aceptable" filterStyle="display: none">
+                          Mayor #{malo} % - Menor #{bueno} %
                         </p:column>
+                        
+                        <p:column   headerText="Bueno" filterStyle="display: none">
+                            Mayor #{indicador.bueno} %
+                        </p:column>
+                         
                         <p:column  headerText="Descripcion" filterStyle="display: none">
                             #{indicador.descripcion}
                         </p:column>

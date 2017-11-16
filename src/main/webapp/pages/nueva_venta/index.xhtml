@@ -59,10 +59,10 @@
                                     </div>
                                 </center>
                             </div>
-                        </div>
+                    </div>
                     </div>
                     <br/>
-                    <p:dataTable scrollable="true" scrollHeight="300" id="tabla" widgetVar="detalles" 
+                    <p:dataTable id="tabla" widgetVar="detalles" 
                                   var="detalle" value="#{ventaController.lista}"
                                   emptyMessage="No hay productos agregados." reflow="true">
                         <f:facet name="header">
@@ -119,32 +119,30 @@
                                 </h:outputLabel>
                             </div>
                         </p:column>
-
                         <f:facet name="footer">
                             <div class="row">
                                 <div  class="col-md-6 text-left ">
-                                    Total:
-                                    <h:outputLabel value="#{ventaController.total}">
+                                    Total: 
+                                    <p:outputLabel value="#{ventaController.total}">
                                         <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
-                                    </h:outputLabel>
+                                    </p:outputLabel>
                                 </div>
 
                                 <div class="col-md-6 text-right header-tabla-center">
                                     <p:growl id="mensaje" life="5000"/>
 
-                                    <p:commandButton id="guardar" value="Guardar venta" class="btn-success" icon="fa fa-save" update="mensaje @widgetVar(productossalida) todo menu2" 
-                                                     actionListener="#{ventaController.register()}"/>
+                                    <p:commandButton id="guardar" value="Guardar venta" class="btn-success"
+                                   icon="fa fa-save" update="mensaje @widgetVar(productossalida) todo menu2" actionListener="#{ventaController.register()}"/>
                                     <p:blockUI block="tabla" trigger="guardar">
                                         Registrando...<br/>
                                         <span class="fa fa-spin fa-3x fa-spinner"></span>
                                     </p:blockUI>
                                 </div>
                             </div>
-
                         </f:facet>
                     </p:dataTable>
                 </h:form>
-
+            
                 <p:dialog closable="false" header="Registrar cliente" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/>  

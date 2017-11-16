@@ -95,7 +95,7 @@ create table if not exists producto
     maximo int default 10,
     minimo int default 100,
     categoria varchar(20) not null,
-    precio numeric(10,2) not null,
+    precio numeric(15,2) not null,
     descripcion text not null
 );
 
@@ -104,7 +104,7 @@ create table if not exists produccion
     id serial primary key,
     descripcion text not null,
     fecha date default now()::date,
-    inversion numeric(10,2) default 0
+    inversion numeric(15,2) default 0
 );
 
 create table if not exists especie
@@ -116,7 +116,7 @@ create table if not exists especie
     maximo float default 100,
     minimo float default 10,
     tipo varchar(20) not null,
-    precio numeric(10,2) default 0
+    precio numeric(15,2) default 0
 );
 
 create table if not exists usuario
@@ -148,7 +148,7 @@ create table if not exists compra
     camion int not null references camion(id),
     chofer int not null references empleado(id),
     estado varchar(20),
-    gasto numeric(10,2) default 0,
+    gasto numeric(15,2) default 0,
     kilo_total float default 0
 );
 
@@ -158,7 +158,7 @@ create table if not exists compra_insumo
     compra int not null references compra(id),
     insumo int not null references insumo(id),
     cantidad float not null,
-    costo numeric(10,2) default 0
+    costo numeric(15,2) default 0
 );
 create table if not exists venta
 (
@@ -167,7 +167,7 @@ create table if not exists venta
     fecha date default now()::date,
     cliente int not null references cliente (id),
     usuario int not null references usuario(id),
-    ingreso numeric(10,2) default 0,
+    ingreso numeric(15,2) default 0,
     kilo_total float default 0,
     devuelta boolean default false
 );
@@ -188,7 +188,7 @@ create table if not exists compra_especie
     compra int not null references compra(id),
     especie int not null references especie(id),
     cantidad float not null,
-    costo numeric(10,2) default 0,
+    costo numeric(15,2) default 0,
     ubicados float default 0
 );
 
@@ -206,7 +206,7 @@ create table if not exists venta_especie
 (
     id serial primary key,
     cantidad float not null,
-    precio numeric(10,2) default 0,
+    precio numeric(15,2) default 0,
     ubicacion int not null references ubicacion(id),
     venta int not null references venta (id)
 );
