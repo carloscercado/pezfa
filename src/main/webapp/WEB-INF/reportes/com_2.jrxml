@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select compra.orden, proveedor.rif, proveedor.nombre, compra.fecha, compra.estado, compra.gasto, compra.kilo_total, compra.chofer, empleado.primer_nombre, empleado.primer_apellido
-from compra, proveedor, empleado, usuario where extract (month from fecha)='04' and usuario.id=empleado.id and usuario.id=1 and compra.proveedor=proveedor.id order by fecha]]>
+from compra, proveedor, empleado, usuario where extract (month from fecha)='02' and usuario.id=empleado.id and usuario.id=1 and compra.proveedor=proveedor.id order by fecha]]>
 	</queryString>
 	<field name="orden" class="java.lang.String"/>
 	<field name="rif" class="java.lang.String"/>
