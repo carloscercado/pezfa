@@ -37,7 +37,10 @@ public class VentaDB implements Crud<Venta> {
             Ubicacion unidad = this.getUbicacion(codigo, obj.getCantidad());
             ((VentaEspecie) obj).setUbicacion(unidad);
             ((VentaEspecie) obj).setVenta(venta);
+            BigDecimal precio = ((VentaEspecie) obj).getUbicacion().getCompraEspecie().getEspecie().getPrecio();
+            ((VentaEspecie) obj).setPrecio(precio);
             VentaEspecieDB ventaEsDB = new VentaEspecieDB();
+            
             ventaEsDB.create((VentaEspecie) obj);
             lista.add(unidad);
             /* } else {
