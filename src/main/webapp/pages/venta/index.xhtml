@@ -57,7 +57,14 @@
                                 <p:commandButton rendered="#{!venta.devuelta}" icon="fa fa-edit" title="Reclamos" oncomplete="PF('devolucion').show()" update="@widgetVar(devolucion)" class="btn-warning">
                                     <f:setPropertyActionListener target="#{ventaController.venta}" value="#{venta}"/>
                                 </p:commandButton>
-                                <p:outputLabel value="Reclamo" rendered="#{venta.devuelta}"/>
+                                <div jsf:rendered="#{venta.devuelta}">
+                                  
+                                    <p:commandButton icon="fa fa-search" title="detalles" oncomplete="PF('motivo').show()" 
+                                                     update="@widgetVar(motivo)" class="btn-primary">
+                                    <f:setPropertyActionListener target="#{ventaController.venta}" value="#{venta}"/>
+                                </p:commandButton>
+                                </div>
+                                
                             </center> 
                         </p:column>
                     </p:dataTable>
@@ -125,6 +132,27 @@
                             <br/>
                             <p:commandButton value="Si, estoy seguro" icon="fa fa-check"  actionListener="#{ventaController.registrarDevolucion()}"/> 
                             <p:commandButton value="No" icon="fa fa-times" class="btn-danger" oncomplete="PF('devolucion').hide()"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+                
+                 <p:dialog widgetVar="motivo" modal="true" responsive="true" 
+                          resizable="false" draggable="false"
+                          header="titulo que quieres">
+                    <h:form>
+                        
+                        <p:growl id="mensaje"/> 
+                        <center>
+                            pones aqui datos de la venta si quieres: #{ventaController.venta.fecha}
+                            <br/>
+                            <br/>
+                            motivo fue el siguiente
+                            <br/>
+                            <p:inputTextarea value="#{ventaController.venta.motivo}" placeholder="Motivo de....." autoResize="true"
+                                             maxlength="120" cols="60" readonly="true"/>
+                            <br/>
+                            <br/>
+                            
                         </center>
                     </h:form>
                 </p:dialog>
