@@ -33,17 +33,7 @@ public class EmpleadoController implements Serializable {
     public void setCapacitacionProfesionales(PieChartModel capacitacionProfesionales) {
         this.capacitacionProfesionales = capacitacionProfesionales;
     }
-    public double getPorcentaje()
-    {
-        double total = (double) this.empleadores.size();
-        double satisfecho = (double) this.empleadores.stream().filter(x -> x.isSatisfecho()).count();
-        double valor = (satisfecho / total) * 100;
-        if (Double.isInfinite(valor) || Double.isNaN(valor))
-        {
-            valor = 0;
-        }
-        return CavaController.redondear(valor, 2);
-    }
+
  
     public PieChartModel getCapacitacionProfesionales() {
         capacitacionProfesionales = new PieChartModel();
@@ -65,14 +55,16 @@ public class EmpleadoController implements Serializable {
     public PieChartModel getSatisfaccionEmpleado()
     {
         SatisfaccionEmpleado = new PieChartModel();
-        List<Empleado> todos = db.read("from Empleado");
-        float satisfechos = todos.stream().filter(x -> x.isSatisfecho()).count();
-        SatisfaccionEmpleado.set("Satisfechos", satisfechos);
-        SatisfaccionEmpleado.set("Insastisfechos", todos.size());
+        double muySatisfecho = (double) this.empleadores.stream().filter(x -> x.getSatisfecho().equals("MUY SATISFECHO")).count();
+        double pocoSatisfecho = (double) this.empleadores.stream().filter(x -> x.getSatisfecho().equals("POCO SATISFECHO")).count();
+        double noSatisfecho = (double) this.empleadores.stream().filter(x -> x.getSatisfecho().equals("NO SATISFECHO")).count();
+        SatisfaccionEmpleado.set("Muy satisfechos", muySatisfecho);
+        SatisfaccionEmpleado.set("Poco satisfechos", pocoSatisfecho);
+        SatisfaccionEmpleado.set("No satisfechos", noSatisfecho);
         SatisfaccionEmpleado.setTitle("Satisfacción de los empleados");
         SatisfaccionEmpleado.setLegendPosition("w");
         SatisfaccionEmpleado.setShowDataLabels(true);
-        SatisfaccionEmpleado.setSeriesColors("79ef68, ef6868");
+        SatisfaccionEmpleado.setSeriesColors("79ef68,efde68,ef6868");
         return SatisfaccionEmpleado;
     }
 
