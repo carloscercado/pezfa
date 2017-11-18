@@ -467,23 +467,10 @@
                     <f:facet name="header">
                         <p:graphicImage name="/images/emleado.png" width="40 px" />
                         Satisfacción de los empleados <br/>
-                        Porcentaje de los empleados satisfechos
-                        <p:tooltip  for="m" value="#{indicadorController.empleado.mensajeMalo}" position="top" />
-                        <strong jsf:id="m" jsf:rendered="#{empleadoController.porcentaje le indicadorController.empleado.malo}"
-                                style="color: #f63a1e; font-size: 18px">
-                            #{empleadoController.porcentaje} %
-                        </strong>
-                        <p:tooltip  for="e" value="#{indicadorController.empleado.mensajeAceptable}" position="top" />
-                        <strong jsf:id="e" style="color: #ffff33; font-size: 18px" jsf:rendered="#{((!(empleadoController.porcentaje le indicadorController.empleado.malo ) or empleadoController.porcentaje eq indicadorController.empleado.malo+1 ) 
-                                                                                                   and (empleadoController.porcentaje le indicadorController.empleado.bueno-1))}" >
-                                #{empleadoController.porcentaje} %
-                        </strong>
-                        <p:tooltip  for="b" value="#{indicadorController.empleado.mensajeBueno}" position="top" />
-                        <strong jsf:id="b" jsf:rendered="#{!(empleadoController.porcentaje le indicadorController.empleado.bueno)}" 
-                                style="color: #1ef664; font-size: 18px">
-                            #{empleadoController.porcentaje} %
-                            
-                        </strong>
+                        
+                        <ui:param name="todos" value="#{empleadoController.empleadores.size()}"/>
+                        Cantidad total de empleados #{todos}
+                        
                     </f:facet>
                     <h:form>
                         <p:dataTable scrollable="true" scrollHeight="300" widgetVar="empleadores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="empleado" value="#{empleadoController.empleadores}">
@@ -507,8 +494,9 @@
                             </p:column>
                             <p:column headerText="Satisfecho" width="10%">
                                 <center>
-                                    <span style="color: #1ef664" jsf:rendered="#{empleado.satisfecho}" class="fa fa-check fa-2x" />
-                                    <span style="color: #f63a1e" jsf:rendered="#{!empleado.satisfecho}" class="fa fa-times fa-2x"/>
+                                    <span style="color: #1ef664" jsf:rendered="#{empleado.satisfecho eq 'MUY SATISFECHO'}" class="fa fa-check fa-2x" />
+                                    <span style="color: #ffcc00" jsf:rendered="#{empleado.satisfecho eq 'POCO SATISFECHO'}" class="fa fa-square fa-2x"/>
+                                    <span style="color: #f63a1e" jsf:rendered="#{empleado.satisfecho eq 'NO SATISFECHO'}" class="fa fa-times fa-2x"/>
                                 </center>
                             </p:column>
 
