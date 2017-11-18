@@ -81,10 +81,10 @@ public class EspecieController implements Serializable
      
     public void register()
     {
-        especie.setMinimo(10.0);
+        especie.setMinimo(1000.0);
         especie.setCantidad(0.0);
         especie.setPrecio(BigDecimal.ZERO);
-        especie.setMaximo(100.0);
+        especie.setMaximo(5000.0);
         
         especie.toUpperCase();
         if(db.create(especie))

@@ -117,5 +117,9 @@ public class Venta implements java.io.Serializable {
     public void setVentaUnidads(Set ventaUnidads) {
         this.ventaUnidads = ventaUnidads;
     }
+    public void toUpperCase()
+    {
+       this.factura = this.factura.toUpperCase();
+    }
 
 }

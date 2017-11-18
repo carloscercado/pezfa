@@ -44,7 +44,7 @@ public class CompraController implements Serializable
     public List<Compra> getHistorico()
     {
         historico = db.read("from Compra comprita join fetch comprita.proveedor "
-                + "join fetch comprita.chofer join fetch comprita.camion order by comprita.fecha");
+                + "join fetch comprita.chofer join fetch comprita.camion order by comprita.fecha desc");
         return historico;
     }
      public void validarOrden()

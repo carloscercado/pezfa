@@ -54,10 +54,10 @@
 
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
                             <center>  
-                                <p:commandButton rendered="#{!venta.devuelta}" icon="fa fa-edit" title="Devoluciones" oncomplete="PF('devolucion').show()" update="@widgetVar(devolucion)" class="btn-warning">
+                                <p:commandButton rendered="#{!venta.devuelta}" icon="fa fa-edit" title="Reclamos" oncomplete="PF('devolucion').show()" update="@widgetVar(devolucion)" class="btn-warning">
                                     <f:setPropertyActionListener target="#{ventaController.venta}" value="#{venta}"/>
                                 </p:commandButton>
-                                <p:outputLabel value="Devuelta" rendered="#{venta.devuelta}"/>
+                                <p:outputLabel value="Reclamo" rendered="#{venta.devuelta}"/>
                             </center> 
                         </p:column>
                     </p:dataTable>
@@ -112,8 +112,9 @@
                     </h:form>
                 </p:dialog>
 
-                <p:dialog widgetVar="devolucion" modal="true" maximizable="false"
-                          header="¿Est&aacute; seguro que desea registrar la devoluci&oacute;n de esta venta?">
+                <p:dialog widgetVar="devolucion" modal="true" responsive="true" 
+                          resizable="false" draggable="false"
+                          header="¿Est&aacute; seguro que desea registrar el reclamo de esta venta?">
                     <h:form>
                         <p:growl id="mensaje"/> 
                         <center>

@@ -106,7 +106,7 @@ public class UnidadController implements Serializable {
     //logica para registrar un unidad
     public void register() {
         if (unidad.getCava().getCapacidadDisponible() <= unidad.getPeso()) {
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Capacidad de la cava seleccionada es insuficiente", null);
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cantidad introducida excede la capacidad de la cava seleccionada", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         } else {
             unidad.setCompraEspecie(compraEspecieController.getCompraEspecie());

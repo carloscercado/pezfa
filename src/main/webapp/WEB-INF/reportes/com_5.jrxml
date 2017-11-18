@@ -41,7 +41,7 @@ from compra, proveedor, empleado, usuario where extract (month from fecha)='05' 
 			</textField>
 			<image>
 				<reportElement x="1" y="1" width="168" height="134" uuid="31308cf4-76da-4866-a327-ab017ceed25b"/>
-				<imageExpression><![CDATA["C:\\Users\\Romario\\Documents\\Programming\\Sistema\\En desarrollo\\pezfa\\src\\main\\webapp\\WEB-INF\\reportes\\logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="434" y="91" width="120" height="20" uuid="27188474-135b-485f-8862-c6eef1f51134"/>

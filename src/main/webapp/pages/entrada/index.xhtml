@@ -116,14 +116,14 @@
                         <p:dataTable  value="#{compraEspecieController.detalleCompra}" var="compraEspecie" 
                                       widgetVar="compraEspecies" emptyMessage="Todos los productos de esta compra ya fuer&oacute;n ubicados"> 
 
-                            <p:column headerText="Especie">
+                            <p:column headerText="Especie" width="14%">
                                 #{compraEspecie.especie.nombre} 
                             </p:column>
 
-                            <p:column headerText="Cantidad" class="text-right" width="12%">
+                            <p:column headerText="Cantidad" class="text-right" width="20%">
                                 #{compraEspecie.cantidad} Kg
                             </p:column>
-                            <p:column headerText="Sin ubicar" class="text-right" width="15%">
+                            <p:column headerText="Sin ubicar" class="text-right" width="20%">
                                 #{compraEspecie.cantidad - compraEspecie.ubicados} Kg
                             </p:column>
 
@@ -164,7 +164,7 @@
                 </p:dialog>
 
                 <p:dialog header="Registrar mercancia en almacenes" widgetVar="registrar" responsive="true" resizable="false" 
-                          draggable="false" modal="true" width="700" height="500" >
+                          draggable="false" modal="true" width="700" height="500">
 
                     <h:form>
                          <span class="fa fa-info-circle fa-x"/>

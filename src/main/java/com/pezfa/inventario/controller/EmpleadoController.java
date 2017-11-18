@@ -37,7 +37,12 @@ public class EmpleadoController implements Serializable {
     {
         double total = (double) this.empleadores.size();
         double satisfecho = (double) this.empleadores.stream().filter(x -> x.isSatisfecho()).count();
-        return (satisfecho / total) * 100;
+        double valor = (satisfecho / total) * 100;
+        if (Double.isInfinite(valor) || Double.isNaN(valor))
+        {
+            valor = 0;
+        }
+        return CavaController.redondear(valor, 2);
     }
  
     public PieChartModel getCapacitacionProfesionales() {

@@ -44,7 +44,7 @@ where venta.cliente = cliente.id and usuario.id=empleado.id and usuario.id=1 ord
 			</textField>
 			<image>
 				<reportElement x="1" y="1" width="168" height="134" uuid="31308cf4-76da-4866-a327-ab017ceed25b"/>
-				<imageExpression><![CDATA["C:\\Users\\Romario\\Documents\\Programming\\Sistema\\En desarrollo\\pezfa\\src\\main\\webapp\\WEB-INF\\reportes\\logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\logo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

@@ -127,7 +127,11 @@ public class Compra  implements java.io.Serializable {
         this.compraEspecies = compraEspecies;
     }
 
-
+    public void toUpperCase()
+    {
+       this.orden = this.orden.toUpperCase();
+       this.estado = this.estado.toUpperCase();
+    }
 
 
 }

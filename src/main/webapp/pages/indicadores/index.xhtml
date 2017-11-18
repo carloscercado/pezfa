@@ -166,7 +166,7 @@
                                 <span class="fa fa-bank" />
                             </center>
                             </p:column>
-                            <p:column headerText="Almac&eacute;n">
+                           <p:column headerText="Almac&eacute;n">
                                 #{almacen.nombre}
                             </p:column>
                             <ui:param name="capacidad" value="#{cavaController.getCapacidadAlmacen(almacen.id)}" />
@@ -229,7 +229,7 @@
                                 #{especie.compraEspecie.especie.nombre}
                             </p:column>
                             <p:column headerText="Cantidad">
-                                #{unidadController.getCantidadCava(cavaController.cava.id, especie.compraEspecie.especie.id)}
+                                #{unidadController.getCantidadCava(cavaController.cava.id, especie.compraEspecie.especie.id)} Kg
                             </p:column>
                             <p:column headerText="Tipo">
                                 #{especie.compraEspecie.especie.tipo}
@@ -258,17 +258,17 @@
                             widgetVar="ubicaciones" var="especie" 
                             value="#{unidadController.getEspeciesDetalles(cavaController.cava.id, especieController.especie.id)}"
                             emptyMessage="No se encontrar&oacute;n datos" reflow="true" scrollable="true" scrollHeight="300">
-                            <p:column headerText="C&oacute;digo">
+                            <p:column headerText="Nombre">
                                 #{especie.compraEspecie.especie.nombre}
                             </p:column>
                             <p:column headerText="C&oacute;digo">
                                 #{especie.compraEspecie.especie.codigo}
                             </p:column>
                             <p:column headerText="Cantidad">
-                                #{especie.peso}
+                                #{especie.peso} Kg
                             </p:column>
                             <p:column headerText="Costo">
-                                #{especie.compraEspecie.costo}
+                                #{especie.compraEspecie.costo} Bs
                             </p:column>
                             <p:column headerText="Orden de compra">
                                 #{especie.compraEspecie.compra.orden}
@@ -466,7 +466,8 @@
                           resizable="false" height="" draggable="false" modal="true" closable="true">
                     <f:facet name="header">
                         <p:graphicImage name="/images/emleado.png" width="40 px" />
-                        Satisfacción de los empleados
+                        Satisfacción de los empleados <br/>
+                        Porcentaje de los empleados satisfechos
                         <p:tooltip  for="m" value="#{indicadorController.empleado.mensajeMalo}" position="top" />
                         <strong jsf:id="m" jsf:rendered="#{empleadoController.porcentaje le indicadorController.empleado.malo}"
                                 style="color: #f63a1e; font-size: 18px">
@@ -481,6 +482,7 @@
                         <strong jsf:id="b" jsf:rendered="#{!(empleadoController.porcentaje le indicadorController.empleado.bueno)}" 
                                 style="color: #1ef664; font-size: 18px">
                             #{empleadoController.porcentaje} %
+                            
                         </strong>
                     </f:facet>
                     <h:form>
@@ -528,7 +530,7 @@
                             <p:column headerText="Ventas">
                                 #{devol.ventas}
                             </p:column>
-                            <p:column headerText="Devoluciones">
+                            <p:column headerText="Reclamos">
                                 #{devol.devoluciones}
                             </p:column>
                             <ui:param name="valor" value="#{(100 - devol.devoluciones/devol.ventas*100)}" />
@@ -552,7 +554,7 @@
                                     <p:commandButton rendered="#{!(devol.devoluciones eq 0)}" icon="fa fa-list" update="@widgetVar(detalleDevolucion)" oncomplete="PF('detalleDevolucion').show()"> 
                                         <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{devol.mes}"/>
                                     </p:commandButton>
-                                    <span jsf:rendered="#{(devol.devoluciones eq 0)}" style="font-weight: bold">No hay devolución</span>
+                                    <span jsf:rendered="#{(devol.devoluciones eq 0)}" style="font-weight: bold">No hay reclamos</span>
                                 </center>
                             </p:column>
                         </p:dataTable>

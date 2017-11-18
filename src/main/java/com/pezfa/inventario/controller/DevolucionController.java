@@ -73,7 +73,7 @@ public class DevolucionController implements Serializable {
         ventas.setLabel("Ventas");
 
         LineChartSeries devolucionesData = new LineChartSeries();
-        devolucionesData.setLabel("Devoluciones");
+        devolucionesData.setLabel("Reclamos");
         
 
         List<Devoluciones> datos = this.getDevolucionesDb();

@@ -338,7 +338,7 @@ public class VentaController implements Serializable
 
     public List<Venta> getHistorico()
     {
-        historico = db.read("from Venta ven join fetch ven.cliente order by ven.fecha");
+        historico = db.read("from Venta ven join fetch ven.cliente order by ven.fecha desc");
         return historico;
     }
     
@@ -543,7 +543,7 @@ public class VentaController implements Serializable
     {
         venta.setDevuelta(true);
         db.update(venta);
-        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Devolucion registrada exitosamente", null);
+        FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Reclamo registrado exitosamente", null);
         FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         RequestContext con = RequestContext.getCurrentInstance();
         con.execute("PF('devolucion').hide();");
