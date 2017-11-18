@@ -138,23 +138,26 @@
                 
                  <p:dialog widgetVar="motivo" modal="true" responsive="true" 
                           resizable="false" draggable="false"
-                          header="titulo que quieres">
+                          header="Reclamo del cliente #{ventaController.venta.cliente.nombre}">
                     <h:form>
-                        
                         <p:growl id="mensaje"/> 
-                        <center>
-                            pones aqui datos de la venta si quieres: #{ventaController.venta.fecha}
+                        <p:panelGrid columns="3">
+
+                                        <p:outputLabel value="Factura"/>
+                                        <p:outputLabel value="Fecha"/>
+                                        <p:outputLabel value="Ingreso"/>
+                                        <p:outputLabel value="#{ventaController.venta.factura}"/>
+                                        <p:outputLabel value="#{ventaController.venta.fecha}"/>
+                                        <p:outputLabel value="#{ventaController.venta.ingreso}"> Bs </p:outputLabel>
+                                        </p:panelGrid> 
                             <br/>
-                            <br/>
-                            motivo fue el siguiente
+                            <span class="fa fa-info-circle fa-2x"/>
+                               El motivo de este reclamo fue
                             <br/>
                             <p:inputTextarea value="#{ventaController.venta.motivo}" placeholder="Motivo de....." autoResize="true"
                                              maxlength="120" cols="60" readonly="true"/>
                             <br/>
-                            <br/>
-                            
-                        </center>
-                    </h:form>
+                      </h:form>
                 </p:dialog>
 
             </ui:define>
