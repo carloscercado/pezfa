@@ -169,7 +169,8 @@ create table if not exists venta
     usuario int not null references usuario(id),
     ingreso numeric(15,2) default 0,
     kilo_total float default 0,
-    devuelta boolean default false
+    devuelta boolean default false,
+    motivo text
 );
 
 

@@ -15,6 +15,7 @@ public class Venta implements java.io.Serializable {
     private Date fecha;
     private BigDecimal ingreso;
     private boolean devuelta;
+    private String motivo;
     private double kiloTotal;
     private Set ventaEspecies = new HashSet(0);
     private Set ventaUnidads = new HashSet(0);
@@ -26,6 +27,16 @@ public class Venta implements java.io.Serializable {
         return kiloTotal;
     }
 
+    public String getMotivo()
+    {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo)
+    {
+        this.motivo = motivo;
+    }
+    
     public void setKiloTotal(double kiloTotal) {
         this.kiloTotal = kiloTotal;
     }

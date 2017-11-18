@@ -29,6 +29,9 @@
         <property name="devuelta" type="boolean">
             <column name="devuelta"/>
         </property>
+        <property name="motivo" type="string">
+            <column name="motivo" length="120" />
+        </property>
         <set name="ventaEspecies" table="venta_especie" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="venta" not-null="true" />

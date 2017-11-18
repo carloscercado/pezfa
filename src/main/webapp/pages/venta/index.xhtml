@@ -116,8 +116,13 @@
                           resizable="false" draggable="false"
                           header="¿Est&aacute; seguro que desea registrar el reclamo de esta venta?">
                     <h:form>
+                        
                         <p:growl id="mensaje"/> 
                         <center>
+                            <p:inputTextarea value="#{ventaController.venta.motivo}" placeholder="Motivo de....." autoResize="true"
+                                             maxlength="120" cols="60"/>
+                            <br/>
+                            <br/>
                             <p:commandButton value="Si, estoy seguro" icon="fa fa-check"  actionListener="#{ventaController.registrarDevolucion()}"/> 
                             <p:commandButton value="No" icon="fa fa-times" class="btn-danger" oncomplete="PF('devolucion').hide()"/>
                         </center>
