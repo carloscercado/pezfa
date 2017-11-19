@@ -34,7 +34,7 @@ public class AlmacenController implements Serializable {
     }
 
     public List<Almacen> getAlmacenes() {
-        almacenes = db.read("from Almacen");
+        almacenes = db.read("from Almacen order by nombre");
         return almacenes;
     }
 

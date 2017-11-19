@@ -39,7 +39,7 @@ public class ProveedorController implements Serializable
 
     public List<Proveedor> getProvedores()
     {
-        proveedores = db.read("from Proveedor");
+        proveedores = db.read("from Proveedor order by nombre");
         return proveedores;
     }
 

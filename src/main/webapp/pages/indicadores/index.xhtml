@@ -493,7 +493,8 @@
                                 #{empleado.cargo} 
                             </p:column>
                             <p:column headerText="Satisfecho" width="10%">
-                                <center>
+                               #{empleadoController.satisfaccionMala}
+                               <center>
                                     <span style="color: #1ef664" jsf:rendered="#{empleado.satisfecho eq 'MUY SATISFECHO'}" class="fa fa-check fa-2x" />
                                     <span style="color: #ffcc00" jsf:rendered="#{empleado.satisfecho eq 'POCO SATISFECHO'}" class="fa fa-square fa-2x"/>
                                     <span style="color: #f63a1e" jsf:rendered="#{empleado.satisfecho eq 'NO SATISFECHO'}" class="fa fa-times fa-2x"/>
@@ -569,13 +570,39 @@
                                     <p:commandButton icon="fa fa-list" update="@widgetVar(detalleEspecie)" oncomplete="PF('detalleEspecie').show()">
                                         <f:setPropertyActionListener target="#{ventaController.venta}"  value="#{venta}"/>
                                     </p:commandButton>
+                                    <p:commandButton icon="fa fa-search" title="detalles" oncomplete="PF('motivo').show()" 
+                                                     update="@widgetVar(motivo)" class="btn-primary">
+                                    <f:setPropertyActionListener target="#{ventaController.venta}" value="#{venta}"/>
+                                </p:commandButton>
                                 </center>
                             </p:column>
                         </p:dataTable>
                     </h:form>
                 </p:dialog>
 
+                <p:dialog widgetVar="motivo" modal="true" responsive="true" 
+                          resizable="false" draggable="false"
+                          header="Reclamo del cliente #{ventaController.venta.cliente.nombre}">
+                    <h:form>
+                        <p:growl id="mensaje"/> 
+                        <p:panelGrid columns="3">
 
+                                        <p:outputLabel value="Factura"/>
+                                        <p:outputLabel value="Fecha"/>
+                                        <p:outputLabel value="Ingreso"/>
+                                        <p:outputLabel value="#{ventaController.venta.factura}"/>
+                                        <p:outputLabel value="#{ventaController.venta.fecha}"/>
+                                        <p:outputLabel value="#{ventaController.venta.ingreso}"> Bs </p:outputLabel>
+                                        </p:panelGrid> 
+                            <br/>
+                            <span class="fa fa-info-circle fa-2x"/>
+                               El motivo de este reclamo fue
+                            <br/>
+                            <p:inputTextarea value="#{ventaController.venta.motivo}" placeholder="Motivo de....." autoResize="true"
+                                             maxlength="120" cols="60" readonly="true"/>
+                            <br/>
+                      </h:form>
+                </p:dialog>
             </ui:define>
 
         </ui:composition>

@@ -127,7 +127,7 @@ public class CavaController implements Serializable {
     }
 
     public List<Cava> getCavas() {
-        cavas = db.read("from Cava cavita join fetch cavita.almacen");
+        cavas = db.read("from Cava cavita join fetch cavita.almacen order by cavita.nombre");
         return cavas;
     }
     public double getEspacioFisico(){

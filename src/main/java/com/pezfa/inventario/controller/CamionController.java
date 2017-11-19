@@ -39,7 +39,7 @@ public class CamionController implements Serializable
 
     public List<Camion> getCamiones()
     {
-        camiones = db.read("from Camion");
+        camiones = db.read("from Camion order by marca");
         return camiones;
     }
 
