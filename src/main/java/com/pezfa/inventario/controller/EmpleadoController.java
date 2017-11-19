@@ -51,8 +51,7 @@ public class EmpleadoController implements Serializable {
         capacitacionProfesionales.setSeriesColors("ef6868, efde68, 79ef68");
         return capacitacionProfesionales;
     }
-
-    public PieChartModel getSatisfaccionEmpleado()
+   public PieChartModel getSatisfaccionEmpleado()
     {
         SatisfaccionEmpleado = new PieChartModel();
         double muySatisfecho = (double) this.empleadores.stream().filter(x -> x.getSatisfecho().equals("MUY SATISFECHO")).count();
@@ -67,12 +66,11 @@ public class EmpleadoController implements Serializable {
         SatisfaccionEmpleado.setSeriesColors("79ef68,efde68,ef6868");
         return SatisfaccionEmpleado;
     }
-
+   
     public void setSatisfaccionEmpleado(PieChartModel SatisfaccionEmpleado)
     {
         this.SatisfaccionEmpleado = SatisfaccionEmpleado;
     }
-    
     
     public List<Empleado> getChoferes() {
         choferes = db.read("from Empleado emp where emp.cargo='CHOFER'");
@@ -101,7 +99,7 @@ public class EmpleadoController implements Serializable {
     }
 
     public List<Empleado> getEmpleadores() {
-        empleadores = db.read("From Empleado");
+        empleadores = db.read("From Empleado order by primer_nombre, primer_apellido");
         return empleadores;
     }
 

@@ -62,7 +62,7 @@ public class UsuarioController implements Serializable {
     }
 
     public List<Usuario> getUsuarios() {
-        usuarios = db.read("from Usuario user join fetch user.empleado");
+        usuarios = db.read("from Usuario user join fetch user.empleado order by usuario");
         return usuarios;
     }
 

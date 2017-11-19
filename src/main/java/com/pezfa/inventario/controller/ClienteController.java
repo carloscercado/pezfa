@@ -35,7 +35,7 @@ public class ClienteController implements Serializable
     
     public List<Cliente> getClientes()
     {
-        clientes = db.read("from Cliente");
+        clientes = db.read("from Cliente order by nombre");
         return clientes;
     }
     public void setClientes(List<Cliente> clientes)
