@@ -163,7 +163,7 @@
                       scrollHeight="300" scrollable="true" emptyMessage="No se encontrar&oacute;n datos" reflow="true">
                             <p:column width="5%" class="column-hidden">
                             <center>
-                                <span class="fa fa-bank" />
+                                   <span class="fa fa-bank" />
                             </center>
                             </p:column>
                            <p:column headerText="Almac&eacute;n">
@@ -173,8 +173,7 @@
                             <p:column headerText="Capacidad ">
                                 #{capacidad} Kg
                             </p:column>
-                            
-                            <ui:param name="capacidad_disponible" value="#{cavaController.getCapacidadDisponibleAlmacen(almacen.id)}"/>
+                           <ui:param name="capacidad_disponible" value="#{cavaController.getCapacidadDisponibleAlmacen(almacen.id)}"/>
                             <p:column headerText="Capacidad disponible">
                                 #{capacidad_disponible} Kg
                             </p:column>
@@ -194,7 +193,11 @@
                             </center>
                             </p:column>
                             <p:column width="10%" class="column-hidden" headerText="Detalles">
-                                <center>  
+                                <center> 
+                                    <p:commandButton id="imageBtn" title="detalles" value="+" class="btn-secundary" icon="fa fa-search" />
+                                    <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade">
+                                       #{cavaController.cavasFiltro}
+                                     </p:overlayPanel>
                                     <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('capacidad').show()"
                                                      update="@widgetVar(capacidad)" class="btn-secundary"> 
                                         <f:setPropertyActionListener target="#{almacenController.almacen}" value="#{almacen}"/>
@@ -492,8 +495,10 @@
                             <p:column headerText="Cargo">
                                 #{empleado.cargo} 
                             </p:column>
+                            <p:column headerText="Satisfacci&oacute;n">
+                                #{empleado.satisfecho} 
+                            </p:column>
                             <p:column headerText="Satisfecho" width="10%">
-                               #{empleadoController.satisfaccionMala}
                                <center>
                                     <span style="color: #1ef664" jsf:rendered="#{empleado.satisfecho eq 'MUY SATISFECHO'}" class="fa fa-check fa-2x" />
                                     <span style="color: #ffcc00" jsf:rendered="#{empleado.satisfecho eq 'POCO SATISFECHO'}" class="fa fa-square fa-2x"/>
