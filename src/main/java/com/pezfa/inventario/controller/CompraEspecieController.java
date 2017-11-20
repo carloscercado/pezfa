@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -37,7 +38,7 @@ public class CompraEspecieController implements Serializable
     {
         compraEspecie = new CompraEspecie();
         miLista = new HashSet<CompraEspecie>();
-        db = new CompraEspecieDB();
+        db = new CompraEspecieDB();       
     }
 
     public CamionController getCamionController()
@@ -219,9 +220,10 @@ public class CompraEspecieController implements Serializable
         {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe agregar minimo un producto a la lista", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+           
         }
     }
-
+    
     public void remove()
     {
         miLista.remove(compraEspecie);

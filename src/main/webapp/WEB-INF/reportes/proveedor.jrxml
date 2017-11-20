@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select ROW_NUMBER()
-        OVER (ORDER BY rif ) as numero, rif, nombre, direccion, telefono, correo, empleado.primer_nombre, empleado.primer_apellido from proveedor, empleado, usuario where usuario.id=empleado.id and usuario.id=1]]>
+        OVER (ORDER BY rif ) as numero, rif, nombre, direccion, telefono, correo, empleado.primer_nombre, empleado.primer_apellido from proveedor, empleado, usuario where usuario.id=empleado.id and usuario.id=1 order by nombre]]>
 	</queryString>
 	<field name="numero" class="java.lang.Long"/>
 	<field name="rif" class="java.lang.String"/>
@@ -27,58 +27,51 @@
 				</textElement>
 				<text><![CDATA[REPORTE DE PROVEEDORES]]></text>
 			</staticText>
-			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="426" y="105" width="129" height="30" uuid="f99bb314-2d28-424b-bab3-10cd75dda20e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 			<image>
 				<reportElement x="1" y="1" width="168" height="134" uuid="31308cf4-76da-4866-a327-ab017ceed25b"/>
 				<imageExpression><![CDATA["C:\\logo.jpg"]]></imageExpression>
 			</image>
+			<textField pattern="EEE, d MMM yyyy h.mm a ">
+				<reportElement x="337" y="105" width="218" height="30" uuid="d6ee61a0-3fcf-4709-a260-a195f70c226a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>
 		<band height="24" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="1" y="0" width="53" height="19" backcolor="#E6E6E6" uuid="61f30761-cdaa-4cdd-8a21-2876caecd069"/>
-				<textElement textAlignment="Center">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Número]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="64" y="0" width="85" height="19" backcolor="#E6E6E6" uuid="cd0e7ae8-c76c-4a16-a115-322bad2d43f3"/>
+				<reportElement mode="Opaque" x="1" y="0" width="85" height="19" backcolor="#E6E6E6" uuid="cd0e7ae8-c76c-4a16-a115-322bad2d43f3"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RIF]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="159" y="0" width="79" height="19" backcolor="#E6E6E6" uuid="a41ed939-9473-4d50-999a-bb70b3cc4352"/>
+				<reportElement mode="Opaque" x="94" y="0" width="99" height="19" backcolor="#E6E6E6" uuid="a41ed939-9473-4d50-999a-bb70b3cc4352"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="454" y="0" width="101" height="19" backcolor="#E6E6E6" uuid="5c0b5e64-3da0-4412-8f2d-e773319d5ee4"/>
+				<reportElement mode="Opaque" x="419" y="0" width="136" height="19" backcolor="#E6E6E6" uuid="5c0b5e64-3da0-4412-8f2d-e773319d5ee4"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Correo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="369" y="0" width="75" height="19" backcolor="#E6E6E6" uuid="0799ec1c-cc7e-4bc9-906d-bd1989f8c679"/>
+				<reportElement mode="Opaque" x="334" y="0" width="75" height="19" backcolor="#E6E6E6" uuid="0799ec1c-cc7e-4bc9-906d-bd1989f8c679"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Teléfono]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="250" y="0" width="108" height="19" backcolor="#E6E6E6" uuid="d48cd37b-61ee-4c17-b940-feb1dfd81591"/>
+				<reportElement mode="Opaque" x="201" y="0" width="123" height="19" backcolor="#E6E6E6" uuid="d48cd37b-61ee-4c17-b940-feb1dfd81591"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -94,34 +87,29 @@
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="0" y="0" width="54" height="20" uuid="76891d2e-c3ba-4e1a-8167-9d3bbee709a6"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="64" y="0" width="84" height="20" uuid="697a1fea-2b19-4349-b216-2dc6c5f1e4c9"/>
+				<reportElement x="1" y="0" width="84" height="20" uuid="697a1fea-2b19-4349-b216-2dc6c5f1e4c9"/>
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["J-"+$F{rif}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="159" y="0" width="79" height="34" uuid="738ec924-64fb-40dc-9aa1-edd20dfd45fa"/>
+				<reportElement x="94" y="0" width="99" height="20" uuid="738ec924-64fb-40dc-9aa1-edd20dfd45fa"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="250" y="0" width="108" height="34" uuid="c9694893-9036-4a4b-8e87-dfb7847046ad"/>
+				<reportElement x="201" y="0" width="123" height="34" uuid="c9694893-9036-4a4b-8e87-dfb7847046ad"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="369" y="0" width="75" height="20" uuid="d86eaa7f-9c5a-44ae-b390-7e870762dbed"/>
+				<reportElement x="334" y="0" width="75" height="20" uuid="d86eaa7f-9c5a-44ae-b390-7e870762dbed"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="454" y="0" width="101" height="34" uuid="90a5a2df-c01c-4f29-9efb-4a40c32e0255"/>
+				<reportElement x="419" y="0" width="136" height="34" uuid="90a5a2df-c01c-4f29-9efb-4a40c32e0255"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
 			</textField>

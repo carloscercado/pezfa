@@ -20,19 +20,19 @@ import org.primefaces.event.SelectEvent;
 public class CompraController implements Serializable
 {
 
-    private Compra compra = null;
     private List<Compra> compras = null;
     private List<Compra> historico = null;
     private CompraDB db;
     private Date fecha;
-
+    private Compra compra = null;
+    
     public CompraController()
     {
         compra = new Compra();
         compra.setCamion(new Camion());
-        compra.setOrden(this.getCodigoOrdenCompra());
         compra.setChofer(new Empleado());
         db = new CompraDB();
+        compra.setOrden(this.getCodigoOrdenCompra());
     }
     
      public String getCodigoOrdenCompra()
@@ -40,7 +40,6 @@ public class CompraController implements Serializable
         //El 8 es el tamaño de el codigo, maximo 32
         return (String) UUID.randomUUID().toString().subSequence(0, 6);
     }
-
     public List<Compra> getHistorico()
     {
         historico = db.read("from Compra comprita join fetch comprita.proveedor "

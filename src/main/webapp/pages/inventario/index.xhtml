@@ -63,9 +63,12 @@
                         </p:column>
 
                         <p:column headerText="Estado" class="text-center" width="12%">
-                            <span  class="fa fa-circle fa-2x" jsf:rendered="#{especie.cantidad le especie.minimo}" style="color: #f63a1e"/>
-                            <span  class="fa fa-circle fa-2x" jsf:rendered="#{((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo+1) and (especie.cantidad le especie.minimo+100))}" style="color: #f68e1e"/>
-                            <span  class="fa fa-circle fa-2x" jsf:rendered="#{!(especie.cantidad le especie.minimo+100)}" style="color: #1ef664"/>
+                            <p:tooltip  for="mm" value="#{indicadorController.inventario.mensajeMalo}" position="top" />
+                            <span jsf:id="mm" class="fa fa-circle fa-2x" jsf:rendered="#{especie.cantidad le especie.minimo}" style="color: #f63a1e"/>
+                            <p:tooltip  for="ma" value="#{indicadorController.inventario.mensajeAceptable}" position="top" />
+                            <span jsf:id="ma" class="fa fa-circle fa-2x" jsf:rendered="#{((!(especie.cantidad le especie.minimo ) or especie.cantidad eq especie.minimo+1) and (especie.cantidad le especie.maximo-1))}" style="color: #ffff33"/>
+                            <p:tooltip  for="mb" value="#{indicadorController.inventario.mensajeBueno}" position="top" />
+                            <span jsf:id="mb" class="fa fa-circle fa-2x" jsf:rendered="#{!(especie.cantidad le especie.maximo)}" style="color: #1ef664"/>
                         </p:column>  
 
                         <p:column width="10%" class="column-hidden" headerText="Detalles">

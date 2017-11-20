@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select venta.factura, venta.fecha, venta.ingreso, venta.kilo_total, empleado.primer_nombre, empleado.primer_apellido, cliente.rif, cliente.nombre, cliente.telefono, cliente.tipo
-from venta, empleado, cliente, usuario where extract (month from fecha)='03' and venta.cliente=cliente.id and usuario.id=empleado.id and usuario.id=1]]>
+from venta, empleado, cliente, usuario where extract (month from fecha)='03' and venta.cliente=cliente.id and usuario.id=empleado.id and usuario.id=1 order by factura,fecha]]>
 	</queryString>
 	<field name="factura" class="java.lang.String"/>
 	<field name="fecha" class="java.sql.Date"/>
@@ -32,9 +32,9 @@ from venta, empleado, cliente, usuario where extract (month from fecha)='03' and
 				</textElement>
 				<text><![CDATA[REPORTE MENSUAL DE VENTAS]]></text>
 			</staticText>
-			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="426" y="105" width="129" height="30" uuid="f99bb314-2d28-424b-bab3-10cd75dda20e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+			<textField pattern="EEE, d MMM yyyy h.mm a ">
+				<reportElement x="351" y="105" width="204" height="30" uuid="f99bb314-2d28-424b-bab3-10cd75dda20e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
@@ -43,13 +43,6 @@ from venta, empleado, cliente, usuario where extract (month from fecha)='03' and
 				<reportElement x="1" y="1" width="168" height="134" uuid="31308cf4-76da-4866-a327-ab017ceed25b"/>
 				<imageExpression><![CDATA["C:\\logo.jpg"]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement x="434" y="91" width="120" height="20" uuid="9fc738a4-023d-4f19-8fcb-4ec3eee8decf"/>
-				<textElement verticalAlignment="Top">
-					<font size="12" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[Mes: Marzo]]></text>
-			</staticText>
 		</band>
 	</title>
 	<columnHeader>
@@ -76,7 +69,7 @@ from venta, empleado, cliente, usuario where extract (month from fecha)='03' and
 				<text><![CDATA[Nombre o Empresa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="322" y="0" width="60" height="19" backcolor="#E6E6E6" uuid="0799ec1c-cc7e-4bc9-906d-bd1989f8c679"/>
+				<reportElement mode="Opaque" x="319" y="0" width="60" height="19" backcolor="#E6E6E6" uuid="0799ec1c-cc7e-4bc9-906d-bd1989f8c679"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -90,18 +83,18 @@ from venta, empleado, cliente, usuario where extract (month from fecha)='03' and
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="486" y="0" width="69" height="19" backcolor="#E6E6E6" uuid="516704d5-72b1-4334-af9b-1e53274a52c6"/>
+				<reportElement mode="Opaque" x="484" y="0" width="71" height="19" backcolor="#E6E6E6" uuid="516704d5-72b1-4334-af9b-1e53274a52c6"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Ingreso]]></text>
+				<text><![CDATA[Ingreso (BS)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="391" y="0" width="83" height="19" backcolor="#E6E6E6" uuid="5c0b5e64-3da0-4412-8f2d-e773319d5ee4"/>
+				<reportElement mode="Opaque" x="391" y="1" width="82" height="19" backcolor="#E6E6E6" uuid="ff274881-97bb-4ff7-ad3d-0cebd04ab92f"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kilos en Total]]></text>
+				<text><![CDATA[Kilos total (KG)]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -119,8 +112,10 @@ from venta, empleado, cliente, usuario where extract (month from fecha)='03' and
 			</textField>
 			<textField>
 				<reportElement x="64" y="0" width="66" height="20" uuid="ba2ac7b7-5054-45db-a0cf-d8609c374de4"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{rif}]]></textFieldExpression>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo}+"-" + $F{rif}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="140" y="0" width="108" height="20" uuid="c364aa07-59bf-4a6a-a134-0e12854b35ae"/>
@@ -128,26 +123,12 @@ from venta, empleado, cliente, usuario where extract (month from fecha)='03' and
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="392" y="0" width="65" height="20" uuid="7450c120-d0e4-467a-8fb8-19df485390a6"/>
+				<reportElement x="392" y="0" width="81" height="20" uuid="7450c120-d0e4-467a-8fb8-19df485390a6"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{kilo_total}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="441" y="0" width="18" height="20" uuid="2b113547-1d24-41a8-be0c-01489876d067"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[KG]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="539" y="0" width="20" height="20" uuid="bc2d15f2-e087-48e7-b6dd-5e068a65c5d9"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[BSF]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="474" y="0" width="81" height="20" uuid="792cf5f9-f427-4ae3-921c-43ecd3145cf0"/>
+				<reportElement x="484" y="0" width="71" height="20" uuid="792cf5f9-f427-4ae3-921c-43ecd3145cf0"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ingreso}]]></textFieldExpression>
 			</textField>
@@ -156,41 +137,11 @@ from venta, empleado, cliente, usuario where extract (month from fecha)='03' and
 				<textFieldExpression><![CDATA[$F{factura}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="322" y="0" width="69" height="20" uuid="05667218-166a-489b-8f35-b13dd4b49ece"/>
+				<reportElement x="319" y="0" width="69" height="20" uuid="05667218-166a-489b-8f35-b13dd4b49ece"/>
 				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="64" y="0" width="39" height="20" uuid="0b5559b8-5392-4500-bcbe-cf541139e909"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{tipo}+"-"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="34" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="7" width="555" height="20" backcolor="#E6E6E6" uuid="3c1ffeb8-9a82-4ed9-88df-823b7a55e807"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[TOTAL:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="453" y="8" width="100" height="20" uuid="b53e4f66-7945-425c-a7af-5b618422ae0d"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$V{ingreso_1}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="534" y="8" width="20" height="20" uuid="ecd54665-ee39-4aab-b0a6-5229a6e4de55"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[BSF]]></text>
-			</staticText>
-		</band>
-	</columnFooter>
 	<pageFooter>
 		<band height="50" splitType="Stretch">
 			<line>
@@ -231,4 +182,22 @@ from venta, empleado, cliente, usuario where extract (month from fecha)='03' and
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="32">
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="7" width="555" height="20" backcolor="#E6E6E6" uuid="87544623-c836-40b6-8eed-448da34a113e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL INGRESO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="473" y="7" width="83" height="20" uuid="3fa46300-ee46-4566-ac82-20c65781b524"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ingreso_1}+" BS"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>

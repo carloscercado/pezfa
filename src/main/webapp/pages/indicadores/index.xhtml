@@ -137,7 +137,7 @@
                 </p:dialog>
                 
                 <p:dialog widgetVar="detalleAlmacen" modal="true" closable="true" 
-                    responsive="true" resizable="false" draggable="false" width="700">
+                    responsive="true" resizable="false" draggable="false" width="750">
                     <f:facet name="header">
                         <p:graphicImage name="/images/almacen.png" width="40 px" />
                         Disponibilidad del espacio físico de los almacenes
@@ -163,7 +163,10 @@
                       scrollHeight="300" scrollable="true" emptyMessage="No se encontrar&oacute;n datos" reflow="true">
                             <p:column width="5%" class="column-hidden">
                             <center>
-                                   <span class="fa fa-bank" />
+                                <p:tooltip for="cav" value="En este almacén
+                                 se encuentran las cavas #{cavaController.cavasFiltro}"
+                                showEffect="clip" hideEffect="explode" position="left"/>
+                                   <span jsf:id="cav" class="fa fa-bank" />
                             </center>
                             </p:column>
                            <p:column headerText="Almac&eacute;n">
@@ -181,7 +184,7 @@
                             <p:column headerText="Porcentaje" >
                                 #{porcenta} %
                             </p:column>
-                            <p:column headerText="Estado">
+                            <p:column width="10%" headerText="Estado">
                                 <center>
                                 <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcenta le indicadorController.capacidad.malo}" style="color: #f63a1e"/>
@@ -192,13 +195,9 @@
                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcenta le indicadorController.capacidad.bueno) or porcenta eq indicadorController.capacidad.bueno}" style="color: #1ef664"/>
                             </center>
                             </p:column>
-                            <p:column width="10%" class="column-hidden" headerText="Detalles">
+                            <p:column width="15%" class="column-hidden" headerText="Detalles">
                                 <center> 
-                                    <p:commandButton id="imageBtn" title="detalles" value="+" class="btn-secundary" icon="fa fa-search" />
-                                    <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade">
-                                       #{cavaController.cavasFiltro}
-                                     </p:overlayPanel>
-                                    <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('capacidad').show()"
+                                   <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('capacidad').show()"
                                                      update="@widgetVar(capacidad)" class="btn-secundary"> 
                                         <f:setPropertyActionListener target="#{almacenController.almacen}" value="#{almacen}"/>
                                     </p:commandButton>
@@ -499,10 +498,13 @@
                                 #{empleado.satisfecho} 
                             </p:column>
                             <p:column headerText="Satisfecho" width="10%">
-                               <center>
-                                    <span style="color: #1ef664" jsf:rendered="#{empleado.satisfecho eq 'MUY SATISFECHO'}" class="fa fa-check fa-2x" />
-                                    <span style="color: #ffcc00" jsf:rendered="#{empleado.satisfecho eq 'POCO SATISFECHO'}" class="fa fa-square fa-2x"/>
-                                    <span style="color: #f63a1e" jsf:rendered="#{empleado.satisfecho eq 'NO SATISFECHO'}" class="fa fa-times fa-2x"/>
+                                <center>
+                                    <p:tooltip  for="ms" value="#{indicadorController.empleado.mensajeBueno}" position="top" />
+                                    <span jsf:id="ms" style="color: #1ef664" jsf:rendered="#{empleado.satisfecho eq 'MUY SATISFECHO'}" class="fa fa-check fa-2x" />
+                                    <p:tooltip  for="ps" value="#{indicadorController.empleado.mensajeAceptable}" position="top" />
+                                    <span jsf:id="ps" style="color: #ffcc00" jsf:rendered="#{empleado.satisfecho eq 'POCO SATISFECHO'}" class="fa fa-square fa-2x"/>
+                                    <p:tooltip  for="ns" value="#{indicadorController.empleado.mensajeMalo}" position="top" />
+                                    <span jsf:id="ns" style="color: #f63a1e" jsf:rendered="#{empleado.satisfecho eq 'NO SATISFECHO'}" class="fa fa-times fa-2x"/>
                                 </center>
                             </p:column>
 

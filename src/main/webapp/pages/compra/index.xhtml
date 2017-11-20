@@ -70,7 +70,7 @@
                             <p:outputLabel value="Proveedor"/>
                             <p:inputText  value="#{compraController.compra.proveedor.nombre}" readonly="true"/>
                             <p:outputLabel value="Fecha"/>
-                            <p:inputText  value="#{compraController.compra.fecha}" readonly="true"/>
+                            <p:inputText value="#{compraController.compra.fecha}" readonly="true">  <f:convertDateTime pattern="dd/MM/yyyy" /> </p:inputText>
                             <p:outputLabel value="Gasto"/>
                             <p:inputText value="#{compraController.compra.gasto}" readonly="true">
                                 <f:convertNumber currencySymbol="Bs" locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
@@ -107,7 +107,6 @@
                         </p:dataTable>
                     </h:form>
                 </p:dialog>
-
             </ui:define>
         </ui:composition>
     </body>
