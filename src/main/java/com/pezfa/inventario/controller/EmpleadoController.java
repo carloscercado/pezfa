@@ -51,6 +51,37 @@ public class EmpleadoController implements Serializable {
         capacitacionProfesionales.setSeriesColors("ef6868, efde68, 79ef68");
         return capacitacionProfesionales;
     }
+    public double getTotalUniver()
+    {
+       long numero = getEmpleadores().stream().filter(x -> x.getEducacion() == 3).count();
+        if (numero == 3)
+        {
+          double univer = getEmpleadores().stream().mapToDouble(x -> x.getEducacion()).sum();
+              
+        }
+        return numero;
+    }
+    public double getTotalPrimaria()
+    {
+       long numero = getEmpleadores().stream().filter(x -> x.getEducacion() == 2).count();
+        if (numero == 2)
+        {
+          double basica = getEmpleadores().stream().mapToDouble(x -> x.getEducacion()).sum();
+              
+        }
+        return numero;
+    }
+    public double getTotalSinEstudios()
+    {
+       long numero = getEmpleadores().stream().filter(x -> x.getEducacion() == 1).count();
+        if (numero == 1)
+        {
+          double sineducacion = getEmpleadores().stream().mapToDouble(x -> x.getEducacion()).sum();
+              
+        }
+        return numero;
+    }
+    
    public PieChartModel getSatisfaccionEmpleado()
     {
         SatisfaccionEmpleado = new PieChartModel();
@@ -67,7 +98,7 @@ public class EmpleadoController implements Serializable {
         return SatisfaccionEmpleado;
     }
    
-    public void setSatisfaccionEmpleado(PieChartModel SatisfaccionEmpleado)
+   public void setSatisfaccionEmpleado(PieChartModel SatisfaccionEmpleado)
     {
         this.SatisfaccionEmpleado = SatisfaccionEmpleado;
     }
@@ -160,5 +191,9 @@ public class EmpleadoController implements Serializable {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este registro no puede ser eliminado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
+    }
+
+    private Object Empleadores() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

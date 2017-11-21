@@ -447,8 +447,19 @@
                     </h:form>
                 </p:dialog>
 
-                <p:dialog  header="Informaci&oacute;n sobre la educaci&oacute;n de los empleados" widgetVar="empleadoedu" responsive="true" 
-                           resizable="false" draggable="false" modal="true" width="600">
+                <p:dialog widgetVar="empleadoedu" responsive="true" 
+                           resizable="false" draggable="false" modal="true" width="850">
+                    <ui:param name="todos" value="#{empleadoController.empleadores.size()}"/>
+                    <ui:param name="total" value="#{(empleadoController.totalUniver/todos)*100}" />
+                    <ui:param name="valorp" value="#{(empleadoController.totalPrimaria/todos)*100}" />
+                    <ui:param name="valors" value="#{(empleadoController.totalSinEstudios/todos)*100}"/>  
+                    <f:facet name="header">
+                        <p:graphicImage name="/images/emleado.png" width="40 px" />
+                        Información sobre la educación de los empleados <br/>
+                        Porcentaje de empleados universitarios #{cavaController.redondearFlotanteParaElFront(total, 2)} % <br/>
+                        Porcentaje de empleados con estudios basicos y medios #{cavaController.redondearFlotanteParaElFront(valorp, 2)} %<br/>
+                        Porcentaje de empleados sin estudios #{cavaController.redondearFlotanteParaElFront(valors, 2)} %
+                      </f:facet>
                     <h:form>
                         <p:dataTable scrollable="true" scrollHeight="300" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" value="#{empleadoController.empleadores}" var="emple">
                             <p:column headerText="C&eacute;dula">
@@ -460,6 +471,11 @@
                             <p:column headerText="Cargo">
                                 #{emple.cargo}
                             </p:column>
+                            <f:facet name="footer">
+                             <h3 class="pull-right"> 
+                              Total de empleados existentes en la empresa#{todos}
+                            </h3>
+                    </f:facet>
                         </p:dataTable>
                     </h:form>
                 </p:dialog>
