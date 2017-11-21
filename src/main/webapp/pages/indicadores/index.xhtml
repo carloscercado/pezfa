@@ -446,9 +446,8 @@
                         </p:dataTable>
                     </h:form>
                 </p:dialog>
-
-                <p:dialog widgetVar="empleadoedu" responsive="true" 
-                           resizable="false" draggable="false" modal="true" width="850">
+                  <p:dialog widgetVar="empleadoedu" responsive="true" 
+                           resizable="false" draggable="false" modal="true" width="700">
                     <ui:param name="todos" value="#{empleadoController.empleadores.size()}"/>
                     <ui:param name="total" value="#{(empleadoController.totalUniver/todos)*100}" />
                     <ui:param name="valorp" value="#{(empleadoController.totalPrimaria/todos)*100}" />
@@ -456,12 +455,20 @@
                     <f:facet name="header">
                         <p:graphicImage name="/images/emleado.png" width="40 px" />
                         Información sobre la educación de los empleados <br/>
-                        Porcentaje de empleados universitarios #{cavaController.redondearFlotanteParaElFront(total, 2)} % <br/>
-                        Porcentaje de empleados con estudios basicos y medios #{cavaController.redondearFlotanteParaElFront(valorp, 2)} %<br/>
-                        Porcentaje de empleados sin estudios #{cavaController.redondearFlotanteParaElFront(valors, 2)} %
+                        Porcentaje de empleados universitarios
+                        <p:outputLabel style="color: #1ef664"  value="#{cavaController.redondearFlotanteParaElFront(total, 2)} %"/> <br/>
+                        Porcentaje de empleados con estudios basicos y medios
+                        <p:outputLabel style="color: #ffff33"  value="#{cavaController.redondearFlotanteParaElFront(valorp, 2)} %"/> <br/>
+                        Porcentaje de empleados sin estudios 
+                        <p:outputLabel style="color: #f63a1e"  value="#{cavaController.redondearFlotanteParaElFront(valors, 2)} %" />
                       </f:facet>
                     <h:form>
                         <p:dataTable scrollable="true" scrollHeight="300" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" value="#{empleadoController.empleadores}" var="emple">
+                            <p:column width="5%" class="column-hidden">
+                                <center>
+                                    <span class="fa fa-user" />
+                                </center>
+                            </p:column>
                             <p:column headerText="C&eacute;dula">
                                 #{emple.cedula}
                             </p:column>
@@ -471,9 +478,17 @@
                             <p:column headerText="Cargo">
                                 #{emple.cargo}
                             </p:column>
+                            <p:column headerText="Educaci&oacute;n" width="15%">
+                                <center>
+                                    <span jsf:id="uni" style="color: #1ef664" jsf:rendered="#{emple.educacion eq '3'}" class="fa fa-check fa-2x" />
+                                    <span jsf:id="pri" style="color: #ffcc00" jsf:rendered="#{emple.educacion eq '2'}" class="fa fa-square fa-2x"/>
+                                    <span jsf:id="se" style="color: #f63a1e" jsf:rendered="#{emple.educacion eq '1'}" class="fa fa-times fa-2x"/>
+                                </center>
+                            </p:column>
                             <f:facet name="footer">
                              <h3 class="pull-right"> 
-                              Total de empleados existentes en la empresa#{todos}
+                              Total de empleados existentes en la empresa
+                              <p:outputLabel value="#{todos}"/>
                             </h3>
                     </f:facet>
                         </p:dataTable>
@@ -482,13 +497,19 @@
 
                 <p:dialog width="800" widgetVar="emplesas" responsive="true" 
                           resizable="false" height="" draggable="false" modal="true" closable="true">
+                    <ui:param name="todos" value="#{empleadoController.empleadores.size()}"/>
+                    <ui:param name="total" value="#{(empleadoController.muySatisfecho/todos)*100}" />
+                    <ui:param name="valorp" value="#{(empleadoController.pocoSatisfecho/todos)*100}" />
+                    <ui:param name="valorn" value="#{(empleadoController.noSatisfecho/todos)*100}"/>  
                     <f:facet name="header">
                         <p:graphicImage name="/images/emleado.png" width="40 px" />
                         Satisfacción de los empleados <br/>
-                        
-                        <ui:param name="todos" value="#{empleadoController.empleadores.size()}"/>
-                        Cantidad total de empleados #{todos}
-                        
+                        Porcentaje de empleados muy satisfechos 
+                        <p:outputLabel style="color: #1ef664"  value="#{cavaController.redondearFlotanteParaElFront(total, 2)} %"/> <br/>
+                        Porcentaje de empleados poco satisfechos 
+                        <p:outputLabel style="color: #ffff33"  value="#{cavaController.redondearFlotanteParaElFront(valorp, 2)} %"/> <br/>
+                        Porcentaje de empleados nada satisfechos 
+                        <p:outputLabel style="color: #f63a1e"  value="#{cavaController.redondearFlotanteParaElFront(valorn, 2)} %"/>
                     </f:facet>
                     <h:form>
                         <p:dataTable scrollable="true" scrollHeight="300" widgetVar="empleadores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="empleado" value="#{empleadoController.empleadores}">
@@ -498,37 +519,40 @@
                                     <span class="fa fa-user" />
                                 </center>
                             </p:column>
-                            <p:column headerText="C&eacute;dula" filterBy="#{empleado.cedula}" filterStyle="display: none">
+                            <p:column headerText="C&eacute;dula" width="15%">
                                 <span class="fa fa-credit-card"/> #{empleado.cedula} 
                             </p:column>
-                            <p:column  headerText="Nombres" filterBy="#{empleado.primerNombre}" filterStyle="display: none">
+                            <p:column  headerText="Nombre" width="20%">
                                 #{empleado.primerNombre}
                             </p:column>
-                            <p:column  headerText="Apellidos" filterBy="#{empleado.primerApellido}" filterStyle="display: none">
+                            <p:column  headerText="Apellido" width="20%">
                                 #{empleado.primerApellido} 
                             </p:column>
-                            <p:column headerText="Cargo">
+                            <p:column headerText="Cargo" >
                                 #{empleado.cargo} 
                             </p:column>
-                            <p:column headerText="Satisfacci&oacute;n">
-                                #{empleado.satisfecho} 
-                            </p:column>
-                            <p:column headerText="Satisfecho" width="10%">
+                            <p:column headerText="Satisfacci&oacute;n" width="15%">
                                 <center>
                                     <p:tooltip  for="ms" value="#{indicadorController.empleado.mensajeBueno}" position="top" />
-                                    <span jsf:id="ms" style="color: #1ef664" jsf:rendered="#{empleado.satisfecho eq 'MUY SATISFECHO'}" class="fa fa-check fa-2x" />
+                                    <span jsf:id="ms" style="color: #1ef664" jsf:rendered="#{empleado.satisfecho eq '3'}" class="fa fa-check fa-2x" />
                                     <p:tooltip  for="ps" value="#{indicadorController.empleado.mensajeAceptable}" position="top" />
-                                    <span jsf:id="ps" style="color: #ffcc00" jsf:rendered="#{empleado.satisfecho eq 'POCO SATISFECHO'}" class="fa fa-square fa-2x"/>
+                                    <span jsf:id="ps" style="color: #ffcc00" jsf:rendered="#{empleado.satisfecho eq '2'}" class="fa fa-square fa-2x"/>
                                     <p:tooltip  for="ns" value="#{indicadorController.empleado.mensajeMalo}" position="top" />
-                                    <span jsf:id="ns" style="color: #f63a1e" jsf:rendered="#{empleado.satisfecho eq 'NO SATISFECHO'}" class="fa fa-times fa-2x"/>
+                                    <span jsf:id="ns" style="color: #f63a1e" jsf:rendered="#{empleado.satisfecho eq '1'}" class="fa fa-times fa-2x"/>
                                 </center>
                             </p:column>
-
-
+                            <f:facet name="footer"> 
+                                <h3 class="pull-right">
+                                    Cantidad total de empleados 
+                            <h:outputLabel value="#{todos}"/>
+                                </h3>
+                            </f:facet>
+                            
                         </p:dataTable>
                     </h:form>
                 </p:dialog>
 
+              
                 <p:dialog modal="true" widgetVar="devoluciones"  width="600" resizable="false">
                     <f:facet name="header">
                         <p:graphicImage name="/images/cliente.png" width="40 px" />

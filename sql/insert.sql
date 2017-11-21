@@ -16,13 +16,13 @@ insert into almacen
 
        
 insert into empleado
-	VALUES (1, '15764832', 'MARIA', 'JOSE', 'PEREZ', 'ALVARADO', now(), 'F', 'ADMINISTRACIÓN', 3),
-		(2, '24657978', 'PEDRO', 'JOSE', 'GARCIA', 'ALVARADO', now(), 'M', 'RRHH', 3),
-		(3, '19375232', 'ROSA', 'JOSE', 'MARQUEZ', 'ALVARADO', now(), 'F', 'PRODUCCIÓN', 2),
-		(4, '16425538', 'PABLO', 'JOSE', 'LOPEZ', 'ALVARADO', now(), 'M', 'OPERACIÓN', 3),
-		(5, '21685725', 'PATRICIA', 'JOSE', 'ROMERO', 'ALVARADO', now(), 'F', 'ADMINISTRACIÓN', 3),
-		(6, '22785825', 'ARTURO', 'MERLIN', 'CORAZON', 'DE LEON', now(), 'M', 'CHOFER', 1),
-		(7, '24645225', 'CHARLES', 'WINSTON', 'CHURCHILL', 'LEON', now(), 'M', 'CHOFER', 1);
+	VALUES (1, '15764832', 'MARIA', 'JOSE', 'PEREZ', 'ALVARADO', now(), 'F', 'ADMINISTRACIÓN', 3, 3),
+		(2, '24657978', 'PEDRO', 'JOSE', 'GARCIA', 'ALVARADO', now(), 'M', 'RRHH', 3,3),
+		(3, '19375232', 'ROSA', 'JOSE', 'MARQUEZ', 'ALVARADO', now(), 'F', 'PRODUCCIÓN', 2,2),
+		(4, '16425538', 'PABLO', 'JOSE', 'LOPEZ', 'ALVARADO', now(), 'M', 'OPERACIÓN', 3,2),
+		(5, '21685725', 'PATRICIA', 'JOSE', 'ROMERO', 'ALVARADO', now(), 'F', 'ADMINISTRACIÓN', 3,3),
+		(6, '22785825', 'ARTURO', 'MERLIN', 'CORAZON', 'DE LEON', now(), 'M', 'CHOFER', 1,1),
+		(7, '24645225', 'CHARLES', 'WINSTON', 'CHURCHILL', 'LEON', now(), 'M', 'CHOFER', 1,3);
 		
 
 insert into ESPECIE (id, codigo, tipo, nombre, precio) 
