@@ -106,27 +106,7 @@ public class EmpleadoController implements Serializable {
               
         }
         return numero;
-    }
-    public double getPocoSatisfecho()
-    {
-       long numero = getEmpleadores().stream().filter(x -> x.getSatisfecho() == 2).count();
-        if (numero == 2)
-        {
-          double poco = getEmpleadores().stream().mapToDouble(x -> x.getSatisfecho()).sum();
-              
-        }
-        return numero;
-    }
-    public double getNoSatisfecho()
-    {
-       long numero = getEmpleadores().stream().filter(x -> x.getSatisfecho() == 1).count();
-        if (numero == 1)
-        {
-          double no = getEmpleadores().stream().mapToDouble(x -> x.getSatisfecho()).sum();
-              
-        }
-        return numero;
-    }
+    } 
    public void setSatisfaccionEmpleado(PieChartModel SatisfaccionEmpleado)
     {
         this.SatisfaccionEmpleado = SatisfaccionEmpleado;

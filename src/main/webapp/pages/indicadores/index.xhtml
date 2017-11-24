@@ -449,19 +449,26 @@
                   <p:dialog widgetVar="empleadoedu" responsive="true" 
                            resizable="false" draggable="false" modal="true" width="700">
                     <ui:param name="todos" value="#{empleadoController.empleadores.size()}"/>
-                    <ui:param name="total" value="#{(empleadoController.totalUniver/todos)*100}" />
-                    <ui:param name="valorp" value="#{(empleadoController.totalPrimaria/todos)*100}" />
-                    <ui:param name="valors" value="#{(empleadoController.totalSinEstudios/todos)*100}"/>  
+                    <ui:param name="total" value="#{((empleadoController.totalUniver + empleadoController.totalPrimaria)/todos)*100}" />
                     <f:facet name="header">
                         <p:graphicImage name="/images/emleado.png" width="40 px" />
-                        Información sobre la educación de los empleados <br/>
-                        Porcentaje de empleados universitarios
-                        <p:outputLabel style="color: #1ef664"  value="#{cavaController.redondearFlotanteParaElFront(total, 2)} %"/> <br/>
-                        Porcentaje de empleados con estudios basicos y medios
-                        <p:outputLabel style="color: #ffff33"  value="#{cavaController.redondearFlotanteParaElFront(valorp, 2)} %"/> <br/>
-                        Porcentaje de empleados sin estudios 
-                        <p:outputLabel style="color: #f63a1e"  value="#{cavaController.redondearFlotanteParaElFront(valors, 2)} %" />
-                      </f:facet>
+                        Indice de estudios de los empleados 
+                        <p:tooltip  for="eu" value="#{indicadorController.educacion.mensajeBueno}" position="top" />
+                        <strong jsf:id="eu" jsf:rendered="#{!(total le indicadorController.educacion.bueno)}"
+                                style="color: #1ef664; font-size: 18px">
+                            #{cavaController.redondearFlotanteParaElFront(total, 2)} %
+                        </strong>
+                        <p:tooltip  for="ep" value="#{indicadorController.educacion.mensajeAceptable}" position="top" />
+                        <strong jsf:id="ep" style="color: #ffff33; font-size: 18px" jsf:rendered="#{((!(total le indicadorController.educacion.malo ) or total eq indicadorController.educacion.malo+1 ) 
+                                                                                                    and (total le indicadorController.educacion.bueno-1))}" >
+                                #{cavaController.redondearFlotanteParaElFront(total, 2)} %
+                        </strong>
+                        <p:tooltip  for="se" value="#{indicadorController.educacion.mensajeMalo}" position="top" />
+                        <strong jsf:id="se" jsf:rendered="#{total le indicadorController.educacion.malo}" 
+                                style="color: #f63a1e; font-size: 18px">
+                            #{cavaController.redondearFlotanteParaElFront(total, 2)} %
+                        </strong>  
+                    </f:facet>
                     <h:form>
                         <p:dataTable scrollable="true" scrollHeight="300" widgetVar="cavas" emptyMessage="No se encontrar&oacute;n datos" reflow="true" value="#{empleadoController.empleadores}" var="emple">
                             <p:column width="5%" class="column-hidden">
@@ -480,9 +487,9 @@
                             </p:column>
                             <p:column headerText="Educaci&oacute;n" width="15%">
                                 <center>
-                                    <span jsf:id="uni" style="color: #1ef664" jsf:rendered="#{emple.educacion eq '3'}" class="fa fa-check fa-2x" />
-                                    <span jsf:id="pri" style="color: #ffcc00" jsf:rendered="#{emple.educacion eq '2'}" class="fa fa-square fa-2x"/>
-                                    <span jsf:id="se" style="color: #f63a1e" jsf:rendered="#{emple.educacion eq '1'}" class="fa fa-times fa-2x"/>
+                                    <span title="UNIVERSITARIOS" jsf:id="uni" style="color: #1ef664" jsf:rendered="#{emple.educacion eq '3'}" class="fa fa-check fa-2x" />
+                                    <span title="B&Aacute;SICA Y MEDIA" jsf:id="pri" style="color: #ffcc00" jsf:rendered="#{emple.educacion eq '2'}" class="fa fa-square fa-2x"/>
+                                    <span title="SIN ESTUDIOS" jsf:id="se" style="color: #f63a1e" jsf:rendered="#{emple.educacion eq '1'}" class="fa fa-times fa-2x"/>
                                 </center>
                             </p:column>
                             <f:facet name="footer">
@@ -499,17 +506,25 @@
                           resizable="false" height="" draggable="false" modal="true" closable="true">
                     <ui:param name="todos" value="#{empleadoController.empleadores.size()}"/>
                     <ui:param name="total" value="#{(empleadoController.muySatisfecho/todos)*100}" />
-                    <ui:param name="valorp" value="#{(empleadoController.pocoSatisfecho/todos)*100}" />
-                    <ui:param name="valorn" value="#{(empleadoController.noSatisfecho/todos)*100}"/>  
                     <f:facet name="header">
                         <p:graphicImage name="/images/emleado.png" width="40 px" />
-                        Satisfacción de los empleados <br/>
-                        Porcentaje de empleados muy satisfechos 
-                        <p:outputLabel style="color: #1ef664"  value="#{cavaController.redondearFlotanteParaElFront(total, 2)} %"/> <br/>
-                        Porcentaje de empleados poco satisfechos 
-                        <p:outputLabel style="color: #ffff33"  value="#{cavaController.redondearFlotanteParaElFront(valorp, 2)} %"/> <br/>
-                        Porcentaje de empleados nada satisfechos 
-                        <p:outputLabel style="color: #f63a1e"  value="#{cavaController.redondearFlotanteParaElFront(valorn, 2)} %"/>
+                        Porcentaje de satisfacción de empleados <br/>
+                        Empleados muy satisfechos 
+                        <p:tooltip  for="ms" value="#{indicadorController.empleado.mensajeBueno}" position="top" />
+                        <strong jsf:id="ms" jsf:rendered="#{!(total le indicadorController.empleado.bueno)}"
+                                style="color: #1ef664; font-size: 18px">
+                            #{cavaController.redondearFlotanteParaElFront(total, 2)} %
+                        </strong>
+                        <p:tooltip  for="ps" value="#{indicadorController.empleado.mensajeAceptable}" position="top" />
+                        <strong jsf:id="ps" style="color: #ffff33; font-size: 18px" jsf:rendered="#{((!(total le indicadorController.empleado.malo ) or total eq indicadorController.empleado.malo+1 ) 
+                                                                                                    and (total le indicadorController.empleado.bueno-1))}" >
+                                #{cavaController.redondearFlotanteParaElFront(total, 2)} %
+                        </strong>
+                        <p:tooltip  for="ns" value="#{indicadorController.empleado.mensajeMalo}" position="top" />
+                        <strong jsf:id="ns" jsf:rendered="#{total le indicadorController.empleado.malo}" 
+                                style="color: #f63a1e; font-size: 18px">
+                            #{cavaController.redondearFlotanteParaElFront(total, 2)} %
+                        </strong>  
                     </f:facet>
                     <h:form>
                         <p:dataTable scrollable="true" scrollHeight="300" widgetVar="empleadores" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="empleado" value="#{empleadoController.empleadores}">
@@ -533,12 +548,9 @@
                             </p:column>
                             <p:column headerText="Satisfacci&oacute;n" width="15%">
                                 <center>
-                                    <p:tooltip  for="ms" value="#{indicadorController.empleado.mensajeBueno}" position="top" />
-                                    <span jsf:id="ms" style="color: #1ef664" jsf:rendered="#{empleado.satisfecho eq '3'}" class="fa fa-check fa-2x" />
-                                    <p:tooltip  for="ps" value="#{indicadorController.empleado.mensajeAceptable}" position="top" />
-                                    <span jsf:id="ps" style="color: #ffcc00" jsf:rendered="#{empleado.satisfecho eq '2'}" class="fa fa-square fa-2x"/>
-                                    <p:tooltip  for="ns" value="#{indicadorController.empleado.mensajeMalo}" position="top" />
-                                    <span jsf:id="ns" style="color: #f63a1e" jsf:rendered="#{empleado.satisfecho eq '1'}" class="fa fa-times fa-2x"/>
+                                    <span title="MUY SATISFECHO" style="color: #1ef664" jsf:rendered="#{empleado.satisfecho eq '3'}" class="fa fa-check fa-2x" />
+                                    <span title="POCO SATISFECHO" style="color: #ffcc00" jsf:rendered="#{empleado.satisfecho eq '2'}" class="fa fa-square fa-2x"/>
+                                    <span title="NADA SATISFECHO" style="color: #f63a1e" jsf:rendered="#{empleado.satisfecho eq '1'}" class="fa fa-times fa-2x"/>
                                 </center>
                             </p:column>
                             <f:facet name="footer"> 
@@ -578,7 +590,7 @@
                                 <p:tooltip  for="malo" value="#{indicadorController.satisfaccion.mensajeMalo}" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{valor le indicadorController.satisfaccion.malo}" style="color: #f63a1e"/>
                                 <p:tooltip  for="aceptable" value="#{indicadorController.satisfaccion.mensajeAceptable}" position="top" />
-                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo-1) 
+                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(valor le indicadorController.satisfaccion.malo ) or valor eq indicadorController.satisfaccion.malo+1) 
                                                                                                     and (valor le indicadorController.satisfaccion.bueno-1))}" style="color: #ffff66"/>
 
                                 <p:tooltip  for="bueno" value="#{indicadorController.satisfaccion.mensajeBueno}" position="top" />
