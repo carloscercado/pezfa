@@ -45,7 +45,7 @@ public class EmpleadoController implements Serializable {
         capacitacionProfesionales.set("Sin estudios", sinEducacion);
         capacitacionProfesionales.set("Educación basica y media", primaria);
         capacitacionProfesionales.set("Educación universitaria", universitarios);
-        capacitacionProfesionales.setTitle("Educación de los empleados");
+        capacitacionProfesionales.setTitle("Porcentaje de trabajadores con estudios");
         capacitacionProfesionales.setLegendPosition("w");
         capacitacionProfesionales.setShowDataLabels(true);
         capacitacionProfesionales.setSeriesColors("ef6868, efde68, 79ef68");
@@ -91,7 +91,7 @@ public class EmpleadoController implements Serializable {
         SatisfaccionEmpleado.set("Muy satisfechos", muySatisfecho);
         SatisfaccionEmpleado.set("Poco satisfechos", pocoSatisfecho);
         SatisfaccionEmpleado.set("No satisfechos", noSatisfecho);
-        SatisfaccionEmpleado.setTitle("Satisfacción de los empleados");
+        SatisfaccionEmpleado.setTitle("Porcentaje de satisfacción de los trabajadores");
         SatisfaccionEmpleado.setLegendPosition("w");
         SatisfaccionEmpleado.setShowDataLabels(true);
         SatisfaccionEmpleado.setSeriesColors("79ef68,efde68,ef6868");

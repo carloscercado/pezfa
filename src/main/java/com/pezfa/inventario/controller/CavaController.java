@@ -36,7 +36,7 @@ public class CavaController implements Serializable {
 
         capacidadIndicador.set("Espacio utilizado", disponible);
         capacidadIndicador.set("Espacio libre", capacidad);
-        capacidadIndicador.setTitle("Disponibilidad de Almacenes");
+        capacidadIndicador.setTitle("Disponibilidad de las cavas");
         capacidadIndicador.setLegendPosition("w");
         capacidadIndicador.setShowDataLabels(true);
         capacidadIndicador.setSeriesColors("79ef68, ef6868");
@@ -59,6 +59,7 @@ public class CavaController implements Serializable {
         double resultado = ((totalDisponible / totalCapacidad) * 100);
         return CavaController.redondear(resultado, 2);
     }
+    
 
     public AlmacenController getAlmacenController() {
         return almacenController;
@@ -70,16 +71,16 @@ public class CavaController implements Serializable {
     
     public double getCapacidadDisponibleAlmacen(int id)
     {
-        List<Cava> cavas = db.read("from Cava cav where cav.id ="+id);
+        List<Cava> cavas = db.read("from Cava cav where cav.id = "+id);
         return cavas.stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
     }
     
     public double getCapacidadAlmacen(int id)
     {
-        List<Cava> cavas = db.read("from Cava cav where cav.id ="+id);
+        List<Cava> cavas = db.read("from Cava cav where cav.id = "+id);
         return cavas.stream().mapToDouble(x -> x.getCapacidad()).sum();
     }
-
+     
     public static double redondear(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();

@@ -536,8 +536,8 @@ public class VentaController implements Serializable
         {
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe agregar minimo un producto a la lista", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
-            this.getCodigoFactura();
         }
+        this.getCodigoFactura();
     }
 
     public void registrarDevolucion()
