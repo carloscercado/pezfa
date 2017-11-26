@@ -410,9 +410,9 @@
 
                             <br/>
                             <center>
-                                <p:commandButton value="Modificar" class="btn-warning" icon="fa fa-edit" update="mensaje @widgetVar(precio):especies" oncomplete="PF('modificar').hide()" actionListener="#{especieController.update()}"/> 
-                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger"  oncomplete="PF('modificar').hide()"/>
-                            </center>
+                                <p:commandButton value="Modificar" class="btn-warning" icon="fa fa-edit" update="mensaje @widgetVar(precio):especies" actionListener="#{especieController.update()}"/> 
+                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{especieController.reset()}" oncomplete="PF('modificar').hide()"/>
+                        </center>
                         </h:form>
                     </p:dialog> 
 

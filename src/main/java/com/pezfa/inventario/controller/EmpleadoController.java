@@ -85,9 +85,9 @@ public class EmpleadoController implements Serializable {
    public PieChartModel getSatisfaccionEmpleado()
     {
         SatisfaccionEmpleado = new PieChartModel();
-        double muySatisfecho = (double) this.empleadores.stream().filter(x -> x.getSatisfecho().equals("MUY SATISFECHO")).count();
-        double pocoSatisfecho = (double) this.empleadores.stream().filter(x -> x.getSatisfecho().equals("POCO SATISFECHO")).count();
-        double noSatisfecho = (double) this.empleadores.stream().filter(x -> x.getSatisfecho().equals("NO SATISFECHO")).count();
+        double muySatisfecho = (double) this.empleadores.stream().filter(x -> x.getSatisfecho() == 3).count();
+        double pocoSatisfecho = (double) this.empleadores.stream().filter(x -> x.getSatisfecho() == 2).count();
+        double noSatisfecho = (double) this.empleadores.stream().filter(x -> x.getSatisfecho() == 1).count();
         SatisfaccionEmpleado.set("Muy satisfechos", muySatisfecho);
         SatisfaccionEmpleado.set("Poco satisfechos", pocoSatisfecho);
         SatisfaccionEmpleado.set("No satisfechos", noSatisfecho);
@@ -97,7 +97,16 @@ public class EmpleadoController implements Serializable {
         SatisfaccionEmpleado.setSeriesColors("79ef68,efde68,ef6868");
         return SatisfaccionEmpleado;
     }
-   
+   public double getMuySatisfecho()
+    {
+       long numero = getEmpleadores().stream().filter(x -> x.getSatisfecho() == 3).count();
+        if (numero == 3)
+        {
+          double satis = getEmpleadores().stream().mapToDouble(x -> x.getSatisfecho()).sum();
+              
+        }
+        return numero;
+    } 
    public void setSatisfaccionEmpleado(PieChartModel SatisfaccionEmpleado)
     {
         this.SatisfaccionEmpleado = SatisfaccionEmpleado;

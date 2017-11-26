@@ -75,7 +75,7 @@ create table if not exists empleado
     sexo varchar(1) not null,
     cargo varchar(20) not null,
     educacion int default(0) not null ,
-    satisfecho varchar(30) default 'NO SATISFECHO'
+    satisfecho int default(0) not null
 );
 
 create table if not exists almacen

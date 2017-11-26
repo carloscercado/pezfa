@@ -104,9 +104,9 @@
 
                             <p:outputLabel value="Sexo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.sexo}" required="true" requiredMessage="Ingrese el sexo">
-                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
-                                <f:selectItem itemValue="M" itemLabel="Masculino"/>
-                                <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="SELECCIONAR"/>
+                                <f:selectItem itemValue="M" itemLabel="MASCULINO"/>
+                                <f:selectItem itemValue="F" itemLabel="FEMENINO"/>
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Cargo:"> <span style="color: #D20005">*</span></p:outputLabel>
@@ -121,11 +121,10 @@
 
                             <p:outputLabel value="Estudios:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.educacion}" required="true" requiredMessage="Ingrese el estudio">
-                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
-                                <f:selectItem itemValue="4" itemLabel="Universitarios"/>
-                                <f:selectItem itemValue="3" itemLabel="Secundaria"/>
-                                <f:selectItem itemValue="2" itemLabel="Primaria"/>
-                                <f:selectItem itemValue="1" itemLabel="Sin estudios"/>
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="SELECCIONAR"/>
+                                <f:selectItem itemValue="3" itemLabel="UNIVERSITARIOS"/>
+                                <f:selectItem itemValue="2" itemLabel="B&Aacute;SICOS Y MEDIOS"/>
+                                <f:selectItem itemValue="1" itemLabel="SIN ESTUDIOS"/>
                             </p:selectOneMenu>
 
                         </p:panelGrid>
@@ -174,16 +173,16 @@
 
                             <p:outputLabel value="Sexo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.sexo}" required="true" requiredMessage="Ingrese el sexo">
-                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
-                                <f:selectItem itemValue="M" itemLabel="Masculino"/>
-                                <f:selectItem itemValue="F" itemLabel="Femenino"/>
+                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="SELECCIONAR"/>
+                                <f:selectItem itemValue="M" itemLabel="MASCULINO"/>
+                                <f:selectItem itemValue="F" itemLabel="FEMENINO"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Satisfacci&oacute;n:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:selectOneMenu value="#{empleadoController.empleado.satisfecho}" required="true" requiredMessage="Ingrese el cargo">
+                            <p:selectOneMenu value="#{empleadoController.empleado.satisfecho}" required="true" requiredMessage="Ingrese la satisfacci&oacute;n">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="SELECCIONAR"/>
-                                <f:selectItem itemValue="MUY SATISFECHO" itemLabel="MUY SATISFECHO"/>
-                                <f:selectItem itemValue="POCO SATISFECHO" itemLabel="POCO SATISFECHO"/>
-                                <f:selectItem itemValue="NO SATISFECHO" itemLabel="NO SATISFECHO"/>
+                                <f:selectItem itemValue="3" itemLabel="MUY SATISFECHO"/>
+                                <f:selectItem itemValue="2" itemLabel="POCO SATISFECHO"/>
+                                <f:selectItem itemValue="1" itemLabel="NO SATISFECHO"/>
                             </p:selectOneMenu>    
                             <p:outputLabel value="Cargo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.cargo}" required="true" requiredMessage="Ingrese el cargo">
@@ -197,11 +196,10 @@
 
                             <p:outputLabel value="Estudios:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.educacion}" required="true" requiredMessage="Ingrese el estudio">
-                                <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="Seleccionar"/>
-                                <f:selectItem itemValue="4" itemLabel="Universitarios"/>
-                                <f:selectItem itemValue="3" itemLabel="Secundaria"/>
-                                <f:selectItem itemValue="2" itemLabel="Primaria"/>
-                                <f:selectItem itemValue="1" itemLabel="Sin estudios"/>
+                                  <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="SELECCIONAR"/>
+                                <f:selectItem itemValue="3" itemLabel="UNIVERSITARIOS"/>
+                                <f:selectItem itemValue="2" itemLabel="B&Aacute;SICOS Y MEDIOS"/>
+                                <f:selectItem itemValue="1" itemLabel="SIN ESTUDIOS"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
 

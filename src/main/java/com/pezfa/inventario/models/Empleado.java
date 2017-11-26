@@ -19,13 +19,13 @@ public class Empleado  implements java.io.Serializable {
      private Date nacimiento;
      private String sexo;
      private String cargo;
-     private String satisfecho;
+     private int satisfecho;
      private Set usuarios = new HashSet(0);
 
     public Empleado() {
     }
 
-    public Empleado(int id, int educacion, String cedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, Date nacimiento, String sexo, String cargo, String satisfecho)
+    public Empleado(int id, int educacion, String cedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, Date nacimiento, String sexo, String cargo, int satisfecho)
     {
         this.id = id;
         this.educacion = educacion;
@@ -40,12 +40,12 @@ public class Empleado  implements java.io.Serializable {
         this.satisfecho = satisfecho;
     }
 
-    public String getSatisfecho()
+    public int getSatisfecho()
     {
         return satisfecho;
     }
 
-    public void setSatisfecho(String satisfecho)
+    public void setSatisfecho(int satisfecho)
     {
         this.satisfecho = satisfecho;
     }
