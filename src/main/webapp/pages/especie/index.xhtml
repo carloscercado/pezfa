@@ -13,16 +13,18 @@
             <ui:define name="content">
                 <h:form >
                     <h3 align="center" style="color: #045491">Administrar especies</h3>
-                    
+
                     <p:dataTable scrollable="true" scrollHeight="300" widgetVar="especies" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="especie" value="#{especieController.especies}">
                         <f:facet name="header">
-                            <div class="col-md-6 text-left header-tabla-hidden">
-                                <p:commandButton style="alignment-adjust: central" value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
-                                
+                            <div class="row">
+                                <div class="col-md-6 text-left header-tabla-hidden">
+                                    <p:commandButton style="alignment-adjust: central" value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
+                                </div>
+
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar por c&oacute;digo o nombre de especie" style="width: 55%"/>
+                                </div>
                             </div>
-                            <center>
-                                <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar"/>
-                            </center>
                         </f:facet>
 
                         <p:column width="5%" class="column-hidden">
@@ -67,9 +69,9 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                
-                
-                
+
+
+
                 <p:dialog closable="false" header="Registrar especies" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
                     <f:facet name="onHide">
                         <p:ajax update="@widgetVar(especies)" listener="#{especieController.reset()}"/>
@@ -80,7 +82,7 @@
                         <p:panelGrid columns="2">
                             <p:outputLabel value="C&oacute;digo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="10" value="#{especieController.especie.codigo}" required="true" requiredMessage="Ingrese el C&oacute;digo" placeholder="C&oacute;digo">
-                            <p:ajax event="change" listener="#{especieController.validarCodigo()}" update="msj"/>
+                                <p:ajax event="change" listener="#{especieController.validarCodigo()}" update="msj"/>
                             </p:inputText>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" onkeypress="return letras(event)" maxlength="20" placeholder="Nombre" requiredMessage="Ingrese el nombre" required="true"  value="#{especieController.especie.nombre}"/>
@@ -95,7 +97,7 @@
                         <br/>
                         <center>
                             <p:commandButton value="Registrar" icon="fa fa-save" update="mensaje" actionListener="#{especieController.register()}"/> 
-                           <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" oncomplete="PF('registrar').hide()"/>
                         </center>
                     </h:form>
                 </p:dialog>
@@ -117,7 +119,7 @@
                         <p:panelGrid columns="2">
                             <p:outputLabel value="C&oacute;digo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="10" value="#{especieController.especie.codigo}" required="true" requiredMessage="Ingrese el C&oacute;digo" placeholder="C&oacute;digo">
-                            <p:ajax event="change" listener="#{especieController.validarCodigo()}" update="msj"/>
+                                <p:ajax event="change" listener="#{especieController.validarCodigo()}" update="msj"/>
                             </p:inputText>
                             <p:outputLabel value="Nombre:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText autocomplete="off" maxlength="20" onkeypress="return letras(event)" value="#{especieController.especie.nombre}" required="true" requiredMessage="Ingrese el nombre" placeholder="Nombre"/>
@@ -130,7 +132,7 @@
                             <p:outputLabel value="Tipo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu requiredMessage="Ingrese el tipo"  required="true"  value="#{especieController.especie.tipo}">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>
-                               <f:selectItem itemValue="MOLUSCOS" itemLabel="MOLUSCOS"/>
+                                <f:selectItem itemValue="MOLUSCOS" itemLabel="MOLUSCOS"/>
                                 <f:selectItem itemValue="CRUSTACEOS" itemLabel="CRUSTACEOS"/>
                                 <f:selectItem itemValue="PEZ" itemLabel="PEZ"/>
                             </p:selectOneMenu>

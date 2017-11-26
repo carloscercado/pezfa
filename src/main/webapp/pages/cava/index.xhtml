@@ -21,7 +21,7 @@
                                 </div>
 
                                 <div class="col-md-6 text-right header-tabla-center">
-                                    <p:inputText id="globalFilter" onkeyup="PF('cavas').filter()" placeholder="Buscar"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('cavas').filter()" placeholder="Buscar por cava o almac&eacute;n" style="width: 40%"/>
                                 </div>
                         </div>
                         </f:facet>
@@ -43,7 +43,7 @@
                         <p:column filterBy="#{cava.capacidadDisponible}"  headerText="Capacidad disponible" filterStyle="display: none">
                             #{cava.capacidadDisponible} Kg
                         </p:column>
-                        <p:column width="25%" class="column-hidden" headerText="Opciones">
+                        <p:column width="15%" class="column-hidden" headerText="Opciones">
                             <center>  
                                 <p:commandButton icon="fa fa-trash" title="Eliminar" oncomplete="PF('eliminar').show()" update="@widgetVar(eliminar)" class="btn-danger">
                                     <f:setPropertyActionListener target="#{cavaController.cava}" value="#{cava}"/>

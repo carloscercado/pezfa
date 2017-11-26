@@ -9,22 +9,22 @@
     <body>
 
         <ui:composition template="./../../template/menu.xhtml">
-            
+
             <ui:define name="content">
                 <h:form rendered="#{(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
-                    <h3 align="center" style="color: #045491">Administrar Camiones</h3>
-                    
-                    <p:dataTable scrollable="true" scrollHeight="300" widgetVar="camion" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="camion" value="#{camionController.camiones}">
+                    <h3 align="center" style="color: #045491">Administrar camiones</h3>
+
+                    <p:dataTable scrollable="true" scrollHeight="300" widgetVar="camiones" emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="camion" value="#{camionController.camiones}">
                         <f:facet name="header">
-                              <div class="row">
+                            <div class="row">
                                 <div  class="col-md-6 text-left header-tabla-hidden">
                                     <p:commandButton value="Agregar" icon="fa fa-plus" oncomplete="PF('registrar').show()" update="@widgetVar(registrar)"/>
                                 </div>
 
                                 <div class="col-md-6 text-right header-tabla-center">
-                                    <p:inputText id="globalFilter" onkeyup="PF('camiones').filter()" placeholder="Buscar"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('camiones').filter()" placeholder="Buscar por placa"/>
                                 </div>
-                                </div>
+                            </div>
                         </f:facet>
                         <p:column width="5%" class="column-hidden">
                             <center>
@@ -39,8 +39,8 @@
                             #{camion.modelo}
                         </p:column>
 
-                        <p:column headerText="Placa">
-                           #{camion.placa} 
+                        <p:column headerText="Placa" filterBy="#{camion.placa}" filterStyle="display: none">
+                            #{camion.placa} 
                         </p:column>
                         <p:column width="15%" class="column-hidden" headerText="Opciones">
                             <center>  
@@ -53,9 +53,9 @@
                             </center> 
                         </p:column>
                     </p:dataTable>
-                    
-                    </h:form>
-               
+
+                </h:form>
+
                 <h:form rendered="#{!(usuarioController.sesion.rol eq 'ADMINISTRADOR')}">
                     <center>
                         <p:graphicImage name="/images/401.png" height="400"/>
@@ -63,7 +63,7 @@
                         <p:commandButton onclick="location.href = '/pezfa'" icon="fa fa-home" value="Volver al inicio"/>
                     </center>
                 </h:form>
-                
+
                 <p:dialog closable="false" header="Registrar camiones" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
                     <f:facet name="onHide">
                         <p:ajax update="@widgetVar(camion)" listener="#{camionController.reset()}"/>
@@ -117,13 +117,13 @@
                         </p:panelGrid>
 
                         <br/>
-                            <center>
-                                <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(camion)" actionListener="#{camionController.update()}"/> 
-                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{camionController.reset()}" oncomplete="PF('modificar').hide()"/>
-                            </center>
+                        <center>
+                            <p:commandButton value="Modificar" icon="fa fa-edit" update="mensaje @widgetVar(camion)" actionListener="#{camionController.update()}"/> 
+                            <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{camionController.reset()}" oncomplete="PF('modificar').hide()"/>
+                        </center>
                     </h:form>
                 </p:dialog> 
-                
+
             </ui:define>
 
         </ui:composition>

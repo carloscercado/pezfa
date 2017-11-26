@@ -31,7 +31,7 @@
                                 </div>
 
                                 <div class="col-md-4 text-right header-tabla-center">
-                                    <p:inputText id="globalFilter" onkeyup="PF('auditorias').filter()" placeholder="Buscar"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('auditorias').filter()" placeholder="Buscar por empleado"/>
                                 </div>
                             </div>
                         </f:facet>
@@ -40,10 +40,10 @@
                             con usuario '#{auditoria.usuario.usuario}'
                         </p:column>
 
-                        <p:column filterBy="#{auditoria.tipo}" width="20%">
+                        <p:column filterBy="#{auditoria.tipo}" width="22%">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('auditorias').filter()">
-                                    <f:selectItem noSelectionOption="true" itemValue="#{null}" itemLabel="TIPO"/>
+                                    <f:selectItem noSelectionOption="true" itemValue="#{null}" itemLabel="Seleccione el tipo de registro"/>
                                     <f:selectItem itemLabel="ACCESO" itemValue="ACCESO"/>
                                     <f:selectItem itemLabel="VENTAS" itemValue="REGISTRO DE VENTAS"/>
                                     <f:selectItem itemLabel="COMPRAS" itemValue="REGISTRO DE COMPRAS"/>

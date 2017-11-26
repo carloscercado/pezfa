@@ -27,7 +27,7 @@
                                     <p:graphicImage name="/images/Inventario3.png" width="40 px"/>Inventario de especies marinas
                                 </div>
                                 <div class="col-md-6 text-right header-tabla-center">
-                                    <p:inputText id="globalFilter" onkeyup="PF('clientes').filter()" placeholder="Buscar"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('especies').filter()" placeholder="Buscar por especies o c&oacute;digo" style="width: 45%"/>
                                 </div>
                             </div>
                         </f:facet>
@@ -74,7 +74,7 @@
 
                         <p:column width="10%" class="column-hidden" headerText="Detalles">
                             <center>  
-                                <p:commandButton icon="fa fa-list-ul" title="Ver detalle" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)"  class="btn-secundary"> 
+                                <p:commandButton icon="fa fa-search" title="Pulse aquí para ver detalles de esta especie" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)"  class="btn-secundary"> 
                                     <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie}"/>
                                 </p:commandButton>
                             </center> 

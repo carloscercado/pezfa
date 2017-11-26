@@ -59,12 +59,12 @@
                                     </div>
                                 </center>
                             </div>
-                    </div>
+                        </div>
                     </div>
                     <br/>
                     <p:dataTable id="tabla" widgetVar="detalles" 
-                                  var="detalle" value="#{ventaController.lista}"
-                                  emptyMessage="No hay productos agregados." reflow="true">
+                                 var="detalle" value="#{ventaController.lista}"
+                                 emptyMessage="No hay productos agregados." reflow="true">
                         <f:facet name="header">
                             <div class="row">
                                 <div  class="col-md-6 text-left ">
@@ -132,7 +132,7 @@
                                     <p:growl id="mensaje" life="5000"/>
 
                                     <p:commandButton id="guardar" value="Guardar venta" class="btn-success"
-                                   icon="fa fa-save" update="mensaje @widgetVar(productossalida) todo menu2" actionListener="#{ventaController.register()}"/>
+                                                     icon="fa fa-save" update="mensaje @widgetVar(productossalida) todo menu2" actionListener="#{ventaController.register()}"/>
                                     <p:blockUI block="tabla" trigger="guardar">
                                         Registrando...<br/>
                                         <span class="fa fa-spin fa-3x fa-spinner"></span>
@@ -142,7 +142,7 @@
                         </f:facet>
                     </p:dataTable>
                 </h:form>
-            
+
                 <p:dialog closable="false" header="Registrar cliente" widgetVar="registrar" responsive="true" resizable="false" draggable="false" modal="true">
                     <h:form>
                         <p:growl id="mensaje"/>  
@@ -178,7 +178,7 @@
                                     </div>
 
                                     <div class="col-md-6 text-right header-tabla-center">
-                                        <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('detalles').filter();"  placeholder="Buscar por nombre o c&oacute;digo" />
+                                        <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('detalles').filter();"  placeholder="Buscar por nombre o c&oacute;digo" style="width: 60%"/>
                                     </div>
                                 </div>
                             </f:facet>
@@ -212,7 +212,7 @@
                             </p:column>
                             <p:column headerText="Agregar" width="10%">
                                 <center>
-                                    <p:commandButton rendered="#{!(producto.compraEspecie.especie.precio le 1)}" icon="fa fa-plus" title="Agregar" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
+                                    <p:commandButton rendered="#{!(producto.compraEspecie.especie.precio le 1)}" icon="fa fa-plus" title="Agregar especie a vender" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
                                         <f:setPropertyActionListener target="#{ventaController.producto}" value="#{producto}"/>
                                     </p:commandButton>
                                     <span jsf:rendered="#{(producto.compraEspecie.especie.precio le 1)}">Sin Valor</span>
@@ -236,9 +236,10 @@
                         <p:growl id="mensaje" life="5000"/>
                         <div class="text-muted" style="font-weight: bold">
                             <div jsf:rendered="#{ventaController.producto.getClass().name.endsWith('Ubicacion')}">
-                                <span class="fa fa-info-circle fa-2x"/>
-                                Por favor ingrese la cantidad de #{ventaController.producto.compraEspecie.especie.nombre} a vender<br/>
-                                <center>
+                                <center> <span class="fa fa-info-circle fa-2x"/>
+                                    Por favor, ingrese la cantidad de #{ventaController.producto.compraEspecie.especie.nombre} a vender
+                                    <br/>
+
                                     Cantidad disponible: 
                                     <h:outputLabel value="#{ventaController.producto.compraEspecie.especie.cantidad}">
                                         <f:convertNumber locale="es" minFractionDigits="2" maxFractionDigits="2"/>
@@ -266,7 +267,7 @@
                         </center>
                     </h:form>
                 </p:dialog>
-               
+
             </ui:define>
 
         </ui:composition>

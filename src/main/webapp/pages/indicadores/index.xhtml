@@ -91,7 +91,7 @@
                         Disponibilidad del espacio físico de cada cava
                     </f:facet>
                     <h:form>
-                        <p:tooltip  for="info" value="coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
+                        <p:tooltip  for="info" value="Coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
                         <p:dataTable scrollable="true" id="info" scrollHeight="300" widgetVar="cavas" 
                                      emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" 
                                      value="#{cavaController.cavasFiltro}">
@@ -127,7 +127,7 @@
                             </p:column>
                             <p:column width="10%" class="column-hidden" headerText="Detalles">
                                 <center>  
-                                    <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)" class="btn-secundary"> 
+                                    <p:commandButton icon="fa fa-search" title="Ver informaci&oacute;n de las especies contenidas en la cava" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)" class="btn-secundary"> 
                                         <f:setPropertyActionListener target="#{cavaController.cava}" value="#{cava}"/>
                                     </p:commandButton>
                                 </center>
@@ -197,7 +197,7 @@
                             </p:column>
                             <p:column width="15%" class="column-hidden" headerText="Detalles">
                                 <center> 
-                                   <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('capacidad').show()"
+                                   <p:commandButton icon="fa fa-search" title="Ver disponibilidad de espacio en la cava" oncomplete="PF('capacidad').show()"
                                                      update="@widgetVar(capacidad)" class="btn-secundary"> 
                                         <f:setPropertyActionListener target="#{almacenController.almacen}" value="#{almacen}"/>
                                     </p:commandButton>
@@ -238,7 +238,7 @@
                             </p:column>
                             <p:column width="10%" class="column-hidden" headerText="Detalles">
                                 <center>  
-                                    <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('verDetalleEspecie').show()" 
+                                    <p:commandButton icon="fa fa-search" title="Ver informaci&oacute;n de la cantidad de especies contenidas en la cava" oncomplete="PF('verDetalleEspecie').show()" 
                                         update="@widgetVar(verDetalleEspecie)" class="btn-secundary">
                                         <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie.compraEspecie.especie}"/>
                                     </p:commandButton> 
@@ -316,9 +316,9 @@
                                 </center>
                             </p:column>
 
-                            <p:column headerText="detalles">
+                            <p:column headerText="Detalles">
                                 <center> 
-                                    <p:commandButton icon="fa fa-list" update="@widgetVar(detalleVenta)" oncomplete="PF('detalleVenta').show()">
+                                    <p:commandButton icon="fa fa-search" title="Ver informaci&oacute;n de las ventas mensuales en bol&iacute;vares" update="@widgetVar(detalleVenta)" oncomplete="PF('detalleVenta').show()">
                                         <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{aa.key}"/>
                                     </p:commandButton>
                                 </center>
@@ -356,9 +356,9 @@
                             <p:column headerText="Kilo Total">
                                 #{venta.kiloTotal} Kg
                             </p:column>
-                            <p:column headerText="detalles">
+                            <p:column headerText="Detalles">
                                 <center> 
-                                    <p:commandButton icon="fa fa-list" update="@widgetVar(detalleEspecie)" oncomplete="PF('detalleEspecie').show()">
+                                    <p:commandButton icon="fa fa-search" title="Ver informaci&oacute;n de las especies vendidas" update="@widgetVar(detalleEspecie)" oncomplete="PF('detalleEspecie').show()">
                                         <f:setPropertyActionListener target="#{ventaController.venta}"  value="#{venta}"/>
                                     </p:commandButton>
                                 </center>
@@ -380,7 +380,7 @@
                         <p:column headerText="Precio">
                             #{detalle.precio} Bs
                         </p:column>
-                        <p:column headerText="cantidad">
+                        <p:column headerText="Cantidad">
                             #{detalle.cantidad} Kg
                         </p:column>
                         <p:column headerText="Total">
@@ -427,9 +427,9 @@
                                     <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje2 le indicadorController.ventasMensualKilos.bueno) or porcentaje2 eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
                                 </center>
                             </p:column>
-                            <p:column headerText="detalles">
+                            <p:column headerText="Detalles">
                                 <center>
-                                    <p:commandButton icon="fa fa-list" update="@widgetVar(detalleVenta)" oncomplete="PF('detalleVenta').show()">
+                                    <p:commandButton icon="fa fa-search" title="Ver informaci&oacute;n de las ventas mensuales en kilos" update="@widgetVar(detalleVenta)" oncomplete="PF('detalleVenta').show()">
                                         <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{aa.key}"/>
                                     </p:commandButton>
                                 </center>
@@ -561,9 +561,9 @@
                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" style="color: #1ef664"/>
 
                             </p:column>
-                            <p:column headerText="detalles">
+                            <p:column headerText="Detalles">
                                 <center>
-                                    <p:commandButton rendered="#{!(devol.devoluciones eq 0)}" icon="fa fa-list" update="@widgetVar(detalleDevolucion)" oncomplete="PF('detalleDevolucion').show()"> 
+                                    <p:commandButton rendered="#{!(devol.devoluciones eq 0)}" icon="fa fa-search" update="@widgetVar(detalleDevolucion)" oncomplete="PF('detalleDevolucion').show()"> 
                                         <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{devol.mes}"/>
                                     </p:commandButton>
                                     <span jsf:rendered="#{(devol.devoluciones eq 0)}" style="font-weight: bold">No hay reclamos</span>

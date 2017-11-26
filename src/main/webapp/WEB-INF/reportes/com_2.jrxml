@@ -44,6 +44,13 @@ where extract (month from fecha)='02' and usuario.id=empleado.id and usuario.id=
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="432" y="92" width="120" height="20" uuid="9443b71f-732b-4915-980f-f87f5757ff54"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Mes: Febrero]]></text>
+			</staticText>
 		</band>
 	</title>
 	<columnHeader>

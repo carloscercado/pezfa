@@ -27,7 +27,7 @@
                                 </div>
 
                                 <div class="col-md-6 text-right header-tabla-center">
-                                    <p:inputText id="globalFilter" onkeyup="PF('historico').filter()" placeholder="Buscar"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('historico').filter()" placeholder="Buscar por factura o cliente" style="width: 45%"/>
                                 </div>
                             </div>    
                         </f:facet>
@@ -88,34 +88,6 @@
                             <p:inputText  value="#{ventaController.venta.kiloTotal} Kg" readonly="true" />
                         </p:panelGrid>
 
-                        <!-- <br/>
-                        <p:dataTable  value="#{ventaController.historico}" var="historicoVentas" 
-                                      widgetVar="detalles" emptyMessage="No hay productos asociados al historial de ventas."> 
-
-                            <p:column headerText="Factura">
-                        #{historicoVentas.venta.factura} 
-                    </p:column>
-
-                    <p:column headerText="Cliente">
-                        #{historicoVentas.nombre} 
-                    </p:column>
-
-                    <p:column headerText="Fecha" class="text-right" width="12%">
-                        #{historicoVentas.fecha}
-                    </p:column>
-
-                    <p:column headerText="Ingreso" class="text-right">
-                        <h:outputLabel value="#{historicoVentas.ingreso}">
-                            <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
-                        </h:outputLabel> 
-                    </p:column>
-
-                    <p:column headerText="Total" class="text-right">
-                        <h:outputLabel value="#{ventaEspecie.costo*ventaEspecie.cantidad}">
-                            <f:convertNumber currencySymbol="Bs " locale="es" minFractionDigits="2" maxFractionDigits="2" type="currency"/>
-                        </h:outputLabel> 
-                    </p:column>
-                </p:dataTable> !-->
                     </h:form>
                 </p:dialog>
 

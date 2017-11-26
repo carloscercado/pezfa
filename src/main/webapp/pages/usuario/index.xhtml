@@ -23,7 +23,7 @@
                                 </div>
 
                                 <div class="col-md-6 text-right header-tabla-center">
-                                    <p:inputText id="globalFilter" onkeyup="PF('usuarios').filter()" placeholder="Buscar"/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('usuarios').filter()" placeholder="Buscar por empleado o usuario" style="width: 40%"/>
                                 </div>
                             </div>
                         </f:facet>
@@ -32,11 +32,11 @@
                                 <span class="fa fa-user-md"/>
                             </center>
                         </p:column>
-                        <p:column headerText="Empleado">
+                        <p:column headerText="Empleado" filterBy="#{usuario.empleado.primerNombre}" filterStyle="display: none">
                             <span  class="fa fa-user" /> #{usuario.empleado.primerNombre} #{usuario.empleado.primerApellido} 
                         </p:column>
 
-                        <p:column headerText="Usuario">
+                        <p:column headerText="Usuario" filterBy="#{usuario.usuario}" filterStyle="display: none">
                             #{usuario.usuario} 
                         </p:column>
 
