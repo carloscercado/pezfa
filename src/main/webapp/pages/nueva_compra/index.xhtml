@@ -184,7 +184,7 @@
                                         </div>
 
                                         <div class="col-md-6 text-right header-tabla-center">
-                                            <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar"/>
+                                            <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies').filter();" placeholder="Buscar por nombre de especie" style="width: 65%"/>
                                         </div>
                                     </div>
                                 </f:facet>
@@ -214,7 +214,7 @@
                                 
                                 <p:column headerText="Agregar" priority="2">
                                <center>
-                                        <p:commandButton icon="fa fa-plus" title="Agregar" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
+                                        <p:commandButton icon="fa fa-plus" title="Agregar especie" update="@widgetVar(agregar)" oncomplete="PF('agregar').show()" > 
                                             <f:setPropertyActionListener target="#{compraEspecieController.compraEspecie.especie}" value="#{especie}"/>
                                         </p:commandButton>
 

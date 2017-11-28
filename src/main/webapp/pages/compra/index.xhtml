@@ -25,7 +25,11 @@
                                     <p:commandButton immediate="true" value="Nueva compra" class="right" icon="fa fa-plus" onclick="location.href = '/pezfa/pages/nueva_compra/'"/>           
                                 </div>
 
-                                <div class="col-md-6 text-right" jsf:rendered="#{!(compraController.compras.size() eq 0)}">
+                                <div class="col-md-6 text-right header-tabla-center">
+                                    <p:inputText id="globalFilter" onkeyup="PF('historico').filter()" placeholder="Buscar por factura o cliente" style="width: 45%"/>
+                                </div>
+                                
+                                <div class="col-md-12 text-right" jsf:rendered="#{!(compraController.compras.size() eq 0)}">
                                     <a href="/pezfa/pages/entrada/">
                                         Compras por procesar 
                                         <span class="badge btn-danger" >#{compraController.compras.size()}</span>

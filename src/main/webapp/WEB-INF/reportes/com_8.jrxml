@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select compra.orden, proveedor.rif, proveedor.nombre, compra.fecha, compra.estado, compra.gasto, compra.kilo_total, compra.chofer, empleado.primer_nombre, empleado.primer_apellido
-from compra, proveedor, empleado, usuario 
+from compra, proveedor, empleado, usuario
 where extract (month from fecha)='08' and usuario.id=empleado.id and usuario.id=1 and compra.proveedor=proveedor.id order by orden,fecha]]>
 	</queryString>
 	<field name="orden" class="java.lang.String"/>
@@ -44,6 +44,13 @@ where extract (month from fecha)='08' and usuario.id=empleado.id and usuario.id=
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="432" y="91" width="120" height="20" uuid="315cfec9-e045-48cc-9c0c-b62ce5c5d78c"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Mes: Agosto]]></text>
+			</staticText>
 		</band>
 	</title>
 	<columnHeader>

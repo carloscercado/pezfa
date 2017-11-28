@@ -55,8 +55,7 @@
                                 </div>
                             </div>
                         </p:panelGrid>
-
-                    </p:tab>
+                         </p:tab>
                     <p:tab title="Satisfacci&oacute;n del cliente">
                         <a onclick="PF('devoluciones').show()">
                             <p:tooltip  for="satis" value="Presione para ver m&aacute;s informaci&oacute;n" position="top" />
@@ -81,11 +80,69 @@
                             </div>
                         </p:panelGrid>
                     </p:tab>
+                    <p:tab title="Espacio utilizado de las cavas">
+                        <p:panelGrid>
+                            <a href="#" onclick="PF('utilizado').show()">
+                                <p:tooltip  for="util" value="Presione para ver m&aacute;s informaci&oacute;n" position="top"/>
+                                <p:chart id="util" type="pie" model="#{cavaController.utilizadoIndicador}" />
+                            </a>
+                        </p:panelGrid>
+                    </p:tab>
                 </p:tabView>
 
 
-                <p:dialog width="800" header="Disponibilidad del especio f&iacute;sico de los almacenes" widgetVar="capacidad" responsive="true" 
+                <p:dialog width="800" header="Disponibilidad del espacio f&iacute;sico de las cavas" widgetVar="capacidad" responsive="true" 
                           resizable="false" height="" draggable="false" modal="true" closable="true">
+                    <f:facet name="header">
+                        <p:graphicImage name="/images/almacen.png" width="40 px" />
+                            Disponibilidad del espacio físico de cada cavas
+                    </f:facet>
+                    <h:form>
+                        <p:tooltip  for="info" value="Coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
+                        <p:dataTable scrollable="true" id="info" scrollHeight="300" widgetVar="cavas" 
+                                     emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" 
+                                     value="#{cavaController.cavasFiltro}">
+                            <p:column width="5%" class="column-hidden">
+                                
+                            </p:column>
+                            <p:column filterBy="#{cava.nombre}"  headerText="Nombre" filterStyle="display: none">
+                                #{cava.nombre}
+                            </p:column>
+                           
+                            <p:column filterBy="#{cava.capacidad}"  headerText="Capacidad" filterStyle="display: none">
+                                #{cava.capacidad} Kg
+                            </p:column>
+                            <p:column filterBy="#{cava.capacidadDisponible}"  headerText="Capacidad disponible" filterStyle="display: none">
+                                #{cava.capacidadDisponible} Kg
+                            </p:column>
+                            <ui:param name="porcenta" value="#{(cava.capacidadDisponible/cava.capacidad)*100}" />
+                            <p:column headerText="Porcentaje" >
+                               #{cavaController.redondearFlotanteParaElFront(porcenta, 2)}%
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <center>
+                                <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcenta le indicadorController.capacidad.malo}" style="color: #f63a1e"/>
+                                <p:tooltip  for="aceptable" value="#{indicadorController.capacidad.mensajeAceptable}" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcenta le indicadorController.capacidad.malo ) or porcenta eq indicadorController.capacidad.malo+1) 
+                                                                                                    and (porcenta le indicadorController.capacidad.bueno-1))}" style="color: #ffff33"/>
+                                <p:tooltip  for="bueno" value="#{indicadorController.capacidad.mensajeBueno}" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcenta le indicadorController.capacidad.bueno) or porcenta eq indicadorController.capacidad.bueno}" style="color: #1ef664"/>
+                                </center>
+                            </p:column>
+                            <p:column width="10%" class="column-hidden" headerText="Detalles">
+                                <center>  
+                                    <p:commandButton icon="fa fa-search" title="Ver informaci&oacute;n de las especies contenidas en la cava" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)" class="btn-secundary"> 
+                                        <f:setPropertyActionListener target="#{cavaController.cava}" value="#{cava}"/>
+                                    </p:commandButton>
+                                </center>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:dialog>
+                
+                <p:dialog widgetVar="capacidad" modal="true" closable="true" 
+                    responsive="true" resizable="false" draggable="false" width="750">
                     <f:facet name="header">
                         <p:graphicImage name="/images/almacen.png" width="40 px" />
                         Disponibilidad del espacio físico de las cavas
@@ -145,7 +202,7 @@
                                     </p:commandButton>
                                 </center>
                             </p:column>
-                        </p:dataTable>
+                    </p:dataTable>
                     </h:form>
                     <ui:param name="total" value="#{capacidad/cavaController.capacidadTotal}" />
                             <f:facet name="footer">
@@ -179,7 +236,7 @@
                             </p:column>
                             <p:column width="10%" class="column-hidden" headerText="Detalles">
                                 <center>  
-                                    <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('verDetalleEspecie').show()" 
+                                    <p:commandButton icon="fa fa-search" title="Ver informaci&oacute;n de la cantidad de especies contenidas en la cava" oncomplete="PF('verDetalleEspecie').show()" 
                                         update="@widgetVar(verDetalleEspecie)" class="btn-secundary">
                                         <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie.compraEspecie.especie}"/>
                                     </p:commandButton> 
@@ -257,9 +314,9 @@
                                 </center>
                             </p:column>
 
-                            <p:column headerText="detalles">
+                            <p:column headerText="Detalles">
                                 <center> 
-                                    <p:commandButton icon="fa fa-list" update="@widgetVar(detalleVenta)" oncomplete="PF('detalleVenta').show()">
+                                    <p:commandButton icon="fa fa-search" title="Ver informaci&oacute;n de las ventas mensuales en bol&iacute;vares" update="@widgetVar(detalleVenta)" oncomplete="PF('detalleVenta').show()">
                                         <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{aa.key}"/>
                                     </p:commandButton>
                                 </center>
@@ -297,9 +354,9 @@
                             <p:column headerText="Kilo Total">
                                 #{venta.kiloTotal} Kg
                             </p:column>
-                            <p:column headerText="detalles">
+                            <p:column headerText="Detalles">
                                 <center> 
-                                    <p:commandButton icon="fa fa-list" update="@widgetVar(detalleEspecie)" oncomplete="PF('detalleEspecie').show()">
+                                    <p:commandButton icon="fa fa-search" title="Ver informaci&oacute;n de las especies vendidas" update="@widgetVar(detalleEspecie)" oncomplete="PF('detalleEspecie').show()">
                                         <f:setPropertyActionListener target="#{ventaController.venta}"  value="#{venta}"/>
                                     </p:commandButton>
                                 </center>
@@ -321,7 +378,7 @@
                         <p:column headerText="Precio">
                             #{detalle.precio} Bs
                         </p:column>
-                        <p:column headerText="cantidad">
+                        <p:column headerText="Cantidad">
                             #{detalle.cantidad} Kg
                         </p:column>
                         <p:column headerText="Total">
@@ -368,9 +425,9 @@
                                     <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcentaje2 le indicadorController.ventasMensualKilos.bueno) or porcentaje2 eq indicadorController.ventasMensualKilos.bueno}" style="color: #1ef664"/>
                                 </center>
                             </p:column>
-                            <p:column headerText="detalles">
+                            <p:column headerText="Detalles">
                                 <center>
-                                    <p:commandButton icon="fa fa-list" update="@widgetVar(detalleVenta)" oncomplete="PF('detalleVenta').show()">
+                                    <p:commandButton icon="fa fa-search" title="Ver informaci&oacute;n de las ventas mensuales en kilos" update="@widgetVar(detalleVenta)" oncomplete="PF('detalleVenta').show()">
                                         <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{aa.key}"/>
                                     </p:commandButton>
                                 </center>
@@ -538,9 +595,9 @@
                                 <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(valor le indicadorController.satisfaccion.bueno) or valor eq indicadorController.satisfaccion.bueno}" style="color: #1ef664"/>
 
                             </p:column>
-                            <p:column headerText="detalles">
+                            <p:column headerText="Detalles">
                                 <center>
-                                    <p:commandButton rendered="#{!(devol.devoluciones eq 0)}" icon="fa fa-list" update="@widgetVar(detalleDevolucion)" oncomplete="PF('detalleDevolucion').show()"> 
+                                    <p:commandButton rendered="#{!(devol.devoluciones eq 0)}" icon="fa fa-search" update="@widgetVar(detalleDevolucion)" oncomplete="PF('detalleDevolucion').show()"> 
                                         <f:setPropertyActionListener target="#{ventaController.mes}"  value="#{devol.mes}"/>
                                     </p:commandButton>
                                     <span jsf:rendered="#{(devol.devoluciones eq 0)}" style="font-weight: bold">No hay reclamos</span>
@@ -603,6 +660,72 @@
                             <br/>
                       </h:form>
                 </p:dialog>
+                
+                <p:dialog widgetVar="utilizado" modal="true" closable="true" 
+                    responsive="true" resizable="false" draggable="false" width="750">
+                    <f:facet name="header">
+                        <p:graphicImage name="/images/almacen.png" width="40 px" />
+                        Espacio físico utilizado de las cavas
+                        <p:tooltip  for="cm" value="#{indicadorController.cava.mensajeMalo}" position="top" />
+                        <strong jsf:id="cm" jsf:rendered="#{cavaController.utilizado le indicadorController.cava.malo}"
+                                style="color: #f63a1e; font-size: 18px">
+                            #{cavaController.utilizado} %
+                        </strong>
+                        <p:tooltip  for="ct" value="#{indicadorController.cava.mensajeAceptable}" position="top" />
+                        <strong jsf:id="ct" style="color: #ffff33; font-size: 18px" jsf:rendered="#{((!(cavaController.utilizado le indicadorController.cava.malo ) or cavaController.utilizado eq indicadorController.cava.malo+1 ) 
+                                                                                                         and (cavaController.utilizado le indicadorController.cava.bueno-1))}" >
+                                #{cavaController.utilizado} %
+                        </strong>
+                        <p:tooltip  for="co" value="#{indicadorController.cava.mensajeBueno}" position="top" />
+                        <strong jsf:id="co" jsf:rendered="#{!(cavaController.utilizado le indicadorController.cava.bueno)}" 
+                                style="color: #1ef664; font-size: 18px">
+                            #{cavaController.utilizado} %
+                        </strong>
+                    </f:facet>
+                    <h:form>
+                        <p:tooltip  for="info" value="coloque el pulsor en los colores para obtener informaci&oacute;n acerca del indicador" position="top" />
+                        <p:dataTable scrollable="true" id="info" scrollHeight="300" widgetVar="cavas" 
+                                     emptyMessage="No se encontrar&oacute;n datos" reflow="true" var="cava" 
+                                     value="#{cavaController.cavas}">
+                            <p:column headerText="Almac&eacute;n">
+                                #{cava.almacen.nombre}
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                #{cava.nombre}
+                            </p:column>
+                            <p:column headerText="Capacidad">
+                                #{cava.capacidad} Kg
+                            </p:column>
+                            <ui:param name="valor" value="#{cava.capacidad - cava.capacidadDisponible}" />
+                            <p:column headerText="Capacidad utilizada">
+                                #{valor} Kg
+                            </p:column>
+                            <ui:param name="porcenta" value="#{(valor/cava.capacidad)*100}" />
+                            <p:column headerText="Porcentaje" >
+                                #{cavaController.redondearFlotanteParaElFront(porcenta, 2)} %
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <center>
+                                    <p:tooltip  for="m" value="#{indicadorController.cava.mensajeMalo}" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="m" jsf:rendered="#{porcenta le indicadorController.cava.malo}" style="color: #f63a1e"/>
+                                <p:tooltip  for="a" value="#{indicadorController.cava.mensajeAceptable}" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="a" jsf:rendered="#{((!(porcenta le indicadorController.cava.malo ) or porcenta eq indicadorController.cava.malo+1) 
+                                                                                                    and (porcenta le indicadorController.cava.bueno-1))}" style="color: #ffff33"/>
+                                <p:tooltip  for="b" value="#{indicadorController.cava.mensajeBueno}" position="top" />
+                                <span class="fa fa-circle fa-2x" jsf:id="b" jsf:rendered="#{!(porcenta le indicadorController.cava.bueno) or porcenta eq indicadorController.cava.bueno}" style="color: #1ef664"/>
+                                </center>
+                            </p:column>
+                            <p:column class="column-hidden" headerText="Detalles">
+                                <center>  
+                                    <p:commandButton icon="fa fa-search" title="Ver detalle" oncomplete="PF('verDetalle').show()" update="@widgetVar(verDetalle)" class="btn-secundary"> 
+                                        <f:setPropertyActionListener target="#{cavaController.cava}" value="#{cava}"/>
+                                    </p:commandButton>
+                                </center>
+                            </p:column>
+                    </p:dataTable>
+                   </h:form>
+                </p:dialog>
+                
             </ui:define>
 
         </ui:composition>

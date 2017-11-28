@@ -43,6 +43,13 @@ from venta, empleado, cliente, usuario where extract (month from fecha)='03' and
 				<reportElement x="1" y="1" width="168" height="134" uuid="31308cf4-76da-4866-a327-ab017ceed25b"/>
 				<imageExpression><![CDATA["C:\\logo.jpg"]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement x="432" y="91" width="120" height="20" uuid="9cf1fac2-d8fa-45cf-b3d5-e72964531aa5"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Mes: Marzo]]></text>
+			</staticText>
 		</band>
 	</title>
 	<columnHeader>

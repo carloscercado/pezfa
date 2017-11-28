@@ -220,13 +220,6 @@
                                                 </li>
                                                 <li class="divider"></li>
                                                 <li>
-                                                    <a href="#" onclick="PF('precio').show()">
-                                                        <span class="fa fa-money"></span>
-                                                        <strong>Control de precio</strong>
-                                                    </a>
-                                                </li>
-                                                <li class="divider"></li>
-                                                <li>
                                                     <a href="/pezfa/pages/indicador/">
                                                         <span class="fa fa-line-chart"></span>
                                                         <strong>Modificar rango</strong>
@@ -351,70 +344,7 @@
                         </h:form>
                     </p:dialog>
 
-                    <p:dialog header="Modificar precio de una especie" draggable="false" resizable="false" modal="true" 
-                              widgetVar="precio" responsive="true" width="600">
-                        <h:form id="especies">
-                            <p:dataTable scrollable="true" 
-                                         scrollHeight="200" widgetVar="especies1" emptyMessage="No se encontrar&oacute;n datos" 
-                                         reflow="true" var="especie1" value="#{especieController.especies}">
-                                <f:facet name="header">
-                                    <div class="row">
-                                        <div class="col-md-6 text-left header-tabla-center">
-                                            <p:inputText autocomplete="false" id="globalFilter" onkeyup="PF('especies1').filter();" placeholder="Buscar"/>
-                                        </div>
-                                    </div>
-                                </f:facet>
-                                <p:column class="column-hidden">
-                                    <center>
-                                        <span class="fa fa-cube" />
-                                    </center>
-                                </p:column>
-
-                                <p:column headerText="C&oacute;digo" filterBy="#{especie1.codigo}" filterStyle="display: none">
-                                    <span class="fa fa-barcode" style="color: #000"/> #{especie1.codigo}
-                                </p:column>
-
-                                <p:column headerText="Nombre" filterBy="#{especie1.nombre}" filterStyle="display: none">
-                                    #{especie1.nombre}
-                                </p:column>
-
-                                <p:column headerText="Precio" class="text-right">
-                                    #{especie1.precio}
-                                </p:column>
-
-                                <p:column class="column-hidden" headerText="Opciones">
-                                    <center>
-                                        <p:commandButton icon="fa fa-money" class="btn-warning" title="Modificar precio" oncomplete="PF('modificar_precio').show()" update="@widgetVar(modificar)">
-                                            <f:setPropertyActionListener target="#{especieController.especie}" value="#{especie1}"/>
-                                        </p:commandButton>
-                                    </center> 
-                                </p:column>
-                            </p:dataTable>
-                        </h:form>
-                    </p:dialog>
-
-
-
-
-                    <p:dialog  header="Modificar precio" widgetVar="modificar_precio" width="350"
-                               responsive="true" resizable="false" draggable="false" modal="true">
-                        <h:form>
-                            <p:growl id="mensaje"/> 
-                            <p:messages id="msj" closable="true"/> 
-                            <p:panelGrid columns="2">
-
-                                <p:outputLabel value="Precio:"> <span style="color: #D20005">*</span></p:outputLabel>
-                                <p:inputNumber value="#{especieController.especie.precio}" symbol=" Bs.F" symbolPosition="suffix" placeholder="Precio" required="true" decimalSeparator="," decimalPlaces="2" thousandSeparator="." requiredMessage="Ingrese el precio"/>
-
-                            </p:panelGrid>
-
-                            <br/>
-                            <center>
-                                <p:commandButton value="Modificar" class="btn-warning" icon="fa fa-edit" update="mensaje @widgetVar(precio):especies" actionListener="#{especieController.update()}"/> 
-                                <p:commandButton icon="fa fa-times" immediate="true" value="Cancelar" class="btn-danger" actionListener="#{especieController.reset()}" oncomplete="PF('modificar').hide()"/>
-                        </center>
-                        </h:form>
-                    </p:dialog> 
+                    
 
                     <p:dialog header="Elegir fecha del reporte" draggable="false" resizable="false" modal="true" 
               widgetVar="reporte1" responsive="true" width="650">

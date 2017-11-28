@@ -47,6 +47,23 @@ public class CavaController implements Serializable {
     public void setCapacidadIndicador(PieChartModel capacidadIndicador) {
         this.capacidadIndicador = capacidadIndicador;
     }
+    
+    public PieChartModel getUtilizadoIndicador() {
+
+        capacidadIndicador = new PieChartModel();
+        double capacidad = this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
+
+        double disponible = this.getCavas().stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
+
+        capacidadIndicador.set("Espacio utilizado", disponible);
+        capacidadIndicador.set("Espacio libre", capacidad);
+        capacidadIndicador.setTitle("Espacio físico utilizado de las cavas ");
+        capacidadIndicador.setLegendPosition("w");
+        capacidadIndicador.setShowDataLabels(true);
+        capacidadIndicador.setSeriesColors("79ef68, ef6868");
+        return capacidadIndicador;
+
+    }
 
     public CavaController() {
         db = new CavaDB();
@@ -59,7 +76,13 @@ public class CavaController implements Serializable {
         double resultado = ((totalDisponible / totalCapacidad) * 100);
         return CavaController.redondear(resultado, 2);
     }
-    
+    public double getUtilizado() {
+        double totalCapacidad = this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
+        double totalDisponible = this.getCavas().stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
+        double utilizado = (totalCapacidad - totalDisponible);
+        double resultado = ((utilizado / totalCapacidad) * 100);
+        return CavaController.redondear(resultado, 2);
+    }
 
     public AlmacenController getAlmacenController() {
         return almacenController;
@@ -67,18 +90,6 @@ public class CavaController implements Serializable {
 
     public void setAlmacenController(AlmacenController almacenController) {
         this.almacenController = almacenController;
-    }
-    
-    public double getCapacidadDisponibleAlmacen(int id)
-    {
-        List<Cava> cavas = db.read("from Cava cav where cav.id = "+id);
-        return cavas.stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
-    }
-    
-    public double getCapacidadAlmacen(int id)
-    {
-        List<Cava> cavas = db.read("from Cava cav where cav.id = "+id);
-        return cavas.stream().mapToDouble(x -> x.getCapacidad()).sum();
     }
      
     public static double redondear(double value, int places) {
@@ -134,7 +145,7 @@ public class CavaController implements Serializable {
     public double getEspacioFisico(){
         return this.getCavas().stream().mapToDouble(x -> x.getCapacidadDisponible()).sum();
     }
-
+    
     public double getCapacidadTotal() {
         return this.getCavas().stream().mapToDouble(x -> x.getCapacidad()).sum();
     }

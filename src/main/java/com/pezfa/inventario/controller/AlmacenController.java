@@ -38,11 +38,6 @@ public class AlmacenController implements Serializable {
         return almacenes;
     }
 
-    public void reporte()
-    {
-       /* ReporteConstructor rep = new ReporteConstructor();
-        rep.build();*/
-    }
     public void setAlmacenes(List<Almacen> almacenes) {
         this.almacenes = almacenes;
     }
