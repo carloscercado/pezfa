@@ -29,8 +29,11 @@
         <property name="sexo" type="string">
             <column name="sexo" length="1" not-null="true" />
         </property>
+        <property name="departamento" type="string">
+            <column name="departamento" length="20" not-null="true" />
+        </property>
         <property name="cargo" type="string">
-            <column name="cargo" length="20" not-null="true" />
+            <column name="cargo" length="30" not-null="true" />
         </property>
         <property name="educacion" type="int">
             <column name="educacion" not-null="true" default="0"/>

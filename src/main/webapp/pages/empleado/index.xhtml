@@ -42,7 +42,11 @@
                         <p:column  headerText="Apellidos" filterBy="#{empleado.primerApellido}" filterStyle="display: none">
                             #{empleado.primerApellido} 
                         </p:column>
-
+                        
+                        <p:column headerText="Departamento">
+                            #{empleado.departamento}
+                        </p:column>
+                                  
                         <p:column headerText="Cargo">
                             #{empleado.cargo} 
                         </p:column>
@@ -109,8 +113,8 @@
                                 <f:selectItem itemValue="F" itemLabel="FEMENINO"/>
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="Cargo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:selectOneMenu value="#{empleadoController.empleado.cargo}" required="true" requiredMessage="Ingrese el cargo">
+                            <p:outputLabel value="Departamento:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:selectOneMenu value="#{empleadoController.empleado.departamento}" required="true" requiredMessage="Ingrese el departamento">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="SELECCIONAR"/>
                                 <f:selectItem itemValue="ADMINISTRACI&Oacute;N" itemLabel="ADMINISTRACI&Oacute;N"/>
                                 <f:selectItem itemValue="RRHH" itemLabel="RECURSOS HUMANOS"/>
@@ -118,7 +122,10 @@
                                 <f:selectItem itemValue="OPERACI&Oacuote;N" itemLabel="OPERACI&Oacuote;N"/>
                                 <f:selectItem itemValue="CHOFER" itemLabel="CHOFER"/>
                             </p:selectOneMenu>
-
+                            
+                            <p:outputLabel value="Cargo:"> <span style="color: #D20005">*</span></p:outputLabel>
+                                <p:inputText autocomplete="off" maxlength="30" value="#{empleadoController.empleado.cargo}" required="true" requiredMessage="Ingrese el cargo" placeholder="Cargo"/>
+                                
                             <p:outputLabel value="Estudios:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.educacion}" required="true" requiredMessage="Ingrese el estudio">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="SELECCIONAR"/>
@@ -184,16 +191,19 @@
                                 <f:selectItem itemValue="2" itemLabel="POCO SATISFECHO"/>
                                 <f:selectItem itemValue="1" itemLabel="NO SATISFECHO"/>
                             </p:selectOneMenu>    
-                            <p:outputLabel value="Cargo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:selectOneMenu value="#{empleadoController.empleado.cargo}" required="true" requiredMessage="Ingrese el cargo">
+                             <p:outputLabel value="Departamento:"> <span style="color: #D20005">*</span></p:outputLabel>
+                            <p:selectOneMenu value="#{empleadoController.empleado.departamento}" required="true" requiredMessage="Ingrese el departamento">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="SELECCIONAR"/>
                                 <f:selectItem itemValue="ADMINISTRACI&Oacute;N" itemLabel="ADMINISTRACI&Oacute;N"/>
                                 <f:selectItem itemValue="RRHH" itemLabel="RECURSOS HUMANOS"/>
                                 <f:selectItem itemValue="PRODUCCI&Oacute;N" itemLabel="PRODUCCI&Oacute;N"/>
-                                <f:selectItem itemValue="OPERACI&Oacute;N" itemLabel="OPERACI&Oacute;N"/>
+                                <f:selectItem itemValue="OPERACI&Oacuote;N" itemLabel="OPERACI&Oacuote;N"/>
                                 <f:selectItem itemValue="CHOFER" itemLabel="CHOFER"/>
                             </p:selectOneMenu>
-
+                            
+                            <p:outputLabel value="Cargo:"> <span style="color: #D20005">*</span></p:outputLabel>
+                                <p:inputText autocomplete="off" maxlength="30" onkeypress="return letras(event)" value="#{empleadoController.empleado.cargo}" required="true" requiredMessage="Ingrese el cargo" placeholder="Cargo"/>
+                                
                             <p:outputLabel value="Estudios:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu value="#{empleadoController.empleado.educacion}" required="true" requiredMessage="Ingrese el estudio">
                                   <f:selectItem itemValue="#{null}" noSelectionOption="true"  itemLabel="SELECCIONAR"/>

@@ -117,6 +117,11 @@ public class EspecieController implements Serializable
             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este registro no puede ser modificado", null);
             FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
         }
+        if (especie.getMinimo() > especie.getMaximo())
+            {
+                FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El mínimo no puede ser mayor al máximo", null);
+                FacesContext.getCurrentInstance().addMessage("mensaje", mensaje);
+            }
     }
     
     public void delete()

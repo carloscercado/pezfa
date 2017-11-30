@@ -187,12 +187,12 @@
                             <p:column headerText="Estado">
                                 <center>
                                 <p:tooltip  for="malo" value="#{indicadorController.capacidad.mensajeMalo}" position="top" />
-                                <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcenta le indicadorController.capacidad.malo}" style="color: #f63a1e"/>
+                                <span class="fa fa-circle fa-2x" jsf:id="malo" jsf:rendered="#{porcenta le indicadorController.capacidad.malo}" style="color: #1ef664"/>
                                 <p:tooltip  for="aceptable" value="#{indicadorController.capacidad.mensajeAceptable}" position="top" />
                                 <span class="fa fa-circle fa-2x" jsf:id="aceptable" jsf:rendered="#{((!(porcenta le indicadorController.capacidad.malo ) or porcenta eq indicadorController.capacidad.malo+1) 
                                                                                                     and (porcenta le indicadorController.capacidad.bueno-1))}" style="color: #ffff33"/>
                                 <p:tooltip  for="bueno" value="#{indicadorController.capacidad.mensajeBueno}" position="top" />
-                                <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcenta le indicadorController.capacidad.bueno) or porcenta eq indicadorController.capacidad.bueno}" style="color: #1ef664"/>
+                                <span class="fa fa-circle fa-2x" jsf:id="bueno" jsf:rendered="#{!(porcenta le indicadorController.capacidad.bueno) or porcenta eq indicadorController.capacidad.bueno}" style="color: #f63a1e"/>
                                 </center>
                             </p:column>
                             <p:column class="column-hidden" headerText="Detalles">
@@ -532,14 +532,17 @@
                                     <span class="fa fa-user" />
                                 </center>
                             </p:column>
-                            <p:column headerText="C&eacute;dula" width="15%">
+                            <p:column headerText="C&eacute;dula">
                                 <span class="fa fa-credit-card"/> #{empleado.cedula} 
                             </p:column>
-                            <p:column  headerText="Nombre" width="20%">
+                            <p:column  headerText="Nombre">
                                 #{empleado.primerNombre}
                             </p:column>
-                            <p:column  headerText="Apellido" width="20%">
+                            <p:column  headerText="Apellido">
                                 #{empleado.primerApellido} 
+                            </p:column>
+                            <p:column headerText="Departamento">
+                                #{empleado.departamento}
                             </p:column>
                             <p:column headerText="Cargo" >
                                 #{empleado.cargo} 
@@ -607,14 +610,20 @@
                     </h:form>
                 </p:dialog>
 
-                <p:dialog widgetVar="detalleDevolucion" modal="true" width="600" maximizable="false">
+                <p:dialog widgetVar="detalleDevolucion" modal="true" width="800" maximizable="false">
                     <f:facet name="header">
                         Detalle de la venta
                     </f:facet>
                     <h:form>
                         <p:dataTable scrollable="true" scrollHeight="300" emptyMessage="No se encontrar&oacute;n datos" value="#{ventaController.getHistoricoDevueltas(ventaController.mes, ventaController.fecha.year + 1900)}" var="venta">
+                            <p:column headerText="Rif">
+                                #{venta.cliente.rif}
+                            </p:column>
                             <p:column headerText="Cliente">
                                 #{venta.cliente.nombre}
+                            </p:column>
+                            <p:column headerText="Direcci&oacute;n" width="25%">
+                                #{venta.cliente.direccion}
                             </p:column>
                             <p:column headerText="Fecha">
                                 #{venta.fecha}

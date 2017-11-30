@@ -73,7 +73,8 @@ create table if not exists empleado
     segundo_apellido varchar(20),
     nacimiento date not null,
     sexo varchar(1) not null,
-    cargo varchar(20) not null,
+    departamento varchar(20) not null,
+    cargo varchar(30) not null,
     educacion int default(0) not null ,
     satisfecho int default(0) not null
 );

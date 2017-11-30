@@ -18,6 +18,7 @@ public class Empleado  implements java.io.Serializable {
      private String segundoApellido;
      private Date nacimiento;
      private String sexo;
+     private String departamento;
      private String cargo;
      private int satisfecho;
      private Set usuarios = new HashSet(0);
@@ -25,7 +26,7 @@ public class Empleado  implements java.io.Serializable {
     public Empleado() {
     }
 
-    public Empleado(int id, int educacion, String cedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, Date nacimiento, String sexo, String cargo, int satisfecho)
+    public Empleado(int id, int educacion, String cedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, Date nacimiento, String sexo, String departamento, String cargo, int satisfecho)
     {
         this.id = id;
         this.educacion = educacion;
@@ -36,8 +37,17 @@ public class Empleado  implements java.io.Serializable {
         this.segundoApellido = segundoApellido;
         this.nacimiento = nacimiento;
         this.sexo = sexo;
+        this.departamento = departamento;
         this.cargo = cargo;
         this.satisfecho = satisfecho;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
     }
 
     public int getSatisfecho()

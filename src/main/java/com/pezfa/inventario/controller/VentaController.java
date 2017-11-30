@@ -82,7 +82,7 @@ public class VentaController implements Serializable
         this.mes = mes;
     }
 
-    public String getCodigoFactura()
+   public String getCodigoFactura()
     {
         //El 8 es el tamaño de el codigo, maximo 32
         return (String) UUID.randomUUID().toString().subSequence(0, 6);
