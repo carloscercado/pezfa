@@ -3,11 +3,14 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select venta.factura, cliente.rif, cliente.nombre, cliente.telefono, cliente.tipo, venta.fecha, venta.ingreso, venta.kilo_total, venta.devuelta,
         empleado.primer_nombre, empleado.primer_apellido
 from venta, cliente, empleado, usuario
-where venta.cliente = cliente.id and usuario.id=empleado.id and usuario.id=1 order by factura, fecha]]>
+where venta.cliente = cliente.id and usuario.id=empleado.id and venta.fecha = $P{fecha} order by factura, fecha]]>
 	</queryString>
 	<field name="factura" class="java.lang.String"/>
 	<field name="rif" class="java.lang.String"/>
