@@ -2,7 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
 
         <title>Pezfa </title>
@@ -11,16 +14,51 @@
 
         <h:outputScript name="/js/bootstrap.min.js"/>
         <link rel="shortcut icon" href="/pezfa/javax.faces.resource/images/pestana.png.jsf" />
-        
+
     </h:head>
 
     <h:body style="background: #e8e8e8 ">
+        <h:form>
+            aqui esta la prueba de venta filtrado por fecha, el link debe estar dentro del div, en el servlert de reporte buscas y 
+            obtienes los parametos
+            <p:calendar pattern="dd/MM/yyyy" value="#{reporteController.desde}">
+                <p:ajax event="dateSelect" update="link"/>
+            </p:calendar>
+            <div jsf:id="link">
+                <ui:param name="dia" value="#{reporteController.desde.date}" />
+                <ui:param name="mes" value="#{reporteController.desde.month+1}" />
+                <ui:param name="year" value="#{reporteController.desde.year+1900}" />
+                <a href="/muchachos/reporte?nombre=venta&#38;fecha=#{dia}/#{mes}/#{year}" target="_black">Print</a>
+            </div>
+            
+            <br/>
+            
+            Aqui esta el otro de prueba para fechas desde hasta,  obtienes las fecha, y pasas los
+            parametros, y luego en el servlets los cactura y los envia al jasperreport
+            <p:calendar pattern="dd/MM/yyyy" value="#{reporteController.desde}">
+                <p:ajax event="dateSelect" update="link2"/>
+            </p:calendar>
+            <p:calendar pattern="dd/MM/yyyy" value="#{reporteController.hasta}">
+                <p:ajax event="dateSelect" update="link2"/>
+            </p:calendar>
+            <div jsf:id="link2">
+                <ui:param name="dia" value="#{reporteController.desde.date}" />
+                <ui:param name="mes" value="#{reporteController.desde.month+1}" />
+                <ui:param name="year" value="#{reporteController.desde.year+1900}" />
+                <ui:param name="dia2" value="#{reporteController.hasta.date}" />
+                <ui:param name="mes2" value="#{reporteController.hasta.month+1}" />
+                <ui:param name="year2" value="#{reporteController.hasta.year+1900}" />
+                <a href="/muchachos/reporte?nombre=venta&#38;desde=#{dia}/#{mes}/#{year}&#38;hasta=#{dia2}/#{mes2}/#{year2}" target="_black">Print</a>
+            </div>
+        </h:form>
+        
+        
         
         <div>
 
-            <p:outputLabel value="#{proveedorController.provedores.size() }" class="invisible"/>            
+            <p:outputLabel value="#{proveedorController.provedores.size()}" class="invisible"/>            
             <h:form id="pa">
-                          <div class="container">
+                <div class="container">
 
                     <div class="row ">
 
@@ -40,17 +78,17 @@
                                     </center>
                                     <p:outputLabel value="Usuario:"> <span style="color: #D20005">*</span></p:outputLabel>
                                     <div class="form-group input-group">
-                                         <p:inputText requiredMessage="Ingrese el usuario" class="form-control" autocomplete="off" 
+                                        <p:inputText requiredMessage="Ingrese el usuario" class="form-control" autocomplete="off" 
                                                      value="#{loginController.usuario.usuario}" 
                                                      placeholder="Nombre de usuario"
                                                      required="true"     />
                                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
 
                                     </div>
-                                    
+
                                     <p:outputLabel value="Contrase&ntilde;a:"> <span style="color: #D20005">*</span></p:outputLabel>
                                     <div class="form-group input-group">
-                                         <p:password requiredMessage="Ingrese la contrase&ntilde;a" class="form-control" autocomplete="off" 
+                                        <p:password requiredMessage="Ingrese la contrase&ntilde;a" class="form-control" autocomplete="off" 
                                                     value="#{loginController.usuario.clave}"  placeholder="Contrase&ntilde;a"
                                                     required="true"     />
                                         <span class="input-group-addon"><i class="fa fa-key"></i></span>

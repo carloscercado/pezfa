@@ -126,9 +126,9 @@
                             <p:outputLabel value="Cantidad:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:inputText disabled="true" autocomplete="off" onkeypress="return numeros(event)" value="#{especieController.especie.cantidad}" required="true" requiredMessage="Ingrese la cantidad" placeholder="Cantidad"/>
                             <p:outputLabel value="M&aacute;ximo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" maxlength="10" onkeypress="return numeros(event)" value="#{especieController.especie.maximo}" required="true" requiredMessage="Ingrese el m&aacute;ximo" placeholder="M&aacute;ximo"/>
+                            <p:inputNumber minValue="#{especieController.especie.minimo}" value="#{especieController.especie.maximo}" required="true" requiredMessage="Ingrese el m&aacute;ximo" placeholder="M&aacute;ximo"/>
                             <p:outputLabel value="M&iacute;nimo:"> <span style="color: #D20005">*</span></p:outputLabel>
-                            <p:inputText autocomplete="off" maxlength="10" onkeypress="return numeros(event)" value="#{especieController.especie.minimo}" required="true" requiredMessage="Ingrese el m&iacute;nimo" placeholder="M&iacute;nimo"/>
+                            <p:inputNumber maxValue="#{especieController.especie.maximo}" required="true" requiredMessage="Ingrese el m&iacute;nimo" placeholder="M&iacute;nimo"/>
                             <p:outputLabel value="Tipo:"> <span style="color: #D20005">*</span></p:outputLabel>
                             <p:selectOneMenu requiredMessage="Ingrese el tipo"  required="true"  value="#{especieController.especie.tipo}">
                                 <f:selectItem itemValue="#{null}" noSelectionOption="true" itemLabel="Seleccionar"/>

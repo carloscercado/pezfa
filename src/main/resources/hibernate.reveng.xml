@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
+  <table-filter match-name="devoluciones"/>
   <schema-selection match-catalog="pezfa"/>
   <table-filter match-name="cava"/>
   <table-filter match-name="detalle_produccion"/>
@@ -24,5 +25,4 @@
   <table-filter match-name="ubicacion"/>
   <table-filter match-name="venta_unidad"/>
   <table-filter match-name="usuario"/>
-  <table-filter match-name="devoluciones"/>
 </hibernate-reverse-engineering>
